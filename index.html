@@ -208,57 +208,54 @@
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: true });
-        
-        // FUNCIÓN DEL MODAL
-        function openModal(imgSrc) {
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('imgFull');
-            modalImg.src = imgSrc;
-            modal.classList.add('active');
-        }
-
-        // SCROLL INTELIGENTE
-        window.addEventListener('scroll', function() {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
-        });
-
-        // Menú Hamburguesa con cambio de icono dinámico
-const mobileMenu = document.getElementById('mobile-menu');
-const navList = document.getElementById('nav-list');
-const menuIcon = mobileMenu.querySelector('span');
-
-mobileMenu.addEventListener('click', () => {
-    navList.classList.toggle('active');
+   <script>
+    AOS.init({ duration: 1000, once: true });
     
-    // Cambia el icono visualmente entre "menu" y "close"
-    if (navList.classList.contains('active')) {
-        menuIcon.textContent = 'close';
-        document.body.style.overflow = 'hidden'; // Evita scroll al estar el menú abierto
-    } else {
-        menuIcon.textContent = 'menu';
-        document.body.style.overflow = 'auto';
+    // FUNCIÓN DEL MODAL
+    function openModal(imgSrc) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('imgFull');
+        modalImg.src = imgSrc;
+        modal.classList.add('active');
     }
-});
 
-// Cerrar automáticamente al tocar un link
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navList.classList.remove('active');
-        menuIcon.textContent = 'menu';
-        document.body.style.overflow = 'auto';
+    // SCROLL INTELIGENTE
+    window.addEventListener('scroll', function() {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 50) nav.classList.add('scrolled');
+        else nav.classList.remove('scrolled');
     });
-});
 
-        // FAQ
-        document.querySelectorAll('.faq-q').forEach(q => {
-            q.addEventListener('click', () => q.parentElement.classList.toggle('active'));
+    // MENÚ MÓVIL (HAMBURGUESA)
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navList = document.getElementById('nav-list');
+    const menuIcon = mobileMenu.querySelector('span');
+
+    mobileMenu.addEventListener('click', () => {
+        navList.classList.toggle('active');
+        // Cambia el icono entre "menu" y "close"
+        if (navList.classList.contains('active')) {
+            menuIcon.textContent = 'close';
+        } else {
+            menuIcon.textContent = 'menu';
+        }
+    });
+
+    // CORRECCIÓN: CERRAR MENÚ AL HACER CLIC EN UN ENLACE
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navList.classList.remove('active'); // Cierra el menú
+            menuIcon.textContent = 'menu'; // Vuelve el icono a las 3 rayitas
         });
-    </script>
+    });
+
+    // FAQ
+    document.querySelectorAll('.faq-q').forEach(q => {
+        q.addEventListener('click', () => q.parentElement.classList.toggle('active'));
+    });
+</script>
 </body>
 
 </html>
+
 
