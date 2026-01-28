@@ -226,14 +226,32 @@
             else nav.classList.remove('scrolled');
         });
 
-        // MENÚ MÓVIL
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navList = document.getElementById('nav-list');
-        mobileMenu.addEventListener('click', () => {
-            navList.classList.toggle('active');
-            const icon = mobileMenu.querySelector('span');
-            icon.textContent = navList.classList.contains('active') ? 'close' : 'menu';
-        });
+        // Menú Hamburguesa con cambio de icono dinámico
+const mobileMenu = document.getElementById('mobile-menu');
+const navList = document.getElementById('nav-list');
+const menuIcon = mobileMenu.querySelector('span');
+
+mobileMenu.addEventListener('click', () => {
+    navList.classList.toggle('active');
+    
+    // Cambia el icono visualmente entre "menu" y "close"
+    if (navList.classList.contains('active')) {
+        menuIcon.textContent = 'close';
+        document.body.style.overflow = 'hidden'; // Evita scroll al estar el menú abierto
+    } else {
+        menuIcon.textContent = 'menu';
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Cerrar automáticamente al tocar un link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navList.classList.remove('active');
+        menuIcon.textContent = 'menu';
+        document.body.style.overflow = 'auto';
+    });
+});
 
         // FAQ
         document.querySelectorAll('.faq-q').forEach(q => {
@@ -243,3 +261,4 @@
 </body>
 
 </html>
+
