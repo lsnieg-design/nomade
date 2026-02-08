@@ -162,13 +162,20 @@ section { padding: 100px 8%; }
 .btn-main { display: inline-block; background: var(--verde); color: white; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; }
 
 footer { padding: 40px; text-align: center; background: var(--azul); color: white; }
-/* MODAL DE VIDEO REFINADO */
+/* MODAL DE VIDEO PREMIUM */
 #videoModal {
     display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 78, 126, 0.4); /* Azul muy transparente */
+    backdrop-filter: blur(12px); /* Mucho desenfoque de fondo */
+    z-index: 5000;
     align-items: center;
     justify-content: center;
-    background: rgba(20, 78, 126, 0.85); /* Azul Nómade con transparencia */
-    backdrop-filter: blur(8px); /* Efecto de desenfoque de fondo */
+    padding: 20px;
 }
 
 #videoModal.active {
@@ -176,37 +183,45 @@ footer { padding: 40px; text-align: center; background: var(--azul); color: whit
 }
 
 .modal-video-container {
-    width: 95%;
-    max-width: 750px; /* Tamaño ideal tipo ventana flotante */
+    width: 100%;
+    max-width: 800px; /* Tamaño máximo de la ventana */
     background: #000;
-    border-radius: 20px;
+    border-radius: 24px; /* Bordes bien redondeados */
     overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    border: 3px solid var(--verde);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
-    transform: scale(0.9);
-    transition: 0.3s ease-out;
+    transform: scale(0.8);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 #videoModal.active .modal-video-container {
-    transform: scale(1); /* Efecto de entrada suave */
+    transform: scale(1); /* Efecto de rebote al abrir */
 }
 
-.modal-video-container iframe {
+/* Mantiene la proporción del video para que NO se estire */
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* Proporción 16:9 */
+    height: 0;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    aspect-ratio: 16 / 9;
-    display: block;
+    height: 100%;
+    border: none;
 }
 
-/* Botón cerrar más lindo */
-.close-modal {
+.close-video {
     position: absolute;
     top: 20px;
-    right: 30px;
-    font-size: 40px;
+    right: 20px;
     color: white;
+    font-size: 35px;
     cursor: pointer;
-    z-index: 5000;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    z-index: 5001;
 }
-
-
