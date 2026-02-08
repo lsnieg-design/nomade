@@ -220,20 +220,22 @@
             modal.classList.add('active');
         }
 
-        // FUNCIONES DEL MODAL DE VIDEO
-        function openVideoModal(videoSrc) {
-            const modal = document.getElementById('videoModal');
-            const frame = document.getElementById('videoFrame');
-            frame.src = videoSrc;
-            modal.classList.add('active');
-        }
+       // FUNCIONES DEL MODAL DE VIDEO REFINADAS
+function openVideoModal(videoSrc) {
+    const modal = document.getElementById('videoModal');
+    const frame = document.getElementById('videoFrame');
+    frame.src = videoSrc;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Bloquea el scroll de fondo
+}
 
-        function closeVideoModal() {
-            const modal = document.getElementById('videoModal');
-            const frame = document.getElementById('videoFrame');
-            frame.src = ""; 
-            modal.classList.remove('active');
-        }
+function closeVideoModal() {
+    const modal = document.getElementById('videoModal');
+    const frame = document.getElementById('videoFrame');
+    frame.src = ""; 
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto'; // Devuelve el scroll
+}
 
         // SCROLL INTELIGENTE
         window.addEventListener('scroll', function() {
@@ -270,3 +272,4 @@
     </script>
 </body>
 </html>
+
