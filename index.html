@@ -146,12 +146,14 @@
         <img class="modal-content" id="imgFull">
     </div>
 
-    <div id="videoModal" class="modal" onclick="closeVideoModal()">
-        <span class="close-modal">&times;</span>
-        <div class="modal-video-container" onclick="event.stopPropagation()">
-            <iframe id="videoFrame" src="" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <<div id="videoModal" class="modal" onclick="closeVideoModal()">
+    <span class="close-video">&times;</span>
+    <div class="modal-video-container" onclick="event.stopPropagation()">
+        <div class="video-wrapper">
+            <iframe id="videoFrame" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
         </div>
     </div>
+</div>
 
     <section id="quien-soy" style="background: var(--crema);">
         <div class="content-wrap">
@@ -220,13 +222,12 @@
             modal.classList.add('active');
         }
 
-       // FUNCIONES DEL MODAL DE VIDEO REFINADAS
-function openVideoModal(videoSrc) {
+   function openVideoModal(videoSrc) {
     const modal = document.getElementById('videoModal');
     const frame = document.getElementById('videoFrame');
     frame.src = videoSrc;
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Bloquea el scroll de fondo
+    document.body.style.overflow = 'hidden'; // Evita que la página se mueva atrás
 }
 
 function closeVideoModal() {
@@ -272,4 +273,5 @@ function closeVideoModal() {
     </script>
 </body>
 </html>
+
 
