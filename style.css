@@ -162,19 +162,51 @@ section { padding: 100px 8%; }
 .btn-main { display: inline-block; background: var(--verde); color: white; padding: 18px 40px; border-radius: 50px; text-decoration: none; font-weight: 700; }
 
 footer { padding: 40px; text-align: center; background: var(--azul); color: white; }
-.modal-video-container {
-    width: 90%;
-    max-width: 800px;
-    aspect-ratio: 16 / 9;
-    background: #000;
-    border-radius: 15px;
-    overflow: hidden;
-    border: 2px solid var(--verde);
+/* MODAL DE VIDEO REFINADO */
+#videoModal {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(20, 78, 126, 0.85); /* Azul Nómade con transparencia */
+    backdrop-filter: blur(8px); /* Efecto de desenfoque de fondo */
 }
 
-#videoFrame {
+#videoModal.active {
+    display: flex;
+}
+
+.modal-video-container {
+    width: 95%;
+    max-width: 750px; /* Tamaño ideal tipo ventana flotante */
+    background: #000;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 3px solid var(--verde);
+    position: relative;
+    transform: scale(0.9);
+    transition: 0.3s ease-out;
+}
+
+#videoModal.active .modal-video-container {
+    transform: scale(1); /* Efecto de entrada suave */
+}
+
+.modal-video-container iframe {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 16 / 9;
+    display: block;
+}
+
+/* Botón cerrar más lindo */
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    z-index: 5000;
 }
 
 
