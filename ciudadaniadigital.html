@@ -439,23 +439,24 @@
             enviarDatosSilencioso();
         }
 
-        function enviarDatosSilencioso() {
-            const payload = {
-                fecha: new Date().toLocaleString(),
-                nombre: userData.nombre,
-                apellido: userData.apellido,
-                puntaje: correctAnswers,
-                total: questions.length
-            };
+    function enviarDatosSilencioso() {
+    const payload = {
+        fecha: new Date().toLocaleString(),
+        nombre: userData.nombre,
+        // Le sumamos la etiqueta de la actividad directamente acá
+        apellido: userData.apellido + " (Convivencia Digital)", 
+        puntaje: correctAnswers,
+        total: questions.length
+    };
 
-            fetch(SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                cache: "no-cache",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-        }
+    fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        cache: "no-cache",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+}
     </script>
 </body>
 </html>
