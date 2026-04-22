@@ -260,7 +260,7 @@
     </div>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwci-JsRoDjwnlYkhwZExA0R6dMLvLMG96mSqJkQP6oAHrfvZBCkNThHNmKilm00lGs/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwrGBZnerRw2vtm65BaYJb17wrz-LENf7qF4u6GDNIr5kbdZBu0EqehcsHavqk2f477/exec";
 
         const questions = [
             {
@@ -439,23 +439,23 @@
             enviarDatosSilencioso();
         }
 
-        function enviarDatosSilencioso() {
-            const payload = {
-                fecha: new Date().toLocaleString(),
-                nombre: userData.nombre,
-                apellido: userData.apellido + " (Cultura Escolar vs Digital)",
-                puntaje: correctAnswers,
-                total: questions.length
-            };
+    function enviarDatosSilencioso() {
+    const payload = {
+        actividad: "Cultura Escolar vs Digital", // Esto creará/usará esa columna específica
+        fecha: new Date().toLocaleString(),
+        nombre: userData.nombre,
+        apellido: userData.apellido, // Ya no sumamos el texto aquí, se encarga la columna 'actividad'
+        puntaje: correctAnswers + "/" + questions.length // Formato "4/5" para la celda
+    };
 
-            fetch(SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                cache: "no-cache",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-        }
+    fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        cache: "no-cache",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+}
     </script>
 </body>
 </html>
