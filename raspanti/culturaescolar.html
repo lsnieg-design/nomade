@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultura Escolar vs. Cultura Digital</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4A235A 0%, #E74C3C 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #FDFEFE;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4A235A 0%, #E74C3C 100%);
+            color: #FDFEFE;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(253, 254, 254, 0.3);
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #FDFEFE;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+
+        .login-box {
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #D98880;
+            font-size: 1em;
+            outline: none;
+        }
+        .login-box input:focus {
+            border-color: #4A235A;
+        }
+        
+        .question-card {
+            background: #F9EBEA;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid #4A235A;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .question-number {
+            color: #4A235A;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        
+        .scenario {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: #2d3748;
+            background: #FDFEFE;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #D98880;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .option {
+            background: #FDFEFE;
+            border: 2px solid #D98880;
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+        
+        .option:hover {
+            border-color: #4A235A;
+            background: #F5EEF8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 35, 90, 0.2);
+        }
+        
+        .option.selected {
+            border-color: #4A235A;
+            background: #F5EEF8;
+        }
+        
+        .option.correct {
+            border-color: #1E8449;
+            background: #EAFAF1;
+        }
+        
+        .option.incorrect {
+            border-color: #CB4335;
+            background: #FDEDEC;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1em;
+            line-height: 1.6;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background: #EAFAF1;
+            border: 1px solid #1E8449;
+            color: #2d3748;
+        }
+        
+        .feedback.incorrect {
+            background: #FDEDEC;
+            border: 1px solid #CB4335;
+            color: #2d3748;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #4A235A 0%, #E74C3C 100%);
+            color: #FDFEFE;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 35, 90, 0.3);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+        
+        .score {
+            background: linear-gradient(135deg, #4A235A 0%, #E74C3C 100%);
+            color: #FDFEFE;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .final-score {
+            text-align: center;
+            padding: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container { margin: 10px; border-radius: 15px; }
+            .content { padding: 20px; }
+            .header h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-container">
+        <div class="header">
+            <h1>Cultura Escolar vs. Digital</h1>
+            <p>Por favor, ingresá tus datos para comenzar</p>
+        </div>
+        <div class="content login-box">
+            <input type="text" id="nombreInput" placeholder="Nombre" required>
+            <input type="text" id="apellidoInput" placeholder="Apellido" required>
+            <button class="btn" onclick="iniciarCuestionario()">Ingresar al Desafío</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="game-container">
+        <div class="header">
+            <h1>Tensiones en el Aula</h1>
+            <p>Identificá las lógicas que atraviesan nuestras prácticas educativas</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        
+        <div class="content" id="content"></div>
+        
+        <div class="navigation">
+            <div class="score" id="score">Pregunta 1 de 5</div>
+            <div>
+                <button class="btn" id="prevBtn" onclick="previousQuestion()" disabled>Anterior</button>
+                <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwci-JsRoDjwnlYkhwZExA0R6dMLvLMG96mSqJkQP6oAHrfvZBCkNThHNmKilm00lGs/exec";
+
+        const questions = [
+            {
+                scenario: "El profesor dicta su clase desde el pizarrón. Los alumnos copian en sus carpetas en silencio, siguiendo una secuencia ordenada tema por tema. Al finalizar la unidad, se toma un examen con preguntas de verdadero/falso para verificar si el contenido fue memorizado[cite: 844, 846, 852, 868]. ¿A qué cultura corresponde esta escena?",
+                options: ["A la cultura mediática.", "A la cultura digital.", "A la cultura escolar tradicional."],
+                correct: 2,
+                correctFeedback: "¡Exacto [NOMBRE]! Has identificado la cultura escolar tradicional. Aquí el docente es la figura de autoridad central, el conocimiento se presenta de manera lineal y acumulativa, y la evaluación es sumativa, enfocada en los resultados y en las respuestas correctas[cite: 832, 852, 854, 862].",
+                incorrectFeedback: "[NOMBRE], te invito a reflexionar un poco más. ¿Notaste cómo el conocimiento fluye en una sola dirección y se evalúa de memoria? Inténtalo de nuevo teniendo en cuenta que esta es la lógica con la que históricamente se organizó el acto de enseñar[cite: 834, 862]."
+            },
+            {
+                scenario: "Malena pasa la tarde en la computadora. Tiene varias ventanas de chat abiertas simultáneamente, escucha música, actualiza su fotolog y aprende a editar imágenes mirando un breve tutorial. Comparte su producción y recibe comentarios de sus amigos[cite: 886, 954, 956, 958]. ¿A qué cultura responde esta dinámica?",
+                options: ["Cultura escolar.", "Cultura digital.", "Pedagogización tradicional."],
+                correct: 1,
+                correctFeedback: "¡Muy bien [NOMBRE]! En la cultura digital, el tiempo es rápido y fragmentado, y la atención se mueve en múltiples direcciones[cite: 882, 895, 898]. Además, el aprendizaje se da muchas veces de manera informal y colaborativa, siendo el sujeto un protagonista que produce contenido[cite: 885, 887, 899].",
+                incorrectFeedback: "Fijate bien en las acciones de Malena, [NOMBRE]... ¿Aprende de un libro o de tutoriales? ¿Es receptora pasiva o creadora activa? Inténtalo de nuevo considerando que esta escena muestra un tiempo acelerado, hiperconectado y multiformato[cite: 882]."
+            },
+            {
+                scenario: "En el recreo, un grupo de niñas juega reproduciendo las canciones y bailes de un exitoso programa de TV. Además de mirar la novela, usan el merchandising oficial, como zapatillas y accesorios con la marca del programa, delimitando así su pertenencia al grupo[cite: 948, 950, 1047]. ¿Qué fenómeno explica esto?",
+                options: ["La cultura del consumo mediático, que modela identidades y socializa a la infancia.", "Una alianza exitosa entre la familia y la escuela tradicional.", "El desarrollo de competencias ciudadanas críticas en la escuela."],
+                correct: 0,
+                correctFeedback: "¡Correcto [NOMBRE]! El mercado y los medios ejercen hoy una nueva forma de pedagogización. Los niños son interpelados como potenciales clientes, y es a través de este consumo simbólico de productos culturales que construyen sus identidades y establecen vínculos con sus pares[cite: 1043, 1044, 1046, 1047].",
+                incorrectFeedback: "Analizá el origen de estas prácticas, [NOMBRE]... ¿Quién impone esos juguetes y esas modas? Inténtalo de nuevo pensando en cómo el mercado redacta el guión de la vida infantil a través de la venta de productos[cite: 1042, 1065]."
+            },
+            {
+                scenario: "Frente al uso constante del celular en el aula, una docente decide no prohibirlo. En su lugar, propone a los estudiantes investigar un tema histórico usando sus teléfonos, grabar un podcast narrando sus ideas y debatir en clase la diferencia entre esa información y la del libro de texto[cite: 900, 903, 1069]. ¿Qué postura está asumiendo la docente?",
+                options: ["Una postura moralista que censura la cultura mediática.", "Una renuncia a la autoridad pedagógica ante el avance de las redes.", "Una alfabetización crítica que integra los consumos culturales y promueve la producción de discursos propios."],
+                correct: 2,
+                correctFeedback: "¡Excelente [NOMBRE]! En lugar de atrincherarse en posiciones defensivas, la docente tiende un puente. Reconoce la cultura digital y la integra para generar una alfabetización crítica, donde los estudiantes dejan de ser solo consumidores para convertirse en productores culturales[cite: 1067, 1084, 1094].",
+                incorrectFeedback: "[NOMBRE], reflexionemos sobre la actitud de la docente... ¿Está prohibiendo la tecnología o la está usando a su favor? Inténtalo de nuevo considerando que el objetivo es problematizar los mensajes y hacer circular otras voces a través de proyectos de producción[cite: 1069, 1095]."
+            },
+            {
+                scenario: "Si comparamos cómo se vive el «tiempo» dentro del aula tradicional frente a cómo se percibe en los entornos hiperconectados, notamos una fuerte tensión[cite: 825, 826]. ¿Cómo describe la bibliografía estas dos nociones de tiempo?",
+                options: ["En la cultura escolar es rápido y simultáneo; en la digital es lento y sostenido.", "En ambas culturas el tiempo se organiza de manera fragmentada e interrumpida.", "En la cultura escolar es lento, sostenido y acumulativo; en la digital es rápido, fragmentado y con atención múltiple."],
+                correct: 2,
+                correctFeedback: "¡Perfecto [NOMBRE]! Has captado una de las diferencias centrales[cite: 922]. La cultura escolar se sostiene en la linealidad, esperando esfuerzo prolongado y concentración constante[cite: 852, 864]. La cultura digital, por el contrario, propone un ritmo veloz donde la atención salta entre hipervínculos, se interrumpe y se retoma[cite: 883, 895, 898].",
+                incorrectFeedback: "Pensá en tu propia experiencia, [NOMBRE]... ¿Cómo pasa el tiempo cuando leés un libro de texto (escolar) vs. cuando usás TikTok o el MSN (digital)? Inténtalo de nuevo buscando la opción que contrasta la linealidad histórica con la velocidad actual[cite: 864, 895]."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let selectedOption = null;
+        let answered = false;
+        let correctAnswers = 0;
+        let userData = { nombre: "", apellido: "" };
+
+        function iniciarCuestionario() {
+            const n = document.getElementById('nombreInput').value.trim();
+            const a = document.getElementById('apellidoInput').value.trim();
+            
+            if (n === "" || a === "") {
+                alert("Por favor, ingresá tus datos para comenzar la actividad.");
+                return;
+            }
+            
+            userData.nombre = n;
+            userData.apellido = a;
+            
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('game-container').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const question = questions[currentQuestion];
+            const content = document.getElementById('content');
+            
+            const correctText = question.correctFeedback.replace(/\[NOMBRE\]/g, userData.nombre);
+            const incorrectText = question.incorrectFeedback.replace(/\[NOMBRE\]/g, userData.nombre);
+
+            content.innerHTML = `
+                <div class="question-card">
+                    <div class="question-number">Pregunta ${currentQuestion + 1} de ${questions.length}</div>
+                    <div class="scenario">${question.scenario}</div>
+                    <div class="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option" onclick="selectOption(${index})" id="option${index}">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback" data-correct="${correctText}" data-incorrect="${incorrectText}"></div>
+                    <button class="btn" onclick="checkAnswer()" id="checkBtn" disabled>Verificar respuesta</button>
+                </div>
+            `;
+            
+            updateProgress();
+            updateNavigation();
+            selectedOption = null;
+            answered = false;
+        }
+
+        function selectOption(index) {
+            if (answered) return;
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.getElementById(`option${index}`).classList.add('selected');
+            selectedOption = index;
+            document.getElementById('checkBtn').disabled = false;
+        }
+
+        function checkAnswer() {
+            if (selectedOption === null || answered) return;
+            
+            const question = questions[currentQuestion];
+            const feedbackElem = document.getElementById('feedback');
+            const checkBtn = document.getElementById('checkBtn');
+            const options = document.querySelectorAll('.option');
+            
+            answered = true;
+            checkBtn.style.display = 'none';
+            
+            if (selectedOption === question.correct) {
+                correctAnswers++;
+                options[selectedOption].classList.add('correct');
+                feedbackElem.className = 'feedback correct';
+                feedbackElem.innerHTML = feedbackElem.getAttribute('data-correct');
+            } else {
+                options[selectedOption].classList.add('incorrect');
+                options[question.correct].classList.add('correct');
+                feedbackElem.className = 'feedback incorrect';
+                feedbackElem.innerHTML = feedbackElem.getAttribute('data-incorrect');
+            }
+            
+            feedbackElem.style.display = 'block';
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                showFinalResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('score').textContent = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
+        }
+
+        function updateNavigation() {
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = true;
+        }
+
+        function showFinalResults() {
+            const percentage = Math.round((correctAnswers / questions.length) * 100);
+            let finalMsg = '';
+            
+            if (percentage >= 90) finalMsg = '¡Excelente trabajo! Lograste una comprensión profunda sobre los cruces entre la cultura escolar y mediática.';
+            else if (percentage >= 70) finalMsg = '¡Muy bien! Demostrás un buen dominio conceptual, podés seguir profundizando sobre el rol de las TIC.';
+            else if (percentage >= 50) finalMsg = '¡Genial! Captaste las tensiones más importantes, te invito a seguir reflexionando sobre la alfabetización crítica.';
+            else finalMsg = '¡Todo análisis requiere su proceso! Te animo a repasar los apuntes de la cátedra y volver a intentarlo.';
+
+            document.getElementById('content').innerHTML = `
+                <div class="final-score">
+                    <h2>¡Has completado el desafío, ${userData.nombre}!</h2>
+                    <p style="margin-top: 15px;">Respuestas correctas: <strong>${correctAnswers} de ${questions.length}</strong></p>
+                    <p>Porcentaje: <strong>${percentage}%</strong></p>
+                    <p style="margin: 20px 0; font-style: italic;">${finalMsg}</p>
+                    <button class="btn" onclick="location.reload()">Hacer de nuevo</button>
+                </div>
+            `;
+            
+            document.querySelector('.navigation').style.display = 'none';
+            document.getElementById('progressFill').style.width = '100%';
+
+            enviarDatosSilencioso();
+        }
+
+        function enviarDatosSilencioso() {
+            const payload = {
+                fecha: new Date().toLocaleString(),
+                nombre: userData.nombre,
+                // Aplicamos la Opción 1: Se suma el texto al apellido
+                apellido: userData.apellido + " (Cultura Escolar vs Digital)",
+                puntaje: correctAnswers,
+                total: questions.length
+            };
+
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                cache: "no-cache",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+        }
+    </script>
+</body>
+</html>
