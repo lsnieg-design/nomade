@@ -439,14 +439,14 @@
             enviarDatosSilencioso();
         }
 
-    function enviarDatosSilencioso() {
+  function enviarDatosSilencioso() {
     const payload = {
+        actividad: "Convivencia Digital", // Nombre exacto que tendrá la columna en tu Excel
         fecha: new Date().toLocaleString(),
         nombre: userData.nombre,
-        // Le sumamos la etiqueta de la actividad directamente acá
-        apellido: userData.apellido + " (Convivencia Digital)", 
-        puntaje: correctAnswers,
-        total: questions.length
+        apellido: userData.apellido,
+        // Mandamos el puntaje formateado (ej: "4/5") para que se guarde así en la celda
+        puntaje: correctAnswers + "/" + questions.length 
     };
 
     fetch(SCRIPT_URL, {
