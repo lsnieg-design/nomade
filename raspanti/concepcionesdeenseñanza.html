@@ -475,24 +475,23 @@
             enviarDatosSilencioso();
         }
 
-        function enviarDatosSilencioso() {
-            const payload = {
-                fecha: new Date().toLocaleString(),
-                nombre: userData.nombre,
-                apellido: userData.apellido,
-                puntaje: correctAnswers,
-                total: questions.length
-            };
+       function enviarDatosSilencioso() {
+    const payload = {
+        actividad: "Cultura Escolar vs Digital", // Este nombre crea la nueva columna
+        fecha: new Date().toLocaleString(),
+        nombre: userData.nombre,
+        apellido: userData.apellido,
+        puntaje: correctAnswers + "/" + questions.length 
+    };
 
-            // Envío silencioso en segundo plano
-            fetch(SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                cache: "no-cache",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-        }
+    fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        cache: "no-cache",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+}
     </script>
 </body>
 </html>
