@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convivencia Digital - Cuestionario Interactivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #F8F9FA;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            color: #FFFFFF;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #00d2ff;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+
+        /* Estilos Registro Inicial */
+        .login-box {
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #B0BEC5;
+            font-size: 1em;
+            outline: none;
+        }
+        .login-box input:focus {
+            border-color: #2b5876;
+        }
+        
+        .question-card {
+            background: #FFFFFF;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid #00d2ff;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .question-number {
+            color: #2b5876;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        
+        .scenario {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: #2d3748;
+            background: #F0F4F8;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #CFD8DC;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .option {
+            background: #FFFFFF;
+            border: 2px solid #CFD8DC;
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+        
+        .option:hover {
+            border-color: #00d2ff;
+            background: #F0F4F8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.1);
+        }
+        
+        .option.selected {
+            border-color: #2b5876;
+            background: #E1F5FE;
+        }
+        
+        .option.correct {
+            border-color: #4CAF50;
+            background: #E8F5E9;
+        }
+        
+        .option.incorrect {
+            border-color: #F44336;
+            background: #FFEBEE;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1em;
+            line-height: 1.6;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background: #E8F5E9;
+            border: 1px solid #4CAF50;
+            color: #2d3748;
+        }
+        
+        .feedback.incorrect {
+            background: #FFEBEE;
+            border: 1px solid #F44336;
+            color: #2d3748;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            color: #FFFFFF;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(43, 88, 118, 0.3);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+        
+        .score {
+            background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .final-score {
+            text-align: center;
+            padding: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container { margin: 10px; border-radius: 15px; }
+            .content { padding: 20px; }
+            .header h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-container">
+        <div class="header">
+            <h1>Desafío: Convivencia Digital</h1>
+            <p>Por favor, ingresá tus datos para comenzar</p>
+        </div>
+        <div class="content login-box">
+            <input type="text" id="nombreInput" placeholder="Nombre" required>
+            <input type="text" id="apellidoInput" placeholder="Apellido" required>
+            <button class="btn" onclick="iniciarCuestionario()">Ingresar al Desafío</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="game-container">
+        <div class="header">
+            <h1>Ciudadanía y Entornos Digitales</h1>
+            <p>Analizá las siguientes situaciones y elegí la respuesta correcta</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        
+        <div class="content" id="content"></div>
+        
+        <div class="navigation">
+            <div class="score" id="score">Pregunta 1 de 5</div>
+            <div>
+                <button class="btn" id="prevBtn" onclick="previousQuestion()" disabled>Anterior</button>
+                <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwci-JsRoDjwnlYkhwZExA0R6dMLvLMG96mSqJkQP6oAHrfvZBCkNThHNmKilm00lGs/exec";
+
+        const questions = [
+            {
+                scenario: "Martín se enoja por una discusión y publica un comentario muy agresivo en una red social. A los cinco minutos reflexiona, se arrepiente y borra la publicación. Sin embargo, al día siguiente en el colegio, la directora lo llama porque el mensaje llegó a las autoridades. ¿Qué característica del entorno digital explica esto?",
+                options: ["En internet no existe el derecho al olvido; la información es difícil de borrar porque puede haber sido capturada.", "Las redes sociales tienen un error que vuelve a publicar los mensajes borrados.", "Solo sus amigos más cercanos tienen acceso a los mensajes eliminados temporales."],
+                correct: 0,
+                correctFeedback: "¡Exacto [NOMBRE]! Has comprendido perfectamente. En la web no existe el derecho al olvido. Aunque Martín haya borrado el mensaje, alguien pudo haber hecho una captura de pantalla y reenviarlo. Nuestra huella digital se construye tanto por nuestras acciones como por la de los demás, por eso es vital pensar antes de publicar.",
+                incorrectFeedback: "[NOMBRE], te invito a reflexionar un poco más sobre cómo circula la información... ¿Qué puede hacer cualquier usuario en su celular cuando ve un mensaje antes de que lo borren? Inténtalo de nuevo recordando que perdemos el control de la información en el momento que la hacemos pública."
+            },
+            {
+                scenario: "En un grupo de WhatsApp del curso, envían un meme burlándose de una compañera por su apariencia física. Varios responden con risas y emojis. Sofía lo lee, no le parece gracioso y sabe que está mal, pero decide no decir nada para no tener problemas con el resto. ¿Qué rol está ocupando Sofía en esta situación de ciberbullying?",
+                options: ["Es la acosadora u hostigadora.", "Es la defensora de la víctima.", "Es una espectadora (cómplice por omisión)."],
+                correct: 2,
+                correctFeedback: "¡Muy bien [NOMBRE]! Sofía está ocupando el rol de espectadora. El ciberbullying no solo se sostiene por quien produce o comparte la agresión, sino también por quienes observan pasivamente. Romper el silencio y no validar estas actitudes es fundamental para una convivencia digital respetuosa.",
+                incorrectFeedback: "Fíjate bien en la actitud de Sofía, [NOMBRE]... ¿Ella está ayudando a frenar la situación o simplemente observa en silencio? Inténtalo de nuevo teniendo en cuenta que ignorar el problema permite que el hostigamiento continúe."
+            },
+            {
+                scenario: "Dos adolescentes que están de novios deciden enviarse fotos íntimas de forma voluntaria a través de una aplicación. Meses después, terminan la relación de muy mala manera. Uno de ellos, buscando venganza, reenvía esas fotos privadas a un grupo grande de conocidos. ¿Cómo se denomina esta situación y qué riesgo implica?",
+                options: ["Grooming, porque uno engañó al otro.", "Sexting que deriva en pornovenganza y pérdida del contexto íntimo.", "Ciberbullying tradicional, ya que se dio en el ámbito escolar."],
+                correct: 1,
+                correctFeedback: "¡Excelente [NOMBRE]! Has identificado bien la problemática. El envío original fue consentido (sexting), pero la difusión posterior sin consentimiento se convierte en una grave violación a la intimidad y exposición pública. La descontextualización de la imagen es uno de los mayores riesgos al enviar material sensible.",
+                incorrectFeedback: "Analizá el origen de la foto, [NOMBRE]... ¿Fueron engañados por un adulto falso o fue una decisión entre pares que luego se rompió? Inténtalo de nuevo pensando en cómo una situación privada e íntima se volvió pública en contra de la voluntad de una de las partes."
+            },
+            {
+                scenario: "Un jugador en un videojuego online comienza a chatear con una chica de 12 años. Él le dice que también tiene 12 años, coinciden en muchos gustos y rápidamente se vuelven 'amigos virtuales'. Tras unas semanas de charlas, él le pide que le envíe fotos sin ropa a cambio de regalarle accesorios para su personaje, pidiéndole que no se lo cuente a sus papás. ¿Ante qué delito estamos?",
+                options: ["Acoso escolar o Ciberbullying.", "Sexting voluntario entre adolescentes.", "Grooming."],
+                correct: 2,
+                correctFeedback: "¡Correcto [NOMBRE]! Esto es un claro ejemplo de Grooming. Un adulto se crea un perfil falso haciéndose pasar por un par para generar un vínculo de confianza, con el fin de obtener material íntimo de un menor. El secretismo y la manipulación (chantaje) son elementos clave que los adultos deben ayudar a detectar.",
+                incorrectFeedback: "Piensa en las intenciones y el engaño, [NOMBRE]... Alguien oculta su identidad y le pide mantener el secreto a un menor para sacarle fotos íntimas. Inténtalo de nuevo recordando que esto es un delito penal tipificado que excede el hostigamiento normal."
+            },
+            {
+                scenario: "Navegando por YouTube, ves un comentario sumamente agresivo y discriminatorio de un desconocido hacia un creador de contenido que te gusta mucho. Para defenderlo, decidís contestarle al agresor con insultos fuertes y descalificaciones. ¿Es esta una actitud que fomenta la ciudadanía digital?",
+                options: ["No. Responder al odio con más odio genera mayor violencia; lo correcto es reportar el comentario.", "Sí. Es importante defender a los demás usando sus mismos términos para que aprendan.", "Depende de qué tan grave haya sido el insulto original del agresor."],
+                correct: 0,
+                correctFeedback: "¡Perfecto [NOMBRE]! Exactamente. Fomentar la ciudadanía digital implica trasladar nuestros valores morales éticos a internet. Contestar con más violencia solo agranda el problema. La actitud activa recomendada es empoderarse de las herramientas de la plataforma, como bloquear usuarios y reportar el discurso de odio.",
+                incorrectFeedback: "[NOMBRE], reflexionemos sobre la resolución de conflictos... ¿Apagarías un incendio arrojando más combustible? Inténtalo de nuevo considerando que la convivencia digital se basa en no reproducir la violencia que queremos erradicar."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let selectedOption = null;
+        let answered = false;
+        let correctAnswers = 0;
+        let userData = { nombre: "", apellido: "" };
+
+        function iniciarCuestionario() {
+            const n = document.getElementById('nombreInput').value.trim();
+            const a = document.getElementById('apellidoInput').value.trim();
+            
+            if (n === "" || a === "") {
+                alert("Por favor, ingresá tus datos para comenzar la actividad.");
+                return;
+            }
+            
+            userData.nombre = n;
+            userData.apellido = a;
+            
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('game-container').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const question = questions[currentQuestion];
+            const content = document.getElementById('content');
+            
+            const correctText = question.correctFeedback.replace(/\[NOMBRE\]/g, userData.nombre);
+            const incorrectText = question.incorrectFeedback.replace(/\[NOMBRE\]/g, userData.nombre);
+
+            content.innerHTML = `
+                <div class="question-card">
+                    <div class="question-number">Pregunta ${currentQuestion + 1} de ${questions.length}</div>
+                    <div class="scenario">${question.scenario}</div>
+                    <div class="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option" onclick="selectOption(${index})" id="option${index}">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback" data-correct="${correctText}" data-incorrect="${incorrectText}"></div>
+                    <button class="btn" onclick="checkAnswer()" id="checkBtn" disabled>Verificar respuesta</button>
+                </div>
+            `;
+            
+            updateProgress();
+            updateNavigation();
+            selectedOption = null;
+            answered = false;
+        }
+
+        function selectOption(index) {
+            if (answered) return;
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.getElementById(`option${index}`).classList.add('selected');
+            selectedOption = index;
+            document.getElementById('checkBtn').disabled = false;
+        }
+
+        function checkAnswer() {
+            if (selectedOption === null || answered) return;
+            
+            const question = questions[currentQuestion];
+            const feedbackElem = document.getElementById('feedback');
+            const checkBtn = document.getElementById('checkBtn');
+            const options = document.querySelectorAll('.option');
+            
+            answered = true;
+            checkBtn.style.display = 'none';
+            
+            if (selectedOption === question.correct) {
+                correctAnswers++;
+                options[selectedOption].classList.add('correct');
+                feedbackElem.className = 'feedback correct';
+                feedbackElem.innerHTML = feedbackElem.getAttribute('data-correct');
+            } else {
+                options[selectedOption].classList.add('incorrect');
+                options[question.correct].classList.add('correct');
+                feedbackElem.className = 'feedback incorrect';
+                feedbackElem.innerHTML = feedbackElem.getAttribute('data-incorrect');
+            }
+            
+            feedbackElem.style.display = 'block';
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                showFinalResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('score').textContent = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
+        }
+
+        function updateNavigation() {
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = true;
+        }
+
+        function showFinalResults() {
+            const percentage = Math.round((correctAnswers / questions.length) * 100);
+            let finalMsg = '';
+            
+            if (percentage >= 90) finalMsg = '¡Excelente trabajo! Tenés una comprensión muy sólida sobre ciudadanía y convivencia digital.';
+            else if (percentage >= 70) finalMsg = '¡Muy bien! Mostrás un buen dominio del tema, podés seguir profundizando sobre la identidad web.';
+            else if (percentage >= 50) finalMsg = '¡Genial! Captaste ideas importantes, te invito a seguir reflexionando sobre nuestros comportamientos en red.';
+            else finalMsg = '¡Cada situación es una oportunidad para aprender! Te animo a repasar la información y volver a intentarlo.';
+
+            document.getElementById('content').innerHTML = `
+                <div class="final-score">
+                    <h2>¡Has completado el desafío, ${userData.nombre}!</h2>
+                    <p style="margin-top: 15px;">Respuestas correctas: <strong>${correctAnswers} de ${questions.length}</strong></p>
+                    <p>Porcentaje: <strong>${percentage}%</strong></p>
+                    <p style="margin: 20px 0; font-style: italic;">${finalMsg}</p>
+                    <button class="btn" onclick="location.reload()">Hacer de nuevo</button>
+                </div>
+            `;
+            
+            document.querySelector('.navigation').style.display = 'none';
+            document.getElementById('progressFill').style.width = '100%';
+
+            enviarDatosSilencioso();
+        }
+
+        function enviarDatosSilencioso() {
+            const payload = {
+                fecha: new Date().toLocaleString(),
+                nombre: userData.nombre,
+                apellido: userData.apellido,
+                puntaje: correctAnswers,
+                total: questions.length
+            };
+
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                cache: "no-cache",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+        }
+    </script>
+</body>
+</html>
