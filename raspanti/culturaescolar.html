@@ -66,7 +66,6 @@
             padding: 40px;
         }
 
-        /* Estilos Registro Inicial */
         .login-box {
             text-align: center;
             max-width: 400px;
@@ -260,43 +259,43 @@
     </div>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9ajGjfJZd1A-YXzIxNDlGCUrKmmRTixoZUjncoDcKr7G5rtuPs8xR7yNnyCtqkwBs/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxDR97w2w-_zeRWAn8vZv7kXO6cr8AUiAxcv-EHTqXcaHjL9ANrWv_VcrWILyTSZtfg/exec";
 
         const questions = [
             {
                 scenario: "El profesor dicta su clase desde el pizarrón. Los alumnos copian en sus carpetas en silencio, siguiendo una secuencia ordenada tema por tema. Al finalizar la unidad, se toma un examen con preguntas de verdadero/falso para verificar si el contenido fue memorizado. ¿A qué cultura corresponde esta escena?",
                 options: ["A la cultura mediática.", "A la cultura digital.", "A la cultura escolar tradicional."],
                 correct: 2,
-                correctFeedback: "¡Exacto [NOMBRE]! Has identificado la cultura escolar tradicional. Aquí el docente es la figura de autoridad central, el conocimiento se presenta de manera lineal y acumulativa, y la evaluación es sumativa, enfocada en los resultados y en las respuestas correctas.",
-                incorrectFeedback: "[NOMBRE], te invito a reflexionar un poco más. ¿Notaste cómo el conocimiento fluye en una sola dirección y se evalúa de memoria? Inténtalo de nuevo teniendo en cuenta que esta es la lógica con la que históricamente se organizó el acto de enseñar."
+                correctFeedback: "¡Exacto [NOMBRE]! Has identificado la cultura escolar tradicional. Aquí el docente es la figura de autoridad central, el conocimiento se presenta de manera lineal y acumulativa, y la evaluación es sumativa, enfocada en los resultados.",
+                incorrectFeedback: "[NOMBRE], analizá el flujo del conocimiento: ¿es unidireccional o colaborativo? Inténtalo de nuevo recordando que esta lógica busca el orden disciplinado y la homogeneidad."
             },
             {
-                scenario: "Malena pasa la tarde en la computadora. Tiene varias ventanas de chat abiertas simultáneamente, escucha música, actualiza su fotolog y aprende a editar imágenes mirando un breve tutorial. Comparte su producción y recibe comentarios de sus amigos. ¿A qué cultura responde esta dinámica?",
+                scenario: "Malena pasa la tarde en la computadora. Tiene varias ventanas de chat abiertas simultáneamente, escucha música, actualiza su fotolog y aprende a editar imágenes mirando un breve tutorial. ¿A qué cultura responde esta dinámica?",
                 options: ["Cultura escolar.", "Cultura digital.", "Pedagogización tradicional."],
                 correct: 1,
-                correctFeedback: "¡Muy bien [NOMBRE]! En la cultura digital, el tiempo es rápido y fragmentado, y la atención se mueve en múltiples direcciones. Además, el aprendizaje se da muchas veces de manera informal y colaborativa, siendo el sujeto un protagonista que produce contenido.",
-                incorrectFeedback: "Fijate bien en las acciones de Malena, [NOMBRE]... ¿Aprende de un libro o de tutoriales? ¿Es receptora pasiva o creadora activa? Inténtalo de nuevo considerando que esta escena muestra un tiempo acelerado, hiperconectado y multiformato."
+                correctFeedback: "¡Muy bien [NOMBRE]! En la cultura digital, el tiempo es rápido y fragmentado, y la atención se mueve en múltiples direcciones. El aprendizaje se da de forma informal, veloz y multiformato.",
+                incorrectFeedback: "Fijate en la simultaneidad de tareas de Malena, [NOMBRE]... ¿Es un tiempo lento y ordenado o rápido y fragmentado? Inténtalo de nuevo."
             },
             {
-                scenario: "En el recreo, un grupo de niñas juega reproduciendo las canciones y bailes de un exitoso programa de TV. Además de mirar la novela, usan el merchandising oficial, como zapatillas y accesorios con la marca del programa, delimitando así su pertenencia al grupo. ¿Qué fenómeno explica esto?",
+                scenario: "En el recreo, un grupo de niñas juega reproduciendo las canciones y bailes de un programa de TV. Usan el merchandising oficial y productos asociados. ¿Qué fenómeno explica esto?",
                 options: ["La cultura del consumo mediático, que modela identidades y socializa a la infancia.", "Una alianza exitosa entre la familia y la escuela tradicional.", "El desarrollo de competencias ciudadanas críticas en la escuela."],
                 correct: 0,
-                correctFeedback: "¡Correcto [NOMBRE]! El mercado y los medios ejercen hoy una nueva forma de pedagogización. Los niños son interpelados como potenciales clientes, y es a través de este consumo simbólico de productos culturales que construyen sus identidades y establecen vínculos con sus pares.",
-                incorrectFeedback: "Analizá el origen de estas prácticas, [NOMBRE]... ¿Quién impone esos juguetes y esas modas? Inténtalo de nuevo pensando en cómo el mercado redacta el guión de la vida infantil a través de la venta de productos."
+                correctFeedback: "¡Correcto [NOMBRE]! El mercado y los medios ejercen hoy una nueva forma de pedagogización. Los niños construyen sus identidades y vínculos a través del consumo simbólico de productos culturales.",
+                incorrectFeedback: "Analizá quién guía el juego, [NOMBRE]... ¿Es la escuela o es el mercado a través de productos? Inténtalo de nuevo."
             },
             {
-                scenario: "Frente al uso constante del celular en el aula, una docente decide no prohibirlo. En su lugar, propone a los estudiantes investigar un tema histórico usando sus teléfonos, grabar un podcast narrando sus ideas y debatir en clase la diferencia entre esa información y la del libro de texto. ¿Qué postura está asumiendo la docente?",
-                options: ["Una postura moralista que censura la cultura mediática.", "Una renuncia a la autoridad pedagógica ante el avance de las redes.", "Una alfabetización crítica que integra los consumos culturales y promueve la producción de discursos propios."],
+                scenario: "Una docente propone a los estudiantes investigar un tema histórico usando sus teléfonos, grabar un podcast narrando sus ideas y debatir la diferencia entre esa información y la del libro de texto. ¿Qué postura está asumiendo?",
+                options: ["Una postura moralista.", "Una renuncia a la autoridad pedagógica.", "Una alfabetización crítica que integra los consumos culturales y promueve la producción propia."],
                 correct: 2,
-                correctFeedback: "¡Excelente [NOMBRE]! En lugar de atrincherarse en posiciones defensivas, la docente tiende un puente. Reconoce la cultura digital y la integra para generar una alfabetización crítica, donde los estudiantes dejan de ser solo consumidores para convertirse en productores culturales.",
-                incorrectFeedback: "[NOMBRE], reflexionemos sobre la actitud de la docente... ¿Está prohibiendo la tecnología o la está usando a su favor? Inténtalo de nuevo considerando que el objetivo es problematizar los mensajes y hacer circular otras voces a través de proyectos de producción."
+                correctFeedback: "¡Excelente [NOMBRE]! La docente reconoce la cultura digital y la integra para generar una alfabetización crítica, donde los estudiantes dejan de ser solo consumidores para convertirse en productores.",
+                incorrectFeedback: "[NOMBRE], ¿la docente está prohibiendo la tecnología o la está usando para que piensen? Inténtalo de nuevo buscando la opción que promueve sujetos proactivos."
             },
             {
-                scenario: "Si comparamos cómo se vive el «tiempo» dentro del aula tradicional frente a cómo se percibe en los entornos hiperconectados, notamos una fuerte tensión. ¿Cómo describe la bibliografía estas dos nociones de tiempo?",
-                options: ["En la cultura escolar es rápido y simultáneo; en la digital es lento y sostenido.", "En ambas culturas el tiempo se organiza de manera fragmentada e interrumpida.", "En la cultura escolar es lento, sostenido y acumulativo; en la digital es rápido, fragmentado y con atención múltiple."],
+                scenario: "Si comparamos cómo se vive el «tiempo» dentro del aula tradicional frente a los entornos digitales, notamos una fuerte tensión. ¿Cuál es el desafío docente ante este desencuentro?",
+                options: ["Prohibir los celulares para recuperar el orden.", "Ignorar la cultura digital y seguir igual.", "Tender puentes entre ambas culturas para habitar el mundo digital con sentido ético."],
                 correct: 2,
-                correctFeedback: "¡Perfecto [NOMBRE]! Has captado una de las diferencias centrales. La cultura escolar se sostiene en la linealidad, esperando esfuerzo prolongado y concentración constante. La cultura digital, por el contrario, propone un ritmo veloz donde la atención salta entre hipervínculos, se interrumpe y se retoma.",
-                incorrectFeedback: "Pensá en tu propia experiencia, [NOMBRE]... ¿Cómo pasa el tiempo cuando leés un libro de texto (escolar) vs. cuando usás el celular (digital)? Inténtalo de nuevo buscando la opción que contrasta la linealidad histórica con la velocidad actual."
+                correctFeedback: "¡Perfecto [NOMBRE]! El desafío no es elegir una cultura sobre la otra, sino tender puentes para habitar la cultura digital sin perder la esencia de enseñar con profundidad y ética.",
+                incorrectFeedback: "Reflexioná sobre tu rol como docente, [NOMBRE]... ¿Vas a aislar la escuela o vas a conectar con la realidad de tus alumnos? Inténtalo de nuevo."
             }
         ];
 
@@ -418,14 +417,14 @@
             const percentage = Math.round((correctAnswers / questions.length) * 100);
             let finalMsg = '';
             
-            if (percentage >= 90) finalMsg = '¡Excelente trabajo! Lograste una comprensión profunda sobre los cruces entre la cultura escolar y mediática.';
-            else if (percentage >= 70) finalMsg = '¡Muy bien! Demostrás un buen dominio conceptual, podés seguir profundizando sobre el rol de las TIC.';
-            else if (percentage >= 50) finalMsg = '¡Genial! Captaste las tensiones más importantes, te invito a seguir reflexionando sobre la alfabetización crítica.';
-            else finalMsg = '¡Todo análisis requiere su proceso! Te animo a repasar los apuntes de la cátedra y volver a intentarlo.';
+            if (percentage >= 90) finalMsg = '¡Excelente trabajo! Lograste una comprensión profunda sobre los cruces culturales.';
+            else if (percentage >= 70) finalMsg = '¡Muy bien! Comprendés las tensiones entre la escuela y el mundo digital.';
+            else if (percentage >= 50) finalMsg = '¡Genial! Captaste las tensiones más importantes, seguí reflexionando.';
+            else finalMsg = '¡Todo análisis requiere su proceso! Te animo a repasar los apuntes y volver a intentarlo.';
 
             document.getElementById('content').innerHTML = `
                 <div class="final-score">
-                    <h2>¡Has completado el desafío, ${userData.nombre}!</h2>
+                    <h2>¡Has completado la actividad, ${userData.nombre}!</h2>
                     <p style="margin-top: 15px;">Respuestas correctas: <strong>${correctAnswers} de ${questions.length}</strong></p>
                     <p>Porcentaje: <strong>${percentage}%</strong></p>
                     <p style="margin: 20px 0; font-style: italic;">${finalMsg}</p>
@@ -439,23 +438,23 @@
             enviarDatosSilencioso();
         }
 
-    function enviarDatosSilencioso() {
-    const payload = {
-        actividad: "Cultura Escolar vs Digital", // Esto creará/usará esa columna específica
-        fecha: new Date().toLocaleString(),
-        nombre: userData.nombre,
-        apellido: userData.apellido, // Ya no sumamos el texto aquí, se encarga la columna 'actividad'
-        puntaje: correctAnswers + "/" + questions.length // Formato "4/5" para la celda
-    };
+        function enviarDatosSilencioso() {
+            const payload = {
+                actividad: "Cultura Escolar vs. Cultura digital",
+                fecha: new Date().toLocaleString(),
+                nombre: userData.nombre,
+                apellido: userData.apellido,
+                puntaje: correctAnswers + "/" + questions.length 
+            };
 
-    fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        cache: "no-cache",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-    });
-}
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                cache: "no-cache",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+        }
     </script>
 </body>
 </html>
