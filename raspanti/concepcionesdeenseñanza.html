@@ -66,7 +66,6 @@
             padding: 40px;
         }
 
-        /* Estilos Registro Inicial */
         .login-box {
             text-align: center;
             max-width: 400px;
@@ -230,7 +229,7 @@
     <div class="container" id="login-container">
         <div class="header">
             <h1>Cuestionario Interactivo</h1>
-            <p>Por favor, ingresa tus datos para comenzar</p>
+            <p>Por favor, ingresá tus datos para comenzar</p>
         </div>
         <div class="content login-box">
             <input type="text" id="nombreInput" placeholder="Nombre" required>
@@ -242,7 +241,7 @@
     <div class="container hidden" id="game-container">
         <div class="header">
             <h1>Concepciones de Enseñanza</h1>
-            <p>Identifica qué concepción se refleja en cada escena educativa</p>
+            <p>Identificá qué concepción se refleja en cada escena educativa</p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
@@ -260,78 +259,78 @@
     </div>
 
     <script>
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx9ajGjfJZd1A-YXzIxNDlGCUrKmmRTixoZUjncoDcKr7G5rtuPs8xR7yNnyCtqkwBs/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxDR97w2w-_zeRWAn8vZv7kXO6cr8AUiAxcv-EHTqXcaHjL9ANrWv_VcrWILyTSZtfg/exec";
 
         const questions = [
             {
                 scenario: "Durante la clase de Historia, la profesora María explica detalladamente los eventos de la Revolución Francesa. Los estudiantes permanecen en silencio, tomando apuntes mientras ella presenta una secuencia cronológica de hechos. Al final, asigna páginas del libro para memorizar fechas y nombres importantes para el examen de la próxima semana.",
                 options: ["Transmisión de conocimientos", "Construcción activa", "Desarrollo de competencias"],
                 correct: 0,
-                correctFeedback: "¡Exacto [NOMBRE]! Has identificado perfectamente esta concepción. En esta escena observamos los elementos clásicos de la enseñanza como transmisión: la docente es la única fuente de saber, los estudiantes son receptores pasivos, y se privilegia la memorización. Este enfoque puede ser efectivo para ciertos contenidos básicos, pero es importante complementarlo con estrategias más participativas.",
-                incorrectFeedback: "[NOMBRE], te invito a reflexionar un poco más... ¿Notaste cómo los estudiantes se mantienen en silencio y solo toman apuntes? ¿Qué rol cumple la profesora en esta situación? Inténtalo de nuevo teniendo en cuenta que aquí hay una clara jerarquía donde una persona posee el conocimiento y la otra lo recibe de forma pasiva."
+                correctFeedback: "¡Exacto [NOMBRE]! Has identificado perfectamente esta concepción. En esta escena observamos los elementos clásicos de la enseñanza como transmisión: la docente es la única fuente de saber, los estudiantes son receptores pasivos, y se privilegia la memorización.",
+                incorrectFeedback: "[NOMBRE], te invito a reflexionar un poco más... ¿Notaste cómo los estudiantes se mantienen en silencio y solo toman apuntes? Inténtalo de nuevo teniendo en cuenta que aquí hay una clara jerarquía de transmisión pasiva."
             },
             {
-                scenario: "En la clase de Ciencias Naturales, el profesor Carlos presenta a los estudiantes el siguiente desafío: 'Imaginen que son científicos y deben investigar por qué las plantas de nuestro jardín escolar se están marchitando.' Los estudiantes forman equipos, formulan hipótesis, diseñan experimentos y buscan información en diversas fuentes. El profesor circula entre los grupos, hace preguntas orientadoras y los ayuda a reflexionar sobre sus descubrimientos.",
+                scenario: "En la clase de Ciencias Naturales, el profesor Carlos presenta a los estudiantes el siguiente desafío: 'Imaginen que son científicos y deben investigar por qué las plantas de nuestro jardín escolar se están marchitando.' Los estudiantes forman equipos, formulan hipótesis, diseñan experimentos y buscan información en diversas fuentes.",
                 options: ["Transmisión de conocimientos", "Construcción activa", "Desarrollo de competencias"],
                 correct: 1,
-                correctFeedback: "¡Muy bien [NOMBRE]! Identificaste correctamente la construcción activa del aprendizaje. Aquí vemos cómo los estudiantes son protagonistas de su proceso de aprendizaje: formulan hipótesis, investigan, experimentan y reflexionan. El docente actúa como facilitador, haciendo preguntas que guían el pensamiento sin dar respuestas directas. Este enfoque favorece el desarrollo del pensamiento científico y la autonomía.",
-                incorrectFeedback: "Observa más detenidamente [NOMBRE], ¿cómo es el rol de los estudiantes? ¿Están siendo receptores pasivos o participan activamente? ¿Qué hace el profesor: transmite información directamente o guía un proceso? Inténtalo de nuevo considerando que aquí los estudiantes construyen su propio conocimiento a través de la investigación y la reflexión."
+                correctFeedback: "¡Muy bien [NOMBRE]! Identificaste correctamente la construcción activa del aprendizaje. Aquí vemos cómo los estudiantes son protagonistas de su proceso de aprendizaje: formulan hipótesis, investigan y experimentan.",
+                incorrectFeedback: "Observá más detenidamente [NOMBRE], ¿cómo es el rol de los estudiantes? ¿Están participando activamente? Inténtalo de nuevo considerando que aquí los alumnos construyen su propio conocimiento."
             },
             {
-                scenario: "La profesora Ana está enseñando matemáticas y dice: 'Hoy aprenderán la fórmula para calcular el área del triángulo. Es base por altura dividido dos. Ahora copien esta fórmula en sus cuadernos y resuelvan los 20 ejercicios de la página 45. Mañana haremos un quiz sobre esta fórmula.' Los estudiantes copian mecánicamente y comienzan a resolver los ejercicios aplicando la fórmula de manera repetitiva.",
+                scenario: "La profesora Ana está enseñando matemáticas y dice: 'Hoy aprenderán la fórmula para calcular el área del triángulo. Es base por altura dividido dos. Ahora copien esta fórmula en sus cuadernos y resuelvan los 20 ejercicios de la página 45.'",
                 options: ["Transmisión de conocimientos", "Construcción activa", "Desarrollo de competencias"],
                 correct: 0,
-                correctFeedback: "¡Correcto [NOMBRE]! Esta es una escena típica de transmisión de conocimientos. La profesora presenta la fórmula como algo dado, los estudiantes la memorizan y la aplican mecánicamente sin cuestionarse el porqué. No hay espacio para la exploración, la comprensión profunda o la conexión con situaciones reales. Aunque este método puede ser útil para automatizar procedimientos, es importante complementarlo con comprensión conceptual.",
-                incorrectFeedback: "Piensa en esto, [NOMBRE]: ¿cómo se presenta el conocimiento aquí? ¿Los estudiantes descubren la fórmula o se les da hecha? ¿Hay espacio para el cuestionamiento o la exploración? Inténtalo de nuevo recordando que en este caso el conocimiento se presenta como algo acabado que debe ser memorizado y aplicado sin mayor reflexión."
+                correctFeedback: "¡Correcto [NOMBRE]! Esta es una escena típica de transmisión de conocimientos. La profesora presenta la fórmula como algo dado y los estudiantes la aplican mecánicamente sin cuestionarse el porqué.",
+                incorrectFeedback: "Piensa en esto, [NOMBRE]: ¿los estudiantes descubren la fórmula o se les da hecha? Inténtalo de nuevo recordando que en este caso el conocimiento se presenta como algo acabado para ser memorizado."
             },
             {
-                scenario: "En una clase de Lengua, los estudiantes de 5° grado están trabajando en un proyecto: crear una revista escolar sobre su comunidad. Deben investigar, entrevistar vecinos, escribir artículos, diseñar, trabajar en equipo y presentar su producto final. La docente los acompaña, sugiere fuentes, ayuda a resolver conflictos grupales y evalúa tanto el proceso como el resultado, considerando creatividad, colaboración y comunicación efectiva.",
+                scenario: "En una clase de Lengua, los estudiantes de 5° grado están trabajando en un proyecto: crear una revista escolar sobre su comunidad. Deben investigar, entrevistar vecinos, escribir artículos, diseñar y trabajar en equipo para presentar su producto final.",
                 options: ["Transmisión de conocimientos", "Construcción activa", "Desarrollo de competencias"],
                 correct: 2,
-                correctFeedback: "¡Excelente [NOMBRE]! Has reconocido el enfoque de desarrollo de competencias. En esta escena los estudiantes no solo aprenden contenidos de lengua, sino que desarrollan habilidades integrales: investigación, comunicación, trabajo colaborativo, creatividad y resolución de problemas. El proyecto conecta el aprendizaje con la realidad y la docente evalúa competencias transversales, no solo conocimientos específicos.",
-                incorrectFeedback: "Fíjate bien en todo lo que están aprendiendo los estudiantes, [NOMBRE]... ¿Solo es lengua o hay algo más? ¿Qué habilidades están desarrollando más allá del contenido curricular? Inténtalo de nuevo pensando que aquí se integran múltiples competencias para la vida: trabajo en equipo, investigación, comunicación y conexión con la realidad."
+                correctFeedback: "¡Excelente [NOMBRE]! Has reconocido el enfoque de desarrollo de competencias. Los estudiantes integran habilidades: investigación, comunicación, trabajo colaborativo y creatividad para resolver un problema real.",
+                incorrectFeedback: "Fijate bien en todo lo que están aprendiendo, [NOMBRE]... ¿Solo es lengua o hay algo más amplio? Inténtalo de nuevo pensando en las múltiples habilidades para la vida que se integran aquí."
             },
             {
-                scenario: "Durante una clase de Filosofía, el profesor presenta la pregunta: '¿Qué es la justicia?' En lugar de dar una definición, invita a los estudiantes a compartir sus ideas previas. Luego, introduce un dilema ético y divide la clase en grupos para que debatan diferentes perspectivas. Cada grupo debe argumentar su posición y escuchar a los demás. Al final, reflexionan juntos sobre cómo evolucionaron sus ideas durante la discusión.",
+                scenario: "Durante una clase de Filosofía, el profesor presenta la pregunta: '¿Qué es la justicia?' En lugar de dar una definición, invita a los estudiantes a compartir sus ideas previas y debatir diferentes perspectivas en grupos.",
                 options: ["Transmisión de conocimientos", "Construcción activa", "Desarrollo de competencias"],
                 correct: 1,
-                correctFeedback: "¡Muy bien [NOMBRE]! Esta es construcción activa del aprendizaje en su máxima expresión. Los estudiantes parten de sus ideas previas, las confrontan con las de otros, argumentan, debaten y reflexionan sobre sus propios procesos de pensamiento. El profesor facilita el diálogo y la construcción colectiva del conocimiento. No hay una 'respuesta correcta' preestablecida, sino una construcción compartida de significados.",
-                incorrectFeedback: "[NOMBRE], observa cómo se construye el conocimiento aquí... ¿Parte el profesor de una definición acabada o invita a construir juntos? ¿Los estudiantes son receptores o constructores activos? Inténtalo de nuevo considerando que en esta escena el conocimiento emerge del diálogo, la reflexión y la confrontación de ideas entre todos los participantes."
+                correctFeedback: "¡Muy bien [NOMBRE]! Esta es construcción activa en su máxima expresión. Los estudiantes parten de sus ideas previas, argumentan y debaten para construir colectivamente el significado de la justicia.",
+                incorrectFeedback: "[NOMBRE], ¿parte el profesor de una definición acabada o invita a construir juntos? Inténtalo de nuevo considerando que el conocimiento emerge del diálogo y la reflexión."
             },
             {
-                scenario: "En la clase de Química, la profesora proyecta diapositivas con las propiedades de los elementos químicos. Dicta definiciones que los estudiantes copian textualmente. Después explica la tabla periódica señalando cada elemento en el tablero. Los estudiantes deben memorizar los símbolos químicos y sus propiedades para el examen. No hay preguntas ni interrupciones durante la explicación.",
+                scenario: "En la clase de Química, la profesora proyecta diapositivas con las propiedades de los elementos químicos. Dicta definiciones que los estudiantes copian textualmente para memorizarlas para el examen.",
                 options: ["Transmisión de conocimientos", "Construcción activa", "Desarrollo de competencias"],
                 correct: 0,
-                correctFeedback: "¡Correcto [NOMBRE]! Esta escena ilustra perfectamente la enseñanza como transmisión de conocimientos. La profesora es la única fuente de información, los estudiantes son receptores pasivos que copian y memorizan sin procesar o cuestionar. No hay interacción, construcción o aplicación práctica. Este método puede ser útil para introducir vocabulario específico, pero limitado para desarrollar comprensión profunda.",
-                incorrectFeedback: "Reflexiona sobre la dinámica de esta clase, [NOMBRE]... ¿Hay diálogo o construcción conjunta? ¿Los estudiantes participan activamente o son receptores? Inténtalo de nuevo notando que aquí predomina un flujo unidireccional de información: de la profesora hacia los estudiantes, quienes deben almacenar y reproducir lo recibido."
+                correctFeedback: "¡Correcto [NOMBRE]! Esta escena ilustra la enseñanza como transmisión. Los estudiantes son receptores pasivos que copian y memorizan sin procesamiento profundo ni aplicación práctica.",
+                incorrectFeedback: "Reflexioná sobre la dinámica, [NOMBRE]... ¿Hay diálogo o construcción conjunta? Inténtalo de nuevo notando el flujo unidireccional de información."
             },
             {
-                scenario: "Los estudiantes de 3° grado están aprendiendo sobre el ciclo del agua. La maestra los lleva al patio y les propone: 'Observen qué pasa cuando riego las plantas en este día soleado.' Los niños notan que se forma vapor, hacen predicciones, experimentan con diferentes cantidades de agua y registran sus observaciones. Luego, en el aula, construyen juntos un mapa conceptual sobre lo que descubrieron y lo conectan con situaciones de su vida cotidiana.",
+                scenario: "Los estudiantes de 3° grado están aprendiendo sobre el ciclo del agua. La maestra los lleva al patio a observar el riego en un día soleado para que noten el vapor, hagan predicciones y registren observaciones.",
                 options: ["Transmisión de conocimientos", "Construcción activa", "Desarrollo de competencias"],
                 correct: 1,
-                correctFeedback: "¡Perfecto [NOMBRE]! Has identificado la construcción activa del aprendizaje. Los estudiantes no reciben información sobre el ciclo del agua, sino que lo descubren a través de la observación, experimentación y reflexión. Construyen su comprensión partiendo de la experiencia directa y conectándola con sus conocimientos previos. La maestra facilita el proceso de descubrimiento guiado.",
-                incorrectFeedback: "Piensa en cómo aprenden los niños en esta situación, [NOMBRE]... ¿Reciben información directa o la construyen? ¿Cuál es el punto de partida del aprendizaje? Inténtalo de nuevo considerando que aquí el conocimiento surge de la experiencia directa, la observación y la reflexión compartida, no de una explicación previa."
+                correctFeedback: "¡Perfecto [NOMBRE]! Has identificado la construcción activa. Los estudiantes descubren el ciclo del agua a través de la experiencia directa y la observación guiada.",
+                incorrectFeedback: "Pensá en cómo aprenden en esta situación, [NOMBRE]... ¿Reciben información directa o la construyen de la experiencia? Inténtalo de nuevo."
             },
             {
-                scenario: "En un curso de Emprendimiento, los estudiantes deben crear un plan de negocio real para resolver un problema de su comunidad. Trabajan en equipos multidisciplinarios, investigan el mercado, desarrollan prototipos, aprenden a usar herramientas digitales de diseño, practican presentaciones orales y gestionan un presupuesto. Al final, presentan ante un panel de empresarios locales que evalúan la viabilidad de sus propuestas.",
+                scenario: "En un curso de Emprendimiento, los estudiantes deben crear un plan de negocio real. Investigan el mercado, desarrollan prototipos y practican presentaciones orales ante empresarios locales.",
                 options: ["Transmisión de conocimientos", "Construcción activa", "Desarrollo de competencias"],
                 correct: 2,
-                correctFeedback: "¡Excelente [NOMBRE]! Esta es una perfecta ilustración del desarrollo de competencias. Los estudiantes integran conocimientos de múltiples áreas (economía, tecnología, comunicación, gestión) para resolver problemas reales. Desarrollan competencias del siglo XXI: creatividad, colaboración, pensamiento crítico, comunicación y uso de tecnología. El aprendizaje trasciende el aula y se conecta directamente con la vida real.",
-                incorrectFeedback: "Observa todo lo que están aprendiendo estos estudiantes, [NOMBRE]... ¿Es solo contenido teórico o algo más amplio? ¿Qué habilidades para la vida están desarrollando? Inténtalo de nuevo pensando que aquí se integran múltiples competencias transversales que los preparan para enfrentar desafíos reales y complejos en diferentes contextos."
+                correctFeedback: "¡Excelente [NOMBRE]! Es desarrollo de competencias. Integran conocimientos de múltiples áreas para resolver un desafío real, desarrollando pensamiento crítico y profesional.",
+                incorrectFeedback: "Observá la complejidad de la tarea, [NOMBRE]... ¿Es solo teoría o están desarrollando habilidades para el mundo real? Inténtalo de nuevo."
             },
             {
-                scenario: "En Educación Física, el profesor explica las reglas del básquetbol usando un diagrama en el pizarrón. Los estudiantes escuchan atentamente mientras él describe cada posición, las faltas y el sistema de puntuación. Después, deben estudiar un manual con todas las reglas para un examen teórico. La práctica deportiva se realizará solo después de aprobar el examen sobre las reglas.",
+                scenario: "En Educación Física, el profesor explica las reglas del básquetbol en el pizarrón. Los estudiantes deben estudiar un manual para un examen teórico antes de poder ir a la cancha a jugar.",
                 options: ["Transmisión de conocimientos", "Construcción activa", "Desarrollo de competencias"],
                 correct: 0,
-                correctFeedback: "¡Así es [NOMBRE]! Aunque pueda parecer sorprendente en Educación Física, esta escena refleja claramente la transmisión de conocimientos. El profesor expone teóricamente las reglas, los estudiantes las memorizan para un examen, y la práctica se posterga. Se privilegia el conocimiento teórico sobre la experiencia práctica y la construcción de habilidades a través del juego.",
-                incorrectFeedback: "¿Te resulta extraño pensar en transmisión de conocimientos en Educación Física, [NOMBRE]? Fíjate bien en la metodología... ¿Los estudiantes aprenden jugando o estudiando teoría? Inténtalo de nuevo notando que aquí se prioriza el conocimiento teórico de las reglas por sobre la experiencia práctica y vivencial del deporte."
+                correctFeedback: "¡Así es [NOMBRE]! Refleja la transmisión de conocimientos. Se privilegia el saber teórico memorístico sobre la experiencia práctica y vivencial del deporte.",
+                incorrectFeedback: "¿Los alumnos aprenden jugando o estudiando teoría, [NOMBRE]? Inténtalo de nuevo notando que se prioriza la memorización de reglas sobre la práctica."
             },
             {
-                scenario: "En una clase de Arte, los estudiantes están explorando el tema 'Identidad cultural'. No hay un producto final predeterminado. Cada estudiante investiga sus raíces familiares, experimenta con diferentes técnicas artísticas, toma decisiones estéticas, documenta su proceso creativo y reflexiona sobre cómo el arte les ayuda a expresar quiénes son. La profesora acompaña individualmente a cada estudiante, haciendo preguntas que profundizan su autoconocimiento y expresión personal.",
+                scenario: "En Arte, los estudiantes investigan sus raíces familiares y experimentan con técnicas para expresar su identidad. La profesora hace preguntas que profundizan su autoconocimiento sin imponer un modelo.",
                 options: ["Transmisión de conocimientos", "Construcción activa", "Desarrollo de competencias"],
                 correct: 1,
-                correctFeedback: "¡Muy bien [NOMBRE]! Esta es construcción activa en su forma más personalizada. Cada estudiante construye su propio aprendizaje desde su experiencia personal, toma decisiones, experimenta y reflexiona sobre su proceso. No hay un 'resultado correcto' predefinido, sino múltiples caminos de construcción personal. La profesora actúa como acompañante del proceso de autodescubrimiento.",
-                incorrectFeedback: "Reflexiona sobre cómo se desarrolla el aprendizaje aquí, [NOMBRE]... ¿Hay una técnica o contenido que todos deben aprender igual? ¿O cada estudiante construye algo único? Inténtalo de nuevo considerando que en esta escena cada estudiante es constructor de su propio conocimiento a partir de su experiencia personal, sin modelos preestablecidos que seguir."
+                correctFeedback: "¡Muy bien [NOMBRE]! Construcción activa personalizada. Cada alumno construye su aprendizaje desde su experiencia personal, tomando decisiones estéticas y reflexionando sobre su proceso.",
+                incorrectFeedback: "Reflexioná sobre el desarrollo, [NOMBRE]... ¿Hay un modelo único a seguir o cada uno construye algo propio? Inténtalo de nuevo."
             }
         ];
 
@@ -346,7 +345,7 @@
             const a = document.getElementById('apellidoInput').value.trim();
             
             if (n === "" || a === "") {
-                alert("Por favor, ingresa tus datos para comenzar la actividad.");
+                alert("Por favor, ingresá tus datos para comenzar.");
                 return;
             }
             
@@ -362,7 +361,6 @@
             const question = questions[currentQuestion];
             const content = document.getElementById('content');
             
-            // Reemplazar [NOMBRE] en los feedbacks por el nombre real ingresado
             const correctText = question.correctFeedback.replace(/\[NOMBRE\]/g, userData.nombre);
             const incorrectText = question.incorrectFeedback.replace(/\[NOMBRE\]/g, userData.nombre);
 
@@ -475,23 +473,23 @@
             enviarDatosSilencioso();
         }
 
-       function enviarDatosSilencioso() {
-    const payload = {
-        actividad: "Cultura Escolar vs Digital", // Este nombre crea la nueva columna
-        fecha: new Date().toLocaleString(),
-        nombre: userData.nombre,
-        apellido: userData.apellido,
-        puntaje: correctAnswers + "/" + questions.length 
-    };
+        function enviarDatosSilencioso() {
+            const payload = {
+                actividad: "Concepciones de enseñanza",
+                fecha: new Date().toLocaleString(),
+                nombre: userData.nombre,
+                apellido: userData.apellido,
+                puntaje: correctAnswers + "/" + questions.length
+            };
 
-    fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        cache: "no-cache",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-    });
-}
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                cache: "no-cache",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+        }
     </script>
 </body>
 </html>
