@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Invertida - Juego Interactivo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #722F37 0%, #8B4513 100%);
+            min-height: 100vh; padding: 20px;
+        }
+        .container {
+            max-width: 900px; margin: 0 auto; background: #F5F5DC;
+            border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #722F37 0%, #8B4513 100%);
+            color: #F5F5DC; padding: 30px; text-align: center;
+        }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; font-weight: 300; }
+        .progress-bar {
+            width: 100%; height: 8px; background: rgba(245, 245, 220, 0.3);
+            border-radius: 4px; margin-top: 20px; overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%; background: #F5F5DC; border-radius: 4px;
+            transition: width 0.5s ease; width: 0%;
+        }
+        .content { padding: 40px; }
+        .login-box { text-align: center; max-width: 400px; margin: 0 auto; }
+        .login-box input {
+            width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 10px;
+            border: 1px solid #D2B48C; font-size: 1em; outline: none;
+        }
+        .question-card {
+            background: #FAEBD7; border-radius: 15px; padding: 30px; margin-bottom: 30px;
+            border-left: 5px solid #722F37; box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .scenario {
+            font-size: 1.1em; line-height: 1.7; margin-bottom: 25px; color: #2d3748;
+            background: #F5F5DC; padding: 20px; border-radius: 10px; border: 1px solid #D2B48C;
+        }
+        .options { display: grid; gap: 15px; margin-bottom: 20px; }
+        .option {
+            background: #F5F5DC; border: 2px solid #D2B48C; border-radius: 10px;
+            padding: 15px 20px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .option:hover { border-color: #722F37; background: #FAEBD7; transform: translateY(-2px); }
+        .option.selected { border-color: #722F37; background: #FAEBD7; }
+        .option.correct { border-color: #8B4513; background: #DEB887; }
+        .option.incorrect { border-color: #A0522D; background: #F4A460; }
+        .feedback { margin-top: 20px; padding: 20px; border-radius: 10px; display: none; line-height: 1.6; }
+        .feedback.correct { background: #DEB887; border: 1px solid #8B4513; color: #2d3748; }
+        .feedback.incorrect { background: #F4A460; border: 1px solid #A0522D; color: #2d3748; }
+        .btn {
+            background: linear-gradient(135deg, #722F37 0%, #8B4513 100%);
+            color: #F5F5DC; border: none; padding: 15px 30px; border-radius: 10px;
+            cursor: pointer; font-size: 1em; font-weight: 500; transition: all 0.3s ease;
+        }
+        .navigation { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; }
+        .score { background: linear-gradient(135deg, #722F37 0%, #8B4513 100%); color: #F5F5DC; padding: 10px 20px; border-radius: 25px; }
+        .hidden { display: none; }
+        .final-score { text-align: center; padding: 40px; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-container">
+        <div class="header">
+            <h1>Estrategia de Aula Invertida</h1>
+            <p>Ingresá tus datos para comenzar el desafío final</p>
+        </div>
+        <div class="content login-box">
+            <input type="text" id="nombreInput" placeholder="Nombre" required>
+            <input type="text" id="apellidoInput" placeholder="Apellido" required>
+            <button class="btn" onclick="iniciarCuestionario()">Ingresar al Juego</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="game-container">
+        <div class="header">
+            <h1>Flipped Classroom: Innovación Educativa</h1>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+        <div class="content" id="content"></div>
+        <div class="navigation">
+            <div class="score" id="score">Pregunta 1 de 10</div>
+            <div>
+                <button class="btn" id="prevBtn" onclick="previousQuestion()" disabled>Anterior</button>
+                <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxDR97w2w-_zeRWAn8vZv7kXO6cr8AUiAxcv-EHTqXcaHjL9ANrWv_VcrWILyTSZtfg/exec";
+
+        const questions = [
+            {
+                scenario: "¿En qué consiste esencialmente el modelo pedagógico de 'Aula Invertida' (Flipped Classroom)?",
+                options: [
+                    "En que los alumnos den la clase y el docente tome notas.",
+                    "En invertir los momentos: contenidos fuera de la escuela y tareas/proyectos dentro del salón.",
+                    "En dar vuelta físicamente los bancos del aula para trabajar en equipo."
+                ],
+                correct: 1,
+                correctFeedback: "¡Exacto [NOMBRE]! El modelo reorganiza el tiempo: la exposición de contenidos se traslada al espacio individual (casa) y la práctica activa al espacio grupal (aula).",
+                incorrectFeedback: "[NOMBRE], recordá que 'invertir' se refiere a cuándo y dónde se realiza la instrucción directa y cuándo la práctica guiada."
+            },
+            {
+                scenario: "Según Bergmann y Sams, creadores del término, ¿cuál es el nuevo rol del docente en este modelo?",
+                options: [
+                    "Presentador magistral de información.",
+                    "Tutor y coach del aprendizaje que guía individualmente.",
+                    "Supervisor silencioso de la conducta escolar."
+                ],
+                correct: 1,
+                correctFeedback: "¡Muy bien [NOMBRE]! El docente deja de ser la única fuente de información para transformarse en un guía que brinda acompañamiento puntual y oportuno.",
+                incorrectFeedback: "Cuidado [NOMBRE]. En el aula invertida el docente es más activo que nunca, pero su acción se centra en guiar y dar retroalimentación, no en exponer."
+            },
+            {
+                scenario: "¿Qué responsabilidad asume el estudiante en el enfoque de Aula Invertida?",
+                options: [
+                    "Ninguna, solo debe seguir las instrucciones en clase.",
+                    "Es responsable de su propio aprendizaje usando materiales puestos a disposición en línea.",
+                    "Debe filmar las clases del docente para compartirlas con sus compañeros."
+                ],
+                correct: 1,
+                correctFeedback: "¡Correcto [NOMBRE]! Los alumnos ganan autonomía al gestionar su ritmo de estudio fuera de clase y prepararse para el trabajo colaborativo en el aula.",
+                incorrectFeedback: "[NOMBRE], la clave de este modelo es la autorregulación. El alumno debe ser el principal actor de su proceso de aprendizaje."
+            },
+            {
+                scenario: "Una de las ventajas mencionadas del aula invertida respecto a los estudiantes menos avanzados es que:",
+                options: [
+                    "Se les asignan tareas más fáciles que al resto.",
+                    "El docente dispone de más tiempo en clase para atender sus necesidades específicas.",
+                    "Pueden faltar a clase si ya vieron los videos en casa."
+                ],
+                correct: 1,
+                correctFeedback: "¡Excelente [NOMBRE]! Al no gastar tiempo de clase en la explicación inicial, el docente puede circular por el aula y dar apoyo personalizado a quien más lo necesite.",
+                incorrectFeedback: "[NOMBRE], pensá en la gestión del tiempo. Al 'liberar' el tiempo de la clase magistral, se gana tiempo para la atención a la diversidad."
+            },
+            {
+                scenario: "¿Qué función cumple el material multimedia (como videos o PowerPoints) en este modelo?",
+                options: [
+                    "Sustituir por completo la presencia del docente.",
+                    "Permitir que el contenido esté disponible para que el alumno lo vea tantas veces como necesite.",
+                    "Entretener a los estudiantes para que no se aburran en el salón."
+                ],
+                correct: 1,
+                correctFeedback: "¡Así es [NOMBRE]! Los materiales digitales permiten la ubicuidad: el alumno accede al saber cuando está listo y puede detener o repetir el contenido según su ritmo.",
+                incorrectFeedback: "[NOMBRE], el material no reemplaza al docente, sino que sirve de andamiaje para que la instrucción directa sea flexible y personalizada."
+            },
+            {
+                scenario: "En el aula invertida, el tiempo presencial en el salón de clase se dedica principalmente a:",
+                options: [
+                    "Copiar resúmenes de los videos vistos en casa.",
+                    "Aprendizaje basado en proyectos, resolución de problemas y alto procesamiento cognitivo.",
+                    "Tomar exámenes escritos sobre los videos."
+                ],
+                correct: 1,
+                correctFeedback: "¡Exacto [NOMBRE]! El salón se convierte en un laboratorio de práctica, debate y creación colaborativa sobre problemas del mundo real.",
+                incorrectFeedback: "Pensá en la calidad de la tarea, [NOMBRE]. Si ya vieron el tema en casa, el aula debe ser el espacio para 'hacer cosas' con ese conocimiento."
+            },
+            {
+                scenario: "El texto menciona que este modelo responde a las necesidades de la 'Generación Net'. ¿Cuál es una característica de estos jóvenes?",
+                options: [
+                    "Prefieren los libros de texto tradicionales sobre cualquier otro soporte.",
+                    "No conciben el mundo sin conexión a internet y dispositivos móviles.",
+                    "Solo aprenden si el docente dicta el contenido paso a paso."
+                ],
+                correct: 1,
+                correctFeedback: "¡Muy bien [NOMBRE]! Por eso, prescindir de las TIC en educación corre el riesgo de volver el aprendizaje monótono y aburrido para ellos.",
+                incorrectFeedback: "[NOMBRE], recordá que para los nativos digitales la tecnología no es una herramienta ajena, sino parte constitutiva de su forma de estar en el mundo."
+            },
+            {
+                scenario: "¿Cuál es el objetivo primordial al planificar el uso de TIC según el decálogo de Área (2009)?",
+                options: [
+                    "Que la tecnología sea el centro de la atención de la clase.",
+                    "Lo educativo debe ser siempre lo relevante, no lo tecnológico.",
+                    "Usar la mayor cantidad de aplicaciones posibles en una sola sesión."
+                ],
+                correct: 1,
+                correctFeedback: "¡Correcto [NOMBRE]! Siempre debemos preguntarnos qué van a aprender los alumnos y cómo la tecnología sirve para mejorar ese proceso educativo.",
+                incorrectFeedback: "[NOMBRE], no te dejes deslumbrar por los dispositivos. En pedagogía, la herramienta siempre debe estar al servicio del propósito de aprendizaje."
+            },
+            {
+                scenario: "¿Qué sucede con la disciplina y el manejo de la clase en un Aula Invertida?",
+                options: [
+                    "Es más difícil de controlar porque todos hablan a la vez.",
+                    "Los alumnos están ocupados y comprometidos con tareas activas, reduciendo el aburrimiento.",
+                    "El docente debe imponer reglas más estrictas de silencio."
+                ],
+                correct: 1,
+                correctFeedback: "¡Excelente [NOMBRE]! Al estar los estudiantes protagonizando su trabajo, la motivación aumenta y las manifestaciones comportamentales de rechazo suelen disminuir.",
+                incorrectFeedback: "[NOMBRE], pensá que el aburrimiento es la madre de los problemas de conducta. Si la propuesta es activa y desafiante, el aula fluye mejor."
+            },
+            {
+                scenario: "Finalmente, el Aula Invertida se vincula con un enfoque constructivista porque:",
+                options: [
+                    "El conocimiento se transfiere directamente del video al alumno.",
+                    "El docente no interviene en el proceso de los alumnos.",
+                    "Se busca que los estudiantes construyan el significado del conocimiento mediante la práctica y reflexión."
+                ],
+                correct: 2,
+                correctFeedback: "¡Perfecto [NOMBRE]! Este modelo promueve el 'aprender haciendo' y sitúa al alumno como el arquitecto de su propio saber bajo la guía del docente.",
+                incorrectFeedback: "Recordá la base del constructivismo, [NOMBRE]: el saber no se deposita, se construye. El aula invertida da el espacio y tiempo para esa construcción."
+            }
+        ];
+
+        let currentQuestion = 0; let correctAnswers = 0; let userData = { nombre: "", apellido: "" };
+
+        function iniciarCuestionario() {
+            const n = document.getElementById('nombreInput').value.trim();
+            const a = document.getElementById('apellidoInput').value.trim();
+            if (!n || !a) { alert("Por favor, ingresá tus datos."); return; }
+            userData = { nombre: n, apellido: a };
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('game-container').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQuestion];
+            const correctT = q.correctFeedback.replace(/\[NOMBRE\]/g, userData.nombre);
+            const incorrectT = q.incorrectFeedback.replace(/\[NOMBRE\]/g, userData.nombre);
+            document.getElementById('content').innerHTML = `
+                <div class="question-card">
+                    <div class="question-number">Pregunta ${currentQuestion + 1} de ${questions.length}</div>
+                    <div class="scenario">${q.scenario}</div>
+                    <div class="options">
+                        ${q.options.map((opt, i) => `<div class="option" onclick="selectOption(${i})" id="opt${i}">${opt}</div>`).join('')}
+                    </div>
+                    <div class="feedback" id="feedback" data-correct="${correctT}" data-incorrect="${incorrectT}"></div>
+                    <button class="btn" onclick="checkAnswer()" id="checkBtn" disabled>Verificar respuesta</button>
+                </div>
+            `;
+            updateProgress();
+        }
+
+        function selectOption(i) {
+            document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+            document.getElementById(`opt${i}`).classList.add('selected');
+            window.selected = i; document.getElementById('checkBtn').disabled = false;
+        }
+
+        function checkAnswer() {
+            const q = questions[currentQuestion]; const f = document.getElementById('feedback');
+            const opts = document.querySelectorAll('.option');
+            document.getElementById('checkBtn').style.display = 'none';
+            if (window.selected === q.correct) {
+                correctAnswers++; f.className = 'feedback correct'; f.innerHTML = f.dataset.correct;
+                opts[window.selected].classList.add('correct');
+            } else {
+                f.className = 'feedback incorrect'; f.innerHTML = f.dataset.incorrect;
+                opts[window.selected].classList.add('incorrect'); opts[q.correct].classList.add('correct');
+            }
+            f.style.display = 'block'; document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++; renderQuestion(); document.getElementById('nextBtn').disabled = true;
+            } else { showFinal(); }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--; renderQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const p = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = p + '%';
+            document.getElementById('score').textContent = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
+        }
+
+        function showFinal() {
+            document.getElementById('content').innerHTML = `
+                <div class="final-score">
+                    <h2>¡Felicitaciones, ${userData.nombre}!</h2>
+                    <p>Completaste exitosamente el ciclo de desafíos sobre Cultura Digital.</p>
+                    <p style="font-size: 1.5em; margin: 20px 0;">Puntaje Final: ${correctAnswers} / ${questions.length}</p>
+                    <button class="btn" onclick="location.reload()">Jugar de nuevo</button>
+                </div>
+            `;
+            document.querySelector('.navigation').style.display = 'none';
+            enviarDatos();
+        }
+
+        function enviarDatos() {
+            const payload = {
+                actividad: "Aula invertida",
+                fecha: new Date().toLocaleString(),
+                nombre: userData.nombre, apellido: userData.apellido,
+                puntaje: correctAnswers + "/" + questions.length
+            };
+            fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+        }
+    </script>
+</body>
+</html>
