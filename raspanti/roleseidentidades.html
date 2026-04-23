@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevos Roles e Identidades Docentes - Juego Interactivo</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #722F37 0%, #8B4513 100%);
+            min-height: 100vh; padding: 20px;
+        }
+        .container {
+            max-width: 900px; margin: 0 auto; background: #F5F5DC;
+            border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #722F37 0%, #8B4513 100%);
+            color: #F5F5DC; padding: 30px; text-align: center;
+        }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; font-weight: 300; }
+        .progress-bar {
+            width: 100%; height: 8px; background: rgba(245, 245, 220, 0.3);
+            border-radius: 4px; margin-top: 20px; overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%; background: #F5F5DC; border-radius: 4px;
+            transition: width 0.5s ease; width: 0%;
+        }
+        .content { padding: 40px; }
+        .login-box { text-align: center; max-width: 400px; margin: 0 auto; }
+        .login-box input {
+            width: 100%; padding: 15px; margin-bottom: 15px; border-radius: 10px;
+            border: 1px solid #D2B48C; font-size: 1em; outline: none;
+        }
+        .question-card {
+            background: #FAEBD7; border-radius: 15px; padding: 30px; margin-bottom: 30px;
+            border-left: 5px solid #722F37; box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .scenario {
+            font-size: 1.1em; line-height: 1.7; margin-bottom: 25px; color: #2d3748;
+            background: #F5F5DC; padding: 20px; border-radius: 10px; border: 1px solid #D2B48C;
+        }
+        .options { display: grid; gap: 15px; margin-bottom: 20px; }
+        .option {
+            background: #F5F5DC; border: 2px solid #D2B48C; border-radius: 10px;
+            padding: 15px 20px; cursor: pointer; transition: all 0.3s ease;
+        }
+        .option:hover { border-color: #722F37; background: #FAEBD7; transform: translateY(-2px); }
+        .option.selected { border-color: #722F37; background: #FAEBD7; }
+        .option.correct { border-color: #8B4513; background: #DEB887; }
+        .option.incorrect { border-color: #A0522D; background: #F4A460; }
+        .feedback { margin-top: 20px; padding: 20px; border-radius: 10px; display: none; line-height: 1.6; }
+        .feedback.correct { background: #DEB887; border: 1px solid #8B4513; color: #2d3748; }
+        .feedback.incorrect { background: #F4A460; border: 1px solid #A0522D; color: #2d3748; }
+        .btn {
+            background: linear-gradient(135deg, #722F37 0%, #8B4513 100%);
+            color: #F5F5DC; border: none; padding: 15px 30px; border-radius: 10px;
+            cursor: pointer; font-size: 1em; font-weight: 500; transition: all 0.3s ease;
+        }
+        .navigation { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; }
+        .score { background: linear-gradient(135deg, #722F37 0%, #8B4513 100%); color: #F5F5DC; padding: 10px 20px; border-radius: 25px; }
+        .hidden { display: none; }
+        .final-score { text-align: center; padding: 40px; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-container">
+        <div class="header">
+            <h1>Nuevos Roles e Identidades</h1>
+            <p>Ingresá tus datos para comenzar el desafío</p>
+        </div>
+        <div class="content login-box">
+            <input type="text" id="nombreInput" placeholder="Nombre" required>
+            <input type="text" id="apellidoInput" placeholder="Apellido" required>
+            <button class="btn" onclick="iniciarCuestionario()">Ingresar al Juego</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="game-container">
+        <div class="header">
+            <h1>Identidad Docente en la Era Digital</h1>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+        <div class="content" id="content"></div>
+        <div class="navigation">
+            <div class="score" id="score">Pregunta 1 de 10</div>
+            <div>
+                <button class="btn" id="prevBtn" onclick="previousQuestion()" disabled>Anterior</button>
+                <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxDR97w2w-_zeRWAn8vZv7kXO6cr8AUiAxcv-EHTqXcaHjL9ANrWv_VcrWILyTSZtfg/exec";
+
+        const questions = [
+            {
+                scenario: "Zygmunt Bauman describe nuestra época como un 'mundo líquido'. En este contexto, ¿qué caracteriza a la 'educación líquida' según el texto?",
+                options: ["Una educación sólida basada en valores inamovibles.", "Una educación descartable que sirve solo por un tiempo acotado.", "Una formación técnica centrada exclusivamente en el uso de herramientas TIC."],
+                correct: 1,
+                correctFeedback: "¡Exacto [NOMBRE]! Bauman plantea que en la modernidad líquida el conocimiento es efímero. Por eso, el docente debe ayudar a 'aprender a aprender' y a gestionar información que caduca rápido[cite: 1282, 1283, 1284].",
+                incorrectFeedback: "[NOMBRE], recordá que lo 'líquido' fluye y cambia. La educación líquida se asocia a lo transitorio y lo que necesita actualización constante[cite: 1283, 1284]."
+            },
+            {
+                scenario: "Marc Prensky sugiere que los docentes deben asumir el rol de 'Guías'. ¿Qué implica esto en la práctica cotidiana?",
+                options: ["Explicar paso a paso cómo usar un software específico.", "Entregar contenidos cerrados para que el alumno los memorice.", "Generar un vínculo adecuado para orientar el proceso de aprendizaje del estudiante."],
+                correct: 2,
+                correctFeedback: "¡Muy bien [NOMBRE]! Como 'Guía', el docente construye una relación de confianza para acompañar al estudiante en su propio camino de descubrimiento[cite: 1309].",
+                incorrectFeedback: "Cuidado [NOMBRE]. Ser guía no es dar instrucciones técnicas, sino facilitar el camino mediante un vínculo pedagógico sólido[cite: 1309]."
+            },
+            {
+                scenario: "El modelo SAMR describe etapas de integración tecnológica. Si un docente usa una tablet solo para que el alumno lea un PDF en lugar de un libro papel, ¿en qué etapa está?",
+                options: ["Sustitución", "Aumento", "Redefinición"],
+                correct: 0,
+                correctFeedback: "¡Correcto [NOMBRE]! Es 'Sustitución' porque la tecnología actúa como un cambio de herramienta directo sin mejora funcional en la tarea[cite: 1267].",
+                incorrectFeedback: "[NOMBRE], pensá si la tarea cambió realmente. Si solo cambió el soporte (papel por pantalla) sin modificar la metodología, estamos en el nivel más básico: Sustitución[cite: 1267]."
+            },
+            {
+                scenario: "Un docente diseña una actividad donde los alumnos deben crear un podcast colaborativo para explicar un concepto. Según Prensky, ¿qué rol está ejerciendo?",
+                options: ["Transmisor de información", "Experto en instrucción", "Evaluador externo"],
+                correct: 1,
+                correctFeedback: "¡Excelente [NOMBRE]! Al diseñar experiencias desafiantes, creativas y motivadoras que involucran al alumno, el docente actúa como un 'Experto en instrucción'[cite: 1310].",
+                incorrectFeedback: "[NOMBRE], recordá que el experto en instrucción es quien 'arquitecta' la experiencia de aprendizaje para que sea atractiva y reflexiva[cite: 1310]."
+            },
+            {
+                scenario: "La 'identidad docente' no es algo estático. Según el texto, ¿cuándo se manifiesta realmente esta identidad?",
+                options: ["Al obtener el título habilitante.", "En la aplicación práctica de competencias y valores, no solo en su declaración.", "Al dominar perfectamente todas las herramientas digitales disponibles."],
+                correct: 1,
+                correctFeedback: "¡Así es [NOMBRE]! La identidad se configura desde el 'hacer' y se refleja en el quehacer observable y la asimilación interna de la profesión[cite: 1374, 1377].",
+                incorrectFeedback: "[NOMBRE], el título es solo un papel. La identidad docente es un proceso dinámico que se construye y deconstruye en la práctica diaria[cite: 1375, 1386]."
+            },
+            {
+                scenario: "Un profesor de Ciencias Sagradas decide evaluar mediante una 'evaluación formativa'. ¿Cuál es la característica principal de este enfoque?",
+                options: ["Poner una nota final al terminar el trimestre.", "Realizar devoluciones detalladas durante el proceso para mejorar el aprendizaje.", "Hacer un examen sorpresa para comprobar quién estudió."],
+                correct: 1,
+                correctFeedback: "¡Exacto [NOMBRE]! La evaluación formativa es continua, alimenta el proceso y dota al estudiante de mayor autonomía mediante la retroalimentación[cite: 1331, 1334].",
+                incorrectFeedback: "Pensá en el objetivo, [NOMBRE]. La evaluación formativa no busca 'cerrar' un tema, sino 'acompañar' su construcción mediante el diálogo[cite: 1331]."
+            },
+            {
+                scenario: "En el nuevo ecosistema educativo, se dice que el docente debe ser un 'curador de contenidos'. ¿A qué dimensión de la competencia digital docente (OCDE) se refiere?",
+                options: ["Creación de contenidos", "Información y alfabetización informacional", "Resolución de problemas"],
+                correct: 1,
+                correctFeedback: "¡Muy bien [NOMBRE]! Gestionar, buscar, filtrar y seleccionar información crítica es la base de la dimensión de 'Información'[cite: 1293].",
+                incorrectFeedback: "[NOMBRE], recordá que ante la abundancia de datos, la capacidad de saber dónde buscar y qué seleccionar es vital hoy en día[cite: 1288, 1293]."
+            },
+            {
+                scenario: "Isabel Achard menciona que la pandemia fue un 'catalizador'. ¿Qué cambió de golpe en las escuelas según su visión?",
+                options: ["La gramática escolar (horarios, salones, contenidos establecidos).", "La ubicación geográfica de los edificios escolares.", "El compromiso ético de los docentes."],
+                correct: 0,
+                correctFeedback: "¡Correcto [NOMBRE]! Se alteró el sustrato estable de horarios y espacios, exponiendo ante la sociedad qué y cómo se enseña realmente[cite: 1233, 1237, 1238].",
+                incorrectFeedback: "[NOMBRE], lo que cambió fue la estructura rígida (la gramática escolar) que solía enlentecer los cambios internos frente a la sociedad[cite: 1235, 1237]."
+            },
+            {
+                scenario: "Para habitar la cultura digital con sentido, el docente debe ser un 'Entrenador' (Prensky). ¿Cuál es su tarea principal en este rol?",
+                options: ["Dictar apuntes para que los alumnos no se distraigan.", "Ayudar a cada estudiante a encontrar su pasión y ejercitarla.", "Asegurarse de que todos cumplan el silencio en el aula."],
+                correct: 1,
+                correctFeedback: "¡Excelente [NOMBRE]! Como entrenador, el docente observa y motiva al estudiante para que desarrolle sus máximas potencialidades personales[cite: 1308].",
+                incorrectFeedback: "[NOMBRE], un entrenador no dicta reglas, sino que potencia talentos. Ayuda a que el alumno encuentre su motor propio para aprender[cite: 1308]."
+            },
+            {
+                scenario: "Finalmente, el texto afirma que ser 'competente digital' implica algo más que usar internet. ¿Qué otra capacidad es fundamental?",
+                options: ["Saber reparar el hardware de las computadoras.", "La preservación de la seguridad y la resolución de problemas digitales.", "Tener cuentas en todas las redes sociales del momento."],
+                correct: 1,
+                correctFeedback: "¡Perfecto [NOMBRE]! La competencia digital integral incluye comunicación, seguridad y la capacidad de resolver problemas en entornos virtuales[cite: 1293].",
+                incorrectFeedback: "Recordá las dimensiones de la OCDE, [NOMBRE]. No es solo usar la red, sino hacerlo de forma ética, segura y resolutiva[cite: 1293]."
+            }
+        ];
+
+        let currentQuestion = 0; let correctAnswers = 0; let userData = { nombre: "", apellido: "" };
+
+        function iniciarCuestionario() {
+            const n = document.getElementById('nombreInput').value.trim();
+            const a = document.getElementById('apellidoInput').value.trim();
+            if (!n || !a) { alert("Por favor, ingresá tus datos."); return; }
+            userData = { nombre: n, apellido: a };
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('game-container').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQuestion];
+            const correctT = q.correctFeedback.replace(/\[NOMBRE\]/g, userData.nombre);
+            const incorrectT = q.incorrectFeedback.replace(/\[NOMBRE\]/g, userData.nombre);
+            document.getElementById('content').innerHTML = `
+                <div class="question-card">
+                    <div class="scenario">${q.scenario}</div>
+                    <div class="options">
+                        ${q.options.map((opt, i) => `<div class="option" onclick="selectOption(${i})" id="opt${i}">${opt}</div>`).join('')}
+                    </div>
+                    <div class="feedback" id="feedback" data-correct="${correctT}" data-incorrect="${incorrectT}"></div>
+                    <button class="btn" onclick="checkAnswer()" id="checkBtn" disabled>Verificar respuesta</button>
+                </div>
+            `;
+            updateProgress();
+        }
+
+        function selectOption(i) {
+            document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+            document.getElementById(`opt${i}`).classList.add('selected');
+            window.selected = i; document.getElementById('checkBtn').disabled = false;
+        }
+
+        function checkAnswer() {
+            const q = questions[currentQuestion]; const f = document.getElementById('feedback');
+            const opts = document.querySelectorAll('.option');
+            document.getElementById('checkBtn').style.display = 'none';
+            if (window.selected === q.correct) {
+                correctAnswers++; f.className = 'feedback correct'; f.innerHTML = f.dataset.correct;
+                opts[window.selected].classList.add('correct');
+            } else {
+                f.className = 'feedback incorrect'; f.innerHTML = f.dataset.incorrect;
+                opts[window.selected].classList.add('incorrect'); opts[q.correct].classList.add('correct');
+            }
+            f.style.display = 'block'; document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++; renderQuestion(); document.getElementById('nextBtn').disabled = true;
+            } else { showFinal(); }
+        }
+
+        function updateProgress() {
+            const p = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = p + '%';
+            document.getElementById('score').textContent = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
+        }
+
+        function showFinal() {
+            document.getElementById('content').innerHTML = `
+                <div class="final-score">
+                    <h2>¡Excelente, ${userData.nombre}!</h2>
+                    <p>Completaste el módulo de Nuevos Roles e Identidades.</p>
+                    <p style="font-size: 1.5em; margin: 20px 0;">Puntaje: ${correctAnswers} / ${questions.length}</p>
+                    <button class="btn" onclick="location.reload()">Jugar de nuevo</button>
+                </div>
+            `;
+            document.querySelector('.navigation').style.display = 'none';
+            enviarDatos();
+        }
+
+        function enviarDatos() {
+            const payload = {
+                actividad: "Nuevos roles e identidades",
+                fecha: new Date().toLocaleString(),
+                nombre: userData.nombre, apellido: userData.apellido,
+                puntaje: correctAnswers + "/" + questions.length
+            };
+            fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+        }
+    </script>
+</body>
+</html>
