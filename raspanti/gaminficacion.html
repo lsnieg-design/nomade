@@ -1,91 +1,219 @@
-<div id="game-container">
+<style>
+  /* Contenedor Principal */
+  #escape-room-wrapper {
+    min-height: 500px;
+    background: linear-gradient(135deg, #1a0611 0%, #2c0b1e 100%);
+    color: #fdf2e9;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    margin: 20px auto;
+  }
+
+  /* Pantallas */
+  .screen {
+    display: none;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .screen.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Estética de Misiones */
+  .mission-badge {
+    background: #ffd700;
+    color: #5a0c33;
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 12px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  h1 { color: #ffd700; font-weight: 800; }
+  
+  .options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 25px;
+  }
+
+  /* Botones Estilizados */
+  button.btn-game {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 219, 173, 0.3);
+    color: #fdf2e9;
+    padding: 15px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    text-align: left;
+  }
+
+  button.btn-game:hover {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: #ffd700;
+    transform: scale(1.02);
+  }
+
+  button.btn-start {
+    background: #ffd700;
+    color: #5a0c33;
+    padding: 15px 40px;
+    font-weight: 800;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  /* Feedback */
+  .feedback {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    display: none;
+    font-weight: bold;
+  }
+
+  .feedback.success { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
+  .feedback.error { background: rgba(231, 76, 60, 0.2); color: #e74c3c; border: 1px solid #e74c3c; }
+
+  /* Inventario de Gemas */
+  .inventory {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+  }
+
+  .gem {
+    font-size: 30px;
+    opacity: 0.2;
+    filter: grayscale(1);
+    transition: all 0.5s ease;
+  }
+
+  .gem.unlocked {
+    opacity: 1;
+    filter: grayscale(0);
+    text-shadow: 0 0 15px #00d4ff;
+  }
+</style>
+
+<div id="escape-room-wrapper">
+  
+  <!-- INTRO -->
   <div id="intro" class="screen active">
     <h1>Sala de Escape: El Tridente</h1>
-    <p>El desinterés ha lanzado un hechizo sobre el Instituto. Las aulas están
-      selladas por el "Bucle del Aburrimiento". Solo quienes dominen la
-      <strong>Gamificación</strong> podrán abrir las puertas.</p>
-    <button style="text-align: center; margin-top: 20px;">INICIAR
-      MISIÓN</button>
+    <p style="font-size: 18px; max-width: 600px; margin: 0 auto;">El desinterés ha lanzado un hechizo sobre el Instituto. Las aulas están selladas por el <strong>"Bucle del Aburrimiento"</strong>. Solo quienes dominen la Gamificación podrán abrir las puertas.</p>
+    <button class="btn-start" onclick="nextScreen('mision1')">Iniciar Misión</button>
   </div>
+
+  <!-- MISIÓN 1 -->
   <div id="mision1" class="screen">
-    <div class="mission-badge">MISIÓN 1: EL TRIDENTE DE KAPP</div>
-    <p>Karl Kapp define la gamificación como el uso de mecánicas, estética y
-      pensamiento de juego. <br><strong>¿Cuál es el orden correcto de los
-        niveles de un sistema gamificado (de mayor a menor
-        abstracción)?</strong></p>
-    <div class="options-container"><button>A) Componentes ➔ Dinámicas ➔
-        Mecánicas.</button> <button>B) Dinámicas ➔ Mecánicas ➔ Componentes.
-      </button> <button>C) Mecánicas ➔ Componentes ➔ Dinámicas.</button></div>
+    <div class="mission-badge">Misión 1: El Tridente de Kapp</div>
+    <p style="font-size: 18px;">Karl Kapp define la gamificación como el uso de mecánicas, estética y pensamiento de juego. <br><strong>¿Cuál es el orden correcto de los niveles (de mayor a menor abstracción)?</strong></p>
+    <div class="options-container">
+      <button class="btn-game" onclick="checkAnswer(1, 'A')">A) Componentes ➔ Dinámicas ➔ Mecánicas.</button>
+      <button class="btn-game" onclick="checkAnswer(1, 'B')">B) Dinámicas ➔ Mecánicas ➔ Componentes.</button>
+      <button class="btn-game" onclick="checkAnswer(1, 'C')">C) Mecánicas ➔ Componentes ➔ Dinámicas.</button>
+    </div>
     <div id="fb1" class="feedback"></div>
   </div>
+
+  <!-- MISIÓN 2 -->
   <div id="mision2" class="screen">
-    <div class="mission-badge">MISIÓN 2: EL ENIGMA DE LOS ARQUETIPOS</div>
-    <p>Para que la gamificación sea inclusiva, debemos conocer a nuestros
-      estudiantes. <br><strong>¿Qué componente asignarías a un jugador tipo
-        "Explorador" que busca curiosidad y autonomía?</strong></p>
-    <div class="options-container"><button>A) Barras de progreso y tablas de
-        clasificación.</button> <button>B) Chat de equipo y misiones
-        cooperativas.</button> <button>C) Mapas ocultos, contenido desbloqueable
-        y 'Easter eggs'. </button></div>
+    <div class="mission-badge">Misión 2: El Enigma de los Arquetipos</div>
+    <p style="font-size: 18px;">Para que la gamificación sea inclusiva, debemos conocer a nuestros estudiantes. <br><strong>¿Qué componente asignarías a un jugador tipo "Explorador" que busca curiosidad y autonomía?</strong></p>
+    <div class="options-container">
+      <button class="btn-game" onclick="checkAnswer(2, 'A')">A) Barras de progreso y tablas de clasificación.</button>
+      <button class="btn-game" onclick="checkAnswer(2, 'B')">B) Chat de equipo y misiones cooperativas.</button>
+      <button class="btn-game" onclick="checkAnswer(2, 'C')">C) Mapas ocultos, contenido desbloqueable y 'Easter eggs'.</button>
+    </div>
     <div id="fb2" class="feedback"></div>
   </div>
+
+  <!-- MISIÓN 3 -->
   <div id="mision3" class="screen">
-    <div class="mission-badge">MISIÓN 3: ENSEÑANZA PODEROSA</div>
-    <p>Según Mariana Maggio, la tecnología debe potenciar una formación
-      humanizadora. <br><strong>¿Qué diseño refleja mejor una "Enseñanza
-        Poderosa" en Ciencias Sagradas?</strong></p>
-    <div class="options-container"><button>A) Duelos individuales de velocidad
-        sobre el catecismo.</button> <button>B) Una trivia múltiple opción al
-        final de cada unidad.</button> <button>C) Una misión cooperativa sobre
-        un problema social real con visibilización en un mapa interactivo.
-      </button></div>
+    <div class="mission-badge">Misión 3: Enseñanza Poderosa</div>
+    <p style="font-size: 18px;">Según Mariana Maggio, la tecnología debe potenciar una formación humanizadora. <br><strong>¿Qué diseño refleja mejor una "Enseñanza Poderosa" en Ciencias Sagradas?</strong></p>
+    <div class="options-container">
+      <button class="btn-game" onclick="checkAnswer(3, 'A')">A) Duelos individuales de velocidad sobre el catecismo.</button>
+      <button class="btn-game" onclick="checkAnswer(3, 'B')">B) Una trivia múltiple opción al final de cada unidad.</button>
+      <button class="btn-game" onclick="checkAnswer(3, 'C')">C) Una misión cooperativa sobre un problema social real con visibilización en un mapa interactivo.</button>
+    </div>
     <div id="fb3" class="feedback"></div>
   </div>
+
+  <!-- VICTORIA -->
   <div id="win" class="screen">
     <h1 style="font-size: 50px;">🏆 ¡VICTORIA!</h1>
-    <p>Han demostrado que el juego es un lenguaje poderoso para narrar la
-      esperanza y construir conocimiento. <br><strong>El Aula de la Innovación
-        Sagrada está desbloqueada.</strong></p>
-    <button style="text-align: center; margin-top: 20px;">VOLVER A
-      EMPEZAR</button>
+    <p style="font-size: 20px;">Han demostrado que el juego es un lenguaje poderoso para narrar la esperanza y construir conocimiento. <br><strong>El Aula de la Innovación Sagrada está desbloqueada.</strong></p>
+    <button class="btn-start" onclick="location.reload()">Volver a empezar</button>
   </div>
+
+  <!-- INVENTARIO -->
   <div class="inventory">
     <div id="gem1" class="gem">💎</div>
     <div id="gem2" class="gem">💎</div>
     <div id="gem3" class="gem">💎</div>
   </div>
+
 </div>
-<p>
-  <script>
-    function nextScreen(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove(
-        'active'));
-      document.getElementById(id).classList.add('active');
+
+<script>
+  function nextScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function checkAnswer(mision, opcion) {
+    const feedback = document.getElementById('fb' + mision);
+    feedback.style.display = "block";
+
+    let correct = false;
+    if (mision === 1 && opcion === 'B') correct = true;
+    if (mision === 2 && opcion === 'C') correct = true;
+    if (mision === 3 && opcion === 'C') correct = true;
+
+    if (correct) {
+      feedback.className = "feedback success";
+      feedback.innerHTML = "¡CORRECTO! Obteniendo gema...";
+      document.getElementById('gem' + mision).classList.add('unlocked');
+
+      setTimeout(() => {
+        if (mision < 3) {
+          nextScreen('mision' + (mision + 1));
+        } else {
+          nextScreen('win');
+        }
+      }, 2000);
+    } else {
+      feedback.className = "feedback error";
+      feedback.innerHTML = "ERROR. El Bucle se fortalece. Revisa el material de la Clase 10 y vuelve a intentar.";
+      setTimeout(() => {
+        feedback.style.display = "none";
+      }, 3000);
     }
-
-    function checkAnswer(mision, opcion) {
-      const feedback = document.getElementById('fb' + mision);
-      feedback.style.display = "block";
-
-      let correct = false;
-      if (mision === 1 && opcion === 'B') correct = true;
-      if (mision === 2 && opcion === 'C') correct = true;
-      if (mision === 3 && opcion === 'C') correct = true;
-
-      if (correct) {
-        feedback.className = "feedback success";
-        feedback.innerHTML = "¡CORRECTO! Obteniendo gema...";
-        document.getElementById('gem' + mision).classList.add('unlocked');
-
-        setTimeout(() => {
-          if (mision < 3) nextScreen('mision' + (mision + 1));
-          else nextScreen('win');
-        }, 2000);
-      } else {
-        feedback.className = "feedback error";
-        feedback.innerHTML =
-          "ERROR. El Bucle se fortalece. Revisa el material de la Clase 10 y vuelve a intentar.";
-      }
-    }
-  </script>
-</p>
+  }
+</script>
