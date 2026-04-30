@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Trivia: Sujetos con Derechos y Proyectos</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #eee; }
+        h2 { color: #8b0000; text-align: center; margin-bottom: 30px; border-bottom: 2px solid #8b0000; padding-bottom: 10px; }
+        .hidden { display: none; }
+        input[type="text"] { width: 100%; padding: 15px; margin-top: 15px; border-radius: 10px; border: 2px solid #ddd; font-size: 16px; box-sizing: border-box; }
+        button { background-color: #8b0000; color: white; border: none; padding: 15px 25px; border-radius: 10px; cursor: pointer; font-size: 16px; margin-top: 25px; width: 100%; transition: 0.3s; }
+        button:hover { background-color: #5a0000; }
+        .option-btn { background-color: #f1f1f1; color: #444; text-align: left; margin-bottom: 15px; border: 1px solid #ddd; padding: 15px; width: 100%; border-radius: 10px; font-size: 15px; }
+        .option-btn:hover { background-color: #e9e9e9; border-color: #ccc; }
+        .feedback { margin-top: 25px; padding: 20px; border-radius: 12px; font-style: italic; border-left: 5px solid; }
+        .correct { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
+        .thinking { background-color: #fff3cd; color: #856404; border-color: #ffeeba; }
+        #question-count { font-weight: bold; color: #8b0000; margin-bottom: 10px; display: block; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Trivia: Sujetos, Derechos y Proyectos</h2>
+    
+    <div id="start-screen">
+        <p>¡Hola! Para comenzar este recorrido por la materia <b>Sujeto con Discapacidad Intelectual</b>, por favor escribí tu nombre y apellido. Tu participación nos ayuda a construir nuestra comunidad de aprendizaje.</p>
+        <input type="text" id="user-name" placeholder="Escribí aquí tu nombre...">
+        <button onclick="startTrivia()">Comenzar el análisis</button>
+    </div>
+
+    <div id="quiz-screen" class="hidden">
+        <span id="question-count"></span>
+        <p id="question-text" style="font-weight: bold; font-size: 1.2em; margin-bottom: 20px;"></p>
+        <div id="options-container"></div>
+        <div id="feedback-area" class="hidden"></div>
+        <button id="next-btn" class="hidden" onclick="loadQuestion()">Siguiente escenario</button>
+    </div>
+
+    <div id="result-screen" class="hidden">
+        <h3>¡Recorrido finalizado!</h3>
+        <p id="final-msg"></p>
+        <p>Gracias por animarte a mirar más allá del diagnóstico y pensar en el <b>Sujeto de Derechos</b>. Sacá una captura de esta pantalla para registrar tu participación.</p>
+        <button onclick="location.reload()">Volver a intentar</button>
+    </div>
+</div>
+
+<script>
+    let userName = "";
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const questions = [
+        {
+            scene: "Un joven con DI quiere ir solo al club, pero su familia no lo deja 'por seguridad', aunque el club queda a dos cuadras. ¿Qué principio del Modelo Social se está poniendo en juego?",
+            options: ["A) La protección familiar necesaria.", "B) La autonomía individual y el derecho a correr riesgos.", "C) La deficiencia intelectual del joven."],
+            correct: "B",
+            feedbackCorrect: "¡Exacto! El Modelo Social pone el foco en la autonomía. ¿Cómo va a aprender a manejarse si no le permitimos la experiencia? La sobreprotección suele ser una barrera actitudinal invisible.",
+            feedbackWrong: "Sigamos pensando... ¿Estamos viendo sus capacidades o solo sus límites? Si centramos todo en la seguridad, ¿en qué lugar queda su derecho a crecer y elegir?"
+        },
+        {
+            scene: "En una escuela especial, se decide que todos los estudiantes del grupo de DI deben hacer el taller de carpintería porque 'les sale bien el trabajo manual'. Esto contradice la:",
+            options: ["A) Planificación Centrada en la Persona (PCP).", "B) Estructura escolar vigente.", "C) Evaluación diagnóstica inicial."],
+            correct: "A",
+            feedbackCorrect: "¡Muy bien! La PCP nos obliga a mirar los sueños y deseos de CADA sujeto. Generalizar por diagnóstico es borrar la identidad del estudiante. ¿Y si alguien quería hacer teatro?",
+            feedbackWrong: "Sigamos pensando... ¿La oferta educativa debe basarse en el diagnóstico o en los intereses individuales del sujeto? ¿Qué pasa con su voz en esta decisión?"
+        },
+        {
+            scene: "Al leer un informe que dice: 'El paciente presenta un retraso mental leve con dificultades en el área lingüística', ¿desde qué perspectiva se está mirando al sujeto?",
+            options: ["A) Modelo Social.", "B) Modelo Médico-Rehabilitador.", "C) Modelo de Prescindencia."],
+            correct: "B",
+            feedbackCorrect: "Correcto. El foco está puesto en el déficit, en la 'falta' y en la mirada clínica del paciente. ¿Podemos encontrar al SUJETO detrás de tantos términos médicos?",
+            feedbackWrong: "Sigamos pensando... Esta terminología pone el problema 'dentro' de la persona. ¿Menciona acaso las barreras que el entorno le pone para comunicarse?"
+        },
+        {
+            scene: "Para una persona adulta con DI que busca empleo, se propone un 'Empleo con Apoyo'. Esto es:",
+            options: ["A) Una forma de caridad.", "B) Un sistema de apoyos para garantizar la inclusión laboral real.", "C) Una tarea que debe hacer solo la familia."],
+            correct: "B",
+            feedbackCorrect: "¡Excelente! Los apoyos son puentes que permiten el ejercicio de derechos en igualdad de condiciones. No es ayuda por lástima, es un ajuste razonable para la autonomía.",
+            feedbackWrong: "Sigamos pensando... ¿Por qué creemos que el apoyo resta mérito? Al contrario, permite que el sujeto demuestre su competencia en un entorno real."
+        },
+        {
+            scene: "Un docente utiliza 'Lectura Fácil' para adaptar un texto sobre Historia para un estudiante con DI. ¿Qué está eliminando?",
+            options: ["A) Contenido importante.", "B) Barreras comunicacionales y cognitivas.", "C) La exigencia académica."],
+            correct: "B",
+            feedbackCorrect: "¡Así es! La Lectura Fácil no es 'infantilizar', es democratizar el acceso a la información. El derecho es entender, no solo leer.",
+            feedbackWrong: "Sigamos pensando... Adaptar no es bajar el nivel, es hacer accesible la complejidad. ¿Cómo te sentís cuando leés un manual de instrucciones que no se entiende?"
+        },
+        {
+            scene: "Vemos la película 'Campeones' y notamos que los protagonistas toman sus propias decisiones sobre su equipo. Estamos ante una mirada de:",
+            options: ["A) Autodeterminación.", "B) Entretenimiento.", "C) Rehabilitación."],
+            correct: "A",
+            feedbackCorrect: "¡Exacto! Ser protagonista de la propia vida es la base de la autodeterminación. Se los mira como adultos con deseos propios.",
+            feedbackWrong: "Sigamos pensando... ¿Quién tiene el silbato en la vida de ellos? Si ellos deciden sobre su propio camino, ¿qué concepto estamos respetando?"
+        },
+        {
+            scene: "Un informe escolar destaca las fortalezas y redes de apoyo de una estudiante en lugar de solo listar sus fracasos. Esto es propio de:",
+            options: ["A) Un diagnóstico médico.", "B) Un enfoque basado en derechos y potencialidades.", "C) Un descuido profesional."],
+            correct: "B",
+            feedbackCorrect: "¡Totalmente! Mirar lo que abunda y no lo que falta cambia radicalmente nuestra práctica docente. Construimos sobre lo que el estudiante SÍ puede hacer.",
+            feedbackWrong: "Sigamos pensando... Si solo anotamos lo que no puede, ¿cómo vamos a diseñar un proyecto de vida con ella? ¿Qué imagen de sí misma le estamos devolviendo?"
+        },
+        {
+            scene: "Se define a la Discapacidad Intelectual como el resultado de la interacción entre las limitaciones de la persona y las barreras del entorno. Esta es la definición de:",
+            options: ["A) La OMS antigua.", "B) La AAIDD y el Modelo Social.", "C) El sentido común."],
+            correct: "B",
+            feedbackCorrect: "¡Perfecto! Ya no es algo que la persona 'tiene', sino algo que 'sucede' en el encuentro con un entorno que pone barreras. Si cambiamos el entorno, cambia la experiencia de discapacidad.",
+            feedbackWrong: "Sigamos pensando... ¿La discapacidad es una característica fija o depende de si hay apoyos y accesibilidad en el lugar?"
+        }
+    ];
+
+    function startTrivia() {
+        userName = document.getElementById('user-name').value;
+        if (userName.trim() === "") {
+            alert("Por favor, poné tu nombre para empezar el análisis.");
+            return;
+        }
+        document.getElementById('start-screen').classList.add('hidden');
+        document.getElementById('quiz-screen').classList.remove('hidden');
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        if (currentQuestionIndex >= questions.length) {
+            showResults();
+            return;
+        }
+        
+        const q = questions[currentQuestionIndex];
+        document.getElementById('question-count').innerText = `Escenario ${currentQuestionIndex + 1} de ${questions.length}`;
+        document.getElementById('question-text').innerText = q.scene;
+        
+        const container = document.getElementById('options-container');
+        container.innerHTML = "";
+        
+        q.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.innerText = opt;
+            btn.className = "option-btn";
+            btn.onclick = () => checkAnswer(String.fromCharCode(65 + index));
+            container.appendChild(btn);
+        });
+
+        document.getElementById('feedback-area').classList.add('hidden');
+        document.getElementById('next-btn').classList.add('hidden');
+    }
+
+    function checkAnswer(selected) {
+        const q = questions[currentQuestionIndex];
+        const feedbackArea = document.getElementById('feedback-area');
+        feedbackArea.classList.remove('hidden');
+        
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach(b => b.disabled = true);
+
+        if (selected === q.correct) {
+            score++;
+            feedbackArea.className = "feedback correct";
+            feedbackArea.innerText = q.feedbackCorrect;
+        } else {
+            feedbackArea.className = "feedback thinking";
+            feedbackArea.innerText = q.feedbackWrong + ` (Tip: La opción más cercana era la ${q.correct})`;
+        }
+        
+        document.getElementById('next-btn').classList.remove('hidden');
+        currentQuestionIndex++;
+    }
+
+    function showResults() {
+        document.getElementById('quiz-screen').classList.add('hidden');
+        const resultScreen = document.getElementById('result-screen');
+        resultScreen.classList.remove('hidden');
+        let finalStatus = score >= 6 ? "¡Excelente sintonía con el Modelo Social!" : "Buen intento, sigamos profundizando la mirada.";
+        document.getElementById('final-msg').innerHTML = `<b>${userName}</b>, analizaste los 8 escenarios de la cursada.<br>Tu puntaje: ${score} de ${questions.length}.<br><b>${finalStatus}</b>`;
+    }
+</script>
+
+</body>
+</html>
