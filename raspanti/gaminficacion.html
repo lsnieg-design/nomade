@@ -1,0 +1,91 @@
+<div id="game-container">
+  <div id="intro" class="screen active">
+    <h1>Sala de Escape: El Tridente</h1>
+    <p>El desinterés ha lanzado un hechizo sobre el Instituto. Las aulas están
+      selladas por el "Bucle del Aburrimiento". Solo quienes dominen la
+      <strong>Gamificación</strong> podrán abrir las puertas.</p>
+    <button style="text-align: center; margin-top: 20px;">INICIAR
+      MISIÓN</button>
+  </div>
+  <div id="mision1" class="screen">
+    <div class="mission-badge">MISIÓN 1: EL TRIDENTE DE KAPP</div>
+    <p>Karl Kapp define la gamificación como el uso de mecánicas, estética y
+      pensamiento de juego. <br><strong>¿Cuál es el orden correcto de los
+        niveles de un sistema gamificado (de mayor a menor
+        abstracción)?</strong></p>
+    <div class="options-container"><button>A) Componentes ➔ Dinámicas ➔
+        Mecánicas.</button> <button>B) Dinámicas ➔ Mecánicas ➔ Componentes.
+      </button> <button>C) Mecánicas ➔ Componentes ➔ Dinámicas.</button></div>
+    <div id="fb1" class="feedback"></div>
+  </div>
+  <div id="mision2" class="screen">
+    <div class="mission-badge">MISIÓN 2: EL ENIGMA DE LOS ARQUETIPOS</div>
+    <p>Para que la gamificación sea inclusiva, debemos conocer a nuestros
+      estudiantes. <br><strong>¿Qué componente asignarías a un jugador tipo
+        "Explorador" que busca curiosidad y autonomía?</strong></p>
+    <div class="options-container"><button>A) Barras de progreso y tablas de
+        clasificación.</button> <button>B) Chat de equipo y misiones
+        cooperativas.</button> <button>C) Mapas ocultos, contenido desbloqueable
+        y 'Easter eggs'. </button></div>
+    <div id="fb2" class="feedback"></div>
+  </div>
+  <div id="mision3" class="screen">
+    <div class="mission-badge">MISIÓN 3: ENSEÑANZA PODEROSA</div>
+    <p>Según Mariana Maggio, la tecnología debe potenciar una formación
+      humanizadora. <br><strong>¿Qué diseño refleja mejor una "Enseñanza
+        Poderosa" en Ciencias Sagradas?</strong></p>
+    <div class="options-container"><button>A) Duelos individuales de velocidad
+        sobre el catecismo.</button> <button>B) Una trivia múltiple opción al
+        final de cada unidad.</button> <button>C) Una misión cooperativa sobre
+        un problema social real con visibilización en un mapa interactivo.
+      </button></div>
+    <div id="fb3" class="feedback"></div>
+  </div>
+  <div id="win" class="screen">
+    <h1 style="font-size: 50px;">🏆 ¡VICTORIA!</h1>
+    <p>Han demostrado que el juego es un lenguaje poderoso para narrar la
+      esperanza y construir conocimiento. <br><strong>El Aula de la Innovación
+        Sagrada está desbloqueada.</strong></p>
+    <button style="text-align: center; margin-top: 20px;">VOLVER A
+      EMPEZAR</button>
+  </div>
+  <div class="inventory">
+    <div id="gem1" class="gem">💎</div>
+    <div id="gem2" class="gem">💎</div>
+    <div id="gem3" class="gem">💎</div>
+  </div>
+</div>
+<p>
+  <script>
+    function nextScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove(
+        'active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function checkAnswer(mision, opcion) {
+      const feedback = document.getElementById('fb' + mision);
+      feedback.style.display = "block";
+
+      let correct = false;
+      if (mision === 1 && opcion === 'B') correct = true;
+      if (mision === 2 && opcion === 'C') correct = true;
+      if (mision === 3 && opcion === 'C') correct = true;
+
+      if (correct) {
+        feedback.className = "feedback success";
+        feedback.innerHTML = "¡CORRECTO! Obteniendo gema...";
+        document.getElementById('gem' + mision).classList.add('unlocked');
+
+        setTimeout(() => {
+          if (mision < 3) nextScreen('mision' + (mision + 1));
+          else nextScreen('win');
+        }, 2000);
+      } else {
+        feedback.className = "feedback error";
+        feedback.innerHTML =
+          "ERROR. El Bucle se fortalece. Revisa el material de la Clase 10 y vuelve a intentar.";
+      }
+    }
+  </script>
+</p>
