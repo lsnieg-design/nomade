@@ -2,120 +2,129 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Trivia: Sujetos con Derechos y Proyectos</title>
+    <title>Trivia: Desafiando las Barreras</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; color: #333; line-height: 1.6; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid #eee; }
-        h2 { color: #8b0000; text-align: center; margin-bottom: 30px; border-bottom: 2px solid #8b0000; padding-bottom: 10px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 35px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-top: 6px solid #800000; }
+        h2 { color: #800000; text-align: center; margin-top: 0; }
+        .intro { background: #fdf2f2; padding: 15px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #f5c6cb; }
         .hidden { display: none; }
-        input[type="text"] { width: 100%; padding: 15px; margin-top: 15px; border-radius: 10px; border: 2px solid #ddd; font-size: 16px; box-sizing: border-box; }
-        button { background-color: #8b0000; color: white; border: none; padding: 15px 25px; border-radius: 10px; cursor: pointer; font-size: 16px; margin-top: 25px; width: 100%; transition: 0.3s; }
-        button:hover { background-color: #5a0000; }
-        .option-btn { background-color: #f1f1f1; color: #444; text-align: left; margin-bottom: 15px; border: 1px solid #ddd; padding: 15px; width: 100%; border-radius: 10px; font-size: 15px; }
-        .option-btn:hover { background-color: #e9e9e9; border-color: #ccc; }
-        .feedback { margin-top: 25px; padding: 20px; border-radius: 12px; font-style: italic; border-left: 5px solid; }
-        .correct { background-color: #d4edda; color: #155724; border-color: #c3e6cb; }
-        .thinking { background-color: #fff3cd; color: #856404; border-color: #ffeeba; }
-        #question-count { font-weight: bold; color: #8b0000; margin-bottom: 10px; display: block; }
+        button { background-color: #800000; color: white; border: none; padding: 14px 20px; border-radius: 8px; cursor: pointer; font-size: 16px; margin-top: 15px; width: 100%; transition: 0.2s; }
+        button:hover { background-color: #a00000; }
+        .option-btn { background-color: #fff; color: #333; text-align: left; margin-bottom: 12px; border: 2px solid #eee; transition: 0.2s; }
+        .option-btn:hover { border-color: #800000; background-color: #f9f9f9; }
+        .feedback { margin-top: 20px; padding: 18px; border-radius: 8px; font-weight: 500; }
+        .correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .thinking { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
+        #question-count { font-size: 0.85em; color: #888; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Trivia: Sujetos, Derechos y Proyectos</h2>
+    <h2>Trivia: ¿Puentes o Muros?</h2>
     
     <div id="start-screen">
-        <p>¡Hola! Para comenzar este recorrido por la materia <b>Sujeto con Discapacidad Intelectual</b>, por favor escribí tu nombre y apellido. Tu participación nos ayuda a construir nuestra comunidad de aprendizaje.</p>
-        <input type="text" id="user-name" placeholder="Escribí aquí tu nombre...">
+        <div class="intro">
+            <strong>Analicemos situaciones:</strong> Te invitamos a recorrer diferentes escenarios cotidianos para detectar qué tipo de barreras persisten en nuestra sociedad. El objetivo no es solo acertar, sino reflexionar sobre cómo nuestras acciones y diseños construyen inclusión o exclusión.
+        </div>
         <button onclick="startTrivia()">Comenzar el análisis</button>
     </div>
 
     <div id="quiz-screen" class="hidden">
-        <span id="question-count"></span>
-        <p id="question-text" style="font-weight: bold; font-size: 1.2em; margin-bottom: 20px;"></p>
+        <div id="question-count"></div>
+        <p id="question-text" style="font-weight: 600; font-size: 1.15em; margin-bottom: 20px;"></p>
         <div id="options-container"></div>
         <div id="feedback-area" class="hidden"></div>
-        <button id="next-btn" class="hidden" onclick="loadQuestion()">Siguiente escenario</button>
+        <button id="next-btn" class="hidden" onclick="loadQuestion()">Siguiente situación</button>
     </div>
 
     <div id="result-screen" class="hidden">
-        <h3>¡Recorrido finalizado!</h3>
+        <h3>¡Análisis completado!</h3>
         <p id="final-msg"></p>
-        <p>Gracias por animarte a mirar más allá del diagnóstico y pensar en el <b>Sujeto de Derechos</b>. Sacá una captura de esta pantalla para registrar tu participación.</p>
-        <button onclick="location.reload()">Volver a intentar</button>
+        <p>Recordá que identificar la barrera es el primer paso para construir el puente. ¡Gracias por participar!</p>
+        <button onclick="location.reload()">Reiniciar trivia</button>
     </div>
 </div>
 
 <script>
-    let userName = "";
     let currentQuestionIndex = 0;
     let score = 0;
 
     const questions = [
         {
-            scene: "Un joven con DI quiere ir solo al club, pero su familia no lo deja 'por seguridad', aunque el club queda a dos cuadras. ¿Qué principio del Modelo Social se está poniendo en juego?",
-            options: ["A) La protección familiar necesaria.", "B) La autonomía individual y el derecho a correr riesgos.", "C) La deficiencia intelectual del joven."],
+            scene: "En una oficina de atención al público, el mostrador es tan alto que una persona usuaria de silla de ruedas no puede ver a quien la atiende ni firmar con comodidad. ¿Qué tipo de barrera es esta?",
+            options: ["A) Barrera comunicacional.", "B) Barrera física/arquitectónica.", "C) Barrera actitudinal."],
             correct: "B",
-            feedbackCorrect: "¡Exacto! El Modelo Social pone el foco en la autonomía. ¿Cómo va a aprender a manejarse si no le permitimos la experiencia? La sobreprotección suele ser una barrera actitudinal invisible.",
-            feedbackWrong: "Sigamos pensando... ¿Estamos viendo sus capacidades o solo sus límites? Si centramos todo en la seguridad, ¿en qué lugar queda su derecho a crecer y elegir?"
+            feedback: "¡Exacto! Es un obstáculo estructural que impide el uso autónomo del espacio. ¿Cómo te sentirías si tuvieras que hablarle a una pared de madera a la altura de tus ojos?",
+            wrongText: "Sigamos pensando... Aunque la comunicación se ve afectada y hay un prejuicio de diseño, el origen es físico. ¿De qué manera un diseño que solo piensa en 'personas de pie' excluye a una parte de la ciudadanía?"
         },
         {
-            scene: "En una escuela especial, se decide que todos los estudiantes del grupo de DI deben hacer el taller de carpintería porque 'les sale bien el trabajo manual'. Esto contradice la:",
-            options: ["A) Planificación Centrada en la Persona (PCP).", "B) Estructura escolar vigente.", "C) Evaluación diagnóstica inicial."],
+            scene: "Un docente explica un concepto complejo mirando siempre al pizarrón mientras escribe, impidiendo que un estudiante con hipoacusia vea su rostro. ¿Qué barrera predomina?",
+            options: ["A) Barrera de la comunicación.", "B) Barrera física.", "C) Barrera cognitiva."],
             correct: "A",
-            feedbackCorrect: "¡Muy bien! La PCP nos obliga a mirar los sueños y deseos de CADA sujeto. Generalizar por diagnóstico es borrar la identidad del estudiante. ¿Y si alguien quería hacer teatro?",
-            feedbackWrong: "Sigamos pensando... ¿La oferta educativa debe basarse en el diagnóstico o en los intereses individuales del sujeto? ¿Qué pasa con su voz en esta decisión?"
+            feedback: "¡Bien visto! La comunicación interpersonal se corta porque no se usan apoyos visuales ni se facilita la lectura labial. Si la información es un derecho, ¿qué responsabilidad tiene el emisor en asegurar que llegue al receptor?",
+            wrongText: "Sigamos pensando... El espacio físico es el mismo, pero lo que falla es la modalidad del diálogo. ¿Es el estudiante quien 'no escucha' o el docente quien 'no comunica' de forma accesible?"
         },
         {
-            scene: "Al leer un informe que dice: 'El paciente presenta un retraso mental leve con dificultades en el área lingüística', ¿desde qué perspectiva se está mirando al sujeto?",
-            options: ["A) Modelo Social.", "B) Modelo Médico-Rehabilitador.", "C) Modelo de Prescindencia."],
+            scene: "Una persona ciega entra a un restaurante y el mozo le pregunta al acompañante: '¿Qué va a comer él?'. ¿Qué tipo de situación es esta?",
+            options: ["A) Una barrera física.", "B) Una medida de apoyo.", "C) Una barrera actitudinal."],
+            correct: "C",
+            feedback: "Así es. Aquí opera la infantilización y el prejuicio de que la persona no es autónoma. Si te ignoraran en una conversación sobre tus propios gustos, ¿sentirías que te están respetando como adulto?",
+            wrongText: "Sigamos pensando... ¡Cuidado! El apoyo debe fomentar la autonomía, no reemplazar la voz de la persona. ¿Cómo podrías ofrecer ayuda sin invadir la voluntad del otro?"
+        },
+        {
+            scene: "Una página web de noticias tiene un video importante pero no incluye subtítulos ni ventana de Intérprete de Lengua de Señas (ILSA). ¿Qué falta aquí?",
+            options: ["A) Accesibilidad arquitectónica.", "B) Accesibilidad comunicacional.", "C) Ajustes razonables."],
             correct: "B",
-            feedbackCorrect: "Correcto. El foco está puesto en el déficit, en la 'falta' y en la mirada clínica del paciente. ¿Podemos encontrar al SUJETO detrás de tantos términos médicos?",
-            feedbackWrong: "Sigamos pensando... Esta terminología pone el problema 'dentro' de la persona. ¿Menciona acaso las barreras que el entorno le pone para comunicarse?"
+            feedback: "¡Correcto! Se necesitan estrategias que permitan el acceso a la información visual y auditiva. ¿Es realmente 'público' un mensaje que solo algunos pueden descodificar?",
+            wrongText: "Sigamos pensando... Los ajustes suelen ser para casos individuales; aquí hablamos de una falta de Diseño Universal en un medio masivo. ¿Por qué crees que aún hoy se producen videos que 'olvidan' a la comunidad sorda?"
         },
         {
-            scene: "Para una persona adulta con DI que busca empleo, se propone un 'Empleo con Apoyo'. Esto es:",
-            options: ["A) Una forma de caridad.", "B) Un sistema de apoyos para garantizar la inclusión laboral real.", "C) Una tarea que debe hacer solo la familia."],
-            correct: "B",
-            feedbackCorrect: "¡Excelente! Los apoyos son puentes que permiten el ejercicio de derechos en igualdad de condiciones. No es ayuda por lástima, es un ajuste razonable para la autonomía.",
-            feedbackWrong: "Sigamos pensando... ¿Por qué creemos que el apoyo resta mérito? Al contrario, permite que el sujeto demuestre su competencia en un entorno real."
-        },
-        {
-            scene: "Un docente utiliza 'Lectura Fácil' para adaptar un texto sobre Historia para un estudiante con DI. ¿Qué está eliminando?",
-            options: ["A) Contenido importante.", "B) Barreras comunicacionales y cognitivas.", "C) La exigencia académica."],
-            correct: "B",
-            feedbackCorrect: "¡Así es! La Lectura Fácil no es 'infantilizar', es democratizar el acceso a la información. El derecho es entender, no solo leer.",
-            feedbackWrong: "Sigamos pensando... Adaptar no es bajar el nivel, es hacer accesible la complejidad. ¿Cómo te sentís cuando leés un manual de instrucciones que no se entiende?"
-        },
-        {
-            scene: "Vemos la película 'Campeones' y notamos que los protagonistas toman sus propias decisiones sobre su equipo. Estamos ante una mirada de:",
-            options: ["A) Autodeterminación.", "B) Entretenimiento.", "C) Rehabilitación."],
+            scene: "Para que un estudiante con discapacidad intelectual comprenda las reglas de un juego, el profesor utiliza frases cortas, pictogramas y evita el sarcasmo. ¿Qué está promoviendo?",
+            options: ["A) Accesibilidad cognitiva.", "B) Accesibilidad física.", "C) Barrera metodológica."],
             correct: "A",
-            feedbackCorrect: "¡Exacto! Ser protagonista de la propia vida es la base de la autodeterminación. Se los mira como adultos con deseos propios.",
-            feedbackWrong: "Sigamos pensando... ¿Quién tiene el silbato en la vida de ellos? Si ellos deciden sobre su propio camino, ¿qué concepto estamos respetando?"
+            feedback: "¡Exacto! Está haciendo que el contenido sea comprensible y practicable. ¿Notaste cómo el lenguaje claro beneficia a todos los estudiantes y no solo a uno?",
+            wrongText: "Sigamos pensando... ¡Al contrario! Esto es lo opuesto a una barrera; es un puente hacia el entendimiento. ¿Qué otras cosas en tu vida cotidiana te resultan difíciles de entender por falta de claridad?"
         },
         {
-            scene: "Un informe escolar destaca las fortalezas y redes de apoyo de una estudiante en lugar de solo listar sus fracasos. Esto es propio de:",
-            options: ["A) Un diagnóstico médico.", "B) Un enfoque basado en derechos y potencialidades.", "C) Un descuido profesional."],
+            scene: "Un hospital decide instalar cartelería con tipografía ampliada y marcas en el relieve del piso (podotáctiles) para orientar a personas con baja visión. ¿Qué dimensión de la accesibilidad se aplica?",
+            options: ["A) Accesibilidad actitudinal.", "B) Accesibilidad arquitectónica y física.", "C) Accesibilidad metodológica."],
             correct: "B",
-            feedbackCorrect: "¡Totalmente! Mirar lo que abunda y no lo que falta cambia radicalmente nuestra práctica docente. Construimos sobre lo que el estudiante SÍ puede hacer.",
-            feedbackWrong: "Sigamos pensando... Si solo anotamos lo que no puede, ¿cómo vamos a diseñar un proyecto de vida con ella? ¿Qué imagen de sí misma le estamos devolviendo?"
+            feedback: "Muy bien. Son señales en el entorno físico que guían el desplazamiento autónomo. ¿Sabías que estas marcas también ayudan a personas distraídas o con visión cansada?",
+            wrongText: "Sigamos pensando... Aunque mejora el vínculo, la intervención es sobre el espacio físico. ¿Cómo cambia la seguridad de una persona cuando el entorno le 'habla' a través del tacto?"
         },
         {
-            scene: "Se define a la Discapacidad Intelectual como el resultado de la interacción entre las limitaciones de la persona y las barreras del entorno. Esta es la definición de:",
-            options: ["A) La OMS antigua.", "B) La AAIDD y el Modelo Social.", "C) El sentido común."],
+            scene: "Un empleador no le asigna tareas importantes a una empleada con discapacidad porque cree que 'se va a estresar demasiado' o 'lo va a hacer mal'. ¿Cómo se define esto?",
+            options: ["A) Discriminación directa (barrera actitudinal).", "B) Ajuste razonable negativo.", "C) Accesibilidad metodológica."],
+            correct: "A",
+            feedback: "Tristemente correcto. Es una práctica de trato inferior basada en el prejuicio. Si no le damos la oportunidad de intentar, ¿estamos juzgando su capacidad o nuestro propio miedo?",
+            wrongText: "Sigamos pensando... Esto no es un ajuste ni accesibilidad; es una restricción de derechos. ¿Qué pasaría si evaluáramos a las personas por sus resultados y no por sus diagnósticos?"
+        },
+        {
+            scene: "En una charla virtual, el orador comparte una imagen pero se toma el tiempo de describir verbalmente todo lo que se ve para quienes no pueden ver la pantalla. Esto es:",
+            options: ["A) Un ajuste razonable.", "B) Una medida de accesibilidad comunicacional.", "C) Una barrera de acceso."],
             correct: "B",
-            feedbackCorrect: "¡Perfecto! Ya no es algo que la persona 'tiene', sino algo que 'sucede' en el encuentro con un entorno que pone barreras. Si cambiamos el entorno, cambia la experiencia de discapacidad.",
-            feedbackWrong: "Sigamos pensando... ¿La discapacidad es una característica fija o depende de si hay apoyos y accesibilidad en el lugar?"
+            feedback: "¡Excelente! La descripción verbal es una estrategia clave para el acceso a la información visual. ¿Te diste cuenta de que esta descripción también ayuda a quienes están escuchando la charla mientras hacen otra tarea?",
+            wrongText: "Sigamos pensando... Podría serlo, pero si lo hace de entrada para todos, es más bien un principio de Diseño Universal. ¿Cómo se transforma una imagen en conocimiento cuando le ponemos palabras?"
+        },
+        {
+            scene: "Un museo tiene una rampa, pero para usarla hay que entrar por la puerta de servicio, pasar por la cocina y subir un montacargas. Según el modelo social, esto:",
+            options: ["A) Es accesible porque la rampa existe.", "B) 'No sirve', porque no garantiza la igualdad de condiciones ni la dignidad.", "C) Es un ajuste razonable exitoso."],
+            correct: "B",
+            feedback: "¡Tal cual! La accesibilidad debe ser segura, cómoda y autónoma. Entrar 'por atrás' ¿es inclusión o es una forma de ocultar la diversidad?",
+            wrongText: "Sigamos pensando... Tener la herramienta no es suficiente si el uso es humillante. ¿Cómo debería ser un ingreso para que todos nos sintamos bienvenidos por la misma puerta?"
+        },
+        {
+            scene: "Antes de ayudar a una persona que parece desorientada, le preguntás: '¿Necesitás ayuda? ¿Cómo puedo orientarte?'. Al recibir un 'no, gracias', seguís tu camino. ¿Qué estás respetando?",
+            options: ["A) La accesibilidad metodológica.", "B) La autonomía individual y la dignidad.", "C) La barrera física."],
+            correct: "B",
+            feedback: "¡Perfecto! Respetar la facultad de elección es un principio general de los Derechos Humanos. ¿Por qué a veces nos cuesta tanto aceptar que alguien no quiere nuestra ayuda?",
+            wrongText: "Sigamos pensando... Esto tiene que ver con el vínculo humano y el reconocimiento del otro como un igual. ¿Qué valor tiene la ayuda que se impone contra la voluntad del otro?"
         }
     ];
 
     function startTrivia() {
-        userName = document.getElementById('user-name').value;
-        if (userName.trim() === "") {
-            alert("Por favor, poné tu nombre para empezar el análisis.");
-            return;
-        }
         document.getElementById('start-screen').classList.add('hidden');
         document.getElementById('quiz-screen').classList.remove('hidden');
         loadQuestion();
@@ -128,7 +137,7 @@
         }
         
         const q = questions[currentQuestionIndex];
-        document.getElementById('question-count').innerText = `Escenario ${currentQuestionIndex + 1} de ${questions.length}`;
+        document.getElementById('question-count').innerText = `Situación ${currentQuestionIndex + 1} de ${questions.length}`;
         document.getElementById('question-text').innerText = q.scene;
         
         const container = document.getElementById('options-container');
@@ -157,10 +166,10 @@
         if (selected === q.correct) {
             score++;
             feedbackArea.className = "feedback correct";
-            feedbackArea.innerText = q.feedbackCorrect;
+            feedbackArea.innerText = q.feedback;
         } else {
             feedbackArea.className = "feedback thinking";
-            feedbackArea.innerText = q.feedbackWrong + ` (Tip: La opción más cercana era la ${q.correct})`;
+            feedbackArea.innerText = q.wrongText;
         }
         
         document.getElementById('next-btn').classList.remove('hidden');
@@ -171,8 +180,7 @@
         document.getElementById('quiz-screen').classList.add('hidden');
         const resultScreen = document.getElementById('result-screen');
         resultScreen.classList.remove('hidden');
-        let finalStatus = score >= 6 ? "¡Excelente sintonía con el Modelo Social!" : "Buen intento, sigamos profundizando la mirada.";
-        document.getElementById('final-msg').innerHTML = `<b>${userName}</b>, analizaste los 8 escenarios de la cursada.<br>Tu puntaje: ${score} de ${questions.length}.<br><b>${finalStatus}</b>`;
+        document.getElementById('final-msg').innerHTML = `Analizaste las 10 situaciones del recorrido.<br>Lograste detectar <b>${score}</b> barreras correctamente.`;
     }
 </script>
 
