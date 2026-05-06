@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Trivia: Evolución de la Clasificación Diagnóstica</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 35px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-top: 6px solid #5a0c33; }
+        h2 { color: #5a0c33; text-align: center; margin-top: 0; }
+        .intro { background: #fdf2e9; padding: 15px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #ffdbad; }
+        .hidden { display: none; }
+        button { background-color: #5a0c33; color: white; border: none; padding: 14px 20px; border-radius: 8px; cursor: pointer; font-size: 16px; margin-top: 15px; width: 100%; transition: 0.2s; }
+        button:hover { background-color: #8b1e3f; }
+        .option-btn { background-color: #fff; color: #333; text-align: left; margin-bottom: 12px; border: 2px solid #eee; transition: 0.2s; }
+        .option-btn:hover { border-color: #ffd700; background-color: #fdf2e9; }
+        .feedback { margin-top: 20px; padding: 18px; border-radius: 8px; font-weight: 500; }
+        .correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .thinking { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
+        #question-count { font-size: 0.85em; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Trivia: De la Medición al Apoyo</h2>
+    
+    <div id="start-screen">
+        <div class="intro">
+            <strong>Recorrido Histórico:</strong> Te invitamos a evaluar tus conocimientos sobre cómo ha cambiado la forma de entender y diagnosticar la Discapacidad Intelectual. No es solo una cuestión de nombres, sino de cómo miramos a la persona.
+        </div>
+        <button onclick="startTrivia()">Comenzar el desafío</button>
+    </div>
+
+    <div id="quiz-screen" class="hidden">
+        <div id="question-count"></div>
+        <p id="question-text" style="font-weight: 600; font-size: 1.15em; margin-bottom: 20px;"></p>
+        <div id="options-container"></div>
+        <div id="feedback-area" class="hidden"></div>
+        <button id="next-btn" class="hidden" onclick="loadQuestion()">Siguiente pregunta</button>
+    </div>
+
+    <div id="result-screen" class="hidden">
+        <h3>¡Recorrido Histórico Finalizado!</h3>
+        <p id="final-msg"></p>
+        <p>Recordá que hoy la discapacidad no se define por lo que la persona "tiene", sino por su interacción con el entorno y sus necesidades de apoyo.</p>
+        <button onclick="location.reload()">Reiniciar trivia</button>
+    </div>
+</div>
+
+<script>
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const questions = [
+        {
+            scene: "A principios del siglo XX, Alfred Binet desarrolla su escala. ¿Cuál era el concepto revolucionario que introdujo frente a la idea de 'capacidad fija'?",
+            options: ["A) El CI como cifra inamovible.", "B) La inteligencia como algo dinámico y desarrollable.", "C) La idiotez como categoría biológica."],
+            correct: "B",
+            feedback: "¡Exacto! Binet y Simon concluyeron que la inteligencia es un conjunto de habilidades desarrollables con el tiempo[cite: 21].",
+            wrongText: "Cuidado. Aunque Stern luego buscó una cifra, Binet creía que la inteligencia no era fija[cite: 21, 29]."
+        },
+        {
+            scene: "En 1912, William Stern introduce el 'Cociente Intelectual' (CI). ¿Cómo se calculaba originalmente?",
+            options: ["A) Edad Mental dividida por Edad Cronológica x 100.", "B) Suma de aciertos en 30 tareas de dificultad creciente.", "C) Evaluación de la conducta adaptativa."],
+            correct: "A",
+            feedback: "¡Correcto! Esa fue la fórmula matemática para permitir comparaciones precisas entre individuos[cite: 30, 33].",
+            wrongText: "No exactamente. La fórmula era Edad Mental sobre Edad Cronológica multiplicada por cien[cite: 33]."
+        },
+        {
+            scene: "Históricamente (aprox. 1900), se usaban términos como 'idiotez' o 'imbecilidad'. ¿Qué rango de CI correspondía a la 'Idiotez'?",
+            options: ["A) Entre 51 y 70.", "B) Entre 25 y 50.", "C) Menor a 25."],
+            correct: "C",
+            feedback: "Así es. Según las tablas históricas, la categoría de Idiotez era para un CI menor a 25[cite: 32].",
+            wrongText: "Incorrecto. Menos de 25 era considerado 'Idiotez'; de 25 a 50 era 'Imbecilidad'[cite: 32]."
+        },
+        {
+            scene: "¿En qué año la AAMR publica la edición que incluye por primera vez las 'limitaciones en la conducta adaptativa' junto al CI?",
+            options: ["A) 1921.", "B) 1959.", "C) 1992."],
+            correct: "B",
+            feedback: "¡Bien visto! En 1959 se empezó a poner énfasis en el funcionamiento social y práctico, no solo en el CI[cite: 35, 36].",
+            wrongText: "Error de fecha. Fue en 1959 cuando se dio este primer paso hacia un enfoque adaptativo[cite: 35]."
+        },
+        {
+            scene: "La 9ª edición de la AAMR (1992) es considerada un hito. ¿Cuál fue su cambio principal?",
+            options: ["A) Atender únicamente al individuo.", "B) Clasificar por rangos de CI.", "C) Ver la discapacidad como una interacción entre el individuo y su ambiente."],
+            correct: "C",
+            feedback: "¡Excelente! Representó un cambio de paradigma: de un rasgo absoluto a un estado de funcionamiento en interacción con el ambiente[cite: 205, 209].",
+            wrongText: "Al contrario. Se dejó de mirar solo al individuo para mirar cómo funciona en sus ambientes[cite: 205]."
+        },
+        {
+            scene: "En el DSM-5, la conducta adaptativa se analiza en tres dominios. Si evaluamos la lectura, escritura y memoria, ¿en qué dominio estamos?",
+            options: ["A) Dominio Social.", "B) Dominio Conceptual.", "C) Dominio Práctico."],
+            correct: "B",
+            feedback: "¡Correcto! El dominio conceptual incluye lenguaje, lectura, escritura, razonamiento y memoria[cite: 50, 52].",
+            wrongText: "Piénsalo de nuevo. Esas son habilidades académicas y cognitivas, por lo tanto, pertenecen al dominio conceptual[cite: 52]."
+        },
+        {
+            scene: "Un individuo con Discapacidad Intelectual Leve (CI 50-70) suele tener qué perspectiva educativa según la clasificación actual?",
+            options: ["A) Dependencia total.", "B) Alcanzar nivel primario completo.", "C) Nivel educativo hasta primer ciclo de primaria."],
+            correct: "B",
+            feedback: "¡Muy bien! Pueden aprender habilidades básicas y alcanzar el nivel primario completo con apoyo[cite: 58, 59].",
+            wrongText: "Incorrecto. El primer ciclo de primaria suele ser el límite para la DI Moderada; la Leve llega al nivel completo[cite: 59, 61]."
+        },
+        {
+            scene: "¿Qué premisa es esencial en el Sistema 2002 para asegurar una evaluación válida?",
+            options: ["A) No considerar la cultura del individuo.", "B) Tener en cuenta la diversidad cultural y lingüística.", "C) Basarse exclusivamente en pruebas de CI."],
+            correct: "B",
+            feedback: "¡Perfecto! La Premisa 2 indica que una evaluación válida debe considerar diferencias en comunicación, cultura y etnia[cite: 325, 329].",
+            wrongText: "No. Olvidar el contexto cultural invalida la evaluación. Debe haber sensibilidad a la diversidad[cite: 330]."
+        },
+        {
+            scene: "Según el modelo multidimensional de 2002, ¿qué elemento actúa como mediador para determinar el funcionamiento individual?",
+            options: ["A) Los Apoyos.", "B) La Edad Cronológica.", "C) Solo la Salud Física."],
+            correct: "A",
+            feedback: "¡Exacto! El funcionamiento es considerado a través del prisma de los apoyos existentes[cite: 374, 375].",
+            wrongText: "Piénsalo de nuevo. Las 5 dimensiones se ven filtradas o incrementadas por los APOYOS[cite: 374]."
+        },
+        {
+            scene: "La Premisa 5 del Sistema 2002 rompe un viejo estereotipo. ¿Cuál es?",
+            options: ["A) Que el diagnóstico es para siempre.", "B) Que con apoyos personalizados prolongados, el funcionamiento vital mejorará.", "C) Que las personas con DI no pueden vivir en comunidad."],
+            correct: "B",
+            feedback: "¡Correcto! El viejo estereotipo de que nunca mejorarán es erróneo; con apoyos adecuados, se esperan mejoras[cite: 341, 345, 346].",
+            wrongText: "Incorrecto. La premisa afirma que debemos esperar mejoras si brindamos los apoyos adecuados[cite: 346]."
+        }
+    ];
+
+    function startTrivia() {
+        document.getElementById('start-screen').classList.add('hidden');
+        document.getElementById('quiz-screen').classList.remove('hidden');
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        if (currentQuestionIndex >= questions.length) {
+            showResults();
+            return;
+        }
+        
+        const q = questions[currentQuestionIndex];
+        document.getElementById('question-count').innerText = `Pregunta ${currentQuestionIndex + 1} de ${questions.length}`;
+        document.getElementById('question-text').innerText = q.scene;
+        
+        const container = document.getElementById('options-container');
+        container.innerHTML = "";
+        
+        q.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.innerText = opt;
+            btn.className = "option-btn";
+            btn.onclick = () => checkAnswer(String.fromCharCode(65 + index));
+            container.appendChild(btn);
+        });
+
+        document.getElementById('feedback-area').classList.add('hidden');
+        document.getElementById('next-btn').classList.add('hidden');
+    }
+
+    function checkAnswer(selected) {
+        const q = questions[currentQuestionIndex];
+        const feedbackArea = document.getElementById('feedback-area');
+        feedbackArea.classList.remove('hidden');
+        
+        const buttons = document.querySelectorAll('.option-btn');
+        buttons.forEach(b => b.disabled = true);
+
+        if (selected === q.correct) {
+            score++;
+            feedbackArea.className = "feedback correct";
+            feedbackArea.innerText = q.feedback;
+        } else {
+            feedbackArea.className = "feedback thinking";
+            feedbackArea.innerText = q.wrongText;
+        }
+        
+        document.getElementById('next-btn').classList.remove('hidden');
+        currentQuestionIndex++;
+    }
+
+    function showResults() {
+        document.getElementById('quiz-screen').classList.add('hidden');
+        const resultScreen = document.getElementById('result-screen');
+        resultScreen.classList.remove('hidden');
+        document.getElementById('final-msg').innerHTML = `Completaste el análisis de la evolución diagnóstica.<br>Tu puntaje fue de <b>${score}</b> sobre ${questions.length}.`;
+    }
+</script>
+
+</body>
+</html>
