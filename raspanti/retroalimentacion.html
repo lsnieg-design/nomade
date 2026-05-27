@@ -97,7 +97,7 @@
             color: #444;
             line-height: 1.6;
             margin-bottom: 25px;
-            white-space: pre-wrap; /* Respeta los saltos de línea */
+            white-space: pre-wrap;
         }
         
         .nota-final {
@@ -108,9 +108,10 @@
             color: #2c3e50;
         }
 
+        /* --- SECCIÓN DE FIRMA MODIFICADA --- */
         .firmas-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end; /* Alinea la firma a la derecha */
             margin-top: 60px;
         }
         .firma-box {
@@ -129,11 +130,11 @@
             border-top: 1px solid #333;
             width: 100%;
             padding-top: 5px;
-            font-size: 0.85rem;
-            color: #555;
+            font-size: 0.9rem;
+            color: #333;
         }
 
-        /* --- MAGIA DE IMPRESIÓN (Oculta botones y fondo al imprimir) --- */
+        /* --- MAGIA DE IMPRESIÓN --- */
         @media print {
             body { background-color: white; padding: 0; }
             .contenedor { display: block; }
@@ -146,6 +147,7 @@
 <body>
 
 <div class="contenedor">
+    <!-- PANEL IZQUIERDO: FORMULARIO -->
     <div class="panel-controles">
         <h2>Cargar Datos</h2>
         
@@ -198,9 +200,11 @@
         <button onclick="window.print()">🖨️ Generar PDF / Imprimir</button>
     </div>
 
+    <!-- PANEL DERECHO: VISTA PREVIA (Lo que se imprime) -->
     <div class="panel-reporte" id="hoja-impresion">
         
         <div class="header-institucional">
+            <!-- REEMPLAZAR 'logo.png' CON TU ARCHIVO REAL -->
             <img src="logo.png" alt="Logo Institucional" class="logo-placeholder">
             <div class="datos-encabezado">
                 <h1>Retroalimentación Parcial 1</h1>
@@ -247,16 +251,13 @@
             Calificación Final: <span id="outNota">---</span>
         </div>
 
+        <!-- AQUÍ SE ELIMINÓ EL SELLO Y QUEDÓ SOLO LA FIRMA -->
         <div class="firmas-container">
             <div class="firma-box">
-                <img src="sello.png" alt="" class="img-firma-sello">
-                <div class="linea-firma">Sello Institucional</div>
-            </div>
-            <div class="firma-box">
-                <img src="firma.png" alt="" class="img-firma-sello">
+                <!-- REEMPLAZAR 'firma.png' CON TU ARCHIVO REAL -->
+                <img src="firma.png" alt="Firma de la docente" class="img-firma-sello">
                 <div class="linea-firma">
-                    <strong>Lic. Prof. Lucía Snieg</strong><br>
-                    Firma del Docente
+                    <strong>Lic. Prof. Lucía Snieg</strong>
                 </div>
             </div>
         </div>
@@ -265,7 +266,6 @@
 </div>
 
 <script>
-    // Función que actualiza la hoja de la derecha a medida que escribís
     function actualizarPrevio() {
         document.getElementById('outNombre').innerText = document.getElementById('inNombre').value || "---";
         document.getElementById('outApellido').innerText = document.getElementById('inApellido').value || "";
