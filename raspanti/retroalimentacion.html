@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Retroalimentación | Lic. Lucía Snieg</title>
+    <style>
+        /* --- ESTILOS GENERALES Y FORMULARIO --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .contenedor {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .panel-controles {
+            width: 40%;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+        h2 { margin-top: 0; color: #2c3e50; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+        textarea { resize: vertical; min-height: 100px; }
+        button {
+            width: 100%;
+            background-color: #2980b9;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        button:hover { background-color: #1a5276; }
+
+        /* --- ESTILOS DEL PDF / REPORTE --- */
+        .panel-reporte {
+            width: 60%;
+            background: white;
+            padding: 40px 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        .header-institucional {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        .logo-placeholder {
+            max-width: 120px;
+            max-height: 80px;
+            object-fit: contain;
+        }
+        .datos-encabezado { text-align: right; }
+        .datos-encabezado h1 { margin: 0; font-size: 22px; color: #2c3e50; text-transform: uppercase; }
+        .datos-encabezado p { margin: 3px 0; font-size: 14px; color: #555; }
+        
+        .datos-alumno {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #2980b9;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        .seccion-titulo { border-bottom: 1px solid #eee; padding-bottom: 5px; color: #2980b9; margin-bottom: 15px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 0.95rem; }
+        th { background-color: #f4f6f7; color: #333; }
+        
+        .observaciones-box {
+            font-style: italic;
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            white-space: pre-wrap; /* Respeta los saltos de línea */
+        }
+        
+        .nota-final {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: right;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+
+        .firmas-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+        }
+        .firma-box {
+            width: 40%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .img-firma-sello {
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+        .linea-firma {
+            border-top: 1px solid #333;
+            width: 100%;
+            padding-top: 5px;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        /* --- MAGIA DE IMPRESIÓN (Oculta botones y fondo al imprimir) --- */
+        @media print {
+            body { background-color: white; padding: 0; }
+            .contenedor { display: block; }
+            .panel-controles { display: none; }
+            .panel-reporte { width: 100%; box-shadow: none; padding: 0; margin: 0; }
+            @page { margin: 2cm; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="contenedor">
+    <div class="panel-controles">
+        <h2>Cargar Datos</h2>
+        
+        <div class="form-group">
+            <label>Nombre del Estudiante:</label>
+            <input type="text" id="inNombre" placeholder="Ej: Juan" oninput="actualizarPrevio()">
+        </div>
+        <div class="form-group">
+            <label>Apellido del Estudiante:</label>
+            <input type="text" id="inApellido" placeholder="Ej: Pérez" oninput="actualizarPrevio()">
+        </div>
+
+        <div class="form-group">
+            <label>1. Comprensión de Conceptos Digitales:</label>
+            <select id="inRub1" onchange="actualizarPrevio()">
+                <option value="Logrado">Logrado</option>
+                <option value="En Proceso">En Proceso</option>
+                <option value="Aún no logrado">Aún no logrado</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>2. Uso de Herramientas Tecnológicas:</label>
+            <select id="inRub2" onchange="actualizarPrevio()">
+                <option value="Logrado">Logrado</option>
+                <option value="En Proceso">En Proceso</option>
+                <option value="Aún no logrado">Aún no logrado</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>3. Participación y Pensamiento Crítico:</label>
+            <select id="inRub3" onchange="actualizarPrevio()">
+                <option value="Logrado">Logrado</option>
+                <option value="En Proceso">En Proceso</option>
+                <option value="Aún no logrado">Aún no logrado</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Observaciones Cualitativas:</label>
+            <textarea id="inObs" placeholder="Escribe aquí tus observaciones..." oninput="actualizarPrevio()"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Nota Final:</label>
+            <input type="text" id="inNota" placeholder="Ej: 9 (Nueve)" oninput="actualizarPrevio()">
+        </div>
+
+        <button onclick="window.print()">🖨️ Generar PDF / Imprimir</button>
+    </div>
+
+    <div class="panel-reporte" id="hoja-impresion">
+        
+        <div class="header-institucional">
+            <img src="logo.png" alt="Logo Institucional" class="logo-placeholder">
+            <div class="datos-encabezado">
+                <h1>Retroalimentación Parcial 1</h1>
+                <p><strong>Materia:</strong> Cultura Digital y Educación</p>
+                <p><strong>Año:</strong> 2026</p>
+                <p><strong>Docente:</strong> Lic. Prof. Lucía Snieg</p>
+            </div>
+        </div>
+
+        <div class="datos-alumno">
+            <strong>Estudiante:</strong> <span id="outNombre">---</span> <span id="outApellido"></span>
+        </div>
+
+        <h3 class="seccion-titulo">Rúbrica de Evaluación</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Criterio de Evaluación</th>
+                    <th>Nivel de Logro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Comprensión de Conceptos Digitales</td>
+                    <td id="outRub1">Logrado</td>
+                </tr>
+                <tr>
+                    <td>Uso de Herramientas Tecnológicas</td>
+                    <td id="outRub2">Logrado</td>
+                </tr>
+                <tr>
+                    <td>Participación y Pensamiento Crítico</td>
+                    <td id="outRub3">Logrado</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 class="seccion-titulo">Observaciones del Docente</h3>
+        <div class="observaciones-box" id="outObs">
+            Aún no hay observaciones cargadas.
+        </div>
+
+        <div class="nota-final">
+            Calificación Final: <span id="outNota">---</span>
+        </div>
+
+        <div class="firmas-container">
+            <div class="firma-box">
+                <img src="sello.png" alt="" class="img-firma-sello">
+                <div class="linea-firma">Sello Institucional</div>
+            </div>
+            <div class="firma-box">
+                <img src="firma.png" alt="" class="img-firma-sello">
+                <div class="linea-firma">
+                    <strong>Lic. Prof. Lucía Snieg</strong><br>
+                    Firma del Docente
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Función que actualiza la hoja de la derecha a medida que escribís
+    function actualizarPrevio() {
+        document.getElementById('outNombre').innerText = document.getElementById('inNombre').value || "---";
+        document.getElementById('outApellido').innerText = document.getElementById('inApellido').value || "";
+        
+        document.getElementById('outRub1').innerText = document.getElementById('inRub1').value;
+        document.getElementById('outRub2').innerText = document.getElementById('inRub2').value;
+        document.getElementById('outRub3').innerText = document.getElementById('inRub3').value;
+        
+        document.getElementById('outObs').innerText = document.getElementById('inObs').value || "Aún no hay observaciones cargadas.";
+        document.getElementById('outNota').innerText = document.getElementById('inNota').value || "---";
+    }
+</script>
+
+</body>
+</html>
