@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Propuesta Experiencial</title>
+    <style>
+        :root { --pastel-blue: #d4e6f1; --pastel-pink: #fadbd8; --pastel-green: #d5f5e3; --pastel-purple: #ebdef0; --soft-gray: #f9f9f9; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #fffaf0; text-align: center; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        button { padding: 15px 30px; font-size: 18px; cursor: pointer; background: var(--pastel-pink); border: none; border-radius: 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
+        .card { width: 100%; height: 200px; perspective: 1000px; cursor: pointer; }
+        .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .card.flipped .card-inner { transform: rotateY(180deg); }
+        .front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 15px; padding: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .front { background: var(--pastel-blue); }
+        .back { background: white; transform: rotateY(180deg); overflow-y: auto; }
+        .icon-btn { margin: 5px; cursor: pointer; border: none; border-radius: 5px; padding: 5px; font-size: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 id="titulo">Propuesta Experiencial</h1>
+    <button onclick="document.getElementById('juego').style.display='grid'; this.style.display='none';">Empezar la experiencia</button>
+
+    <div id="juego" class="grid" style="display:none;">
+        <!-- Estación 1 -->
+        <div class="card" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="front"><h3>🗣️ Estación 1</h3></div>
+                <div class="back">
+                    <p><strong>Desafío:</strong> Armar avión sin hablar, explicar cordones sin señas, pedir goma sin señalar.</p>
+                    <button class="icon-btn" onclick="alert('Reflexión: ¿Qué sentiste al no poder usar palabras?')">❓</button>
+                    <button class="icon-btn" onclick="alert('Teoría: El lenguaje expresivo es comunicar, el comprensivo es entender.')">📘</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estación 2 -->
+        <div class="card" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="front"><h3>🧠 Estación 2</h3></div>
+                <div class="back">
+                    <p><strong>Desafío:</strong> Memoria de trabajo: Seguir secuencias complejas de acciones múltiples.</p>
+                    <button class="icon-btn" onclick="alert('Reflexión: ¿Qué pasó cuando te interrumpían?')">❓</button>
+                    <button class="icon-btn" onclick="alert('Teoría: Memoria de trabajo: retener y manipular información.')">📘</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estación 3 -->
+        <div class="card" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="front"><h3>🧩 Estación 3</h3></div>
+                <div class="back">
+                    <p><strong>Desafío:</strong> Funciones Ejecutivas: Torre con una mano, clasificar bajo interrupción.</p>
+                    <button class="icon-btn" onclick="alert('Reflexión: ¿Te frustraste con el cambio de reglas?')">❓</button>
+                    <button class="icon-btn" onclick="alert('Teoría: Funciones ejecutivas: planificar, inhibir y adaptarse.')">📘</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estación 4 -->
+        <div class="card" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="front"><h3>🔍 Estación 4</h3></div>
+                <div class="back">
+                    <p><strong>Desafío:</strong> Razonamiento: Ordenar historias ambiguas y enigmas sin pistas.</p>
+                    <button class="icon-btn" onclick="alert('Reflexión: ¿Cómo fue tratar de pensar sin pistas?')">❓</button>
+                    <button class="icon-btn" onclick="alert('Teoría: Razonamiento lógico: organizar y resolver problemas.')">📘</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estación 5 -->
+        <div class="card" onclick="this.classList.toggle('flipped')">
+            <div class="card-inner">
+                <div class="front"><h3>🤲 Estación 5</h3></div>
+                <div class="back">
+                    <p><strong>Desafío:</strong> Psicomotricidad: Atar cordones con manos atadas, recortar con dedos.</p>
+                    <button class="icon-btn" onclick="alert('Reflexión: ¿Qué pasó cuando tus manos no respondían bien?')">❓</button>
+                    <button class="icon-btn" onclick="alert('Teoría: Motricidad: precisión (fina) y movimiento (gruesa).')">📘</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
