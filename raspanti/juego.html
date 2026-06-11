@@ -2,82 +2,82 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Propuesta Experiencial - LucyReact</title>
+    <title>Propuesta Experiencial | LucyReact</title>
+    <!-- Importación de iconos Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root { --bg: #FFF9F7; --rosa: #FADBD8; --azul: #D4E6F1; --verde: #D5F5E3; --lila: #EBDEF0; --texto: #566573; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); color: var(--texto); padding: 20px; text-align: center; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
+
+        :root {
+            --bg: #F8F9FA; --primary: #FFB7B2; --secondary: #A8E6CF;
+            --card-bg: #FFFFFF; --text: #2D3436; --soft: #636E72;
+        }
+
+        body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); padding: 40px; margin: 0; }
         
-        .card { height: 320px; perspective: 1000px; cursor: pointer; }
-        .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
-        .card.flipped .card-inner { transform: rotateY(180deg); }
-        .front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
-        .front { background: var(--azul); }
-        .back { background: white; transform: rotateY(180deg); overflow-y: auto; text-align: left; }
+        .header { text-align: center; margin-bottom: 60px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; max-width: 1200px; margin: auto; }
+
+        .card { background: var(--card-bg); border-radius: 24px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer; border: 1px solid #EEE; }
+        .card:hover { transform: translateY(-10px); border-color: var(--primary); }
+
+        .icon-box { background: var(--secondary); width: 50px; height: 50px; border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
         
-        .btn-inter { background: var(--rosa); border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; margin: 5px; font-weight: bold; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; }
-        .modal-content { background: white; width: 80%; max-height: 80%; padding: 30px; border-radius: 20px; overflow-y: auto; position: relative; }
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.95); z-index: 100; overflow-y: auto; padding: 50px; }
+        .modal-content { max-width: 800px; margin: auto; line-height: 1.8; }
+        
+        .btn-close { position: fixed; top: 30px; right: 30px; cursor: pointer; padding: 10px; border-radius: 50%; border: none; background: #EEE; }
     </style>
 </head>
 <body>
 
-<h1>Propuesta Experiencial</h1>
-<div id="juego" class="grid">
-    <!-- Estación 1 -->
-    <div class="card" onclick="this.classList.toggle('flipped')">
-        <div class="card-inner">
-            <div class="front"><h2>🗣️ Estación 1</h2><p>Comunicación y Lenguaje</p></div>
-            <div class="back">
-                <h3>Desafíos:</h3>
-                <p>• Armar avión de papel sin palabras.<br>• Explicar atarse cordones sin señas.<br>• Pedir goma sin hablar/escribir.</p>
-                <button class="btn-inter" onclick="openModal('Reflexión', '¿Qué pasó al no poder usar palabras? ¿Qué sentiste al no entender?')">❓ Reflexión</button>
-                <button class="btn-inter" onclick="openModal('Teoría', 'El lenguaje expresivo es comunicar pensamientos y emociones. El comprensivo es entender lo que dicen otros. En la DI, estas funciones pueden estar alteradas, requiriendo apoyos visuales y paciencia.')">📘 Teoría</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Estación 2 -->
-    <div class="card" onclick="this.classList.toggle('flipped')">
-        <div class="card-inner">
-            <div class="front"><h2>🧠 Estación 2</h2><p>Memoria de Trabajo</p></div>
-            <div class="back">
-                <h3>Desafíos:</h3>
-                <p>1. Tocar pared, saltar, girar, aplaudir, cruzar brazos, sentarse, ojos, boca, bostezar.<br>2. Caminar, decir nombre al revés, tocar cabeza, cantar, puntas de pie, sentarse.<br>3. Tocar 3 bancos, gritar fruta, pasar bajo mesa, imitar animal, buscar rojo, chocar los cinco, dormida.</p>
-                <button class="btn-inter" onclick="openModal('Reflexión', '¿Pudiste recordar los pasos? ¿Qué pasó con las interrupciones?')">❓ Reflexión</button>
-                <button class="btn-inter" onclick="openModal('Teoría', 'Es la capacidad de retener y manipular información brevemente. Si falla, las consignas largas parecen imposibles. Divide las tareas en pasos simples.')">📘 Teoría</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Estación 3 -->
-    <div class="card" onclick="this.classList.toggle('flipped')">
-        <div class="card-inner">
-            <div class="front"><h2>🧩 Estación 3</h2><p>Funciones Ejecutivas</p></div>
-            <div class="back">
-                <h3>Desafíos:</h3>
-                <p>• Torre con una mano, sin repetir colores, sin hablar.<br>• Clasificar objetos bajo interrupción.<br>• Secuencia que se invierte a mitad de camino.</p>
-                <button class="btn-inter" onclick="openModal('Reflexión', '¿Te frustró el cambio de reglas? ¿Pudiste mantener el foco?')">❓ Reflexión</button>
-                <button class="btn-inter" onclick="openModal('Teoría', 'Procesos para planificar, organizar, inhibir impulsos y adaptarse. En la DI, suelen estar desorganizadas, generando frustración.')">📘 Teoría</button>
-            </div>
-        </div>
-    </div>
+<div class="header">
+    <h1>Propuesta Experiencial</h1>
+    <p>Áreas del desarrollo, funciones ejecutivas y comunicación</p>
 </div>
 
-<div id="modal" class="modal" onclick="this.style.display='none'">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <h2 id="modal-title"></h2>
-        <p id="modal-body"></p>
-        <button onclick="document.getElementById('modal').style.display='none'">Cerrar</button>
-    </div>
+<div class="grid" id="container">
+    <!-- Estaciones se generan dinámicamente -->
+</div>
+
+<div id="modal" class="modal">
+    <button class="btn-close" onclick="closeModal()"><i data-lucide="x"></i></button>
+    <div id="modal-content" class="modal-content"></div>
 </div>
 
 <script>
-function openModal(title, text) {
-    document.getElementById('modal-title').innerText = title;
-    document.getElementById('modal-body').innerText = text;
-    document.getElementById('modal').style.display = 'flex';
+const data = [
+    { title: "Estación 1: Comunicación", icon: "message-square", activities: "Armar avión solo con gestos, explicar cordones sin señas, pedir goma sin hablar.", reflection: "¿Qué pasó al no poder usar palabras? ¿Qué sentiste al no entender?", theory: "Lenguaje expresivo (comunicar) y comprensivo (entender). Las personas con DI pueden necesitar apoyos visuales y paciencia." },
+    { title: "Estación 2: Memoria", icon: "brain", activities: "Secuencias complejas (tocar pared, saltar, girar, etc.).", reflection: "¿Pudiste recordar los pasos? ¿Qué pasó con las interrupciones?", theory: "La memoria de trabajo permite retener info para tareas. La clave es dividir consignas en pasos simples." },
+    { title: "Estación 3: Ejecutivas", icon: "puzzle", activities: "Torre con una mano, clasificar bajo interrupción, invertir secuencias.", reflection: "¿Te frustró el cambio de reglas? ¿Pudiste mantener el foco?", theory: "Funciones ejecutivas permiten planificar, inhibir impulsos y adaptarse." },
+    { title: "Estación 4: Cognitiva", icon: "search", activities: "Ordenar historia sin texto, enigmas, buscar relación entre palabras.", reflection: "¿Pudiste entender imágenes ambiguas? ¿Cómo fue pensar sin pistas?", theory: "Razonamiento lógico y comprensión abstracta. Las personas con DI suelen tener un pensamiento más concreto." },
+    { title: "Estación 5: Psicomotora", icon: "hand", activities: "Atar cordones con manos atadas, recortar con dedos, avión con 3 dedos.", reflection: "¿Te costó lo fácil? ¿Qué pasó cuando tus manos no respondían?", theory: "Motricidad fina, gruesa y coordinación ojo-mano son clave para la autonomía." }
+];
+
+const container = document.getElementById('container');
+data.forEach((item, index) => {
+    container.innerHTML += `
+        <div class="card" onclick="openModal(${index})">
+            <div class="icon-box"><i data-lucide="${item.icon}"></i></div>
+            <h3>${item.title}</h3>
+            <p>${item.activities.substring(0, 100)}...</p>
+        </div>`;
+});
+
+function openModal(index) {
+    const item = data[index];
+    document.getElementById('modal-content').innerHTML = `
+        <h1>${item.title}</h1>
+        <h3>🔹 Actividades</h3><p>${item.activities}</p>
+        <h3>🧠 Reflexión</h3><p>${item.reflection}</p>
+        <h3>📘 Contenido Teórico</h3><p>${item.theory}</p>
+    `;
+    document.getElementById('modal').style.display = 'block';
+    lucide.createIcons();
 }
+
+function closeModal() { document.getElementById('modal').style.display = 'none'; }
+lucide.createIcons();
 </script>
 
 </body>
