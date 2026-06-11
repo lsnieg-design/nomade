@@ -2,85 +2,95 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Propuesta Experiencial | LucyReact</title>
+    <title>Misión Educativa | LucyReact</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
-        :root { --gris: #f4f7f6; --texto: #2d3436; }
-        body { font-family: 'Outfit', sans-serif; background: var(--gris); color: var(--texto); padding: 40px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; max-width: 900px; margin: auto; }
-        .card { height: 200px; border-radius: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.05); font-weight: 600; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; padding: 40px; overflow-y: auto; }
-        .box { max-width: 800px; margin: auto; line-height: 1.6; }
-        .btn-tab { width: 100%; padding: 20px; margin: 10px 0; border: none; border-radius: 15px; cursor: pointer; font-weight: 600; text-align: left; background: #eee; font-size: 1.1rem; }
-        .content-panel { display: none; padding: 25px; border-radius: 20px; background: #fafafa; border: 1px solid #eee; margin-bottom: 20px; }
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;500;700&display=swap');
+
+        :root {
+            --bg: #F0F4F8;
+            --glass: rgba(255, 255, 255, 0.8);
+            --accent: #6C5CE7;
+        }
+
+        body { 
+            font-family: 'Fredoka', sans-serif; 
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            min-height: 100vh; margin: 0; padding: 40px; color: #2d3436;
+        }
+
+        .header { text-align: center; color: white; margin-bottom: 40px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+
+        .mission-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; max-width: 1000px; margin: auto; 
+        }
+
+        .mission-card {
+            background: var(--glass); backdrop-filter: blur(10px);
+            padding: 30px; border-radius: 30px; border: 4px solid white;
+            cursor: pointer; transition: 0.4s; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .mission-card:hover { transform: translateY(-10px) scale(1.02); }
+
+        .modal { 
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%; 
+            background: rgba(0,0,0,0.7); z-index: 1000; padding: 40px; overflow-y: auto;
+        }
+        .modal-content {
+            background: white; max-width: 700px; margin: auto; 
+            padding: 40px; border-radius: 40px; position: relative;
+        }
+
+        .btn-game { 
+            width: 100%; padding: 15px; margin: 10px 0; border-radius: 15px; 
+            border: none; background: var(--accent); color: white; font-weight: 700;
+            cursor: pointer; font-size: 1.1rem;
+        }
+        .panel { display: none; padding: 20px; background: #fdfdfd; border-radius: 20px; border: 2px dashed #ccc; margin-top: 10px; text-align: left; }
     </style>
 </head>
 <body>
 
-<h1 style="text-align:center">Propuesta Experiencial</h1>
-<div class="grid">
-    <div class="card" style="background:#A2D9FF" onclick="abrir(0)">Estación 1</div>
-    <div class="card" style="background:#FFC4D6" onclick="abrir(1)">Estación 2</div>
-    <div class="card" style="background:#B2F2BB" onclick="abrir(2)">Estación 3</div>
-    <div class="card" style="background:#DCC6FF" onclick="abrir(3)">Estación 4</div>
-    <div class="card" style="background:#FFF3BF" onclick="abrir(4)">Estación 5</div>
+<div class="header">
+    <h1>🚀 Propuesta Experiencial</h1>
+    <p>¡Elige una estación para comenzar tu misión!</p>
 </div>
 
+<div class="mission-grid" id="grid"></div>
+
 <div id="modal" class="modal">
-    <button onclick="document.getElementById('modal').style.display='none'" style="float:right; font-size:2rem; border:none; background:none; cursor:pointer;">&times;</button>
-    <div class="box" id="contenido"></div>
+    <div class="modal-content" id="modal-content">
+        <button onclick="document.getElementById('modal').style.display='none'" style="float:right; border:none; background:none; font-size:2rem; cursor:pointer;">❌</button>
+        <div id="mission-body"></div>
+    </div>
 </div>
 
 <script>
-const datos = [
-    {
-        t: "🗣️ Estación 1: Comunicación y Lenguaje",
-        d: "🔹 Actividades:<br>• Armar un avión de papel usando solo gestos o dibujos o sílabas sin sentido.<br>• Explicar cómo atarse los cordones sin palabras ni señas obvias.<br>• Pedir una goma de borrar sin hablar, sin señalar ni escribir.",
-        r: "🧠 Reflexión y explicación para la clase:<br>¿Qué pasó cuando no podías usar las palabras?<br>¿Qué sentiste cuando no entendías qué quería decir tu compañera?<br><br>Explicá a las estudiantes:<br>Las personas con DI muchas veces entienden mejor con apoyos visuales, gestos, pictogramas o lenguaje simple. Otras veces, pueden no encontrar las palabras para expresarse. Por eso es clave acompañarlas con paciencia, estrategias visuales y sin subestimarlas.",
-        th: "📘 Contenido: Lenguaje expresivo y comprensivo<br>¿Qué es?<br>El lenguaje expresivo es la capacidad de comunicar pensamientos, necesidades o emociones.<br>El lenguaje comprensivo es la capacidad de entender lo que los demás dicen.<br>En personas con discapacidad intelectual (DI), estas funciones pueden estar afectadas. Esto no implica que no tengan ideas, sino que la forma de expresarlas o comprenderlas puede estar alterada."
-    },
-    {
-        t: "🧠 Estación 2: Memoria de Trabajo",
-        d: "🔹 Actividades:<br>• Tocar una pared, saltar 2 veces, girar, aplaudir 3 veces, cruzar brazos, sentarse, cerrar los ojos, abrir la boca y bostezar.<br>• Caminar a la puerta, decir el nombre al revés, levantar un objeto, tocar la cabeza, cantar algo inventado, volver en puntas de pie y sentarse en una silla.<br>• Tocar 3 bancos, gritar una fruta, pasar bajo una mesa, imitar un animal, buscar algo rojo, chocar los cinco y hacerte la dormida.",
-        r: "🧠 Reflexión y explicación para la clase:<br>¿Pudiste recordar los pasos? ¿Qué pasó cuando alguien te interrumpía?<br><br>Explicá a las estudiantes:<br>La memoria de trabajo limitada hace que muchas instrucciones parezcan “imposibles”. Por eso, es importante dividir las consignas en pasos simples, usar apoyos visuales y verificar si la persona comprendió antes de continuar.",
-        th: "📘 Contenido: Memoria de trabajo<br>¿Qué es?<br>La memoria de trabajo es la capacidad del cerebro para retener y manipular información durante unos segundos para resolver una tarea. Es clave para seguir instrucciones, resolver problemas o recordar lo que alguien acaba de decirte.<br>Las personas con DI suelen tener dificultades en esta área, lo que hace que se pierdan cuando una consigna tiene muchos pasos o información verbal compleja."
-    },
-    {
-        t: "🧩 Estación 3: Funciones Ejecutivas",
-        d: "🔹 Actividades:<br>• Armar una torre con los elementos de las mochilas con una mano, sin repetir colores y sin hablar.<br>• Clasificar objetos sin saber la categoría, mientras se interrumpe la tarea.<br>• Seguir una secuencia de acciones que se invierte o cambia a mitad de camino.",
-        r: "🧠 Reflexión y explicación para la clase:<br>¿Te frustraste cuando cambiaban las reglas?<br>¿Pudiste seguir pensando con tantas interrupciones?<br><br>Explicá a las estudiantes:<br>Las personas con DI pueden necesitar ayuda para comenzar una tarea, sostenerla, terminarla o reorganizarse si hay un cambio. Dar instrucciones claras, modelos visuales, y anticipar cambios puede ayudarlas mucho.",
-        th: "📘 Contenido: Funciones ejecutivas<br>¿Qué son?<br>Las funciones ejecutivas son procesos mentales que nos permiten:<br>• Planificar y organizar<br>• Inhibir impulsos (esperar el turno, no interrumpir)<br>• Adaptarse a los cambios<br>• Mantener la atención<br>En personas con DI, estas funciones suelen estar inmaduras o desorganizadas, lo que lleva a desorientación, frustración, dificultad para organizar tareas o cambiar de estrategia si algo no resulta."
-    },
-    {
-        t: "🔍 Estación 4: Área Cognitiva (Razonamiento)",
-        d: "🔹 Actividades:<br>• Ordenar una historia con imágenes ambiguas, sin texto.<br>• Resolver enigmas con información incompleta o confusa.<br>• Buscar relación entre palabras sin conexión evidente (ej: zapato y cielo).",
-        r: "🧠 Reflexión y explicación para la clase:<br>¿Pudiste entender qué pasaba en las imágenes?<br>¿Cómo fue tratar de pensar 'sin pistas'?<br><br>Explicá a las estudiantes:<br>Las personas con DI suelen necesitar instrucciones paso a paso, situaciones claras y tangibles. A veces se frustran no porque “no entienden”, sino porque nadie les explicó de una forma accesible.",
-        th: "📘 Contenido: Razonamiento lógico y comprensión abstracta<br>¿Qué es?<br>El razonamiento lógico permite organizar información, sacar conclusiones y resolver problemas.<br>La comprensión abstracta es la capacidad de entender ideas no concretas, como metáforas, dobles sentidos o conceptos complejos.<br>Las personas con DI suelen tener un pensamiento más concreto. Esto significa que necesitan ejemplos reales y visuales, y pueden perderse en explicaciones generales o abstractas."
-    },
-    {
-        t: "🤲 Estación 5: Área Psicomotora",
-        d: "🔹 Actividades:<br>• Atarse los cordones de las zapatillas con las manos atadas.<br>• Recortar figuras exactas solo usando los dedos índices.<br>• Hacer un avión de papel usando 3 dedos de cada mano.",
-        r: "🧠 Reflexión y explicación para la clase:<br>¿Te costó hacer algo que normalmente es fácil?<br>¿Qué pasó cuando tus manos no respondían bien?<br><br>Explicá a las estudiantes:<br>Una tarea simple puede ser una gran barrera si hay un problema motor. Adaptar materiales (tijeras especiales, lápices más gruesos) y dar más tiempo puede marcar una enorme diferencia en la participación.",
-        th: "📘 Contenido: Motricidad fina y gruesa, coordinación y autonomía<br>¿Qué es?<br>La motricidad fina implica el uso preciso de manos y dedos para tareas como escribir, abotonar, recortar.<br>La motricidad gruesa se refiere a movimientos amplios del cuerpo (caminar, saltar, equilibrio).<br>La coordinación ojo-mano es la capacidad de usar los ojos y las manos juntas para ejecutar tareas.<br>Las personas con DI pueden tener dificultades motrices asociadas, lo que afecta su autonomía y rendimiento escolar."
-    }
+const data = [
+    { t: "🗣️ Estación 1: Comunicación", d: "🔹 Actividades:<br>• Armar un avión de papel usando solo gestos o dibujos o sílabas sin sentido.<br>• Explicar cómo atarse los cordones sin palabras ni señas obvias.<br>• Pedir una goma de borrar sin hablar, sin señalar ni escribir.", r: "🧠 Reflexión:<br>¿Qué pasó cuando no podías usar las palabras?<br>¿Qué sentiste cuando no entendías qué quería decir tu compañera?<br><br>Explicación para estudiantes:<br>Las personas con DI muchas veces entienden mejor con apoyos visuales, gestos, pictogramas o lenguaje simple. Otras veces, pueden no encontrar las palabras para expresarse. Por eso es clave acompañarlas con paciencia, estrategias visuales y sin subestimarlas.", th: "📘 Teoría: Lenguaje expresivo y comprensivo<br>El lenguaje expresivo es la capacidad de comunicar pensamientos, necesidades o emociones.<br>El lenguaje comprensivo es la capacidad de entender lo que los demás dicen.<br>En personas con DI, estas funciones pueden estar afectadas, lo que no implica que no tengan ideas, sino que la forma de expresarlas puede estar alterada." },
+    { t: "🧠 Estación 2: Memoria", d: "🔹 Actividades:<br>• Tocar una pared, saltar 2 veces, girar, aplaudir 3 veces, cruzar brazos, sentarse, cerrar los ojos, abrir la boca y bostezar.<br>• Caminar a la puerta, decir el nombre al revés, levantar un objeto, tocar la cabeza, cantar algo inventado, volver en puntas de pie y sentarse en una silla.<br>• Tocar 3 bancos, gritar una fruta, pasar bajo una mesa, imitar un animal, buscar algo rojo, chocar los cinco y hacerte la dormida.", r: "🧠 Reflexión:<br>¿Pudiste recordar los pasos? ¿Qué pasó cuando alguien te interrumpía?<br><br>Explicación para estudiantes:<br>La memoria de trabajo limitada hace que muchas instrucciones parezcan “imposibles”. Por eso, es importante dividir las consignas en pasos simples, usar apoyos visuales y verificar si la persona comprendió.", th: "📘 Teoría: Memoria de trabajo<br>Es la capacidad del cerebro para retener y manipular información durante unos segundos para resolver una tarea. Es clave para seguir instrucciones, resolver problemas o recordar lo que alguien acaba de decirte. Las personas con DI suelen tener dificultades aquí, especialmente con mucha información verbal." },
+    { t: "🧩 Estación 3: Ejecutivas", d: "🔹 Actividades:<br>• Armar una torre con elementos de mochilas con una mano, sin repetir colores y sin hablar.<br>• Clasificar objetos sin saber la categoría, mientras se interrumpe la tarea.<br>• Seguir una secuencia de acciones que se invierte.", r: "🧠 Reflexión:<br>¿Te frustraste cuando cambiaban las reglas?<br>¿Pudiste seguir pensando con tantas interrupciones?<br><br>Explicación para estudiantes:<br>Las personas con DI pueden necesitar ayuda para comenzar, sostener, terminar o reorganizarse si hay un cambio. Dar instrucciones claras, modelos visuales y anticipar cambios es vital.", th: "📘 Teoría: Funciones ejecutivas<br>Son procesos mentales para planificar, organizar, inhibir impulsos (esperar el turno, no interrumpir) y adaptarse a los cambios. En personas con DI, estas funciones suelen estar inmaduras o desorganizadas, llevando a desorientación o frustración." },
+    { t: "🔍 Estación 4: Cognitiva", d: "🔹 Actividades:<br>• Ordenar una historia con imágenes ambiguas, sin texto.<br>• Resolver enigmas con información incompleta.<br>• Buscar relación entre palabras sin conexión evidente (ej: zapato y cielo).", r: "🧠 Reflexión:<br>¿Pudiste entender las imágenes?<br>¿Cómo fue tratar de pensar 'sin pistas'?<br><br>Explicación para estudiantes:<br>Las personas con DI suelen necesitar instrucciones paso a paso, situaciones claras y tangibles. A veces se frustran no porque “no entienden”, sino porque nadie les explicó de una forma accesible.", th: "📘 Teoría: Razonamiento lógico y abstracto<br>El razonamiento lógico permite organizar información y resolver problemas. La comprensión abstracta es la capacidad de entender ideas no concretas (metáforas, dobles sentidos). Las personas con DI suelen tener un pensamiento más concreto; necesitan ejemplos reales y visuales." },
+    { t: "🤲 Estación 5: Psicomotora", d: "🔹 Actividades:<br>• Atarse los cordones con manos atadas.<br>• Recortar figuras exactas solo usando los dedos índices.<br>• Hacer avión de papel usando 3 dedos de cada mano.", r: "🧠 Reflexión:<br>¿Te costó hacer algo normalmente fácil?<br>¿Qué pasó cuando tus manos no respondían bien?<br><br>Explicación para estudiantes:<br>Una tarea simple puede ser una gran barrera si hay un problema motor. Adaptar materiales (tijeras, lápices gruesos) y dar más tiempo marca una enorme diferencia.", th: "📘 Teoría: Motricidad fina y gruesa<br>La motricidad fina implica uso preciso de manos/dedos. La gruesa, movimientos amplios (caminar, saltar). La coordinación ojo-mano es clave. Personas con DI pueden tener dificultades motrices asociadas que afectan su autonomía escolar." }
 ];
 
-function abrir(i) {
-    const d = datos[i];
-    document.getElementById('contenido').innerHTML = `
+const grid = document.getElementById('grid');
+data.forEach((item, i) => {
+    grid.innerHTML += `<div class="mission-card" onclick="openM(${i})"><h2>Misión ${i+1}</h2><p>${item.t}</p></div>`;
+});
+
+function openM(i) {
+    const d = data[i];
+    document.getElementById('mission-body').innerHTML = `
         <h1>${d.t}</h1>
-        <div style="padding:20px; background:#f0f0f0; border-radius:20px; margin-bottom:20px;">${d.d}</div>
-        <button class="btn-tab" onclick="toggle('r${i}')">❓ Ver Preguntas para pensar</button>
-        <div id="r${i}" class="content-panel">${d.r}</div>
-        <button class="btn-tab" onclick="toggle('th${i}')">📘 Ver Teoría y Explicación</button>
-        <div id="th${i}" class="content-panel">${d.th}</div>
+        <div style="background:#f0f0f0; padding:20px; border-radius:20px;">${d.d}</div>
+        <button class="btn-game" onclick="document.getElementById('r${i}').style.display='block'">❓ Ver Preguntas para pensar</button>
+        <div id="r${i}" class="panel">${d.r}</div>
+        <button class="btn-game" onclick="document.getElementById('th${i}').style.display='block'">📘 Ver Contenido Teórico</button>
+        <div id="th${i}" class="panel">${d.th}</div>
     `;
     document.getElementById('modal').style.display = 'block';
-}
-
-function toggle(id) {
-    const el = document.getElementById(id);
-    el.style.display = el.style.display === 'block' ? 'none' : 'block';
 }
 </script>
 </body>
