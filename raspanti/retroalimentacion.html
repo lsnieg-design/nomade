@@ -1,79 +1,359 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Generador de Retroalimentación</title>
-    <style>
-        body { font-family: sans-serif; background: #f0f2f5; padding: 20px; }
-        .contenedor { display: flex; gap: 20px; max-width: 1200px; margin: 0 auto; }
-        .panel-controles { width: 35%; background: white; padding: 20px; border-radius: 8px; }
-        .panel-reporte { width: 65%; background: white; padding: 40px; }
-        
-        /* Esto hace que el textarea dentro de la tabla parezca texto normal */
-        .txt-editable { 
-            width: 100%; border: 1px dashed #ccc; padding: 5px; 
-            font-family: inherit; font-size: 0.9rem; resize: vertical; min-height: 50px;
-        }
-        
-        @media print {
-            .panel-controles { display: none; }
-            .panel-reporte { width: 100%; box-shadow: none; padding: 0; }
-            .txt-editable { border: none; } /* Sin borde al imprimir */
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Generador Universal de Retroalimentación</title>
+
+<style>
+body{
+    font-family:Segoe UI,sans-serif;
+    background:#f4f6f8;
+    margin:20px;
+}
+
+.contenedor{
+    display:flex;
+    gap:20px;
+}
+
+.panel{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+#config{
+    width:40%;
+}
+
+#reporte{
+    width:60%;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:8px;
+}
+
+th{
+    background:#f0f2f5;
+}
+
+input,textarea{
+    width:100%;
+    padding:8px;
+    box-sizing:border-box;
+}
+
+button{
+    cursor:pointer;
+}
+
+.btn-agregar{
+    margin-top:10px;
+    width:100%;
+    padding:10px;
+}
+
+.boton-nivel{
+    margin:3px;
+    padding:8px 12px;
+    border:none;
+    border-radius:6px;
+    background:#dfe6e9;
+}
+
+.boton-nivel.activo{
+    background:#3498db;
+    color:white;
+}
+
+.criterio-box{
+    margin-bottom:20px;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+.nota{
+    font-size:24px;
+    font-weight:bold;
+    text-align:right;
+    margin-top:20px;
+}
+</style>
 </head>
+
 <body>
 
 <div class="contenedor">
-    <div class="panel-controles">
-        <h2>Controles</h2>
-        <!-- Al cambiar el select, solo cambia el nivel, pero no debería borrar lo que escribas en la tabla -->
-        <label>1. Comprensión (Seleccionar para sugerir):</label>
-        <select onchange="sugerir('rub1', this.value)">
-            <option value="">Selecciona una opción...</option>
-            <option value="Excelente (3p)">Excelente (3p)</option>
-            <option value="Bueno (2.25p)">Bueno (2.25p)</option>
-        </select>
-        <hr>
-        <button onclick="window.print()">🖨️ Imprimir</button>
-    </div>
 
-    <div class="panel-reporte">
-        <h1>Retroalimentación</h1>
-        <table>
-            <tr>
-                <th>Criterio</th>
-                <th>Nivel</th>
-                <th>Descripción (Edita aquí libremente)</th>
-            </tr>
-            <tr>
-                <td>Comprensión Teórica</td>
-                <td id="rub1-nivel">---</td>
-                <td><textarea id="rub1-desc" class="txt-editable">Aquí puedes escribir tu texto personalizado. Nada se borrará aunque cambies el menú.</textarea></td>
-            </tr>
-        </table>
-    </div>
+<div class="panel" id="config">
+
+<h2>Configurar Rúbrica</h2>
+
+<table id="tablaRubrica">
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Nivel</th>
+<th>Puntaje</th>
+<th>Descripción</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td><input value="Comprensión Teórica"></td>
+<td><input value="Excelente"></td>
+<td><input value="3"></td>
+<td><input value="Articula conceptos con autores de forma precisa y profunda"></td>
+</tr>
+
+<tr>
+<td><input value="Comprensión Teórica"></td>
+<td><input value="Bueno"></td>
+<td><input value="2.25"></td>
+<td><input value="Menciona autores adecuadamente"></td>
+</tr>
+
+<tr>
+<td><input value="Comprensión Teórica"></td>
+<td><input value="Suficiente"></td>
+<td><input value="1.5"></td>
+<td><input value="Menciona autores superficialmente"></td>
+</tr>
+
+<tr>
+<td><input value="Comprensión Teórica"></td>
+<td><input value="Insuficiente"></td>
+<td><input value="0.5"></td>
+<td><input value="No utiliza bibliografía"></td>
+</tr>
+
+</tbody>
+</table>
+
+<button class="btn-agregar" onclick="agregarFila()">
+➕ Agregar fila de rúbrica
+</button>
+
+<button class="btn-agregar" onclick="generarCorreccion()">
+🚀 Generar Formulario de Corrección
+</button>
+
+<hr>
+
+<h3>Datos del estudiante</h3>
+
+<input id="nombre" placeholder="Nombre y apellido">
+
+<textarea id="observaciones"
+placeholder="Observaciones generales"></textarea>
+
+</div>
+
+<div class="panel" id="reporte">
+
+<h2>Retroalimentación</h2>
+
+<div id="zonaCorreccion"></div>
+
+<hr>
+
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Nivel</th>
+<th>Puntaje</th>
+<th>Descripción</th>
+</tr>
+</thead>
+
+<tbody id="tablaResultado">
+</tbody>
+</table>
+
+<div class="nota">
+Nota Final: <span id="notaFinal">0</span>
+</div>
+
+</div>
+
 </div>
 
 <script>
-    // Tu base de datos de sugerencias
-    const baseSugerencias = {
-        "rub1": {
-            "Excelente (3p)": "Articula conceptos con autores de forma precisa y profunda.",
-            "Bueno (2.25p)": "Menciona autores adecuadamente."
-        }
-    };
 
-    function sugerir(id, valor) {
-        if(valor === "") return;
-        
-        // Cambia el nivel
-        document.getElementById(id + '-nivel').innerText = valor;
-        
-        // Cambia la descripción SOLO si quieres, pero ahora está en un textarea
-        // que tú puedes editar después sin que esto lo borre.
-        document.getElementById(id + '-desc').value = baseSugerencias[id][valor];
-    }
+let rubrica = {};
+let seleccionados = {};
+
+function agregarFila(){
+
+let tabla =
+document.querySelector("#tablaRubrica tbody");
+
+let fila = document.createElement("tr");
+
+fila.innerHTML = `
+<td><input></td>
+<td><input></td>
+<td><input></td>
+<td><input></td>
+`;
+
+tabla.appendChild(fila);
+}
+
+function generarCorreccion(){
+
+rubrica = {};
+seleccionados = {};
+
+let filas =
+document.querySelectorAll(
+"#tablaRubrica tbody tr"
+);
+
+filas.forEach(fila=>{
+
+let c =
+fila.cells[0].querySelector("input").value;
+
+let n =
+fila.cells[1].querySelector("input").value;
+
+let p =
+parseFloat(
+fila.cells[2].querySelector("input").value
+);
+
+let d =
+fila.cells[3].querySelector("input").value;
+
+if(!rubrica[c]){
+rubrica[c]=[];
+}
+
+rubrica[c].push({
+nivel:n,
+puntaje:p,
+descripcion:d
+});
+
+});
+
+let zona =
+document.getElementById("zonaCorreccion");
+
+zona.innerHTML="";
+
+for(let criterio in rubrica){
+
+let div =
+document.createElement("div");
+
+div.className="criterio-box";
+
+div.innerHTML=
+`<strong>${criterio}</strong><br>`;
+
+rubrica[criterio].forEach(item=>{
+
+let boton =
+document.createElement("button");
+
+boton.className="boton-nivel";
+
+boton.innerText=item.nivel;
+
+boton.onclick=()=>{
+
+seleccionar(
+criterio,
+item,
+boton
+);
+
+};
+
+div.appendChild(boton);
+
+});
+
+zona.appendChild(div);
+
+}
+
+actualizarTabla();
+}
+
+function seleccionar(
+criterio,
+item,
+boton
+){
+
+seleccionados[criterio]=item;
+
+let contenedor =
+boton.parentElement;
+
+contenedor
+.querySelectorAll(".boton-nivel")
+.forEach(b=>b.classList.remove("activo"));
+
+boton.classList.add("activo");
+
+actualizarTabla();
+}
+
+function actualizarTabla(){
+
+let tabla =
+document.getElementById(
+"tablaResultado"
+);
+
+tabla.innerHTML="";
+
+let total=0;
+
+for(let criterio in seleccionados){
+
+let item =
+seleccionados[criterio];
+
+total += item.puntaje;
+
+tabla.innerHTML += `
+<tr>
+<td>${criterio}</td>
+<td>${item.nivel}</td>
+<td>${item.puntaje}</td>
+<td>${item.descripcion}</td>
+</tr>
+`;
+
+}
+
+document.getElementById(
+"notaFinal"
+).innerText =
+total.toFixed(2);
+
+}
+
+generarCorreccion();
+
 </script>
 
 </body>
