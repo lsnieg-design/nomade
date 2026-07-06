@@ -2,113 +2,78 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Retroalimentación | Lic. Lucía Snieg</title>
+    <title>Generador de Retroalimentación | Lucía Snieg</title>
     <style>
-        /* --- ESTILOS GENERALES Y FORMULARIO --- */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; color: #333; }
-        .contenedor { display: flex; gap: 20px; max-width: 1300px; margin: 0 auto; }
-        .panel-controles { width: 35%; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: fit-content; }
-        h2 { margin-top: 0; color: #2c3e50; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
-        input, textarea, select { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; }
-        textarea { resize: vertical; min-height: 100px; }
-        button { width: 100%; background-color: #2980b9; color: white; padding: 15px; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-        button:hover { background-color: #1a5276; }
-
-        /* --- ESTILOS DEL PDF / REPORTE --- */
-        .panel-reporte { width: 65%; background: white; padding: 40px 50px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-        .header-institucional { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #2c3e50; padding-bottom: 15px; margin-bottom: 25px; }
-        .logo-placeholder { max-width: 120px; max-height: 80px; object-fit: contain; }
-        .datos-encabezado { text-align: right; }
-        .datos-encabezado h1 { margin: 0; font-size: 22px; color: #2c3e50; text-transform: uppercase; }
-        .datos-encabezado p { margin: 3px 0; font-size: 14px; color: #555; }
-        .datos-alumno { background-color: #f8f9fa; padding: 15px; border-left: 4px solid #2980b9; margin-bottom: 25px; font-size: 1.1rem; }
-        .seccion-titulo { border-bottom: 1px solid #eee; padding-bottom: 5px; color: #2980b9; margin-bottom: 15px; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 0.9rem; }
-        th { background-color: #f4f6f7; color: #333; }
-        
-        /* Estilo para las celdas editables */
-        [contenteditable="true"] { background-color: #fffdf0; border: 1px dashed #f1c40f; cursor: text; }
-        [contenteditable="true"]:focus { outline: 2px solid #2980b9; background-color: white; }
-
-        .observaciones-box { font-style: italic; color: #444; line-height: 1.6; margin-bottom: 25px; white-space: pre-wrap; }
-        .nota-final { font-size: 1.2rem; font-weight: bold; text-align: right; margin-bottom: 40px; color: #2c3e50; }
-        .firmas-container { display: flex; justify-content: flex-end; margin-top: 60px; }
-        .firma-box { width: 40%; text-align: center; }
-        .img-firma-sello { height: 80px; object-fit: contain; }
-        .linea-firma { border-top: 1px solid #333; padding-top: 5px; font-size: 0.9rem; }
-
-        @media print {
-            body { background-color: white; padding: 0; }
-            .contenedor { display: block; }
-            .panel-controles { display: none; }
-            .panel-reporte { width: 100%; box-shadow: none; padding: 0; }
-            [contenteditable="true"] { border: none; background-color: transparent; }
-            @page { margin: 1.5cm; }
-        }
+        body { font-family: sans-serif; background: #f0f2f5; padding: 20px; }
+        .contenedor { display: flex; gap: 20px; max-width: 1200px; margin: auto; }
+        .panel-controles { width: 30%; background: white; padding: 20px; border-radius: 8px; }
+        .panel-reporte { width: 70%; background: white; padding: 40px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        select, input, textarea { width: 100%; margin-bottom: 10px; padding: 8px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; font-size: 0.9rem; }
+        [contenteditable="true"] { background: #fffdf0; border: 1px dashed #d4ac0d; }
+        @media print { .panel-controles { display: none; } .panel-reporte { width: 100%; box-shadow: none; } }
     </style>
 </head>
-<body onload="actualizarPrevio()">
+<body>
 
 <div class="contenedor">
     <div class="panel-controles">
-        <h2>Cargar Datos</h2>
-        <div class="form-group"><label>Nombre:</label><input type="text" id="inNombre" oninput="actualizarPrevio()"></div>
-        <div class="form-group"><label>Apellido:</label><input type="text" id="inApellido" oninput="actualizarPrevio()"></div>
-        <div class="form-group"><label>1. Comprensión (3p):</label><select id="inRub1" onchange="actualizarPrevio()"><option value="Excelente (3p)">Excelente (3p)</option><option value="Bueno (2.25p)">Bueno (2.25p)</option><option value="Suficiente (1.5p)">Suficiente (1.5p)</option><option value="Insuficiente (0.5p)">Insuficiente (0.5p)</option></select></div>
-        <div class="form-group"><label>2. Creatividad (3p):</label><select id="inRub2" onchange="actualizarPrevio()"><option value="Excelente (3p)">Excelente (3p)</option><option value="Bueno (2.25p)">Bueno (2.25p)</option><option value="Suficiente (1.5p)">Suficiente (1.5p)</option><option value="Insuficiente (0.5p)">Insuficiente (0.5p)</option></select></div>
-        <div class="form-group"><label>3. Reflexión (3p):</label><select id="inRub3" onchange="actualizarPrevio()"><option value="Excelente (3p)">Excelente (3p)</option><option value="Bueno (2.25p)">Bueno (2.25p)</option><option value="Suficiente (1.5p)">Suficiente (1.5p)</option><option value="Insuficiente (0.5p)">Insuficiente (0.5p)</option></select></div>
-        <div class="form-group"><label>4. Tiempo (1p):</label><select id="inRub4" onchange="actualizarPrevio()"><option value="Excelente (1p)">Excelente (1p)</option><option value="Bueno (0.75p)">Bueno (0.75p)</option><option value="Suficiente (0.5p)">Suficiente (0.5p)</option><option value="Insuficiente (0.25p)">Insuficiente (0.25p)</option></select></div>
-        <div class="form-group"><label>Observaciones:</label><textarea id="inObs" oninput="actualizarPrevio()"></textarea></div>
-        <div class="form-group"><label>Nota Final:</label><input type="text" id="inNota" oninput="actualizarPrevio()"></div>
-        <button onclick="window.print()">🖨️ Generar PDF / Imprimir</button>
+        <h3>Configuración</h3>
+        <input type="text" id="inNombre" placeholder="Nombre Estudiante" oninput="actualizar()">
+        <div id="selectores-container"></div>
+        <button onclick="window.print()">🖨️ Imprimir PDF</button>
     </div>
 
     <div class="panel-reporte">
-        <div class="header-institucional">
-            <img src="logo.jpg" alt="Logo" class="logo-placeholder">
-            <div class="datos-encabezado"><h1>Retroalimentación Parcial 1</h1><p>Materia: Cultura Digital y Educación | 2026</p></div>
-        </div>
-        <div class="datos-alumno"><strong>Estudiante:</strong> <span id="outNombre">---</span> <span id="outApellido"></span></div>
-        <table>
-            <thead><tr><th>Criterio</th><th>Nivel</th><th>Descripción (Haz clic para editar)</th></tr></thead>
-            <tbody>
-                <tr><td><strong>Comprensión</strong></td><td id="outRub1Nivel"></td><td id="outRub1Desc" contenteditable="true"></td></tr>
-                <tr><td><strong>Creatividad</strong></td><td id="outRub2Nivel"></td><td id="outRub2Desc" contenteditable="true"></td></tr>
-                <tr><td><strong>Reflexión</strong></td><td id="outRub3Nivel"></td><td id="outRub3Desc" contenteditable="true"></td></tr>
-                <tr><td><strong>Tiempo</strong></td><td id="outRub4Nivel"></td><td id="outRub4Desc" contenteditable="true"></td></tr>
-            </tbody>
+        <h2 id="outNombre">Estudiante: ---</h2>
+        <table id="tabla-rubrica">
+            <thead><tr><th>Eje</th><th>Nivel</th><th>Descripción (Editable)</th></tr></thead>
+            <tbody id="cuerpo-tabla"></tbody>
         </table>
-        <h3 class="seccion-titulo">Observaciones</h3>
-        <div class="observaciones-box" id="outObs" contenteditable="true"></div>
-        <div class="nota-final">Calificación: <span id="outNota">---</span></div>
     </div>
 </div>
 
 <script>
-    const db = {
-        rub1: {"Excelente (3p)": "Articula conceptos con autores de forma precisa y profunda.", "Bueno (2.25p)": "Menciona autores adecuadamente. Relación clara.", "Suficiente (1.5p)": "Menciona autores de forma superficial.", "Insuficiente (0.5p)": "No utiliza bibliografía o presenta errores."},
-        rub2: {"Excelente (3p)": "Producciones originales, estéticas y de autoría propia.", "Bueno (2.25p)": "Producciones completas y prolijas.", "Suficiente (1.5p)": "Producciones básicas o genéricas.", "Insuficiente (0.5p)": "No realiza producciones o usa material ajeno."},
-        rub3: {"Excelente (3p)": "Apropiación crítica y relato fluido.", "Bueno (2.25p)": "Reflexión personal honesta.", "Suficiente (1.5p)": "Reflexión mínima o breve.", "Insuficiente (0.5p)": "No incluye reflexión personal."},
-        rub4: {"Excelente (1p)": "Entrega en fecha y formato perfecto.", "Bueno (0.75p)": "Entrega en fecha con detalles menores.", "Suficiente (0.5p)": "Entrega fuera de término.", "Insuficiente (0.25p)": "Entrega muy tardía o desorganizada."}
-    };
+    // --- AQUÍ CONFIGURAS TUS 5 EJES Y SUS 4 NIVELES ---
+    const configEjes = [
+        { nombre: "Eje 1: Comprensión", niveles: {"Excelente": "Muy bien", "Bueno": "Bien", "Suficiente": "Regular", "Insuficiente": "Insuficiente"} },
+        { nombre: "Eje 2: Creatividad", niveles: {"Excelente": "Muy bien", "Bueno": "Bien", "Suficiente": "Regular", "Insuficiente": "Insuficiente"} },
+        { nombre: "Eje 3: Reflexión", niveles: {"Excelente": "Muy bien", "Bueno": "Bien", "Suficiente": "Regular", "Insuficiente": "Insuficiente"} },
+        { nombre: "Eje 4: Producción", niveles: {"Excelente": "Muy bien", "Bueno": "Bien", "Suficiente": "Regular", "Insuficiente": "Insuficiente"} },
+        { nombre: "Eje 5: Conducta", niveles: {"Excelente": "Muy bien", "Bueno": "Bien", "Suficiente": "Regular", "Insuficiente": "Insuficiente"} }
+    ];
 
-    function actualizarPrevio() {
-        document.getElementById('outNombre').innerText = document.getElementById('inNombre').value || "---";
-        document.getElementById('outApellido').innerText = document.getElementById('inApellido').value || "";
-        
-        ['rub1','rub2','rub3','rub4'].forEach((r, i) => {
-            let sel = document.getElementById('in' + r.charAt(0).toUpperCase() + r.slice(1));
-            document.getElementById('out' + r.charAt(0).toUpperCase() + r.slice(1) + 'Nivel').innerText = sel.value;
-            document.getElementById('out' + r.charAt(0).toUpperCase() + r.slice(1) + 'Desc').innerText = db[r][sel.value];
+    function inicializar() {
+        const container = document.getElementById('selectores-container');
+        const tbody = document.getElementById('cuerpo-tabla');
+
+        configEjes.forEach((eje, i) => {
+            // Crear Selects en panel control
+            let select = `<label>${eje.nombre}</label><select id="sel-${i}" onchange="actualizar()">`;
+            for (let niv in eje.niveles) select += `<option value="${niv}">${niv}</option>`;
+            container.innerHTML += select + `</select>`;
+
+            // Crear Filas en tabla
+            tbody.innerHTML += `<tr>
+                <td><strong>${eje.nombre}</strong></td>
+                <td id="niv-${i}">Excelente</td>
+                <td id="desc-${i}" contenteditable="true"></td>
+            </tr>`;
         });
-
-        document.getElementById('outObs').innerText = document.getElementById('inObs').value || "Escribe aquí tus observaciones...";
-        document.getElementById('outNota').innerText = document.getElementById('inNota').value || "---";
+        actualizar();
     }
+
+    function actualizar() {
+        document.getElementById('outNombre').innerText = "Estudiante: " + (document.getElementById('inNombre').value || "---");
+        configEjes.forEach((eje, i) => {
+            let val = document.getElementById('sel-' + i).value;
+            document.getElementById('niv-' + i).innerText = val;
+            document.getElementById('desc-' + i).innerText = eje.niveles[val];
+        });
+    }
+
+    window.onload = inicializar;
 </script>
 </body>
 </html>
