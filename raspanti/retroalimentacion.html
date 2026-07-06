@@ -2,78 +2,135 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Generador de Retroalimentación | Lucía Snieg</title>
-    <!-- (Mantén tus mismos estilos CSS aquí) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Retroalimentación | Lic. Lucía Snieg</title>
     <style>
-        /* ... (Usa el mismo CSS que ya tenías para mantener el diseño) ... */
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; }
+        /* --- ESTILOS ORIGINALES MANTENIDOS --- */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; color: #333; }
         .contenedor { display: flex; gap: 20px; max-width: 1300px; margin: 0 auto; }
-        .panel-controles { width: 35%; background: white; padding: 25px; border-radius: 10px; }
-        .panel-reporte { width: 65%; background: white; padding: 40px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        select { width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        @media print { .panel-controles { display: none; } .panel-reporte { width: 100%; box-shadow: none; } }
+        .panel-controles { width: 35%; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: fit-content; }
+        h2 { margin-top: 0; color: #2c3e50; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        input, textarea, select { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; }
+        textarea { resize: vertical; min-height: 100px; }
+        button { width: 100%; background-color: #2980b9; color: white; padding: 15px; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        button:hover { background-color: #1a5276; }
+
+        .panel-reporte { width: 65%; background: white; padding: 40px 50px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        .header-institucional { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #2c3e50; padding-bottom: 15px; margin-bottom: 25px; }
+        .logo-placeholder { max-width: 120px; max-height: 80px; object-fit: contain; }
+        .datos-encabezado { text-align: right; }
+        .datos-encabezado h1 { margin: 0; font-size: 22px; color: #2c3e50; text-transform: uppercase; }
+        .datos-alumno { background-color: #f8f9fa; padding: 15px; border-left: 4px solid #2980b9; margin-bottom: 25px; font-size: 1.1rem; }
+        .seccion-titulo { border-bottom: 1px solid #eee; padding-bottom: 5px; color: #2980b9; margin-bottom: 15px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 0.9rem; }
+        th { background-color: #f4f6f7; color: #333; }
+        
+        .observaciones-box { font-style: italic; color: #444; line-height: 1.6; margin-bottom: 25px; white-space: pre-wrap; }
+        .nota-final { font-size: 1.2rem; font-weight: bold; text-align: right; margin-bottom: 40px; color: #2c3e50; }
+        .firmas-container { display: flex; justify-content: flex-end; margin-top: 60px; }
+        .firma-box { width: 40%; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .img-firma-sello { height: 80px; object-fit: contain; margin-bottom: 5px; }
+        .linea-firma { border-top: 1px solid #333; width: 100%; padding-top: 5px; font-size: 0.9rem; }
+
+        @media print {
+            body { background-color: white; padding: 0; }
+            .contenedor { display: block; }
+            .panel-controles { display: none; }
+            .panel-reporte { width: 100%; box-shadow: none; padding: 0; margin: 0; }
+            @page { margin: 1.5cm; }
+        }
     </style>
 </head>
-<body>
+<body onload="actualizarPrevio()">
 
 <div class="contenedor">
     <div class="panel-controles">
-        <h2>Configurar Evaluación</h2>
-        <div id="controles-rubrica"></div> <!-- Aquí se inyectarán los selectores -->
+        <h2>Cargar Datos</h2>
+        <div class="form-group"><label>Nombre:</label><input type="text" id="inNombre" oninput="actualizarPrevio()"></div>
+        <div class="form-group"><label>Apellido:</label><input type="text" id="inApellido" oninput="actualizarPrevio()"></div>
+        
+        <!-- Aquí están los selectores -->
+        <div id="selectores-container"></div>
+
+        <div class="form-group"><label>Observaciones:</label><textarea id="inObs" oninput="actualizarPrevio()"></textarea></div>
+        <div class="form-group"><label>Nota Final:</label><input type="text" id="inNota" oninput="actualizarPrevio()"></div>
+        <button onclick="window.print()">🖨️ Generar PDF / Imprimir</button>
     </div>
 
     <div class="panel-reporte">
-        <h1>Rúbrica de Evaluación</h1>
+        <div class="header-institucional">
+            <img src="logo.jpg" alt="Logo" class="logo-placeholder">
+            <div class="datos-encabezado">
+                <h1>Retroalimentación</h1>
+                <p><strong>Materia:</strong> Cultura Digital y Educación</p>
+            </div>
+        </div>
+        <div class="datos-alumno"><strong>Estudiante:</strong> <span id="outNombre">---</span> <span id="outApellido"></span></div>
+
+        <h3 class="seccion-titulo">Rúbrica de Evaluación</h3>
         <table>
-            <thead><tr><th>Criterio</th><th>Descripción</th></tr></thead>
+            <thead><tr><th>Criterio</th><th>Nivel</th><th>Descripción</th></tr></thead>
             <tbody id="cuerpo-tabla"></tbody>
         </table>
+
+        <h3 class="seccion-titulo">Observaciones</h3>
+        <div class="observaciones-box" id="outObs"></div>
+        <div class="nota-final">Nota: <span id="outNota">---</span></div>
+
+        <div class="firmas-container">
+            <div class="firma-box">
+                <img src="firma.png" alt="Firma" class="img-firma-sello">
+                <div class="linea-firma"><strong>Lic. Prof. Lucía Snieg</strong></div>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-    // --- EDITA TUS CRITERIOS Y NIVELES AQUÍ ---
-    const rubricaData = {
+    // --- EDITA TU RUBRICA AQUÍ ---
+    const db = {
         "Articulación Teórica": {
-            "Excelente": "Integra y profundiza con precisión las tesis de al menos 3 autores. Uso impecable de conceptos.",
-            "Bueno": "Menciona autores adecuadamente, relacionándolos de forma clara pero con menor desarrollo analítico.",
-            "Suficiente": "Uso de autores de forma fragmentada, enumerativa o superficial.",
-            "Insuficiente": "Ausencia de fundamentación conceptual o errores disciplinares graves."
+            "Excelente": "Integra y profundiza con precisión las tesis de al menos 3 autores. Uso impecable.",
+            "Bueno": "Menciona autores adecuadamente, con desarrollo claro.",
+            "Suficiente": "Uso de autores de forma fragmentada o superficial.",
+            "Insuficiente": "Ausencia de fundamentación o errores graves."
         },
         "Creatividad y Formato": {
-            "Excelente": "Uso original y humorístico del formato 'Llame ya'. Gran dinamismo.",
-            "Bueno": "El spot es claro, prolijo y entretenido.",
-            "Suficiente": "Spot plano o lineal. Escaso uso de recursos expresivos.",
-            "Insuficiente": "No logra estructurar el formato audiovisual pedido."
+            "Excelente": "Uso original y humorístico del formato. Gran dinamismo.",
+            "Bueno": "Spot claro, prolijo y entretenido.",
+            "Suficiente": "Spot plano o lineal. Escaso uso de recursos.",
+            "Insuficiente": "No logra estructurar el formato audiovisual."
         }
-        // Puedes agregar más criterios aquí siguiendo la misma estructura
     };
 
-    function renderizar() {
-        const controles = document.getElementById('controles-rubrica');
-        const cuerpo = document.getElementById('cuerpo-tabla');
+    // Generar controles y tabla
+    const contenedorSelectores = document.getElementById('selectores-container');
+    const cuerpoTabla = document.getElementById('cuerpo-tabla');
 
-        for (let criterio in rubricaData) {
-            // Crear Selectores
-            controles.innerHTML += `<label>${criterio}</label><select id="sel-${criterio}" onchange="actualizar()">
-                ${Object.keys(rubricaData[criterio]).map(niv => `<option value="${niv}">${niv}</option>`).join('')}
-            </select>`;
+    Object.keys(db).forEach((criterio, i) => {
+        contenedorSelectores.innerHTML += `<label>${criterio}:</label>
+            <select id="sel-${i}" onchange="actualizarPrevio()">${Object.keys(db[criterio]).map(n => `<option value="${n}">${n}</option>`).join('')}</select>`;
+        
+        cuerpoTabla.innerHTML += `<tr><td><strong>${criterio}</strong></td><td id="nivel-${i}">Excelente</td><td id="desc-${i}"></td></tr>`;
+    });
 
-            // Crear Filas
-            cuerpo.innerHTML += `<tr><td><strong>${criterio}</strong></td><td id="desc-${criterio}">${Object.values(rubricaData[criterio])[0]}</td></tr>`;
-        }
+    function actualizarPrevio() {
+        document.getElementById('outNombre').innerText = document.getElementById('inNombre').value || "---";
+        document.getElementById('outApellido').innerText = document.getElementById('inApellido').value || "";
+        document.getElementById('outObs').innerText = document.getElementById('inObs').value || "Aún no hay observaciones.";
+        document.getElementById('outNota').innerText = document.getElementById('inNota').value || "---";
+        
+        Object.keys(db).forEach((criterio, i) => {
+            let nivel = document.getElementById('sel-'+i).value;
+            document.getElementById('nivel-'+i).innerText = nivel;
+            document.getElementById('desc-'+i).innerText = db[criterio][nivel];
+        });
     }
-
-    function actualizar() {
-        for (let criterio in rubricaData) {
-            let nivelElegido = document.getElementById(`sel-${criterio}`).value;
-            document.getElementById(`desc-${criterio}`).innerText = rubricaData[criterio][nivelElegido];
-        }
-    }
-
-    window.onload = renderizar;
+    actualizarPrevio();
 </script>
 </body>
 </html>
