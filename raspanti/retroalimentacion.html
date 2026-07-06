@@ -2,78 +2,112 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Generador de Retroalimentación | Lucía Snieg</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Retroalimentación | Lic. Lucía Snieg</title>
     <style>
-        body { font-family: sans-serif; background: #f0f2f5; padding: 20px; }
-        .contenedor { display: flex; gap: 20px; max-width: 1200px; margin: auto; }
-        .panel-controles { width: 30%; background: white; padding: 20px; border-radius: 8px; }
-        .panel-reporte { width: 70%; background: white; padding: 40px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        select, input, textarea { width: 100%; margin-bottom: 10px; padding: 8px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 8px; font-size: 0.9rem; }
-        [contenteditable="true"] { background: #fffdf0; border: 1px dashed #d4ac0d; }
-        @media print { .panel-controles { display: none; } .panel-reporte { width: 100%; box-shadow: none; } }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; color: #333; }
+        .contenedor { display: flex; gap: 20px; max-width: 1300px; margin: 0 auto; }
+        
+        /* Panel de Controles */
+        .panel-controles { width: 35%; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: fit-content; }
+        h2 { margin-top: 0; color: #2c3e50; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
+        input, textarea { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; }
+        button { width: 100%; background-color: #2980b9; color: white; padding: 15px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        button:hover { background-color: #1a5276; }
+
+        /* Panel de Reporte (El diseño original) */
+        .panel-reporte { width: 65%; background: white; padding: 40px 50px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        .header-institucional { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #2c3e50; padding-bottom: 15px; margin-bottom: 25px; }
+        .datos-encabezado { text-align: right; }
+        .datos-encabezado h1 { margin: 0; font-size: 22px; color: #2c3e50; text-transform: uppercase; }
+        .datos-alumno { background-color: #f8f9fa; padding: 15px; border-left: 4px solid #2980b9; margin-bottom: 25px; font-size: 1.1rem; }
+        
+        /* Tabla Editable */
+        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 0.85rem; }
+        th { background-color: #f4f6f7; }
+        [contenteditable="true"] { background-color: #fffdf0; cursor: text; border: 1px dashed #ccc; }
+        [contenteditable="true"]:focus { background-color: #fff; outline: 2px solid #2980b9; }
+
+        @media print {
+            body { background-color: white; }
+            .panel-controles { display: none; }
+            .panel-reporte { width: 100%; box-shadow: none; padding: 0; }
+            [contenteditable="true"] { border: none; background-color: transparent; }
+        }
     </style>
 </head>
 <body>
 
 <div class="contenedor">
     <div class="panel-controles">
-        <h3>Configuración</h3>
-        <input type="text" id="inNombre" placeholder="Nombre Estudiante" oninput="actualizar()">
-        <div id="selectores-container"></div>
-        <button onclick="window.print()">🖨️ Imprimir PDF</button>
+        <h2>Cargar Datos</h2>
+        <div class="form-group"><label>Nombre y Apellido:</label><input type="text" id="inNombre" oninput="document.getElementById('outNombre').innerText = this.value"></div>
+        <div class="form-group"><label>Nota Final:</label><input type="text" id="inNota" oninput="document.getElementById('outNota').innerText = this.value"></div>
+        <button onclick="window.print()">🖨️ Generar PDF / Imprimir</button>
+        <p style="font-size: 0.8rem; color: #666; margin-top: 15px;">* Nota: Puedes hacer clic directamente en cualquier celda de la tabla a la derecha para editar los criterios antes de imprimir.</p>
     </div>
 
     <div class="panel-reporte">
-        <h2 id="outNombre">Estudiante: ---</h2>
-        <table id="tabla-rubrica">
-            <thead><tr><th>Eje</th><th>Nivel</th><th>Descripción (Editable)</th></tr></thead>
-            <tbody id="cuerpo-tabla"></tbody>
+        <div class="header-institucional">
+            <div><strong>LOGO</strong></div>
+            <div class="datos-encabezado"><h1>Grilla de Evaluación</h1><p>Materia: Educación Especial</p></div>
+        </div>
+        <div class="datos-alumno"><strong>Estudiante:</strong> <span id="outNombre">---</span></div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Criterio</th>
+                    <th>Excelente</th>
+                    <th>Bueno</th>
+                    <th>Suficiente</th>
+                    <th>Insuficiente</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Fila 1 -->
+                <tr>
+                    <td contenteditable="true"><strong>Articulación Teórica (3.5p)</strong></td>
+                    <td contenteditable="true">Integra tesis de 3 autores. Uso impecable.</td>
+                    <td contenteditable="true">Menciona autores adecuadamente.</td>
+                    <td contenteditable="true">Uso de autores superficial.</td>
+                    <td contenteditable="true">Ausencia de fundamentación.</td>
+                </tr>
+                <!-- Fila 2 -->
+                <tr>
+                    <td contenteditable="true"><strong>Creatividad y Formato (3.5p)</strong></td>
+                    <td contenteditable="true">Uso original y humorístico. Gran dinamismo.</td>
+                    <td contenteditable="true">Spot claro, prolijo y entretenido.</td>
+                    <td contenteditable="true">Spot plano o lineal. Escaso humor.</td>
+                    <td contenteditable="true">No logra estructura ni formato.</td>
+                </tr>
+                <!-- Fila 3 -->
+                <tr>
+                    <td contenteditable="true"><strong>Trabajo Colaborativo (2p)</strong></td>
+                    <td contenteditable="true">Coherencia absoluta. Equilibrio grupal.</td>
+                    <td contenteditable="true">Propuesta integrada y organizada.</td>
+                    <td contenteditable="true">Falta de hilo conductor evidente.</td>
+                    <td contenteditable="true">Yuxtaposición de partes individuales.</td>
+                </tr>
+                <!-- Fila 4 -->
+                <tr>
+                    <td contenteditable="true"><strong>Tiempo y Forma (1p)</strong></td>
+                    <td contenteditable="true">Entrega puntual. PDF perfecto.</td>
+                    <td contenteditable="true">Entrega en fecha. Detalles menores.</td>
+                    <td contenteditable="true">Entrega fuera de término.</td>
+                    <td contenteditable="true">Entrega tardía o sin links.</td>
+                </tr>
+            </tbody>
         </table>
+
+        <div style="text-align: right; font-weight: bold; font-size: 1.2rem;">
+            Calificación Final: <span id="outNota">---</span>
+        </div>
     </div>
 </div>
 
-<script>
-    // --- AQUÍ CONFIGURAS TUS 5 EJES Y SUS 4 NIVELES ---
-    const configEjes = [
-        { nombre: "Eje 1: Comprensión", niveles: {"Excelente": "Muy bien", "Bueno": "Bien", "Suficiente": "Regular", "Insuficiente": "Insuficiente"} },
-        { nombre: "Eje 2: Creatividad", niveles: {"Excelente": "Muy bien", "Bueno": "Bien", "Suficiente": "Regular", "Insuficiente": "Insuficiente"} },
-        { nombre: "Eje 3: Reflexión", niveles: {"Excelente": "Muy bien", "Bueno": "Bien", "Suficiente": "Regular", "Insuficiente": "Insuficiente"} },
-        { nombre: "Eje 4: Producción", niveles: {"Excelente": "Muy bien", "Bueno": "Bien", "Suficiente": "Regular", "Insuficiente": "Insuficiente"} },
-        { nombre: "Eje 5: Conducta", niveles: {"Excelente": "Muy bien", "Bueno": "Bien", "Suficiente": "Regular", "Insuficiente": "Insuficiente"} }
-    ];
-
-    function inicializar() {
-        const container = document.getElementById('selectores-container');
-        const tbody = document.getElementById('cuerpo-tabla');
-
-        configEjes.forEach((eje, i) => {
-            // Crear Selects en panel control
-            let select = `<label>${eje.nombre}</label><select id="sel-${i}" onchange="actualizar()">`;
-            for (let niv in eje.niveles) select += `<option value="${niv}">${niv}</option>`;
-            container.innerHTML += select + `</select>`;
-
-            // Crear Filas en tabla
-            tbody.innerHTML += `<tr>
-                <td><strong>${eje.nombre}</strong></td>
-                <td id="niv-${i}">Excelente</td>
-                <td id="desc-${i}" contenteditable="true"></td>
-            </tr>`;
-        });
-        actualizar();
-    }
-
-    function actualizar() {
-        document.getElementById('outNombre').innerText = "Estudiante: " + (document.getElementById('inNombre').value || "---");
-        configEjes.forEach((eje, i) => {
-            let val = document.getElementById('sel-' + i).value;
-            document.getElementById('niv-' + i).innerText = val;
-            document.getElementById('desc-' + i).innerText = eje.niveles[val];
-        });
-    }
-
-    window.onload = inicializar;
-</script>
 </body>
 </html>
