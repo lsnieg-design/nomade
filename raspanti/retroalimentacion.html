@@ -2,91 +2,79 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Retroalimentación | Lic. Lucía Snieg</title>
+    <title>Generador de Retroalimentación</title>
     <style>
-        /* --- ESTILOS GENERALES Y FORMULARIO --- */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; color: #333; }
-        .contenedor { display: flex; gap: 20px; max-width: 1300px; margin: 0 auto; }
-        .panel-controles { width: 35%; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: fit-content; }
-        h2 { margin-top: 0; color: #2c3e50; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
-        input, textarea, select { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; }
-        textarea { resize: vertical; min-height: 100px; }
-        button { width: 100%; background-color: #2980b9; color: white; padding: 15px; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-        button:hover { background-color: #1a5276; }
-
-        /* --- ESTILOS DEL PDF --- */
-        .panel-reporte { width: 65%; background: white; padding: 40px 50px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 0.9rem; }
-        .edit-area { width: 100%; border: none; background: transparent; font-family: inherit; font-size: 0.9rem; resize: none; color: #333; }
+        body { font-family: sans-serif; background: #f0f2f5; padding: 20px; }
+        .contenedor { display: flex; gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .panel-controles { width: 35%; background: white; padding: 20px; border-radius: 8px; }
+        .panel-reporte { width: 65%; background: white; padding: 40px; }
+        
+        /* Esto hace que el textarea dentro de la tabla parezca texto normal */
+        .txt-editable { 
+            width: 100%; border: 1px dashed #ccc; padding: 5px; 
+            font-family: inherit; font-size: 0.9rem; resize: vertical; min-height: 50px;
+        }
+        
         @media print {
-            body { background-color: white; }
             .panel-controles { display: none; }
-            .panel-reporte { width: 100%; box-shadow: none; padding: 0; margin: 0; }
+            .panel-reporte { width: 100%; box-shadow: none; padding: 0; }
+            .txt-editable { border: none; } /* Sin borde al imprimir */
         }
     </style>
 </head>
-<body onload="cargarInicial()">
+<body>
 
 <div class="contenedor">
     <div class="panel-controles">
-        <h2>Cargar Datos</h2>
-        <div class="form-group"><label>Nombre:</label><input type="text" id="inNombre" oninput="actualizarTexto()"></div>
-        <div class="form-group"><label>Apellido:</label><input type="text" id="inApellido" oninput="actualizarTexto()"></div>
-        
-        <div class="form-group"><label>1. Comprensión Teórica:</label><select id="inRub1" onchange="sugerir(1)"><option value="Excelente (3p)">Excelente (3p)</option><option value="Bueno (2.25p)">Bueno (2.25p)</option><option value="Suficiente (1.5p)">Suficiente (1.5p)</option><option value="Insuficiente (0.5p)">Insuficiente (0.5p)</option></select></div>
-        <div class="form-group"><label>2. Creatividad:</label><select id="inRub2" onchange="sugerir(2)"><option value="Excelente (3p)">Excelente (3p)</option><option value="Bueno (2.25p)">Bueno (2.25p)</option><option value="Suficiente (1.5p)">Suficiente (1.5p)</option><option value="Insuficiente (0.5p)">Insuficiente (0.5p)</option></select></div>
-        <div class="form-group"><label>3. Reflexión:</label><select id="inRub3" onchange="sugerir(3)"><option value="Excelente (3p)">Excelente (3p)</option><option value="Bueno (2.25p)">Bueno (2.25p)</option><option value="Suficiente (1.5p)">Suficiente (1.5p)</option><option value="Insuficiente (0.5p)">Insuficiente (0.5p)</option></select></div>
-        <div class="form-group"><label>4. Tiempo y Forma:</label><select id="inRub4" onchange="sugerir(4)"><option value="Excelente (1p)">Excelente (1p)</option><option value="Bueno (0.75p)">Bueno (0.75p)</option><option value="Suficiente (0.5p)">Suficiente (0.5p)</option><option value="Insuficiente (0.25p)">Insuficiente (0.25p)</option></select></div>
-
-        <div class="form-group"><label>Observaciones:</label><textarea id="inObs" oninput="actualizarTexto()"></textarea></div>
-        <div class="form-group"><label>Nota Final:</label><input type="text" id="inNota" oninput="actualizarTexto()"></div>
+        <h2>Controles</h2>
+        <!-- Al cambiar el select, solo cambia el nivel, pero no debería borrar lo que escribas en la tabla -->
+        <label>1. Comprensión (Seleccionar para sugerir):</label>
+        <select onchange="sugerir('rub1', this.value)">
+            <option value="">Selecciona una opción...</option>
+            <option value="Excelente (3p)">Excelente (3p)</option>
+            <option value="Bueno (2.25p)">Bueno (2.25p)</option>
+        </select>
+        <hr>
         <button onclick="window.print()">🖨️ Imprimir</button>
     </div>
 
     <div class="panel-reporte">
-        <div class="header-institucional"><h1>Retroalimentación</h1></div>
-        <p><strong>Estudiante:</strong> <span id="outNombre">---</span> <span id="outApellido"></span></p>
+        <h1>Retroalimentación</h1>
         <table>
-            <tr><th>Criterio</th><th>Nivel</th><th>Descripción (Editable)</th></tr>
-            <tr><td>Comprensión</td><td id="outRub1Nivel">---</td><td><textarea id="outRub1Desc" class="edit-area"></textarea></td></tr>
-            <tr><td>Creatividad</td><td id="outRub2Nivel">---</td><td><textarea id="outRub2Desc" class="edit-area"></textarea></td></tr>
-            <tr><td>Reflexión</td><td id="outRub3Nivel">---</td><td><textarea id="outRub3Desc" class="edit-area"></textarea></td></tr>
-            <tr><td>Tiempo/Forma</td><td id="outRub4Nivel">---</td><td><textarea id="outRub4Desc" class="edit-area"></textarea></td></tr>
+            <tr>
+                <th>Criterio</th>
+                <th>Nivel</th>
+                <th>Descripción (Edita aquí libremente)</th>
+            </tr>
+            <tr>
+                <td>Comprensión Teórica</td>
+                <td id="rub1-nivel">---</td>
+                <td><textarea id="rub1-desc" class="txt-editable">Aquí puedes escribir tu texto personalizado. Nada se borrará aunque cambies el menú.</textarea></td>
+            </tr>
         </table>
-        <div id="outObs">---</div>
-        <div style="text-align:right"><strong>Nota:</strong> <span id="outNota">---</span></div>
     </div>
 </div>
 
 <script>
-    const db = {
-        1: {"Excelente (3p)": "Articula conceptos con autores de forma precisa.", "Bueno (2.25p)": "Menciona autores adecuadamente.", "Suficiente (1.5p)": "Menciona autores de forma superficial.", "Insuficiente (0.5p)": "Sin bibliografía o errores graves."},
-        2: {"Excelente (3p)": "Producciones originales y estéticas.", "Bueno (2.25p)": "Producciones completas y prolijas.", "Suficiente (1.5p)": "Producciones básicas o genéricas.", "Insuficiente (0.5p)": "No realiza las producciones."},
-        3: {"Excelente (3p)": "Apropiación crítica y relato fluido.", "Bueno (2.25p)": "Reflexión personal honesta.", "Suficiente (1.5p)": "Reflexión mínima.", "Insuficiente (0.5p)": "No incluye reflexión."},
-        4: {"Excelente (1p)": "Entrega en fecha y ordenado.", "Bueno (0.75p)": "Entrega en fecha.", "Suficiente (0.5p)": "Entrega fuera de término.", "Insuficiente (0.25p)": "Entrega muy tardía."}
+    // Tu base de datos de sugerencias
+    const baseSugerencias = {
+        "rub1": {
+            "Excelente (3p)": "Articula conceptos con autores de forma precisa y profunda.",
+            "Bueno (2.25p)": "Menciona autores adecuadamente."
+        }
     };
 
-    function sugerir(n) {
-        let sel = document.getElementById('inRub'+n);
-        let txt = document.getElementById('outRub'+n+'Desc');
-        document.getElementById('outRub'+n+'Nivel').innerText = sel.value;
-        txt.value = db[n][sel.value]; // Solo cambia si usas el selector
-    }
-
-    function actualizarTexto() {
-        document.getElementById('outNombre').innerText = document.getElementById('inNombre').value;
-        document.getElementById('outApellido').innerText = document.getElementById('inApellido').value;
-        document.getElementById('outObs').innerText = document.getElementById('inObs').value;
-        document.getElementById('outNota').innerText = document.getElementById('inNota').value;
-    }
-
-    function cargarInicial() {
-        for(let i=1; i<=4; i++) sugerir(i);
+    function sugerir(id, valor) {
+        if(valor === "") return;
+        
+        // Cambia el nivel
+        document.getElementById(id + '-nivel').innerText = valor;
+        
+        // Cambia la descripción SOLO si quieres, pero ahora está en un textarea
+        // que tú puedes editar después sin que esto lo borre.
+        document.getElementById(id + '-desc').value = baseSugerencias[id][valor];
     }
 </script>
+
 </body>
 </html>
