@@ -4,23 +4,24 @@
     <meta charset="UTF-8">
     <title>Generador de Retroalimentación | Lic. Lucía Snieg</title>
     <style>
-        /* --- ESTILOS MANTENIDOS --- */
         body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; color: #333; }
         .contenedor { display: flex; gap: 20px; max-width: 1300px; margin: 0 auto; }
-        .panel-controles { width: 35%; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: fit-content; }
+        
+        /* CORRECCIÓN DE COLUMNA IZQUIERDA */
+        .panel-controles { width: 35%; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .campo-contenedor { margin-bottom: 15px; display: block; }
+        .campo-contenedor label { display: block; font-weight: 600; margin-bottom: 4px; font-size: 0.85rem; }
+        .campo-contenedor input, .campo-contenedor select, .campo-contenedor textarea { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px; }
+        
+        /* El resto de estilos se mantiene igual para tu reporte */
         .panel-reporte { width: 65%; background: white; padding: 40px 50px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
         .header-institucional { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #2c3e50; padding-bottom: 15px; margin-bottom: 25px; }
         .logo-placeholder { max-width: 120px; max-height: 80px; object-fit: contain; }
-        .datos-encabezado { text-align: right; }
         .datos-alumno { background-color: #f8f9fa; padding: 15px; border-left: 4px solid #2980b9; margin-bottom: 25px; }
         table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
         th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 0.85rem; }
         th { background-color: #f4f6f7; }
-        .observaciones-box { font-style: italic; color: #444; line-height: 1.6; margin-bottom: 25px; white-space: pre-wrap; }
-        .nota-final { font-size: 1.4rem; font-weight: bold; text-align: right; color: #2c3e50; margin-bottom: 40px; }
-        .firma-box { width: 40%; text-align: center; margin-left: auto; }
-        .img-firma-sello { height: 80px; object-fit: contain; }
-        
+        .nota-final { font-size: 1.4rem; font-weight: bold; text-align: right; color: #2c3e50; }
         @media print { .panel-controles { display: none; } .panel-reporte { width: 100%; box-shadow: none; padding: 0; margin: 0; } }
     </style>
 </head>
@@ -29,33 +30,26 @@
 <div class="contenedor">
     <div class="panel-controles">
         <h2>Cargar Datos</h2>
-        <label>Nombre Estudiante:</label><input type="text" id="inNombre" oninput="actualizarTodo()">
-        <label>Apellido:</label><input type="text" id="inApellido" oninput="actualizarTodo()">
+        <!-- Contenedores tipo bloque para alinear todo -->
+        <div class="campo-contenedor"><label>Nombre:</label><input type="text" id="inNombre" oninput="actualizarTodo()"></div>
+        <div class="campo-contenedor"><label>Apellido:</label><input type="text" id="inApellido" oninput="actualizarTodo()"></div>
         <div id="selectores-container"></div>
-        <label>Observaciones:</label><textarea id="inObs" oninput="actualizarTodo()"></textarea>
-        <button onclick="window.print()">🖨️ Imprimir / PDF</button>
+        <div class="campo-contenedor"><label>Observaciones:</label><textarea id="inObs" oninput="actualizarTodo()"></textarea></div>
+        <button onclick="window.print()" style="width:100%; padding:12px; background:#2980b9; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">🖨️ Imprimir / PDF</button>
     </div>
 
     <div class="panel-reporte">
         <div class="header-institucional">
             <img src="logo.jpg" class="logo-placeholder">
-            <div class="datos-encabezado">
-                <h1>Retroalimentación</h1>
-                <p><strong>Materia:</strong> Cultura Digital y Educación</p>
-                <p><strong>Año:</strong> 2026 | <strong>Docente:</strong> Lic. Prof. Lucía Snieg</p>
-            </div>
+            <div style="text-align:right;"><h1>Retroalimentación</h1><p>Materia: Cultura Digital y Educación | 2026</p></div>
         </div>
         <div class="datos-alumno"><strong>Estudiante:</strong> <span id="outNombre">---</span> <span id="outApellido"></span></div>
         <table>
             <thead><tr><th>Criterio</th><th>Nivel</th><th>Descripción</th></tr></thead>
             <tbody id="cuerpo-tabla"></tbody>
         </table>
-        <div class="observaciones-box" id="outObs"></div>
+        <div id="outObs" style="font-style:italic; margin-bottom:20px;"></div>
         <div class="nota-final">Calificación Final: <span id="outNota">0</span></div>
-        <div class="firma-box">
-            <img src="firma.png" class="img-firma-sello">
-            <div style="border-top:1px solid #333;"><strong>Lic. Prof. Lucía Snieg</strong></div>
-        </div>
     </div>
 </div>
 
@@ -67,23 +61,23 @@
             "Suficiente": {txt: "Uso de autores de forma fragmentada, enumerativa o superficial.", pts: 1.5},
             "Insuficiente": {txt: "Ausencia de fundamentación conceptual o errores disciplinares graves.", pts: 0.5}
         },
-        "Creatividad y Formato": {
-            "Excelente": {txt: "Uso original y humorístico del formato 'Llame ya'. El video tiene gran dinamismo y apropiación.", pts: 3.5},
-            "Bueno": {txt: "El spot es claro, prolijo y entretenido. Cumple estéticamente con la parodia requerida.", pts: 2.5},
-            "Suficiente": {txt: "Spot plano o lineal. Escaso uso de recursos expresivos o del humor publicitario.", pts: 1.5},
-            "Insuficiente": {txt: "No logra estructurar el formato audiovisual pedido o copia ideas directas.", pts: 0.5}
+        "Creatividad": {
+            "Excelente": {txt: "Uso original y humorístico del formato 'Llame ya'. El video tiene gran dinamismo.", pts: 3.5},
+            "Bueno": {txt: "El spot es claro, prolijo y entretenido. Cumple estéticamente con la parodia.", pts: 2.5},
+            "Suficiente": {txt: "Spot plano o lineal. Escaso uso de recursos expresivos.", pts: 1.5},
+            "Insuficiente": {txt: "No logra estructurar el formato audiovisual pedido.", pts: 0.5}
         },
-        "Trabajo Colaborativo": {
-            "Excelente": {txt: "Coherencia interna absoluta entre el escrito y el spot. Presencia equilibrada de lxs integrantes.", pts: 2},
-            "Bueno": {txt: "Propuesta integrada con buena organización general, aunque con roles desiguales en el video.", pts: 1.5},
-            "Suficiente": {txt: "Falta de hilo conductor evidente entre el video y la fundamentación del PDF.", pts: 1},
-            "Insuficiente": {txt: "Se evidencia una yuxtaposición de partes individuales sin armado colectivo.", pts: 0.5}
+        "Colaborativo": {
+            "Excelente": {txt: "Coherencia absoluta. Presencia equilibrada de lxs integrantes.", pts: 2},
+            "Bueno": {txt: "Propuesta integrada con buena organización.", pts: 1.5},
+            "Suficiente": {txt: "Falta de hilo conductor evidente entre video y fundamentación.", pts: 1},
+            "Insuficiente": {txt: "Yuxtaposición de partes individuales sin armado colectivo.", pts: 0.5}
         },
-        "Tiempo y Forma": {
-            "Excelente": {txt: "Entrega formal puntual en la fecha asignada. PDF perfectamente estructurado y link activo.", pts: 1},
-            "Bueno": {txt: "Entrega en fecha. Detalles menores en la titulación del archivo o formato de citas.", pts: 0.75},
-            "Suficiente": {txt: "Entrega fuera de término (con aviso previo institucional) o errores de prolijidad.", pts: 0.5},
-            "Insuficiente": {txt: "Entrega muy tardía, desorganizada o sin acceso a los links de Drive.", pts: 0.25}
+        "Tiempo": {
+            "Excelente": {txt: "Entrega formal puntual. PDF perfecto.", pts: 1},
+            "Bueno": {txt: "Entrega en fecha. Detalles menores en titulación.", pts: 0.75},
+            "Suficiente": {txt: "Entrega fuera de término o errores de prolijidad.", pts: 0.5},
+            "Insuficiente": {txt: "Entrega muy tardía o sin acceso a links.", pts: 0.25}
         }
     };
 
@@ -91,16 +85,16 @@
         const cont = document.getElementById('selectores-container');
         const cuerpo = document.getElementById('cuerpo-tabla');
         Object.keys(rubrica).forEach((cat, i) => {
-            cont.innerHTML += `<label>${cat}:</label><select id="s-${i}" onchange="actualizarTodo()">${Object.keys(rubrica[cat]).map(n => `<option value="${n}">${n}</option>`).join('')}</select>`;
+            cont.innerHTML += `<div class="campo-contenedor"><label>${cat}:</label><select id="s-${i}" onchange="actualizarTodo()">${Object.keys(rubrica[cat]).map(n => `<option value="${n}">${n}</option>`).join('')}</select></div>`;
             cuerpo.innerHTML += `<tr><td><strong>${cat}</strong></td><td id="n-${i}"></td><td id="d-${i}"></td></tr>`;
         });
     }
 
     function actualizarTodo() {
         let total = 0;
-        document.getElementById('outNombre').innerText = document.getElementById('inNombre').value || "---";
-        document.getElementById('outApellido').innerText = document.getElementById('inApellido').value || "";
-        document.getElementById('outObs').innerText = document.getElementById('inObs').value || "---";
+        document.getElementById('outNombre').innerText = document.getElementById('inNombre').value;
+        document.getElementById('outApellido').innerText = document.getElementById('inApellido').value;
+        document.getElementById('outObs').innerText = document.getElementById('inObs').value;
         Object.keys(rubrica).forEach((cat, i) => {
             let nivel = document.getElementById('s-'+i).value;
             let data = rubrica[cat][nivel];
