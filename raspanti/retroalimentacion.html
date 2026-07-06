@@ -6,142 +6,47 @@
     <title>Generador de Retroalimentación | Lic. Lucía Snieg</title>
     <style>
         /* --- ESTILOS GENERALES Y FORMULARIO --- */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-        .contenedor {
-            display: flex;
-            gap: 20px;
-            max-width: 1300px; /* Un poco más ancho para la nueva tabla */
-            margin: 0 auto;
-        }
-        .panel-controles {
-            width: 35%;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            height: fit-content;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; color: #333; }
+        .contenedor { display: flex; gap: 20px; max-width: 1300px; margin: 0 auto; }
+        .panel-controles { width: 35%; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: fit-content; }
         h2 { margin-top: 0; color: #2c3e50; }
         .form-group { margin-bottom: 15px; }
         label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
-        input, textarea, select {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-family: inherit;
-        }
+        input, textarea, select { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; }
         textarea { resize: vertical; min-height: 100px; }
-        button {
-            width: 100%;
-            background-color: #2980b9;
-            color: white;
-            padding: 15px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 10px;
-        }
+        button { width: 100%; background-color: #2980b9; color: white; padding: 15px; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
         button:hover { background-color: #1a5276; }
 
         /* --- ESTILOS DEL PDF / REPORTE --- */
-        .panel-reporte {
-            width: 65%;
-            background: white;
-            padding: 40px 50px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            background-color: #fff;
-        }
-        .header-institucional {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid #2c3e50;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-        .logo-placeholder {
-            max-width: 120px;
-            max-height: 80px;
-            object-fit: contain;
-        }
+        .panel-reporte { width: 65%; background: white; padding: 40px 50px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+        .header-institucional { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #2c3e50; padding-bottom: 15px; margin-bottom: 25px; }
+        .logo-placeholder { max-width: 120px; max-height: 80px; object-fit: contain; }
         .datos-encabezado { text-align: right; }
         .datos-encabezado h1 { margin: 0; font-size: 22px; color: #2c3e50; text-transform: uppercase; }
         .datos-encabezado p { margin: 3px 0; font-size: 14px; color: #555; }
-        
-        .datos-alumno {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-left: 4px solid #2980b9;
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-        }
+        .datos-alumno { background-color: #f8f9fa; padding: 15px; border-left: 4px solid #2980b9; margin-bottom: 25px; font-size: 1.1rem; }
         .seccion-titulo { border-bottom: 1px solid #eee; padding-bottom: 5px; color: #2980b9; margin-bottom: 15px; }
-        
         table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
         th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 0.9rem; }
         th { background-color: #f4f6f7; color: #333; }
-        th:nth-child(1) { width: 25%; }
-        th:nth-child(2) { width: 20%; }
-        th:nth-child(3) { width: 55%; }
         
-        .observaciones-box {
-            font-style: italic;
-            color: #444;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            white-space: pre-wrap;
-        }
-        
-        .nota-final {
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: right;
-            margin-bottom: 40px;
-            color: #2c3e50;
-        }
+        /* Estilo para las celdas editables */
+        [contenteditable="true"] { background-color: #fffdf0; border: 1px dashed #f1c40f; cursor: text; }
+        [contenteditable="true"]:focus { outline: 2px solid #2980b9; background-color: white; }
 
-        .firmas-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 60px;
-        }
-        .firma-box {
-            width: 40%;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .img-firma-sello {
-            height: 80px;
-            object-fit: contain;
-            margin-bottom: 5px;
-        }
-        .linea-firma {
-            border-top: 1px solid #333;
-            width: 100%;
-            padding-top: 5px;
-            font-size: 0.9rem;
-            color: #333;
-        }
+        .observaciones-box { font-style: italic; color: #444; line-height: 1.6; margin-bottom: 25px; white-space: pre-wrap; }
+        .nota-final { font-size: 1.2rem; font-weight: bold; text-align: right; margin-bottom: 40px; color: #2c3e50; }
+        .firmas-container { display: flex; justify-content: flex-end; margin-top: 60px; }
+        .firma-box { width: 40%; text-align: center; }
+        .img-firma-sello { height: 80px; object-fit: contain; }
+        .linea-firma { border-top: 1px solid #333; padding-top: 5px; font-size: 0.9rem; }
 
-        /* --- MAGIA DE IMPRESIÓN --- */
         @media print {
             body { background-color: white; padding: 0; }
             .contenedor { display: block; }
             .panel-controles { display: none; }
-            .panel-reporte { width: 100%; box-shadow: none; padding: 0; margin: 0; }
+            .panel-reporte { width: 100%; box-shadow: none; padding: 0; }
+            [contenteditable="true"] { border: none; background-color: transparent; }
             @page { margin: 1.5cm; }
         }
     </style>
@@ -149,202 +54,61 @@
 <body onload="actualizarPrevio()">
 
 <div class="contenedor">
-    <!-- PANEL IZQUIERDO: FORMULARIO -->
     <div class="panel-controles">
         <h2>Cargar Datos</h2>
-        
-        <div class="form-group">
-            <label>Nombre del Estudiante:</label>
-            <input type="text" id="inNombre" placeholder="Ej: Juan" oninput="actualizarPrevio()">
-        </div>
-        <div class="form-group">
-            <label>Apellido del Estudiante:</label>
-            <input type="text" id="inApellido" placeholder="Ej: Pérez" oninput="actualizarPrevio()">
-        </div>
-
-        <div class="form-group">
-            <label>1. Comprensión Teórica (3p):</label>
-            <select id="inRub1" onchange="actualizarPrevio()">
-                <option value="Excelente (3p)">Excelente (3p)</option>
-                <option value="Bueno (2.25p)">Bueno (2.25p)</option>
-                <option value="Suficiente (1.5p)">Suficiente (1.5p)</option>
-                <option value="Insuficiente (0.5p)">Insuficiente (0.5p)</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label>2. Creatividad y Producción (3p):</label>
-            <select id="inRub2" onchange="actualizarPrevio()">
-                <option value="Excelente (3p)">Excelente (3p)</option>
-                <option value="Bueno (2.25p)">Bueno (2.25p)</option>
-                <option value="Suficiente (1.5p)">Suficiente (1.5p)</option>
-                <option value="Insuficiente (0.5p)">Insuficiente (0.5p)</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>3. Reflexión y Video (3p):</label>
-            <select id="inRub3" onchange="actualizarPrevio()">
-                <option value="Excelente (3p)">Excelente (3p)</option>
-                <option value="Bueno (2.25p)">Bueno (2.25p)</option>
-                <option value="Suficiente (1.5p)">Suficiente (1.5p)</option>
-                <option value="Insuficiente (0.5p)">Insuficiente (0.5p)</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>4. Tiempo y Forma (1p):</label>
-            <select id="inRub4" onchange="actualizarPrevio()">
-                <option value="Excelente (1p)">Excelente (1p)</option>
-                <option value="Bueno (0.75p)">Bueno (0.75p)</option>
-                <option value="Suficiente (0.5p)">Suficiente (0.5p)</option>
-                <option value="Insuficiente (0.25p)">Insuficiente (0.25p)</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Observaciones Cualitativas:</label>
-            <textarea id="inObs" placeholder="Escribe aquí tus observaciones..." oninput="actualizarPrevio()"></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Nota Final (Suma total):</label>
-            <input type="text" id="inNota" placeholder="Ej: 10 (Diez)" oninput="actualizarPrevio()">
-        </div>
-
+        <div class="form-group"><label>Nombre:</label><input type="text" id="inNombre" oninput="actualizarPrevio()"></div>
+        <div class="form-group"><label>Apellido:</label><input type="text" id="inApellido" oninput="actualizarPrevio()"></div>
+        <div class="form-group"><label>1. Comprensión (3p):</label><select id="inRub1" onchange="actualizarPrevio()"><option value="Excelente (3p)">Excelente (3p)</option><option value="Bueno (2.25p)">Bueno (2.25p)</option><option value="Suficiente (1.5p)">Suficiente (1.5p)</option><option value="Insuficiente (0.5p)">Insuficiente (0.5p)</option></select></div>
+        <div class="form-group"><label>2. Creatividad (3p):</label><select id="inRub2" onchange="actualizarPrevio()"><option value="Excelente (3p)">Excelente (3p)</option><option value="Bueno (2.25p)">Bueno (2.25p)</option><option value="Suficiente (1.5p)">Suficiente (1.5p)</option><option value="Insuficiente (0.5p)">Insuficiente (0.5p)</option></select></div>
+        <div class="form-group"><label>3. Reflexión (3p):</label><select id="inRub3" onchange="actualizarPrevio()"><option value="Excelente (3p)">Excelente (3p)</option><option value="Bueno (2.25p)">Bueno (2.25p)</option><option value="Suficiente (1.5p)">Suficiente (1.5p)</option><option value="Insuficiente (0.5p)">Insuficiente (0.5p)</option></select></div>
+        <div class="form-group"><label>4. Tiempo (1p):</label><select id="inRub4" onchange="actualizarPrevio()"><option value="Excelente (1p)">Excelente (1p)</option><option value="Bueno (0.75p)">Bueno (0.75p)</option><option value="Suficiente (0.5p)">Suficiente (0.5p)</option><option value="Insuficiente (0.25p)">Insuficiente (0.25p)</option></select></div>
+        <div class="form-group"><label>Observaciones:</label><textarea id="inObs" oninput="actualizarPrevio()"></textarea></div>
+        <div class="form-group"><label>Nota Final:</label><input type="text" id="inNota" oninput="actualizarPrevio()"></div>
         <button onclick="window.print()">🖨️ Generar PDF / Imprimir</button>
     </div>
 
-    <!-- PANEL DERECHO: VISTA PREVIA (Lo que se imprime) -->
-    <div class="panel-reporte" id="hoja-impresion">
-        
+    <div class="panel-reporte">
         <div class="header-institucional">
-            <img src="logo.jpg" alt="Logo Institucional" class="logo-placeholder">
-            <div class="datos-encabezado">
-                <h1>Retroalimentación Parcial 1</h1>
-                <p><strong>Materia:</strong> Cultura Digital y Educación</p>
-                <p><strong>Año:</strong> 2026</p>
-                <p><strong>Docente:</strong> Lic. Prof. Lucía Snieg</p>
-            </div>
+            <img src="logo.jpg" alt="Logo" class="logo-placeholder">
+            <div class="datos-encabezado"><h1>Retroalimentación Parcial 1</h1><p>Materia: Cultura Digital y Educación | 2026</p></div>
         </div>
-
-        <div class="datos-alumno">
-            <strong>Estudiante:</strong> <span id="outNombre">---</span> <span id="outApellido"></span>
-        </div>
-
-        <h3 class="seccion-titulo">Rúbrica de Evaluación (Total: 10 Puntos)</h3>
+        <div class="datos-alumno"><strong>Estudiante:</strong> <span id="outNombre">---</span> <span id="outApellido"></span></div>
         <table>
-            <thead>
-                <tr>
-                    <th>Criterio de Evaluación</th>
-                    <th>Nivel de Logro</th>
-                    <th>Descripción del Nivel</th>
-                </tr>
-            </thead>
+            <thead><tr><th>Criterio</th><th>Nivel</th><th>Descripción (Haz clic para editar)</th></tr></thead>
             <tbody>
-                <tr>
-                    <td><strong>Comprensión Teórica</strong></td>
-                    <td id="outRub1Nivel">Excelente (3p)</td>
-                    <td id="outRub1Desc">---</td>
-                </tr>
-                <tr>
-                    <td><strong>Creatividad y Producción</strong></td>
-                    <td id="outRub2Nivel">Excelente (3p)</td>
-                    <td id="outRub2Desc">---</td>
-                </tr>
-                <tr>
-                    <td><strong>Reflexión y Video</strong></td>
-                    <td id="outRub3Nivel">Excelente (3p)</td>
-                    <td id="outRub3Desc">---</td>
-                </tr>
-                <tr>
-                    <td><strong>Tiempo y Forma</strong></td>
-                    <td id="outRub4Nivel">Excelente (1p)</td>
-                    <td id="outRub4Desc">---</td>
-                </tr>
+                <tr><td><strong>Comprensión</strong></td><td id="outRub1Nivel"></td><td id="outRub1Desc" contenteditable="true"></td></tr>
+                <tr><td><strong>Creatividad</strong></td><td id="outRub2Nivel"></td><td id="outRub2Desc" contenteditable="true"></td></tr>
+                <tr><td><strong>Reflexión</strong></td><td id="outRub3Nivel"></td><td id="outRub3Desc" contenteditable="true"></td></tr>
+                <tr><td><strong>Tiempo</strong></td><td id="outRub4Nivel"></td><td id="outRub4Desc" contenteditable="true"></td></tr>
             </tbody>
         </table>
-
-        <h3 class="seccion-titulo">Observaciones de la Docente</h3>
-        <div class="observaciones-box" id="outObs">
-            Aún no hay observaciones cargadas.
-        </div>
-
-        <div class="nota-final">
-            Calificación Final: <span id="outNota">---</span>
-        </div>
-
-        <div class="firmas-container">
-            <div class="firma-box">
-                <img src="firma.png" alt="Firma de la docente" class="img-firma-sello">
-                <div class="linea-firma">
-                    <strong>Lic. Prof. Lucía Snieg</strong>
-                </div>
-            </div>
-        </div>
-
+        <h3 class="seccion-titulo">Observaciones</h3>
+        <div class="observaciones-box" id="outObs" contenteditable="true"></div>
+        <div class="nota-final">Calificación: <span id="outNota">---</span></div>
     </div>
 </div>
 
 <script>
-    // Base de datos de la rúbrica para autocompletar la tabla
-    const descriptores = {
-        rub1: {
-            "Excelente (3p)": "Articula conceptos con autores de forma precisa y profunda. Citas pertinentes.",
-            "Bueno (2.25p)": "Menciona autores adecuadamente. Relación teórica clara pero menos profunda.",
-            "Suficiente (1.5p)": "Menciona autores de forma superficial o aislada.",
-            "Insuficiente (0.5p)": "No utiliza bibliografía o presenta errores conceptuales graves."
-        },
-        rub2: {
-            "Excelente (3p)": "Producciones (infografía, foto) originales, estéticas y de autoría propia evidente.",
-            "Bueno (2.25p)": "Producciones completas y prolijas. Cumple bien con lo solicitado.",
-            "Suficiente (1.5p)": "Producciones básicas. La foto o collage son poco claros o genéricos.",
-            "Insuficiente (0.5p)": "No realiza las producciones o utiliza material directo de internet."
-        },
-        rub3: {
-            "Excelente (3p)": "Apropiación crítica. Relato de video fluido, rico en detalles y bien diferenciado.",
-            "Bueno (2.25p)": "Reflexión personal honesta. El video cumple con el sentido de la consigna.",
-            "Suficiente (1.5p)": "Reflexión mínima. Anécdotas o video muy breves/desconectados.",
-            "Insuficiente (0.5p)": "No incluye reflexión personal ni anécdotas en video."
-        },
-        rub4: {
-            "Excelente (1p)": "Entrega en fecha. Un único archivo PDF perfectamente organizado y bien titulado.",
-            "Bueno (0.75p)": "Entrega en fecha. Archivo único con detalles menores de desorden.",
-            "Suficiente (0.5p)": "Entrega fuera de término (con aviso) o formato de archivo incorrecto.",
-            "Insuficiente (0.25p)": "Entrega muy tardía, desorganizada o en múltiples archivos."
-        }
+    const db = {
+        rub1: {"Excelente (3p)": "Articula conceptos con autores de forma precisa y profunda.", "Bueno (2.25p)": "Menciona autores adecuadamente. Relación clara.", "Suficiente (1.5p)": "Menciona autores de forma superficial.", "Insuficiente (0.5p)": "No utiliza bibliografía o presenta errores."},
+        rub2: {"Excelente (3p)": "Producciones originales, estéticas y de autoría propia.", "Bueno (2.25p)": "Producciones completas y prolijas.", "Suficiente (1.5p)": "Producciones básicas o genéricas.", "Insuficiente (0.5p)": "No realiza producciones o usa material ajeno."},
+        rub3: {"Excelente (3p)": "Apropiación crítica y relato fluido.", "Bueno (2.25p)": "Reflexión personal honesta.", "Suficiente (1.5p)": "Reflexión mínima o breve.", "Insuficiente (0.5p)": "No incluye reflexión personal."},
+        rub4: {"Excelente (1p)": "Entrega en fecha y formato perfecto.", "Bueno (0.75p)": "Entrega en fecha con detalles menores.", "Suficiente (0.5p)": "Entrega fuera de término.", "Insuficiente (0.25p)": "Entrega muy tardía o desorganizada."}
     };
 
     function actualizarPrevio() {
-        // Datos del estudiante
         document.getElementById('outNombre').innerText = document.getElementById('inNombre').value || "---";
         document.getElementById('outApellido').innerText = document.getElementById('inApellido').value || "";
         
-        // Rúbrica 1
-        let r1 = document.getElementById('inRub1').value;
-        document.getElementById('outRub1Nivel').innerText = r1;
-        document.getElementById('outRub1Desc').innerText = descriptores.rub1[r1];
+        ['rub1','rub2','rub3','rub4'].forEach((r, i) => {
+            let sel = document.getElementById('in' + r.charAt(0).toUpperCase() + r.slice(1));
+            document.getElementById('out' + r.charAt(0).toUpperCase() + r.slice(1) + 'Nivel').innerText = sel.value;
+            document.getElementById('out' + r.charAt(0).toUpperCase() + r.slice(1) + 'Desc').innerText = db[r][sel.value];
+        });
 
-        // Rúbrica 2
-        let r2 = document.getElementById('inRub2').value;
-        document.getElementById('outRub2Nivel').innerText = r2;
-        document.getElementById('outRub2Desc').innerText = descriptores.rub2[r2];
-
-        // Rúbrica 3
-        let r3 = document.getElementById('inRub3').value;
-        document.getElementById('outRub3Nivel').innerText = r3;
-        document.getElementById('outRub3Desc').innerText = descriptores.rub3[r3];
-
-        // Rúbrica 4
-        let r4 = document.getElementById('inRub4').value;
-        document.getElementById('outRub4Nivel').innerText = r4;
-        document.getElementById('outRub4Desc').innerText = descriptores.rub4[r4];
-        
-        // Observaciones y Nota
-        document.getElementById('outObs').innerText = document.getElementById('inObs').value || "Aún no hay observaciones cargadas.";
+        document.getElementById('outObs').innerText = document.getElementById('inObs').value || "Escribe aquí tus observaciones...";
         document.getElementById('outNota').innerText = document.getElementById('inNota').value || "---";
     }
 </script>
-
 </body>
 </html>
