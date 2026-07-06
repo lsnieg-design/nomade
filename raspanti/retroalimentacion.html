@@ -288,30 +288,30 @@
 
 <script>
     // Base de datos de la rúbrica para autocompletar la tabla
-    const descriptores = {
-        rub1: {
-            "Excelente (3p)": "Articula conceptos con autores de forma precisa y profunda. Citas pertinentes.",
-            "Bueno (2.25p)": "Menciona autores adecuadamente. Relación teórica clara pero menos profunda.",
-            "Suficiente (1.5p)": "Menciona autores de forma superficial o aislada.",
-            "Insuficiente (0.5p)": "No utiliza bibliografía o presenta errores conceptuales graves."
+   const rubrica = {
+        "Articulación Teórica (3.5p)": {
+            "Excelente": "Integra y profundiza con precisión las tesis de al menos 3 autores. Uso impecable de conceptos. (3.5p)",
+            "Bueno": "Menciona autores adecuadamente, relacionándolos de forma clara pero con menor desarrollo analítico. (2.5p)",
+            "Suficiente": "Uso de autores de forma fragmentada, enumerativa o superficial. (1.5p)",
+            "Insuficiente": "Ausencia de fundamentación conceptual o errores disciplinares graves. (0.5p)"
         },
-        rub2: {
-            "Excelente (3p)": "Producciones (infografía, foto) originales, estéticas y de autoría propia evidente.",
-            "Bueno (2.25p)": "Producciones completas y prolijas. Cumple bien con lo solicitado.",
-            "Suficiente (1.5p)": "Producciones básicas. La foto o collage son poco claros o genéricos.",
-            "Insuficiente (0.5p)": "No realiza las producciones o utiliza material directo de internet."
+        "Creatividad y Formato (3.5p)": {
+            "Excelente": "Uso original y humorístico del formato 'Llame ya'. El video tiene gran dinamismo y apropiación. (3.5p)",
+            "Bueno": "El spot es claro, prolijo y entretenido. Cumple estéticamente con la parodia requerida. (2.5p)",
+            "Suficiente": "Spot plano o lineal. Escaso uso de recursos expresivos o del humor publicitario. (1.5p)",
+            "Insuficiente": "No logra estructurar el formato audiovisual pedido o copia ideas directas. (0.5p)"
         },
-        rub3: {
-            "Excelente (3p)": "Apropiación crítica. Relato de video fluido, rico en detalles y bien diferenciado.",
-            "Bueno (2.25p)": "Reflexión personal honesta. El video cumple con el sentido de la consigna.",
-            "Suficiente (1.5p)": "Reflexión mínima. Anécdotas o video muy breves/desconectados.",
-            "Insuficiente (0.5p)": "No incluye reflexión personal ni anécdotas en video."
+        "Trabajo Colaborativo (2p)": {
+            "Excelente": "Coherencia interna absoluta entre el escrito y el spot. Presencia equilibrada de lxs integrantes. (2p)",
+            "Bueno": "Propuesta integrada con buena organización general, aunque con roles desiguales en el video. (1.5p)",
+            "Suficiente": "Falta de hilo conductor evidente entre el video y la fundamentación del PDF. (1p)",
+            "Insuficiente": "Se evidencia una yuxtaposición de partes individuales sin armado colectivo. (0.5p)"
         },
-        rub4: {
-            "Excelente (1p)": "Entrega en fecha. Un único archivo PDF perfectamente organizado y bien titulado.",
-            "Bueno (0.75p)": "Entrega en fecha. Archivo único con detalles menores de desorden.",
-            "Suficiente (0.5p)": "Entrega fuera de término (con aviso) o formato de archivo incorrecto.",
-            "Insuficiente (0.25p)": "Entrega muy tardía, desorganizada o en múltiples archivos."
+        "Tiempo y Forma (1p)": {
+            "Excelente": "Entrega formal puntual en la fecha asignada. PDF perfectamente estructurado y link activo. (1p)",
+            "Bueno": "Entrega en fecha. Detalles menores en la titulación del archivo o formato de citas. (0.75p)",
+            "Suficiente": "Entrega fuera de término (con aviso previo institucional) o errores de prolijidad. (0.5p)",
+            "Insuficiente": "Entrega muy tardía, desorganizada o sin acceso a los links de Drive. (0.25p)"
         }
     };
 
