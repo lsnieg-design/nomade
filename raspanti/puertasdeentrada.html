@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ticket de Salida — Las 3 Puertas de la ESI</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 15px;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #fffaf0;
+      color: #2a2a2a;
+    }
+
+    .ticket-container {
+      background: #fffaf0;
+      border: 2px solid #c89b4b;
+      padding: 30px 20px;
+      border-radius: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      max-width: 950px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .game-header {
+      background: white;
+      border: 1px solid #e6dcc7;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    .game-header h2 {
+      margin: 0 0 10px 0;
+      color: #7a0019;
+      font-size: 2em;
+    }
+
+    .meta-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .pill-tag {
+      background: #fdf2e9;
+      border: 1px solid #c89b4b;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+
+    .btn-header {
+      border: 1px solid #c89b4b;
+      background: white;
+      color: #7a0019;
+      font-weight: bold;
+      border-radius: 10px;
+      padding: 6px 14px;
+      cursor: pointer;
+    }
+
+    .btn-header-muted {
+      border: 1px solid #e6dcc7;
+      background: #fff8e6;
+      color: #8a6d3b;
+      font-weight: bold;
+      border-radius: 10px;
+      padding: 6px 14px;
+      cursor: pointer;
+    }
+
+    .scene-card {
+      background: white;
+      border: 1px solid #e6dcc7;
+      border-radius: 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .scene-card h3 {
+      margin: 0 0 12px 0;
+      font-size: 1.4em;
+      color: #4f141c;
+    }
+
+    .vinyeta-box {
+      background: #fff9ef;
+      border: 1px dashed #c89b4b;
+      padding: 18px;
+      border-radius: 12px;
+      font-size: 1.1em;
+      color: #2a2a2a;
+      line-height: 1.6;
+    }
+
+    .scene-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .btn-action-ghost {
+      border: 1px solid #c89b4b;
+      background: white;
+      color: #7a0019;
+      font-weight: bold;
+      border-radius: 10px;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+
+    .btn-action-gold {
+      border: none;
+      background: linear-gradient(120deg, #c89b4b, #e6c65b);
+      color: #2a2a2a;
+      font-weight: bold;
+      border-radius: 10px;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+
+    .feedback-box {
+      display: none;
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 18px;
+      background: #fff;
+      border: 1px solid #e6dcc7;
+    }
+
+    .doors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .door-btn {
+      background: linear-gradient(135deg, #7a0019, #a32035);
+      border: 2px solid #c89b4b;
+      border-radius: 18px;
+      padding: 20px;
+      color: white;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .door-btn:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ticket-container">
+    
+    <!-- Header Interno del Juego -->
+    <div class="game-header">
+      <h2>🚪 Ticket de Salida: Las 3 Puertas de la ESI</h2>
+      <div class="meta-pills">
+        <span class="pill-tag" style="color: #7a0019;" id="etapa">Escena 1 de —</span>
+        <span class="pill-tag" style="color: #8a6d3b;" id="aprendizajes">Aprendizajes: 0</span>
+        <button class="btn-header" id="btnContexto">Contexto</button>
+        <button class="btn-header-muted" id="btnReiniciar" title="Empezar de nuevo">Reiniciar</button>
+      </div>
+    </div>
+
+    <!-- Escena -->
+    <div class="scene-card" aria-live="polite">
+      <h3 id="sceneTitle">Escena</h3>
+      <div class="vinyeta-box" id="sceneText"></div>
+      
+      <div class="scene-actions">
+        <button class="btn-action-ghost" id="btnPista">Pista</button>
+        <button class="btn-action-gold" id="btnSaltar">Otra escena</button>
+      </div>
+      
+      <div id="feedback" class="feedback-box" aria-live="polite"></div>
+    </div>
+
+    <!-- Selección de Puertas -->
+    <div class="doors-grid">
+      
+      <button class="door-btn" data-puerta="Contenidos curriculares">
+        <div style="font-size: 1.25em; font-weight: bold; margin-bottom: 4px;">📚 Contenidos curriculares</div>
+        <div style="font-size: 0.9em; opacity: 0.9;">Sumar ESI a lo que ya enseñás</div>
+      </button>
+
+      <button class="door-btn" data-puerta="Emergentes institucionales">
+        <div style="font-size: 1.25em; font-weight: bold; margin-bottom: 4px;">🚨 Emergentes institucionales</div>
+        <div style="font-size: 0.9em; opacity: 0.9;">Responder a lo que sucede</div>
+      </button>
+
+      <button class="door-btn" data-puerta="Vida cotidiana escolar">
+        <div style="font-size: 1.25em; font-weight: bold; margin-bottom: 4px;">🏫 Vida cotidiana escolar</div>
+        <div style="font-size: 0.9em; opacity: 0.9;">Cómo habitamos la escuela</div>
+      </button>
+
+    </div>
+
+  </div>
+
+  <script>
+  /* ===== Datos del juego ===== */
+  const ESCENAS = [
+    {
+      id: 1,
+      titulo: "Rol de las mujeres en textos bíblicos",
+      texto: "En 4.º año, al trabajar relatos bíblicos, notás que casi no aparecen voces femeninas. Querés abrir la discusión sin deslegitimar la fe del grupo.",
+      respuesta: "Contenidos curriculares",
+      pista: "¿Podés ajustar consignas y fuentes del tema que ya estás enseñando?",
+      suma: [
+        "Lectura comparada de traducciones y comentaristas que visibilicen mujeres.",
+        "Preguntas guía: <em>¿quiénes hablan?, ¿quiénes quedan fuera?, ¿qué efectos tiene?</em>"
+      ],
+      porQue: "Entra por Contenidos: enriquecés el análisis del programa con enfoque de derechos.",
+      repensar: [
+        "¿Qué consigna puntual invitaría a mirar los silencios del texto?",
+        "¿Qué fuentes sumarías para ampliar voces sin deslegitimar la fe?"
+      ]
+    },
+    {
+      id: 2,
+      titulo: "Comentario burlón en el pasillo",
+      texto: "En el cambio de hora escuchás chistes sexistas sobre una compañera. Nadie docente estaba a cargo del grupo en ese pasillo.",
+      respuesta: "Vida cotidiana escolar",
+      pista: "No es contenido planificado ni caso formal: ocurrió en el cotidiano.",
+      suma: [
+        "Poner un límite claro y acordar formas de trato respetuosas.",
+        "Microacuerdo de convivencia y refuerzo en tutoría."
+      ],
+      porQue: "La vida cotidiana educa; la intervención en pasillos también enseña ESI.",
+      repensar: [
+        "¿Qué frase breve podrías usar para frenar el chiste y abrir reflexión?",
+        "¿Qué acuerdo concreto podrían escribir en 5 minutos?"
+      ]
+    },
+    {
+      id: 3,
+      titulo: "Embarazo de una estudiante",
+      texto: "Te enterás de que una estudiante está cursando un embarazo y teme faltar por controles médicos.",
+      respuesta: "Emergentes institucionales",
+      pista: "Situación no planificada que requiere articulación (EOE/dirección).",
+      suma: [
+        "Acompañamiento institucional con adecuaciones y cuidados.",
+        "Plan de continuidad pedagógica sin juicio y con información confiable."
+      ],
+      porQue: "Es un emergente que pide respuesta sostenida más allá de la clase.",
+      repensar: [
+        "¿A quiénes derivás y cómo cuidás la confidencialidad?",
+        "¿Qué ajustes simples garantizan continuidad?"
+      ]
+    },
+    {
+      id: 4,
+      titulo: "Familias diversas",
+      texto: "En una actividad de 'árbol familiar' varios estudiantes señalan que su familia no entra en ese formato (ensambladas, dos mamás, tías cuidadoras).",
+      respuesta: "Contenidos curriculares",
+      pista: "La consigna es tuya: podés rediseñarla con enfoque de derechos.",
+      suma: [
+        "Cambiar por 'red de afectos y cuidados' con formato abierto.",
+        "Ejemplificar múltiples configuraciones familiares actuales."
+      ],
+      porQue: "Intervenís en el contenido que propusiste, ampliando la mirada.",
+      repensar: [
+        "¿Cómo reescribís la consigna en 1 oración inclusiva?",
+        "¿Qué ejemplos legitimarían la diversidad?"
+      ]
+    },
+    {
+      id: 5,
+      titulo: "Nombre e identidad",
+      texto: "Un estudiante pide que lo nombren con un nombre social distinto del documento. Algunos profes dudan.",
+      respuesta: "Vida cotidiana escolar",
+      pista: "Se juega en el trato diario, cartelería y listados.",
+      suma: [
+        "Usar el nombre pedido en aulas y listados internos del curso.",
+        "Revisar planillas visibles para evitar exposición."
+      ],
+      porQue: "Nombrar y reconocer identidad es clave del clima cotidiano.",
+      repensar: [
+        "¿Cómo garantizás que todo el equipo docente lo implemente ya?",
+        "¿Qué frase usarías para comunicar el acuerdo al curso?"
+      ]
+    },
+    {
+      id: 6,
+      titulo: "Violencia en redes",
+      texto: "Circulan capturas con burlas sobre el cuerpo de un estudiante en un grupo de WhatsApp del curso.",
+      respuesta: "Emergentes institucionales",
+      pista: "Hay daño y requiere intervención coordinada (escuela–familias–EOE).",
+      suma: [
+        "Registrar evidencia y contener a la persona afectada.",
+        "Acuerdos de uso responsable y reparación del daño."
+      ],
+      porQue: "Se requiere protocolo institucional, no solo una charla.",
+      repensar: [
+        "¿Qué pasos das en 24 h para cuidar sin revictimizar?",
+        "¿Qué acciones reparatorias son pedagógicas y no punitivas?"
+      ]
+    },
+    {
+      id: 7,
+      titulo: "Cuerpo, cuidado y espiritualidad",
+      texto: "En clase de ética y religión aparece el tema del cuerpo como 'templo'. Querés evitar culpas y promover cuidado.",
+      respuesta: "Contenidos curriculares",
+      pista: "Podés vincular eje espiritual con enfoque de derechos.",
+      suma: [
+        "Conectar dignidad humana con autocuidado, consentimiento y buen trato.",
+        "Secuencia breve con Fratelli Tutti y DDHH."
+      ],
+      porQue: "Sumás ESI a lo que ya desarrollás en tu disciplina.",
+      repensar: [
+        "¿Qué pregunta puente une espiritualidad y derechos?",
+        "¿Qué texto breve sumarías para dialogar?"
+      ]
+    },
+    {
+      id: 8,
+      titulo: "Chicana por expresión de género",
+      texto: "Un alumno recibe burlas por usar uñas pintadas. Dice que 'es joda'.",
+      respuesta: "Vida cotidiana escolar",
+      pista: "Más que contenido, es clima de convivencia.",
+      suma: [
+        "Intervenir sin ridiculizar: frenar la chicana y afirmar el respeto.",
+        "Círculo breve de diálogo para acuerdos del curso."
+      ],
+      porQue: "Los gestos diarios enseñan: ahí también se construye la ESI.",
+      repensar: [
+        "¿Qué microacuerdo escribirían y exhibirían?",
+        "¿Cómo cuidás que el estudiante no quede aislado?"
+      ]
+    },
+    {
+      id: 9,
+      titulo: "Dudas sobre anticoncepción",
+      texto: "En tutoría, un grupo pide información sobre métodos anticonceptivos y dónde consultar.",
+      respuesta: "Emergentes institucionales",
+      pista: "Demanda que conviene articular con referentes y recursos de salud.",
+      suma: [
+        "Acercar información confiable y dispositivos de salud cercanos.",
+        "Coordinar charla con equipo de salud respetando creencias."
+      ],
+      porQue: "Emergente que requiere red de cuidado e información válida.",
+      repensar: [
+        "¿Qué recursos locales compartirías por escrito?",
+        "¿Cómo garantizás confidencialidad y escucha?"
+      ]
+    }
+  ];
+
+  const CONTEXTO = `
+  <p style="margin-top:0;"><strong>Las tres puertas</strong> (Programa Nacional de ESI) son formas complementarias de integrar la ESI:</p>
+  <ul style="padding-left:20px; line-height:1.6;">
+    <li><strong>Contenidos curriculares:</strong> enriquecer lo que ya enseñamos con enfoque de derechos, género, cuidado y respeto.</li>
+    <li><strong>Emergentes institucionales:</strong> intervenir de forma articulada ante situaciones que aparecen en la vida escolar.</li>
+    <li><strong>Vida cotidiana escolar:</strong> educar en los gestos, la palabra, la distribución del trato y la convivencia diaria.</li>
+  </ul>
+  <p style="margin-bottom:0;">La ESI no es solo contenido: también es <strong>ética de convivencia</strong> y <strong>cuidado del otro</strong>.</p>
+  `;
+
+  let orden = [];
+  let i = 0;
+  let aprendizajes = 0;
+
+  /* ===== Selectores ===== */
+  const $ = s => document.querySelector(s);
+  const sceneTitle = $('#sceneTitle');
+  const sceneText = $('#sceneText');
+  const lblEtapa = $('#etapa');
+  const lblApr = $('#aprendizajes');
+  const feedback = $('#feedback');
+
+  function barajar(a){
+    const arr = a.slice();
+    for(let k=arr.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [arr[k],arr[j]]=[arr[j],arr[k]]; }
+    return arr;
+  }
+
+  function render(){
+    const sc = ESCENAS[orden[i]];
+    if(!sc){ renderFinal(); return; }
+    sceneTitle.textContent = sc.titulo;
+    sceneText.innerHTML = sc.texto;
+    lblEtapa.textContent = `Escena ${i+1} de ${orden.length}`;
+    feedback.style.display = 'none';
+    feedback.innerHTML = '';
+  }
+
+  function renderFinal(){
+    sceneTitle.textContent = '¡Gracias por participar!';
+    sceneText.innerHTML = `
+      <div>
+        <p style="font-size: 1.15em; margin: 0;">Sumaste <strong style="color: #7a0019;">${aprendizajes}</strong> aprendizajes para tu caja de herramientas ESI.</p>
+        <p style="margin-top: 10px; color: #555;">Podés reiniciar para explorar las situaciones en otro orden o ensayar otras respuestas.</p>
+      </div>`;
+    feedback.style.background = '#fff7d6';
+    feedback.style.borderColor = '#f1d67a';
+    feedback.innerHTML = `
+      <h4 style="margin: 0 0 8px 0; color: #7a0019; font-size: 1.2em;">Para seguir reflexionando</h4>
+      <p style="margin: 0 0 15px 0;">Probá elegir a propósito la puerta que menos usaste y mirá cómo cambia la propuesta de intervención.</p>
+      <div>
+        <button style="border: none; background: linear-gradient(120deg, #c89b4b, #e6c65b); color: #2a2a2a; font-weight: bold; border-radius: 10px; padding: 10px 20px; cursor: pointer;" id="btnReinicioFinal">Reiniciar Simulador</button>
+      </div>`;
+    feedback.style.display = 'block';
+    $('#btnReinicioFinal')?.addEventListener('click', reiniciar);
+  }
+
+  function evaluar(eleccion){
+    const sc = ESCENAS[orden[i]];
+    const bien = (eleccion === sc.respuesta);
+    feedback.style.display = 'block';
+    
+    if(bien){
+      aprendizajes++;
+      lblApr.textContent = `Aprendizajes: ${aprendizajes}`;
+      feedback.style.background = '#fdf2e9';
+      feedback.style.borderColor = '#c89b4b';
+      feedback.innerHTML = `
+        <h4 style="margin: 0 0 8px 0; color: #7a0019; font-size: 1.2em;">✅ ¡Excelente aporte para esta escena!</h4>
+        <p style="margin: 0 0 12px 0; font-size: 1.05em; color: #555;">${sc.porQue}</p>
+        <div style="background: white; border: 1px solid #e6dcc7; border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+          <strong style="color: #7a0019;">Ideas para llevar al aula:</strong>
+          <ul style="margin: 8px 0 0 0; padding-left: 20px;">${sc.suma.map(x=>`<li style="margin-bottom: 4px;">${x}</li>`).join('')}</ul>
+        </div>
+        <div>
+          <button style="border: none; background: linear-gradient(120deg, #7a0019, #a32035); color: white; font-weight: bold; border-radius: 10px; padding: 10px 20px; cursor: pointer;" id="btnSiguiente">Siguiente escena</button>
+        </div>`;
+    } else {
+      feedback.style.background = '#ffe7ec';
+      feedback.style.borderColor = '#f1c0ca';
+      feedback.innerHTML = `
+        <h4 style="margin: 0 0 8px 0; color: #7a0019; font-size: 1.2em;">🤔 Para seguir pensando...</h4>
+        <p style="margin: 0 0 12px 0; font-size: 1.05em; color: #555;">Esta puerta también aporta, pero quizá otra entrada habilita una respuesta más situada.</p>
+        <div style="background: white; border: 1px solid #e6dcc7; border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+          <strong style="color: #7a0019;">Preguntas guía:</strong>
+          <ul style="margin: 8px 0 8px 0; padding-left: 20px;">${sc.repensar.map(x=>`<li style="margin-bottom: 4px;">${x}</li>`).join('')}</ul>
+          <p style="margin: 8px 0 0 0; font-style: italic; color: #8a6d3b;">💡 Pista: ${sc.pista}</p>
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button style="border: none; background: linear-gradient(120deg, #c89b4b, #e6c65b); color: #2a2a2a; font-weight: bold; border-radius: 10px; padding: 10px 18px; cursor: pointer;" id="btnIntentar">Intentar de nuevo</button>
+          <button style="border: 1px solid #c89b4b; background: white; color: #7a0019; font-weight: bold; border-radius: 10px; padding: 10px 18px; cursor: pointer;" id="btnVerPorQue">Ver una posible entrada</button>
+        </div>`;
+    }
+
+    $('#btnSiguiente')?.addEventListener('click', ()=>{ i++; (i<orden.length)?render():renderFinal(); });
+    $('#btnIntentar')?.addEventListener('click', ()=>{ feedback.style.display='none'; });
+    $('#btnVerPorQue')?.addEventListener('click', ()=>{
+      feedback.style.background = '#fdf2e9';
+      feedback.style.borderColor = '#c89b4b';
+      feedback.innerHTML = `
+        <h4 style="margin: 0 0 8px 0; color: #7a0019; font-size: 1.2em;">💡 Una posible entrada</h4>
+        <p style="margin: 0 0 12px 0; font-size: 1.05em; color: #555;">${sc.porQue}</p>
+        <div style="background: white; border: 1px solid #e6dcc7; border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+          <strong style="color: #7a0019;">Ideas para accionar:</strong>
+          <ul style="margin: 8px 0 0 0; padding-left: 20px;">${sc.suma.map(x=>`<li style="margin-bottom: 4px;">${x}</li>`).join('')}</ul>
+        </div>
+        <div>
+          <button style="border: none; background: linear-gradient(120deg, #7a0019, #a32035); color: white; font-weight: bold; border-radius: 10px; padding: 10px 20px; cursor: pointer;" id="btnSiguiente">Siguiente escena</button>
+        </div>`;
+      $('#btnSiguiente')?.addEventListener('click', ()=>{ i++; (i<orden.length)?render():renderFinal(); });
+    });
+  }
+
+  function reiniciar(){
+    orden = barajar(ESCENAS.map((_,idx)=>idx));
+    i = 0; aprendizajes = 0;
+    lblApr.textContent = `Aprendizajes: ${aprendizajes}`;
+    render();
+  }
+
+  /* ===== Eventos UI ===== */
+  document.querySelectorAll('.door-btn').forEach(d=>{
+    d.addEventListener('click', ()=> evaluar(d.getAttribute('data-puerta')));
+  });
+
+  $('#btnSaltar').addEventListener('click', ()=>{ i++; (i<orden.length)?render():renderFinal(); });
+  $('#btnReiniciar').addEventListener('click', reiniciar);
+
+  $('#btnPista').addEventListener('click', ()=>{
+    const sc = ESCENAS[orden[i]];
+    feedback.style.background = '#fff8e6';
+    feedback.style.borderColor = '#c89b4b';
+    feedback.innerHTML = `
+      <h4 style="margin: 0 0 8px 0; color: #7a0019; font-size: 1.2em;">💡 Pista para esta escena</h4>
+      <p style="margin: 0 0 15px 0; font-size: 1.05em; color: #555;">${sc.pista}</p>
+      <div><button style="border: 1px solid #c89b4b; background: white; color: #7a0019; font-weight: bold; border-radius: 10px; padding: 8px 16px; cursor: pointer;" id="cerrarPista">Cerrar</button></div>`;
+    feedback.style.display = 'block';
+    $('#cerrarPista')?.addEventListener('click', ()=> feedback.style.display='none');
+  });
+
+  $('#btnContexto').addEventListener('click', ()=>{
+    feedback.style.background = '#fdf2e9';
+    feedback.style.borderColor = '#c89b4b';
+    feedback.innerHTML = `
+      <h4 style="margin: 0 0 10px 0; color: #7a0019; font-size: 1.2em;">📖 Contexto pedagógico</h4>
+      <div style="font-size: 1.05em; color: #555;">${CONTEXTO}</div>
+      <div style="margin-top: 15px;"><button style="border: 1px solid #c89b4b; background: white; color: #7a0019; font-weight: bold; border-radius: 10px; padding: 8px 16px; cursor: pointer;" id="cerrarCtx">Cerrar</button></div>`;
+    feedback.style.display = 'block';
+    $('#cerrarCtx')?.addEventListener('click', ()=> feedback.style.display='none');
+  });
+
+  /* Inicialización */
+  reiniciar();
+  </script>
+</body>
+</html>
