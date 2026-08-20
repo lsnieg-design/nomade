@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sujeto de la Discapacidad Intelectual - Repaso Integral</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #F8F9FA;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            color: #FFFFFF;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #00d2ff;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+
+        .login-box {
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #B0BEC5;
+            font-size: 1em;
+            outline: none;
+        }
+        .login-box input:focus {
+            border-color: #2b5876;
+        }
+        
+        .question-card {
+            background: #FFFFFF;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid #00d2ff;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .question-number {
+            color: #2b5876;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        
+        .scenario {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: #2d3748;
+            background: #F0F4F8;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #CFD8DC;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .option {
+            background: #FFFFFF;
+            border: 2px solid #CFD8DC;
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+        }
+        
+        .option:hover {
+            border-color: #00d2ff;
+            background: #F0F4F8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.1);
+        }
+        
+        .option.selected {
+            border-color: #2b5876;
+            background: #E1F5FE;
+        }
+        
+        .option.correct {
+            border-color: #4CAF50;
+            background: #E8F5E9;
+        }
+        
+        .option.incorrect {
+            border-color: #F44336;
+            background: #FFEBEE;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1em;
+            line-height: 1.6;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background: #E8F5E9;
+            border: 1px solid #4CAF50;
+            color: #2d3748;
+        }
+        
+        .feedback.incorrect {
+            background: #FFEBEE;
+            border: 1px solid #F44336;
+            color: #2d3748;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            color: #FFFFFF;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(43, 88, 118, 0.3);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+        
+        .score {
+            background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .final-score {
+            text-align: center;
+            padding: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container { margin: 10px; border-radius: 15px; }
+            .content { padding: 20px; }
+            .header h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-container">
+        <div class="header">
+            <h1>Desafío: Sujeto de la Discapacidad Intelectual</h1>
+            <p>¡Bienvenidx a este recorrido interactivo! Ingresá tus datos para repasar todo lo que transitamos en el primer cuatrimestre.</p>
+        </div>
+        <div class="content login-box">
+            <input type="text" id="nombreInput" placeholder="Nombre" required>
+            <input type="text" id="apellidoInput" placeholder="Apellido" required>
+            <button class="btn" onclick="iniciarCuestionario()">Comenzar el recorrido</button>
+        </div>
+    </div>
+
+    <div class="container hidden" id="game-container">
+        <div class="header">
+            <h1>Sujeto de la DI: Repaso Integral</h1>
+            <p>Leé con atención cada situación y elegí la respuesta que mejor refleje nuestra perspectiva.</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        
+        <div class="content" id="content"></div>
+        
+        <div class="navigation">
+            <div class="score" id="score">Pregunta 1 de 20</div>
+            <div>
+                <button class="btn" id="prevBtn" onclick="previousQuestion()" disabled>Anterior</button>
+                <button class="btn" id="nextBtn" onclick="nextQuestion()" disabled>Siguiente</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulamos el endpoint para no romper la lógica original, aunque aquí no enviemos datos reales.
+        const SCRIPT_URL = ""; 
+
+        const questions = [
+            {
+                scenario: "Iniciás tus prácticas docentes y escuchás a una colega decir: 'Lo más importante es leer el diagnóstico médico del estudiante para saber qué le falta y qué no puede hacer'[cite: 11]. Desde la propuesta de nuestra materia, ¿cómo deberíamos posicionarnos frente a esta afirmación?",
+                options: [
+                    "Debemos proponer un corrimiento de los enfoques exclusivamente clínicos para abrir paso a una mirada social, relacional y situada[cite: 12].",
+                    "Tiene razón, porque el diagnóstico nos da certezas cerradas sobre el sujeto y nos indica exactamente cómo intervenir[cite: 7].",
+                    "Es correcto, pensar en el sujeto de la discapacidad intelectual implica tomarlo como un objeto de estudio neutral y distante[cite: 9]."
+                ],
+                correct: 0,
+                correctFeedback: "¡Qué gran análisis, [NOMBRE]! Exactamente. Esta materia propone un corrimiento deliberado de enfoques exclusivamente clínicos o diagnósticos[cite: 12]. Pensar en personas reales con historias y trayectorias implica dejar de nombrarlas desde la falta[cite: 10, 11]. ¿No te parece hermoso pensar en construir entornos más justos en lugar de solo leer déficits?",
+                incorrectFeedback: "Ay, [NOMBRE], detengámonos un momento a pensar. ¿Te acordás que en la Clase 0 dijimos que no esperamos certezas cerradas[cite: 7]? Tampoco consideramos al sujeto como un objeto neutral[cite: 9]. Te invito a recordar que buscamos una mirada social y relacional[cite: 12]. ¡Sigamos intentando!"
+            },
+            {
+                scenario: "Durante una clase sobre la evolución histórica del concepto de discapacidad, un estudiante pregunta por qué ya no usamos la palabra 'impedido'. Según la Convención sobre los Derechos de las Personas con Discapacidad (2006), ¿cómo se entiende actualmente la discapacidad?",
+                options: [
+                    "Como una incapacidad de la persona para valerse por sí misma a consecuencia de una deficiencia de sus facultades[cite: 58].",
+                    "Como un concepto que evoluciona y resulta de la interacción entre las personas con impedimentos y las barreras actitudinales y del entorno[cite: 59].",
+                    "Como un estado biológico fijo que debe ser curado mediante intervenciones médicas y terapéuticas constantes[cite: 104]."
+                ],
+                correct: 1,
+                correctFeedback: "¡Excelente, [NOMBRE]! Comprendiste el corazón de la Convención del 2006. La discapacidad resulta de la interacción con las barreras del entorno, no es solo un atributo personal[cite: 59]. ¿Viste cómo las palabras van construyendo realidades más inclusivas?",
+                incorrectFeedback: "Mmm, [NOMBRE], revisemos un poquito. La opción que elegiste se parece más a la Declaración de los Derechos de los Impedidos de 1975 o al modelo médico[cite: 58, 104]. Recordá que hoy ponemos el foco en la *interacción* con las barreras del entorno[cite: 59]. ¡Animate a seguir deconstruyendo!"
+            },
+            {
+                scenario: "Ves en redes sociales un video de un joven usuario de silla de ruedas que logró graduarse. El título dice: '¡Un verdadero ángel! Él viene a enseñarnos que no hay excusas en la vida'. Según lo visto sobre representaciones sociales, ¿a qué perspectiva corresponde esto?",
+                options: [
+                    "A la perspectiva médica, porque resalta su condición física y su diagnóstico clínico[cite: 121].",
+                    "A la perspectiva emotiva (o porno inspiracional), que otorga lugares de excepcionalidad y supone que vienen a enseñarnos algo[cite: 98, 102, 112, 118].",
+                    "Al modelo social, porque demuestra que pudo superar las barreras estructurales de la universidad[cite: 210]."
+                ],
+                correct: 1,
+                correctFeedback: "¡Muy bien, [NOMBRE]! Detectaste perfectamente la perspectiva emotiva[cite: 99]. Frases como 'vienen a enseñarnos' terminan cosificando a la persona para encontrar una fuente de inspiración propia[cite: 116]. ¡Ojo con el porno inspiracional[cite: 118]!",
+                incorrectFeedback: "[NOMBRE], pensá bien en el mensaje del video. ¿Realmente habla de barreras (modelo social) o de un diagnóstico médico? ¡No! Está romantizando la situación, poniéndolo en un lugar de ángel o inspiración[cite: 100, 118]. ¡Recordemos que las personas con discapacidad vienen al mundo en las mismas condiciones que todxs[cite: 113]!"
+            },
+            {
+                scenario: "Retrocedamos en el tiempo hasta la antigüedad clásica (siglos V y IV a.C.). Si en esa época nacía un niño ciego o sordo, ¿qué causas se le atribuían a su condición y qué solía hacer la sociedad, según el Modelo Eugenésico?",
+                options: [
+                    "Se le atribuían causas biológicas y se lo internaba en asilos para su curación y rehabilitación[cite: 195, 198].",
+                    "Se lo consideraba una bendición divina y se lo mantenía en los márgenes de la sociedad para testimoniar la caridad[cite: 172, 174].",
+                    "Se consideraba un castigo de los dioses y, al suponer que no tenían utilidad social, frecuentemente se practicaba el infanticidio[cite: 154, 157, 162]."
+                ],
+                correct: 2,
+                correctFeedback: "¡Exacto, [NOMBRE]! Es duro de leer, pero en el modelo eugenésico griego se creía que era un castigo de los dioses y, al no ser 'útiles' para la guerra, se los eliminaba[cite: 154, 157, 162]. Conocer la historia nos ayuda a no repetir horrores.",
+                incorrectFeedback: "Casi, [NOMBRE]. Las opciones que mencionan la bendición divina (caridad) corresponden al modelo de Marginación de la Edad Media [cite: 172, 174], y la internación/curación al modelo Médico-Rehabilitador[cite: 195, 198]. ¡Volvé a pensar en el mundo griego y las guerras[cite: 147]!"
+            },
+            {
+                scenario: "Avanzamos al siglo XX, pleno auge del Modelo Médico-Rehabilitador. ¿Cuál era el objetivo principal de este modelo en relación a las personas con discapacidad?",
+                options: [
+                    "Modificar la sociedad para garantizar la igualdad de oportunidades y la accesibilidad universal[cite: 214].",
+                    "Lograr su rehabilitación o cura para que puedan ser 'lo más normales posible', subestimando muchas veces sus capacidades[cite: 200, 201].",
+                    "Considerarlos como sujetos de derechos plenos y brindarles apoyos intermitentes para la vida independiente[cite: 236, 314]."
+                ],
+                correct: 1,
+                correctFeedback: "¡Tal cual, [NOMBRE]! El modelo médico se centraba en el déficit e intentaba curar o normalizar al sujeto, asumiéndolo siempre como un 'paciente'[cite: 193, 201]. Nos sirvió como un paso histórico, ¡pero hoy sabemos que no alcanza!",
+                incorrectFeedback: "Atención, [NOMBRE]. La accesibilidad universal y la vida independiente son conquistas hermosas del Modelo Social[cite: 214, 219]. El modelo médico se centraba en la 'cura' y en asimilar a la persona al estándar normal[cite: 201]. ¡A no confundir las épocas!"
+            },
+            {
+                scenario: "Llegan los años 60 y, gracias al movimiento de vida independiente, irrumpe el Modelo Social. Este modelo plantea una distinción clave que es el 'quid de la cuestión'. ¿Cuál es la diferencia entre 'deficiencia' y 'discapacidad'?",
+                options: [
+                    "La deficiencia es un castigo religioso, mientras que la discapacidad es el estado natural de la persona[cite: 157, 210].",
+                    "No hay diferencia, son sinónimos utilizados por el modelo médico para patologizar[cite: 122, 227].",
+                    "La deficiencia es la limitación corporal/orgánica, pero la discapacidad es la restricción causada por una sociedad que excluye y no considera esa diversidad[cite: 228]."
+                ],
+                correct: 2,
+                correctFeedback: "¡Brillante, [NOMBRE]! Entendiste la frase 'no soy yo, sos vos (sociedad)'[cite: 225]. La deficiencia es del individuo, pero la discapacidad la construye el entorno excluyente[cite: 228]. ¡Ese es el verdadero cambio de paradigma!",
+                incorrectFeedback: "Ups, [NOMBRE]. Acordate que para el Modelo Social son conceptos muy distintos. La limitación orgánica es la *deficiencia*, pero es la organización social la que crea la *discapacidad* al poner barreras[cite: 228]. ¡Volvé a repasar esta idea que es central en tu futuro rol docente!"
+            },
+            {
+                scenario: "Un docente organiza su clase usando mucho lenguaje técnico, textos sin opciones de lectura fácil y videos sin subtítulos. Sofía, una estudiante, no logra comprender las consignas y queda excluida de la actividad. ¿Frente a qué tipo de barrera estamos principalmente?",
+                options: [
+                    "Barreras arquitectónicas, porque Sofía no puede ingresar al aula física[cite: 266].",
+                    "Barreras de la comunicación, ya que se usan maneras de comunicarse que dificultan el entendimiento y faltan apoyos como subtitulados[cite: 254].",
+                    "Barreras actitudinales, porque el docente tiene prejuicios explícitos sobre Sofía[cite: 254]."
+                ],
+                correct: 1,
+                correctFeedback: "¡Muy buen ojo, [NOMBRE]! El uso de lenguaje técnico o material inaccesible genera barreras de la comunicación[cite: 254]. Pensar en *Diseño Universal* nos ayuda a desarmar estas barreras antes de que aparezcan. ¡Esa es nuestra tarea!",
+                incorrectFeedback: "Fijate bien, [NOMBRE]. No nos están hablando del espacio físico (arquitectónico) [cite: 266] ni de prejuicios directos (actitudinales)[cite: 254]. El problema acá está en los medios y modos de presentar la información. ¡Son barreras comunicacionales[cite: 254]!"
+            },
+            {
+                scenario: "En tu escuela deciden colocar carteles con pictogramas en todas las puertas (Baño, Dirección, Biblioteca) y adaptar los manuales de convivencia a un vocabulario claro y sencillo. ¿Qué dimensión de la accesibilidad están trabajando?",
+                options: [
+                    "Accesibilidad cognitiva, porque permite que las personas entiendan los espacios, los textos y se orienten fácilmente[cite: 266].",
+                    "Accesibilidad metodológica, porque solo están usando dispositivos virtuales[cite: 266].",
+                    "Accesibilidad física, porque están modificando las paredes del colegio[cite: 254]."
+                ],
+                correct: 0,
+                correctFeedback: "¡Exacto, [NOMBRE]! La accesibilidad cognitiva es vital para la comprensión del entorno y la información[cite: 266]. A veces nos quedamos solo con la rampa física, ¡pero la rampa cognitiva (como los pictogramas) es igual de importante!",
+                incorrectFeedback: "Mmm, [NOMBRE], dale una vuelta más. Poner un cartel visual o usar lenguaje claro no modifica la estructura del edificio (física)[cite: 254, 266]. Apunta directamente a la *comprensión* y orientación mental. ¡Se trata de accesibilidad cognitiva[cite: 266]!"
+            },
+            {
+                scenario: "Vamos a hablar específicamente de la Discapacidad Intelectual (DI). Desde el modelo ecológico, entendemos que a las personas con DI les cuesta más aprender, comprender y comunicarse[cite: 283]. Pero, ¿qué pasa si logramos un entorno más fácil y accesible?",
+                options: [
+                    "La DI desaparece mágicamente porque se curan genéticamente[cite: 191, 282].",
+                    "Las personas con DI tendrán menos dificultades, ya que la DI se expresa en la relación con el entorno y las barreras[cite: 281, 282].",
+                    "Nada cambia, porque la DI es permanente y no depende de los obstáculos externos[cite: 281, 284]."
+                ],
+                correct: 1,
+                correctFeedback: "¡Qué lindo que lo tengas tan claro, [NOMBRE]! Si bien la DI suele ser permanente [cite: 284], sus *efectos y dificultades* disminuyen enormemente cuando el entorno derriba las barreras[cite: 281, 282]. ¡Ahí radicás vos como profesional clave!",
+                incorrectFeedback: "¡Ojo acá, [NOMBRE]! Si bien la DI suele ser una condición permanente [cite: 284], el grado de dificultad que experimenta la persona baja muchísimo si el entorno es accesible[cite: 281, 282]. ¡No desestimemos nuestro poder para modificar el contexto!"
+            },
+            {
+                scenario: "Martina es una joven con DI que se acaba de mudar a una nueva residencia. Solo necesita que un profesional la oriente temporalmente para aprender el recorrido en colectivo desde su nueva casa hasta su trabajo. Según los tipos de apoyo, ¿qué necesidad presenta Martina?",
+                options: [
+                    "Apoyo generalizado, porque es constante y de alta intensidad[cite: 308].",
+                    "Apoyo extenso, porque lo requiere de forma regular en varios ámbitos[cite: 310].",
+                    "Apoyo intermitente (o limitado temporalmente), ya que la necesidad es de forma esporádica o por un periodo de tiempo corto para una tarea puntual[cite: 312, 314]."
+                ],
+                correct: 2,
+                correctFeedback: "¡Perfecto, [NOMBRE]! Aprender un recorrido nuevo al mudarse es una necesidad puntual. Una vez que lo aprende, el apoyo se retira. Por eso es limitado/intermitente[cite: 312, 314]. Pensar los apoyos a medida favorece la autonomía.",
+                incorrectFeedback: "[NOMBRE], pensá en el tiempo. ¿Va a necesitar que le enseñen el camino todos los días de su vida (generalizado/extenso)? No, solo hasta que aprenda la ruta nueva. ¡Es un apoyo limitado en el tiempo[cite: 312, 314]!"
+            },
+            {
+                scenario: "En el área cognitiva, un estudiante con DI suele presentar desafíos en sus Funciones Ejecutivas. Notás que le cuesta retener la consigna que le diste hace un minuto para poder aplicarla en el ejercicio actual. ¿Qué función específica está comprometida?",
+                options: [
+                    "La regulación emocional, manifestando reacciones desproporcionadas ante la alegría[cite: 326].",
+                    "La memoria de trabajo, presentando dificultades para retener información y utilizarla cuando el estímulo ya no está presente[cite: 331].",
+                    "El área lingüística fonológica, por dificultades de articulación[cite: 337]."
+                ],
+                correct: 1,
+                correctFeedback: "¡Excelente, [NOMBRE]! La *memoria de trabajo* es como nuestra pizarra mental. Si se borra rápido, cuesta seguir pasos o consignas largas[cite: 331]. ¿Cómo la ayudaríamos? Dando instrucciones cortas y apoyos visuales.",
+                incorrectFeedback: "Te fuiste un poco de tema, [NOMBRE]. Recordar una consigna no es un tema de articulación (fonológico) [cite: 337] ni de desborde emocional[cite: 326]. Es un proceso cognitivo puro: ¡la memoria de trabajo[cite: 331]! A seguir repasando."
+            },
+            {
+                scenario: "Al estudiar los síndromes que cursan con DI (como Down, West o X-Frágil), dijimos que nuestra tarea docente NO es encasillar. Entonces, ¿para qué nos sirve, como docentes, conocer las características de estos síndromes?",
+                options: [
+                    "Para anticipar apoyos, comprender las barreras específicas (físicas, cognitivas o sensoriales) y desnaturalizar estereotipos, humanizando la mirada[cite: 357, 358, 359].",
+                    "Para poder dar un diagnóstico médico certero a los padres y recetar medicación[cite: 350, 516].",
+                    "Para enfocarnos exclusivamente en la biología y justificar por qué el estudiante no aprende[cite: 355]."
+                ],
+                correct: 0,
+                correctFeedback: "¡Qué alegría leer esto, [NOMBRE]! El diagnóstico nunca es el punto final, sino el punto de partida para anticipar qué barreras debemos derribar en nuestra aula[cite: 350, 357]. Esa es la verdadera mirada inclusiva.",
+                incorrectFeedback: "¡Ay, [NOMBRE], cuidado! Nuestro rol nunca, jamás es diagnosticar médicamente ni medicar (eso es del área de salud) [cite: 350], ni tampoco usar el síndrome como excusa para el no-aprendizaje[cite: 355]. ¡Conocemos los síndromes para anticipar *apoyos* y humanizar la práctica[cite: 357, 359]!"
+            },
+            {
+                scenario: "Tenés un alumno con Síndrome X-Frágil (SXF). Notás que frente a ruidos fuertes en el recreo o si alguien lo abraza por sorpresa, se pone muy ansioso, llora y evita el contacto visual. ¿A qué se debe esto principalmente?",
+                options: [
+                    "A una cardiopatía congénita severa[cite: 371].",
+                    "A su hipersensibilidad a los estímulos sensoriales (sonidos, tacto), que le genera una ansiedad excesiva[cite: 374].",
+                    "A que tiene Síndrome de West y está perdiendo habilidades previamente adquiridas[cite: 373]."
+                ],
+                correct: 1,
+                correctFeedback: "¡Muy bien, [NOMBRE]! Entender la hipersensibilidad en el X-Frágil nos permite darnos cuenta de que NO es 'mala conducta', sino una barrera del entorno que lo abruma[cite: 365, 374]. Así podemos ofrecer un ambiente más predecible y calmo.",
+                incorrectFeedback: "No te confundas de síndrome, [NOMBRE]. La regresión (pérdida de habilidades) es típica del Síndrome de West [cite: 373], y las cardiopatías son más frecuentes en Down[cite: 371]. La ansiedad por ruidos o roces es un rasgo clarísimo de la hipersensibilidad del X-Frágil[cite: 374]. ¡A releer los cuadros!"
+            },
+            {
+                scenario: "A principios del siglo XX, Binet y Simon crearon una escala que sentó las bases para evaluar la inteligencia. ¿Qué concepto clave introdujeron, midiendo el nivel de desarrollo cognitivo de un niño en comparación con sus pares?",
+                options: [
+                    "La Edad Mental[cite: 391].",
+                    "El Cociente Intelectual (CI)[cite: 400].",
+                    "La Conducta Adaptativa[cite: 406]."
+                ],
+                correct: 0,
+                correctFeedback: "¡Excelente dato histórico, [NOMBRE]! Binet y Simon introdujeron la *Edad Mental*[cite: 391]. El CI (fórmula matemática) vino un poquito después de la mano de William Stern[cite: 400]. Conocer esto nos muestra cómo fue evolucionando la forma de medirnos.",
+                incorrectFeedback: "¡Casi, [NOMBRE]! La Conducta Adaptativa se incorporó mucho después (1959, con la AAMR)[cite: 406]. El CI lo introdujo Stern en 1912[cite: 400]. Binet y Simon, con su famoso test, hablaban de la *Edad Mental*[cite: 391]. ¡Un detalle histórico clave!"
+            },
+            {
+                scenario: "Si miramos cómo fue cambiando la clasificación de la DI, desde 1959 (AAMR) y reafirmado por el DSM-IV y DSM-5, se dejó de mirar un solo número para el diagnóstico. ¿Qué otra dimensión se volvió fundamental evaluar junto con el intelecto?",
+                options: [
+                    "El origen genético exclusivo del síndrome[cite: 195].",
+                    "La conducta adaptativa (limitaciones en habilidades conceptuales, sociales y prácticas del entorno)[cite: 406, 424].",
+                    "Únicamente el Cociente Intelectual (CI)[cite: 406]."
+                ],
+                correct: 1,
+                correctFeedback: "¡Tal cual, [NOMBRE]! Ya no importa solo el 'número' (CI), sino cómo la persona funciona y se adapta a su entorno (habilidades prácticas, sociales y conceptuales)[cite: 406, 424]. Esto es un gran avance hacia una visión más integral.",
+                incorrectFeedback: "Te quedaste en el tiempo, [NOMBRE]. Justamente, a partir de 1959 se sumó algo vital para dejar de mirar solo el CI o lo médico: se incluyó la *conducta adaptativa* (cómo la persona se desenvuelve en su vida diaria)[cite: 406, 407]. ¡Volvamos a mirar la historia!"
+            },
+            {
+                scenario: "En el aula tenés un estudiante con un Proyecto de Inclusión. Al lado de él hay una profesional que es Docente de Educación Especial. Ella analiza cómo presentarle el contenido de matemáticas usando material concreto y diseña las configuraciones de apoyo pedagógico. ¿Quién es esta profesional?",
+                options: [
+                    "La Docente de Apoyo a la Inclusión (DAI), ya que su foco de intervención es pedagógico y didáctico[cite: 460, 463, 464].",
+                    "La Acompañante Externa (APND/AT), ya que su mirada está puesta en el desborde emocional[cite: 460, 466].",
+                    "Una médica terapeuta del CET[cite: 516]."
+                ],
+                correct: 0,
+                correctFeedback: "¡Qué importante distinción, [NOMBRE]! La DAI pertenece al sistema educativo y su foco es puramente *pedagógico* (modificar la currícula, enseñar, evaluar)[cite: 460, 468]. Saber qué rol ocupa cada unx nos ahorra muchos dolores de cabeza institucionales.",
+                incorrectFeedback: "¡Atenti acá, [NOMBRE]! La clave está en la palabra 'pedagógico' y en modificar el contenido. Esa tarea docente es exclusiva de la DAI[cite: 460, 464]. La Acompañante Externa (APND) trabaja más desde lo conductual, vincular y subjetivo[cite: 467, 469]. ¡Es fundamental tener clara esta diferencia!"
+            },
+            {
+                scenario: "Llega el fin de la escolaridad formal. Un joven asiste de lunes a viernes a un espacio donde no hay materias tradicionales, sino talleres de arte, huerta y salidas a la comunidad. El objetivo es su autonomía, autoestima y que logre 'pertenecer' socialmente. ¿Qué dispositivo es este?",
+                options: [
+                    "Un Taller Protegido, porque solo capacitan para el mercado laboral[cite: 474, 475].",
+                    "Un Centro de Día, pensado como un puente hacia la comunidad y la convivencia afectiva[cite: 491, 492, 493, 499].",
+                    "Una Clínica de Rehabilitación, enfocada en curar discapacidades[cite: 480]."
+                ],
+                correct: 1,
+                correctFeedback: "¡Exacto, [NOMBRE]! El Centro de Día es ese puente vital hacia la comunidad. No es para curar ni es una escuela formal, es un lugar para *habitar, pertenecer y crear lazos*[cite: 491, 493, 499]. Un espacio hermoso.",
+                incorrectFeedback: "No exactamente, [NOMBRE]. El Taller Protegido apunta específicamente a lo laboral [cite: 474], y la clínica a lo médico/físico[cite: 480]. El espacio que busca 'pertenencia', con talleres de arte, salidas y foco afectivo, es el *Centro de Día*[cite: 491, 493, 499]. ¡Toma nota de esto!"
+            },
+            {
+                scenario: "En cambio, imaginá a un niño con un compromiso subjetivo e intelectual complejo que no logra sostener la escuela especial en su formato clásico. Necesita un abordaje terapéutico fuerte (kinesiología, fonoaudiología) pero articulado con espacios educativos (alfabetización). ¿A qué dispositivo asiste?",
+                options: [
+                    "A un Centro Educativo Terapéutico (CET), que combina la clínica con una propuesta pedagógica[cite: 512, 513, 514].",
+                    "A un Hogar Residencia, donde vive permanentemente[cite: 504].",
+                    "A la Escuela Común, sin ningún apoyo[cite: 454]."
+                ],
+                correct: 0,
+                correctFeedback: "¡Clarísimo, [NOMBRE]! El CET (Centro Educativo Terapéutico) es esa intersección única entre la clínica (salud) y la educación para quienes requieren un andamiaje muy particular[cite: 512, 513, 514]. Es una herramienta fundamental del sistema.",
+                incorrectFeedback: "Mmm, [NOMBRE]. Si asiste para recibir terapias y alfabetización de día, no estamos hablando del lugar donde *vive* (Hogar)[cite: 504]. La combinación salud-educación para compromisos complejos se da en el *CET (Centro Educativo Terapéutico)*[cite: 512, 513]. ¡Vamos que ya falta poco!"
+            },
+            {
+                scenario: "Hablemos de derechos. ¿Qué documento es considerado en Argentina 'el documento de identidad' de la discapacidad, que permite a las familias acceder al 100% de cobertura en prestaciones, terapias y transporte público gratuito?",
+                options: [
+                    "El Documento Nacional de Identidad (DNI)[cite: 486].",
+                    "La Ley Nacional de Educación Inclusiva[cite: 441].",
+                    "El Certificado Único de Discapacidad (CUD)[cite: 486, 487]."
+                ],
+                correct: 2,
+                correctFeedback: "¡Así es, [NOMBRE]! El CUD es la llave burocrática y legal que abre la puerta a todos los derechos y prestaciones del Sistema Integral[cite: 486, 487]. Detrás de ese papel, hay muchas luchas familiares[cite: 488].",
+                incorrectFeedback: "[NOMBRE], recordá que, si bien hay leyes de fondo, el documento específico que la familia debe tramitar ante una junta médica para habilitar las prestaciones de salud y transporte es el *CUD (Certificado Único de Discapacidad)*[cite: 486, 487, 488]. ¡Un dato súper práctico para tu futuro!"
+            },
+            {
+                scenario: "Llegamos al final del recorrido. Pensando en los dispositivos de permanencia total, ¿cuál es el gran desafío que tienen los 'Hogares o Residencias' para no convertirse en asilos fríos, sino en espacios subjetivantes?",
+                options: [
+                    "Asegurar que los residentes estén siempre en sus habitaciones sin interactuar[cite: 506].",
+                    "Lograr que la institución se sienta como un verdadero hogar, respetando la singularidad, la intimidad y los proyectos de vida de cada residente en una convivencia comunitaria[cite: 504, 508].",
+                    "Obligar a que todos realicen las mismas tareas de carpintería para ser productivos laboralmente[cite: 475, 508]."
+                ],
+                correct: 1,
+                correctFeedback: "¡Qué hermoso cierre, [NOMBRE]! Esa es la clave. Un hogar debe sentirse como 'casa'. La intimidad, el desayuno compartido, los proyectos propios[cite: 504, 507, 508]. Trabajar ahí requiere una profunda sensibilidad para sostener la vida del otro. ¡Felicitaciones por llegar hasta acá!",
+                incorrectFeedback: "Ay, [NOMBRE], ¡no! Aislar a las personas o forzarlas a ser 'productivas' es volver a modelos viejos y opresivos[cite: 198, 475]. El gran desafío de un Hogar es lograr que sea eso: *una casa viva*, con respeto por la intimidad y los deseos de quienes la habitan[cite: 504, 508]. ¡Un desafío ético gigante!"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let selectedOption = null;
+        let answered = false;
+        let correctAnswers = 0;
+        let userData = { nombre: "", apellido: "" };
+
+        function iniciarCuestionario() {
+            const n = document.getElementById('nombreInput').value.trim();
+            const a = document.getElementById('apellidoInput').value.trim();
+            
+            if (n === "" || a === "") {
+                alert("Por favor, ingresá tus datos para comenzar.");
+                return;
+            }
+            
+            userData.nombre = n;
+            userData.apellido = a;
+            
+            document.getElementById('login-container').classList.add('hidden');
+            document.getElementById('game-container').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const question = questions[currentQuestion];
+            const content = document.getElementById('content');
+            
+            const correctText = question.correctFeedback.replace(/\[NOMBRE\]/g, userData.nombre);
+            const incorrectText = question.incorrectFeedback.replace(/\[NOMBRE\]/g, userData.nombre);
+
+            content.innerHTML = `
+                <div class="question-card">
+                    <div class="question-number">Pregunta ${currentQuestion + 1} de ${questions.length}</div>
+                    <div class="scenario">${question.scenario}</div>
+                    <div class="options">
+                        ${question.options.map((option, index) => `
+                            <div class="option" onclick="selectOption(${index})" id="option${index}">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback" data-correct="${correctText}" data-incorrect="${incorrectText}"></div>
+                    <button class="btn" onclick="checkAnswer()" id="checkBtn" disabled>Verificar respuesta</button>
+                </div>
+            `;
+            
+            updateProgress();
+            updateNavigation();
+            selectedOption = null;
+            answered = false;
+        }
+
+        function selectOption(index) {
+            if (answered) return;
+            document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            document.getElementById(`option${index}`).classList.add('selected');
+            selectedOption = index;
+            document.getElementById('checkBtn').disabled = false;
+        }
+
+        function checkAnswer() {
+            if (selectedOption === null || answered) return;
+            
+            const question = questions[currentQuestion];
+            const feedbackElem = document.getElementById('feedback');
+            const checkBtn = document.getElementById('checkBtn');
+            const options = document.querySelectorAll('.option');
+            
+            answered = true;
+            checkBtn.style.display = 'none';
+            
+            if (selectedOption === question.correct) {
+                correctAnswers++;
+                options[selectedOption].classList.add('correct');
+                feedbackElem.className = 'feedback correct';
+                feedbackElem.innerHTML = feedbackElem.getAttribute('data-correct');
+            } else {
+                options[selectedOption].classList.add('incorrect');
+                options[question.correct].classList.add('correct');
+                feedbackElem.className = 'feedback incorrect';
+                feedbackElem.innerHTML = feedbackElem.getAttribute('data-incorrect');
+            }
+            
+            feedbackElem.style.display = 'block';
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                showFinalResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('score').textContent = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
+        }
+
+        function updateNavigation() {
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = true;
+        }
+
+        function showFinalResults() {
+            const percentage = Math.round((correctAnswers / questions.length) * 100);
+            let finalMsg = '';
+            
+            if (percentage >= 90) finalMsg = '¡Un recorrido excepcional! Tenés recontra incorporada la mirada social, relacional y empática que buscamos construir. ¡Sos un orgullo para la cátedra!';
+            else if (percentage >= 70) finalMsg = '¡Muy buen trabajo! Lograste captar los ejes centrales de la materia. Te invitamos a seguir puliendo algunos conceptos históricos y técnicos.';
+            else if (percentage >= 50) finalMsg = '¡Gran esfuerzo! Hay muchas ideas hermosas que ya estás habitando, pero te recomiendo volver a los textos para consolidar las diferencias entre modelos y dispositivos.';
+            else finalMsg = '¡Cada error es una nueva puerta para aprender! No te desanimes. Este es un espacio cuidado para equivocarse. Te sugerimos repasar las clases con calma y volver a intentarlo.';
+
+            document.getElementById('content').innerHTML = `
+                <div class="final-score">
+                    <h2>¡Has completado el repaso, ${userData.nombre}!</h2>
+                    <p style="margin-top: 15px;">Respuestas correctas: <strong>${correctAnswers} de ${questions.length}</strong></p>
+                    <p>Porcentaje de precisión: <strong>${percentage}%</strong></p>
+                    <p style="margin: 20px 0; font-style: italic;">${finalMsg}</p>
+                    <button class="btn" onclick="location.reload()">Rehacer el recorrido</button>
+                </div>
+            `;
+            
+            document.querySelector('.navigation').style.display = 'none';
+            document.getElementById('progressFill').style.width = '100%';
+
+            enviarDatosSilencioso();
+        }
+
+        function enviarDatosSilencioso() {
+            if(!SCRIPT_URL) return; // Evita error si no hay URL
+            
+            const payload = {
+                actividad: "Repaso Sujeto DI",
+                fecha: new Date().toLocaleString(),
+                nombre: userData.nombre,
+                apellido: userData.apellido,
+                puntaje: correctAnswers + "/" + questions.length
+            };
+
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                cache: "no-cache",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).catch(e => console.log("Posteo simulado"));
+        }
+    </script>
+</body>
+</html>
