@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trivia ESI – Clase 2</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f8f4f1;
+      color: #4d2b2b;
+    }
+
+    .trivia-container {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #fffaf7;
+      border: 2px solid #c89b4b;
+      border-radius: 24px;
+      padding: 35px 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    h1 {
+      color: #7a0019;
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin: 0 0 10px;
+    }
+
+    h2 {
+      color: #7a0019;
+      margin-top: 0;
+    }
+
+    .subtitulo {
+      color: #7a0019;
+      font-size: 1.15rem;
+      margin-bottom: 30px;
+    }
+
+    .campo {
+      margin: 12px auto;
+      width: min(100%, 380px);
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #d3af67;
+      border-radius: 12px;
+      font-size: 1rem;
+      text-align: center;
+      background: white;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 13px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .15s ease, opacity .15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: default;
+      transform: none;
+    }
+
+    .btn-principal {
+      background: #7a0019;
+      color: white;
+    }
+
+    .btn-secundario {
+      background: #c89b4b;
+      color: white;
+    }
+
+    .oculto {
+      display: none !important;
+    }
+
+    .progreso {
+      font-size: .95rem;
+      color: #8a6d3b;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .pregunta {
+      background: #ffe9d7;
+      border-radius: 18px;
+      padding: 28px 22px;
+      margin-bottom: 24px;
+    }
+
+    .pregunta-texto {
+      margin: 0;
+      font-size: clamp(1.15rem, 3vw, 1.45rem);
+      line-height: 1.5;
+      color: #663300;
+      font-weight: 700;
+    }
+
+    .respuestas {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-mito {
+      background: #7a0019;
+      color: white;
+      min-width: 130px;
+    }
+
+    .btn-verdad {
+      background: #c89b4b;
+      color: white;
+      min-width: 130px;
+    }
+
+    .feedback {
+      min-height: 80px;
+      margin: 22px 0 10px;
+      font-size: 1.08rem;
+      line-height: 1.6;
+      font-weight: 700;
+    }
+
+    .resultado {
+      padding-top: 10px;
+    }
+
+    .puntaje {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #7a0019;
+    }
+
+    .recomendacion {
+      margin: 20px auto;
+      max-width: 720px;
+      line-height: 1.6;
+      color: #663300;
+    }
+
+    .estado {
+      min-height: 24px;
+      margin: 18px 0;
+      color: #666;
+      font-size: .95rem;
+    }
+
+    .nota {
+      margin-top: 25px;
+      font-size: .9rem;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="trivia-container">
+    <div class="card">
+
+      <h1>🎯 Mitos y Verdades sobre la ESI</h1>
+      <p class="subtitulo">Clase 2 · Trivia</p>
+
+      <!-- IDENTIFICACIÓN -->
+      <section id="pantallaNombre">
+
+        <p>
+          Antes de comenzar, ingresá tu nombre y apellido.
+        </p>
+
+        <div class="campo">
+          <input id="nombreInput" type="text" placeholder="Nombre" autocomplete="given-name">
+        </div>
+
+        <div class="campo">
+          <input id="apellidoInput" type="text" placeholder="Apellido" autocomplete="family-name">
+        </div>
+
+        <br>
+
+        <button id="continuarNombre" type="button" class="btn-principal">
+          Continuar
+        </button>
+
+      </section>
+
+
+      <!-- INTRODUCCIÓN -->
+      <section id="pantallaIntro" class="oculto">
+
+        <p style="font-size:1.08rem;line-height:1.7;">
+          Bienvenidxs al juego interactivo de Mitos y Verdades sobre la ESI.
+          Este juego es didáctico y no cuenta con nota: su objetivo es ayudarte
+          a revisar los mitos y prejuicios de manera lúdica.
+          Vas a recibir retroalimentación en cada pregunta.
+          ¡Vamos a aprender juntxs!
+        </p>
+
+        <br>
+
+        <button id="empezarBtn" type="button" class="btn-principal">
+          Empezar
+        </button>
+
+      </section>
+
+
+      <!-- TRIVIA -->
+      <section id="pantallaTrivia" class="oculto">
+
+        <div id="progreso" class="progreso"></div>
+
+        <div class="pregunta">
+          <p id="preguntaTexto" class="pregunta-texto"></p>
+        </div>
+
+        <div id="botonesRespuesta" class="respuestas">
+
+          <button id="mitoBtn" type="button" class="btn-mito">
+            Mito
+          </button>
+
+          <button id="verdadBtn" type="button" class="btn-verdad">
+            Verdad
+          </button>
+
+        </div>
+
+        <div id="feedback" class="feedback"></div>
+
+        <button id="continuarBtn" type="button" class="btn-secundario oculto">
+          Continuar
+        </button>
+
+      </section>
+
+
+      <!-- RESULTADOS -->
+      <section id="pantallaResultados" class="oculto resultado">
+
+        <h2>Resultados finales</h2>
+
+        <p id="puntaje" class="puntaje"></p>
+
+        <p id="recomendacion" class="recomendacion"></p>
+
+        <p id="estado" class="estado"></p>
+
+        <button id="replayBtn" type="button" class="btn-principal">
+          Jugar de nuevo
+        </button>
+
+        <p class="nota">
+          Esta actividad es una propuesta de revisión y reflexión sobre los contenidos de la clase.
+        </p>
+
+      </section>
+
+    </div>
+  </div>
+
+
+<script>
+(function () {
+  "use strict";
+
+  /* =========================================================
+     CONFIGURACIÓN
+     ========================================================= */
+
+  var WEB_APP_URL =
+    "https://script.google.com/macros/s/AKfycbzxUCD1M54bzAnAXbr6IevSoF5uJeOp14PWB9SsOltglwrkmLBjypjBDQBpZjyDAFhP/exec";
+
+  var ACTIVIDAD = "Clase 2 (trivia)";
+
+
+  /* =========================================================
+     VARIABLES
+     ========================================================= */
+
+  var nombre = "";
+  var apellido = "";
+
+  var correctas = 0;
+  var incorrectas = 0;
+  var actual = 0;
+
+
+  /* =========================================================
+     PREGUNTAS
+     ========================================================= */
+
+  var afirmaciones = [
+
+    {
+      texto: "La ESI es sólo para adolescentes que ya tienen relaciones sexuales.",
+      respuesta: "Mito",
+      feedbackCorrecto:
+        "✅ ¡Muy bien, {nombre}! La ESI acompaña desde chicxs enseñando cuidado del cuerpo y emociones. Ej: explicar a un niñe cómo nombrar sus partes con respeto.",
+      feedbackIncorrecto:
+        "🤔 ¿Estás segurx, {nombre}? La ESI comienza desde la infancia, enseñando cuidado del cuerpo y emociones para crecer con seguridad y respeto."
+    },
+
+    {
+      texto: "La ESI promueve la prevención de enfermedades y embarazos.",
+      respuesta: "Verdad",
+      feedbackCorrecto:
+        "✅ Correcto, {nombre}! Además enseña respeto y decisiones responsables. Ej: hablar de preservativos con adolescenxs sin miedo.",
+      feedbackIncorrecto:
+        "🤔 Hmmm, {nombre}, puede parecer confuso, pero la ESI no solo enseña prevención, también enseña respeto, vínculos y autonomía."
+    },
+
+    {
+      texto: "Hablar de género y diversidad sexual confunde a los niños y niñas.",
+      respuesta: "Mito",
+      feedbackCorrecto:
+        "✅ ¡Exacto, {nombre}! Les enseña que está bien ser distintxs y respetadxs. Ej: un niñe que quiere jugar con muñecas no está confundidx.",
+      feedbackIncorrecto:
+        "🤔 Pensalo así, {nombre}: la diversidad permite que cada niñe pueda expresarse con autenticidad."
+    },
+
+    {
+      texto: "La ESI fomenta la autonomía y el respeto por la decisiones de cada persona.",
+      respuesta: "Verdad",
+      feedbackCorrecto:
+        "✅ Muy bien, {nombre}! Aprender a decidir con información y libertad es clave. Ej: adolescenxs diciendo 'sí' o 'no' a relaciones con información.",
+      feedbackIncorrecto:
+        "🤔 {nombre}, quizás lo estabas viendo de otra manera, pero la ESI enseña justamente a decidir con respeto y libertad."
+    },
+
+    {
+      texto: "La ESI reduce la sexualidad únicamente a la biología.",
+      respuesta: "Mito",
+      feedbackCorrecto:
+        "✅ Correcto, {nombre}! La sexualidad incluye emociones, vínculos y valores. Ej: comunicar afecto con respeto.",
+      feedbackIncorrecto:
+        "🤔 {nombre}, la sexualidad no es solo biología: también incluye emociones, relaciones y valores."
+    },
+
+    {
+      texto: "La ESI solo enseña cómo prevenir embarazos.",
+      respuesta: "Mito",
+      feedbackCorrecto:
+        "✅ Exacto, {nombre}! La ESI también habla de emociones, vínculos y derechos. Ej: cómo decir 'no' a algo que no queremos.",
+      feedbackIncorrecto:
+        "🤔 {nombre}, la ESI aborda mucho más que prevención: también emociones, derechos y vínculos."
+    },
+
+    {
+      texto: "La ESI es incompatible con la espiritualidad.",
+      respuesta: "Mito",
+      feedbackCorrecto:
+        "✅ Muy bien, {nombre}! La ESI puede integrarse con valores y espiritualidad. Ej: enseñar respeto y amor al prójimo.",
+      feedbackIncorrecto:
+        "🤔 {nombre}, esto es un mito: la ESI respeta la espiritualidad y puede acompañar valores y creencias personales."
+    },
+
+    {
+      texto: "Hablar de sexualidad en la escuela genera curiosidad inapropiada.",
+      respuesta: "Mito",
+      feedbackCorrecto:
+        "✅ Correcto, {nombre}! Informarse con respeto ayuda a tomar decisiones responsables. Ej: conversar sobre límites con adolescenxs.",
+      feedbackIncorrecto:
+        "🤔 {nombre}, informar no genera curiosidad inapropiada, sino conocimiento y herramientas para cuidar de unx mismx y de lxs demás."
+    },
+
+    {
+      texto: "La ESI fomenta el respeto por la diversidad de género.",
+      respuesta: "Verdad",
+      feedbackCorrecto:
+        "✅ Bien, {nombre}! Se aprende a respetar y aceptar a todxs. Ej: reconocer pronombres y roles sin juzgar.",
+      feedbackIncorrecto:
+        "🤔 {nombre}, la ESI fomenta respeto y aceptación de la diversidad; pensalo como una oportunidad de aprender a valorar las diferencias."
+    },
+
+    {
+      texto: "La ESI se aprende solo una vez y no se revisita.",
+      respuesta: "Mito",
+      feedbackCorrecto:
+        "✅ Exacto, {nombre}! Es un proceso que se va profundizando. Ej: repasar conceptos de consentimiento en diferentes edades.",
+      feedbackIncorrecto:
+        "🤔 {nombre}, la ESI se construye y revisita según edad y contexto. Este juego es para repensar esos mitos y verdades y profundizar el aprendizaje."
+    }
+
+  ];
+
+
+  /* =========================================================
+     ELEMENTOS
+     ========================================================= */
+
+  var pantallaNombre = document.getElementById("pantallaNombre");
+  var pantallaIntro = document.getElementById("pantallaIntro");
+  var pantallaTrivia = document.getElementById("pantallaTrivia");
+  var pantallaResultados = document.getElementById("pantallaResultados");
+
+  var nombreInput = document.getElementById("nombreInput");
+  var apellidoInput = document.getElementById("apellidoInput");
+
+  var continuarNombre = document.getElementById("continuarNombre");
+  var empezarBtn = document.getElementById("empezarBtn");
+
+  var progreso = document.getElementById("progreso");
+  var preguntaTexto = document.getElementById("preguntaTexto");
+
+  var mitoBtn = document.getElementById("mitoBtn");
+  var verdadBtn = document.getElementById("verdadBtn");
+  var continuarBtn = document.getElementById("continuarBtn");
+
+  var feedback = document.getElementById("feedback");
+
+  var puntaje = document.getElementById("puntaje");
+  var recomendacion = document.getElementById("recomendacion");
+  var estado = document.getElementById("estado");
+
+  var replayBtn = document.getElementById("replayBtn");
+
+
+  /* =========================================================
+     UTILIDADES
+     ========================================================= */
+
+  function mostrar(elemento) {
+    elemento.classList.remove("oculto");
+  }
+
+  function ocultar(elemento) {
+    elemento.classList.add("oculto");
+  }
+
+
+  /* =========================================================
+     NOMBRE Y APELLIDO
+     ========================================================= */
+
+  continuarNombre.addEventListener("click", function () {
+
+    nombre = nombreInput.value.trim();
+    apellido = apellidoInput.value.trim();
+
+    if (!nombre || !apellido) {
+      alert("Por favor ingresá tu nombre y apellido.");
+      return;
+    }
+
+    ocultar(pantallaNombre);
+    mostrar(pantallaIntro);
+  });
+
+
+  /* =========================================================
+     COMENZAR
+     ========================================================= */
+
+  empezarBtn.addEventListener("click", function () {
+
+    actual = 0;
+    correctas = 0;
+    incorrectas = 0;
+
+    ocultar(pantallaIntro);
+    mostrar(pantallaTrivia);
+
+    mostrarPregunta();
+  });
+
+
+  /* =========================================================
+     MOSTRAR PREGUNTA
+     ========================================================= */
+
+  function mostrarPregunta() {
+
+    if (actual >= afirmaciones.length) {
+      finalizar();
+      return;
+    }
+
+    var pregunta = afirmaciones[actual];
+
+    progreso.textContent =
+      "Pregunta " + (actual + 1) + " de " + afirmaciones.length;
+
+    preguntaTexto.textContent = pregunta.texto;
+
+    feedback.textContent = "";
+    feedback.style.color = "#663300";
+
+    mostrar(mitoBtn);
+    mostrar(verdadBtn);
+
+    ocultar(continuarBtn);
+  }
+
+
+  /* =========================================================
+     RESPONDER
+     ========================================================= */
+
+  mitoBtn.addEventListener("click", function () {
+    responder("Mito");
+  });
+
+  verdadBtn.addEventListener("click", function () {
+    responder("Verdad");
+  });
+
+
+  function responder(eleccion) {
+
+    var pregunta = afirmaciones[actual];
+
+    ocultar(mitoBtn);
+    ocultar(verdadBtn);
+
+    if (eleccion === pregunta.respuesta) {
+
+      feedback.textContent =
+        pregunta.feedbackCorrecto.replace("{nombre}", nombre);
+
+      feedback.style.color = "#006600";
+
+      correctas++;
+
+    } else {
+
+      feedback.textContent =
+        pregunta.feedbackIncorrecto.replace("{nombre}", nombre);
+
+      feedback.style.color = "#cc0000";
+
+      incorrectas++;
+    }
+
+    mostrar(continuarBtn);
+  }
+
+
+  /* =========================================================
+     CONTINUAR
+     ========================================================= */
+
+  continuarBtn.addEventListener("click", function () {
+
+    actual++;
+    mostrarPregunta();
+
+  });
+
+
+  /* =========================================================
+     FINALIZAR
+     ========================================================= */
+
+  function finalizar() {
+
+    ocultar(pantallaTrivia);
+    mostrar(pantallaResultados);
+
+    var total = afirmaciones.length;
+    var porcentaje = Math.round((correctas / total) * 100);
+    var resultado = correctas + "/" + total;
+
+    puntaje.textContent =
+      nombre +
+      ", acertaste " +
+      correctas +
+      " de " +
+      total +
+      " (" +
+      porcentaje +
+      "%).";
+
+
+    if (correctas === total) {
+
+      recomendacion.textContent =
+        "🎉 ¡Qué bueno, " +
+        nombre +
+        "! Tenés apropiadas las cuestiones de la ESI. Seguiremos trabajando en esta línea para profundizar y consolidar estos aprendizajes, reflexionando juntxs sobre vínculos, derechos y respeto.";
+
+    } else if ((total - correctas) / total > 0.6) {
+
+      recomendacion.textContent =
+        "❗ " +
+        nombre +
+        ", vimos que hubo varias respuestas incorrectas. Te recomendamos volver a leer el material de la clase: este juego sirve para repensar esos mitos y verdades, reflexionar sobre tus ideas y consolidar tus aprendizajes. Tomate un tiempo para revisar los conceptos y volver a jugar si querés profundizar más.";
+
+    } else {
+
+      recomendacion.textContent =
+        "🎉 ¡Buen trabajo, " +
+        nombre +
+        "! Aunque no todas fueron correctas, este juego te ayuda a reflexionar y repensar los mitos y verdades sobre la ESI. Seguí aprendiendo y explorando los contenidos de la clase.";
+
+    }
+
+
+    guardarParticipacion(resultado);
+  }
+
+
+  /* =========================================================
+     ENVIAR A GOOGLE SHEETS
+     ========================================================= */
+
+  function guardarParticipacion(resultado) {
+
+    var datos = {
+      actividad: ACTIVIDAD,
+      nombre: nombre,
+      apellido: apellido,
+      puntaje: resultado,
+      fecha: new Date().toISOString()
+    };
+
+    estado.textContent = "Registrando participación...";
+
+    try {
+
+      fetch(WEB_APP_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify(datos)
+      })
+      .then(function () {
+
+        estado.textContent =
+          "✓ Tu participación fue enviada.";
+
+      })
+      .catch(function () {
+
+        estado.textContent =
+          "La trivia terminó correctamente.";
+
+      });
+
+    } catch (error) {
+
+      estado.textContent =
+        "La trivia terminó correctamente.";
+
+    }
+  }
+
+
+  /* =========================================================
+     JUGAR NUEVAMENTE
+     ========================================================= */
+
+  replayBtn.addEventListener("click", function () {
+
+    nombre = "";
+    apellido = "";
+
+    correctas = 0;
+    incorrectas = 0;
+    actual = 0;
+
+    nombreInput.value = "";
+    apellidoInput.value = "";
+
+    ocultar(pantallaResultados);
+    ocultar(pantallaIntro);
+    ocultar(pantallaTrivia);
+    mostrar(pantallaNombre);
+
+    estado.textContent = "";
+  });
+
+})();
+</script>
+
+</body>
+</html>
