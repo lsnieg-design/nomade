@@ -1,594 +1,807 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trivia ESI – Clase 2</title>
-  <style>
-    :root{
-      --bordo:#7a0019;
-      --dorado:#c89b4b;
-      --crema:#fffaf7;
-      --fondo:#f8f4f1;
-      --texto:#663300;
-      --suave:#ffe9d7;
-    }
-
-    *{box-sizing:border-box}
-
-    body{
-      margin:0;
-      padding:20px;
-      background:var(--fondo);
-      color:#4d2b2b;
-      font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    }
-
-    .contenedor{
-      width:100%;
-      max-width:850px;
-      margin:0 auto;
-    }
-
-    .tarjeta{
-      background:var(--crema);
-      border:2px solid var(--dorado);
-      border-radius:24px;
-      padding:36px 25px;
-      text-align:center;
-      box-shadow:0 10px 30px rgba(0,0,0,.08);
-    }
-
-    h1{
-      margin:0 0 8px;
-      color:var(--bordo);
-      font-size:clamp(2rem,5vw,3rem);
-      line-height:1.15;
-    }
-
-    h2{
-      color:var(--bordo);
-    }
-
-    .subtitulo{
-      margin:0 0 30px;
-      color:var(--bordo);
-      font-size:1.15rem;
-      font-weight:600;
-    }
-
-    .pantalla{display:block}
-    .oculto{display:none !important}
-
-    .campo{
-      width:min(100%,380px);
-      margin:12px auto;
-    }
-
-    input{
-      width:100%;
-      padding:14px 16px;
-      border:1px solid #d3af67;
-      border-radius:12px;
-      background:#fff;
-      font-size:1rem;
-      text-align:center;
-      outline:none;
-    }
-
-    input:focus{
-      border-color:var(--bordo);
-      box-shadow:0 0 0 3px rgba(122,0,25,.1);
-    }
-
-    button{
-      border:0;
-      border-radius:14px;
-      padding:13px 24px;
-      font-size:1rem;
-      font-weight:700;
-      cursor:pointer;
-    }
-
-    button:hover{opacity:.92}
-    button:disabled{opacity:.5;cursor:default}
-
-    .btn-bordo{background:var(--bordo);color:#fff}
-    .btn-dorado{background:var(--dorado);color:#fff}
-
-    .progreso{
-      margin-bottom:18px;
-      color:#8a6d3b;
-      font-weight:700;
-    }
-
-    .pregunta{
-      margin-bottom:24px;
-      padding:28px 22px;
-      border-radius:18px;
-      background:var(--suave);
-    }
-
-    .pregunta p{
-      margin:0;
-      color:var(--texto);
-      font-size:clamp(1.15rem,3vw,1.45rem);
-      line-height:1.5;
-      font-weight:700;
-    }
-
-    .botones{
-      display:flex;
-      justify-content:center;
-      flex-wrap:wrap;
-      gap:12px;
-    }
-
-    .btn-respuesta{
-      min-width:130px;
-    }
-
-    #feedback{
-      min-height:90px;
-      margin:22px 0 8px;
-      font-size:1.08rem;
-      line-height:1.6;
-      font-weight:700;
-    }
-
-    .puntaje{
-      color:var(--bordo);
-      font-size:1.5rem;
-      font-weight:800;
-    }
-
-    .recomendacion{
-      max-width:720px;
-      margin:20px auto;
-      line-height:1.6;
-      color:var(--texto);
-    }
-
-    #estado{
-      min-height:25px;
-      margin:18px 0;
-      color:#666;
-      font-size:.95rem;
-    }
-
-    .nota{
-      margin-top:25px;
-      color:#777;
-      font-size:.9rem;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trivia ESI – Clase 2</title>
+<style>
+*{box-sizing:border-box}
+:root{
+  --bordo:#7a0019;
+  --bordo2:#a32035;
+  --dorado:#c89b4b;
+  --crema:#fffaf7;
+  --fondo:#f8f4f1;
+  --texto:#663300;
+  --suave:#ffe9d7;
+  --verde:#006600;
+  --rojo:#b00020;
+}
+body{
+  margin:0;
+  padding:20px;
+  background:var(--fondo);
+  color:#4d2b2b;
+  font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+.contenedor{max-width:850px;margin:0 auto}
+.tarjeta{
+  background:var(--crema);
+  border:2px solid var(--dorado);
+  border-radius:24px;
+  padding:36px 25px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+h1{margin:0 0 8px;color:var(--bordo);font-size:clamp(2rem,5vw,3rem);line-height:1.15}
+h2{color:var(--bordo)}
+.subtitulo{margin:0 0 30px;color:var(--bordo);font-size:1.15rem;font-weight:600}
+.oculto{display:none!important}
+.campo{width:min(100%,380px);margin:12px auto}
+input{
+  width:100%;padding:14px 16px;border:1px solid #d3af67;border-radius:12px;
+  background:#fff;font-size:1rem;text-align:center;outline:none
+}
+input:focus{border-color:var(--bordo);box-shadow:0 0 0 3px rgba(122,0,25,.1)}
+button{
+  border:0;border-radius:14px;padding:13px 24px;font-size:1rem;font-weight:700;
+  cursor:pointer
+}
+button:hover{opacity:.92}
+.btn-bordo{background:var(--bordo);color:#fff}
+.btn-dorado{background:var(--dorado);color:#fff}
+.progreso{margin-bottom:18px;color:#8a6d3b;font-weight:700}
+.pregunta{margin-bottom:24px;padding:28px 22px;border-radius:18px;background:var(--suave)}
+.pregunta p{margin:0;color:var(--texto);font-size:clamp(1.15rem,3vw,1.45rem);line-height:1.5;font-weight:700}
+.botones{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.btn-respuesta{min-width:130px}
+.feedback{
+  margin:22px auto 12px;max-width:760px;text-align:left;padding:20px 22px;
+  border-radius:16px;background:#fff;border:1px solid #ead8bd;
+  font-size:1.02rem;line-height:1.7;min-height:80px
+}
+.feedback strong{color:var(--bordo)}
+.feedback .reflexion{
+  margin-top:14px;padding:14px 16px;border-left:4px solid var(--dorado);
+  background:#fff8ed;border-radius:8px
+}
+.feedback .ejemplo{
+  margin-top:12px;padding:14px 16px;border-left:4px solid var(--bordo);
+  background:#fff5f6;border-radius:8px
+}
+.puntaje{color:var(--bordo);font-size:1.5rem;font-weight:800}
+.recomendacion{max-width:720px;margin:20px auto;line-height:1.7;color:var(--texto)}
+#estado{min-height:25px;margin:18px 0;color:#666;font-size:.95rem}
+.nota{margin-top:25px;color:#777;font-size:.9rem}
+</style>
 </head>
-
 <body>
-  <main class="contenedor">
-    <section class="tarjeta">
+<main class="contenedor">
+<section class="tarjeta">
 
-      <!-- NOMBRE Y APELLIDO -->
-      <div id="pantallaNombre" class="pantalla">
-        <h1>🎯 Mitos y Verdades sobre la ESI</h1>
-        <p class="subtitulo">Clase 2 · Trivia</p>
+<div id="pantallaNombre">
+  <h1>🎯 Mitos y Verdades sobre la ESI</h1>
+  <p class="subtitulo">Clase 2 · Trivia</p>
+  <p>Antes de comenzar, ingresá tu nombre y apellido.</p>
 
-        <p>Antes de comenzar, ingresá tu nombre y apellido.</p>
+  <div class="campo">
+    <input id="nombreInput" type="text" placeholder="Nombre" autocomplete="given-name">
+  </div>
+  <div class="campo">
+    <input id="apellidoInput" type="text" placeholder="Apellido" autocomplete="family-name">
+  </div>
+  <br>
+  <button type="button" class="btn-bordo" onclick="continuarNombre()">Continuar</button>
+</div>
 
-        <div class="campo">
-          <input id="nombreInput" type="text" placeholder="Nombre" autocomplete="given-name">
-        </div>
+<div id="pantallaIntro" class="oculto">
+  <h2>Antes de jugar</h2>
+  <p style="font-size:1.08rem;line-height:1.7;">
+    Bienvenidxs al juego interactivo de Mitos y Verdades sobre la ESI.
+    Este juego es didáctico y no cuenta con nota: su objetivo es ayudarte
+    a revisar los mitos y prejuicios de manera lúdica. Vas a recibir
+    retroalimentación en cada pregunta. La idea no es solamente acertar,
+    sino detenernos a pensar de dónde vienen algunas ideas y qué lugar
+    ocupan en nuestras prácticas educativas.
+  </p>
+  <br>
+  <button type="button" class="btn-bordo" onclick="comenzarTrivia()">Empezar</button>
+</div>
 
-        <div class="campo">
-          <input id="apellidoInput" type="text" placeholder="Apellido" autocomplete="family-name">
-        </div>
+<div id="pantallaTrivia" class="oculto">
+  <div id="progreso" class="progreso"></div>
 
-        <br>
+  <div class="pregunta">
+    <p id="preguntaTexto"></p>
+  </div>
 
-        <button type="button" class="btn-bordo" onclick="continuarNombre()">
-          Continuar
-        </button>
-      </div>
+  <div class="botones">
+    <button id="mitoBtn" type="button" class="btn-bordo btn-respuesta" onclick="responder('Mito')">Mito</button>
+    <button id="verdadBtn" type="button" class="btn-dorado btn-respuesta" onclick="responder('Verdad')">Verdad</button>
+  </div>
 
-      <!-- INTRO -->
-      <div id="pantallaIntro" class="pantalla oculto">
-        <h2>Antes de jugar</h2>
+  <div id="feedback" class="feedback"></div>
 
-        <p style="font-size:1.08rem;line-height:1.7;">
-          Bienvenidxs al juego interactivo de Mitos y Verdades sobre la ESI.
-          Este juego es didáctico y no cuenta con nota: su objetivo es ayudarte
-          a revisar los mitos y prejuicios de manera lúdica.
-          Vas a recibir retroalimentación en cada pregunta.
-          ¡Vamos a aprender juntxs!
-        </p>
+  <button id="continuarBtn" type="button" class="btn-dorado oculto" onclick="continuarPregunta()">Continuar</button>
+</div>
 
-        <br>
+<div id="pantallaResultados" class="oculto">
+  <h2>Resultados finales</h2>
+  <p id="puntaje" class="puntaje"></p>
+  <p id="recomendacion" class="recomendacion"></p>
+  <p id="estado"></p>
+  <button type="button" class="btn-bordo" onclick="jugarNuevamente()">Jugar de nuevo</button>
+  <p class="nota">Esta actividad es una propuesta de revisión y reflexión sobre los contenidos de la clase.</p>
+</div>
 
-        <button type="button" class="btn-bordo" onclick="comenzarTrivia()">
-          Empezar
-        </button>
-      </div>
+</section>
+</main>
 
-      <!-- TRIVIA -->
-      <div id="pantallaTrivia" class="pantalla oculto">
-        <div id="progreso" class="progreso"></div>
+<script>
+(function(){
 
-        <div class="pregunta">
-          <p id="preguntaTexto"></p>
-        </div>
+  var WEB_APP_URL = "https://script.google.com/macros/s/AKfycby6rUCw9_z0THFlbzuPlEVEiTR0P3yW0YboXme894EWJA_btSCSlxQf5EzMEY37wiH8/exec";
+  var ACTIVIDAD = "Clase 2 (trivia)";
 
-        <div id="botonesRespuesta" class="botones">
-          <button id="mitoBtn" type="button" class="btn-bordo btn-respuesta" onclick="responder('Mito')">
-            Mito
-          </button>
+  var nombre = "";
+  var apellido = "";
+  var actual = 0;
+  var correctas = 0;
+  var incorrectas = 0;
 
-          <button id="verdadBtn" type="button" class="btn-dorado btn-respuesta" onclick="responder('Verdad')">
-            Verdad
-          </button>
-        </div>
+  var preguntas = [
 
-        <div id="feedback"></div>
+    {
+      texto:"La ESI es sólo para adolescentes que ya tienen relaciones sexuales.",
+      respuesta:"Mito",
+      feedback:function(){
+        return `
+          <strong>✅ Muy bien.</strong> La ESI no comienza cuando aparecen las relaciones sexuales.
+          Acompaña procesos de aprendizaje vinculados con el cuidado del cuerpo,
+          las emociones, los vínculos, los límites, el respeto y la autonomía.
+          Por eso, la tarea educativa puede abordar estos temas de manera gradual
+          y adecuada a cada edad.
 
-        <button id="continuarBtn" type="button" class="btn-dorado oculto" onclick="continuarPregunta()">
-          Continuar
-        </button>
-      </div>
+          <div class="ejemplo">
+            <strong>Ejemplo para pensar la práctica:</strong> enseñar a niñas y niños a
+            nombrar las partes del cuerpo, reconocer situaciones que les generan
+            incomodidad y saber que pueden pedir ayuda también forma parte de una
+            educación para el cuidado.
+          </div>
 
-      <!-- RESULTADOS -->
-      <div id="pantallaResultados" class="pantalla oculto">
-        <h2>Resultados finales</h2>
-
-        <p id="puntaje" class="puntaje"></p>
-
-        <p id="recomendacion" class="recomendacion"></p>
-
-        <p id="estado"></p>
-
-        <button type="button" class="btn-bordo" onclick="jugarNuevamente()">
-          Jugar de nuevo
-        </button>
-
-        <p class="nota">
-          Esta actividad es una propuesta de revisión y reflexión sobre los contenidos de la clase.
-        </p>
-      </div>
-
-    </section>
-  </main>
-
-  <script>
-    /* =========================================================
-       CONFIGURACIÓN
-       ========================================================= */
-
-    var WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyscccqNf6y_Pu8n1VSw6WLgTa4gDsMBns5REtSB4a6dIVxA5hBg9Fsmk2lky-Kwz1i/exec";
-    var ACTIVIDAD = "Clase 2 (trivia)";
-
-
-    /* =========================================================
-       ESTADO
-       ========================================================= */
-
-    var nombre = "";
-    var apellido = "";
-    var actual = 0;
-    var correctas = 0;
-    var incorrectas = 0;
-
-
-    /* =========================================================
-       PREGUNTAS
-       ========================================================= */
-
-    var preguntas = [
-      {
-        texto: "La ESI es sólo para adolescentes que ya tienen relaciones sexuales.",
-        respuesta: "Mito",
-        feedbackCorrecto: "✅ ¡Muy bien, {nombre}! La ESI acompaña desde chicxs enseñando cuidado del cuerpo y emociones. Ej: explicar a un niñe cómo nombrar sus partes con respeto.",
-        feedbackIncorrecto: "🤔 ¿Estás segurx, {nombre}? La ESI comienza desde la infancia, enseñando cuidado del cuerpo y emociones para crecer con seguridad y respeto."
+          <div class="reflexion">
+            <strong>Para reflexionar:</strong><br>
+            ¿Qué contenidos de cuidado y respeto ya trabajás con tus estudiantes
+            aunque nunca los hayas nombrado explícitamente como parte de la ESI?
+            ¿Qué cambia cuando pensamos la ESI como un proceso continuo y no como
+            una intervención aislada?
+          </div>
+        `;
       },
-      {
-        texto: "La ESI promueve la prevención de enfermedades y embarazos.",
-        respuesta: "Verdad",
-        feedbackCorrecto: "✅ Correcto, {nombre}! Además enseña respeto y decisiones responsables. Ej: hablar de preservativos con adolescenxs sin miedo.",
-        feedbackIncorrecto: "🤔 Hmmm, {nombre}, puede parecer confuso, pero la ESI no solo enseña prevención, también enseña respeto, vínculos y autonomía."
-      },
-      {
-        texto: "Hablar de género y diversidad sexual confunde a los niños y niñas.",
-        respuesta: "Mito",
-        feedbackCorrecto: "✅ ¡Exacto, {nombre}! Les enseña que está bien ser distintxs y respetadxs. Ej: un niñe que quiere jugar con muñecas no está confundidx.",
-        feedbackIncorrecto: "🤔 Pensalo así, {nombre}: la diversidad permite que cada niñe pueda expresarse con autenticidad."
-      },
-      {
-        texto: "La ESI fomenta la autonomía y el respeto por la decisiones de cada persona.",
-        respuesta: "Verdad",
-        feedbackCorrecto: "✅ Muy bien, {nombre}! Aprender a decidir con información y libertad es clave. Ej: adolescenxs diciendo 'sí' o 'no' a relaciones con información.",
-        feedbackIncorrecto: "🤔 {nombre}, quizás lo estabas viendo de otra manera, pero la ESI enseña justamente a decidir con respeto y libertad."
-      },
-      {
-        texto: "La ESI reduce la sexualidad únicamente a la biología.",
-        respuesta: "Mito",
-        feedbackCorrecto: "✅ Correcto, {nombre}! La sexualidad incluye emociones, vínculos y valores. Ej: comunicar afecto con respeto.",
-        feedbackIncorrecto: "🤔 {nombre}, la sexualidad no es solo biología: también incluye emociones, relaciones y valores."
-      },
-      {
-        texto: "La ESI solo enseña cómo prevenir embarazos.",
-        respuesta: "Mito",
-        feedbackCorrecto: "✅ Exacto, {nombre}! La ESI también habla de emociones, vínculos y derechos. Ej: cómo decir 'no' a algo que no queremos.",
-        feedbackIncorrecto: "🤔 {nombre}, la ESI aborda mucho más que prevención: también emociones, derechos y vínculos."
-      },
-      {
-        texto: "La ESI es incompatible con la espiritualidad.",
-        respuesta: "Mito",
-        feedbackCorrecto: "✅ Muy bien, {nombre}! La ESI puede integrarse con valores y espiritualidad. Ej: enseñar respeto y amor al prójimo.",
-        feedbackIncorrecto: "🤔 {nombre}, esto es un mito: la ESI respeta la espiritualidad y puede acompañar valores y creencias personales."
-      },
-      {
-        texto: "Hablar de sexualidad en la escuela genera curiosidad inapropiada.",
-        respuesta: "Mito",
-        feedbackCorrecto: "✅ Correcto, {nombre}! Informarse con respeto ayuda a tomar decisiones responsables. Ej: conversar sobre límites con adolescenxs.",
-        feedbackIncorrecto: "🤔 {nombre}, informar no genera curiosidad inapropiada, sino conocimiento y herramientas para cuidar de unx mismx y de lxs demás."
-      },
-      {
-        texto: "La ESI fomenta el respeto por la diversidad de género.",
-        respuesta: "Verdad",
-        feedbackCorrecto: "✅ Bien, {nombre}! Se aprende a respetar y aceptar a todxs. Ej: reconocer pronombres y roles sin juzgar.",
-        feedbackIncorrecto: "🤔 {nombre}, la ESI fomenta respeto y aceptación de la diversidad; pensalo como una oportunidad de aprender a valorar las diferencias."
-      },
-      {
-        texto: "La ESI se aprende solo una vez y no se revisita.",
-        respuesta: "Mito",
-        feedbackCorrecto: "✅ Exacto, {nombre}! Es un proceso que se va profundizando. Ej: repasar conceptos de consentimiento en diferentes edades.",
-        feedbackIncorrecto: "🤔 {nombre}, la ESI se construye y revisita según edad y contexto. Este juego es para repensar esos mitos y verdades y profundizar el aprendizaje."
+      incorrecto:function(){
+        return `
+          <strong>🤔 Esta afirmación es un mito.</strong> La ESI no está pensada
+          únicamente para adolescentes que ya tienen relaciones sexuales.
+          Se construye desde mucho antes, acompañando aprendizajes sobre el cuerpo,
+          las emociones, los vínculos, el cuidado y el respeto.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> aprender a poner límites, reconocer emociones
+            o identificar a una persona adulta de confianza son aprendizajes
+            relacionados con el cuidado.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para revisar la idea:</strong><br>
+            ¿Qué aprendizajes sobre autonomía y cuidado podemos trabajar antes de
+            llegar a hablar específicamente de relaciones sexuales?
+          </div>
+        `;
       }
-    ];
+    },
 
+    {
+      texto:"La ESI promueve la prevención de enfermedades y embarazos.",
+      respuesta:"Verdad",
+      feedback:function(){
+        return `
+          <strong>✅ Correcto.</strong> La prevención es una dimensión importante
+          de la ESI, pero no es la única. También se vincula con el respeto,
+          la toma de decisiones informadas, la autonomía, los vínculos y el cuidado
+          de una misma persona y de otras.
 
-    /* =========================================================
-       FUNCIONES AUXILIARES
-       ========================================================= */
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> en la adolescencia, hablar de métodos de
+            prevención puede estar acompañado por conversaciones sobre consentimiento,
+            decisiones responsables y cuidado mutuo.
+          </div>
 
-    function mostrar(id) {
-      document.getElementById(id).classList.remove("oculto");
+          <div class="reflexion">
+            <strong>Para reflexionar:</strong><br>
+            ¿Qué pasa cuando reducimos la ESI solamente a la prevención?
+            ¿Qué dimensiones del cuidado quedan afuera de esa mirada?
+          </div>
+        `;
+      },
+      incorrecto:function(){
+        return `
+          <strong>🤔 La afirmación es verdadera.</strong> La ESI puede incluir
+          contenidos vinculados con prevención de embarazos y enfermedades,
+          pero necesita una mirada más amplia que no reduzca toda la sexualidad
+          a estos aspectos.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> una conversación sobre prevención también puede
+            incluir respeto, autonomía, capacidad de decir sí o no y responsabilidad
+            frente a las decisiones.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para revisar:</strong><br>
+            ¿Qué otros aprendizajes deberían acompañar cualquier propuesta de
+            prevención para que no quede limitada a información biológica?
+          </div>
+        `;
+      }
+    },
+
+    {
+      texto:"Hablar de género y diversidad sexual confunde a los niños y niñas.",
+      respuesta:"Mito",
+      feedback:function(){
+        return `
+          <strong>✅ Exacto. Es un mito.</strong> Abordar la diversidad no significa
+          imponer una forma única de pensar, sino generar condiciones para reconocer
+          que las personas pueden vivir, expresarse y vincularse de diferentes maneras
+          y que esas diferencias merecen respeto.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> habilitar juegos, expresiones y preguntas sin
+            asociarlos rígidamente a lo que “debería” hacer un niño o una niña puede
+            abrir oportunidades para trabajar el respeto y la no discriminación.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para reflexionar:</strong><br>
+            ¿Qué mensajes sobre género transmitimos sin darnos cuenta?
+            ¿Qué estereotipos aparecen en nuestros ejemplos, materiales o
+            expectativas sobre estudiantes?
+          </div>
+        `;
+      },
+      incorrecto:function(){
+        return `
+          <strong>🤔 Esta afirmación es un mito.</strong> La diversidad no implica
+          confundir; puede ser una oportunidad educativa para aprender a reconocer
+          diferencias, revisar prejuicios y construir vínculos basados en el respeto.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> cuando una niña o un niño se interesa por una
+            actividad que culturalmente se asocia al otro género, podemos acompañar
+            la situación sin convertirla en un problema.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para pensar:</strong><br>
+            ¿La incomodidad frente a determinados temas pertenece realmente a los
+            estudiantes o puede provenir de las propias representaciones adultas?
+          </div>
+        `;
+      }
+    },
+
+    {
+      texto:"La ESI fomenta la autonomía y el respeto por la decisiones de cada persona.",
+      respuesta:"Verdad",
+      feedback:function(){
+        return `
+          <strong>✅ Muy bien.</strong> La autonomía implica poder tomar decisiones
+          con información, reconocer límites, expresar lo que se quiere o no se quiere
+          y asumir que la otra persona también tiene derecho a decidir.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> trabajar situaciones donde una persona puede
+            decir “sí”, “no” o “prefiero no hacerlo” permite pensar el consentimiento
+            y el respeto por las decisiones propias y ajenas.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para reflexionar:</strong><br>
+            ¿Cómo enseñamos autonomía en situaciones cotidianas?
+            ¿Damos lugar a que nuestros estudiantes expresen desacuerdo o siempre
+            esperamos obediencia inmediata?
+          </div>
+        `;
+      },
+      incorrecto:function(){
+        return `
+          <strong>🤔 La afirmación es verdadera.</strong> La ESI también busca
+          fortalecer la autonomía: aprender a decidir, expresar límites y respetar
+          las decisiones de otras personas.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> poder expresar “esto no me gusta”, “necesito ayuda”
+            o “quiero hacerlo de otra manera” son pequeños ejercicios de autonomía.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para revisar:</strong><br>
+            ¿Qué decisiones pueden tomar hoy nuestros estudiantes que quizás los
+            adultos seguimos tomando por ellos?
+          </div>
+        `;
+      }
+    },
+
+    {
+      texto:"La ESI reduce la sexualidad únicamente a la biología.",
+      respuesta:"Mito",
+      feedback:function(){
+        return `
+          <strong>✅ Correcto.</strong> La sexualidad no puede reducirse solamente
+          a la biología. También involucra emociones, vínculos, afectos, decisiones,
+          valores, experiencias y formas de relacionarnos con otras personas.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> hablar de cómo pedir ayuda, expresar afecto,
+            establecer límites o construir relaciones respetuosas también forma parte
+            de una mirada integral.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para reflexionar:</strong><br>
+            Cuando planificamos una propuesta de ESI, ¿cuánto espacio damos a las
+            dimensiones emocionales y vinculares y cuánto a los contenidos biológicos?
+          </div>
+        `;
+      },
+      incorrecto:function(){
+        return `
+          <strong>🤔 Esta afirmación es un mito.</strong> La biología es una dimensión
+          importante, pero la sexualidad comprende mucho más: emociones, vínculos,
+          afectos, decisiones, valores y formas de relacionarnos.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> una actividad sobre cambios corporales puede
+            complementarse con espacios para hablar de emociones, autoestima,
+            vínculos y dudas.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para revisar:</strong><br>
+            ¿Qué queda invisibilizado cuando pensamos la sexualidad únicamente
+            desde el cuerpo biológico?
+          </div>
+        `;
+      }
+    },
+
+    {
+      texto:"La ESI solo enseña cómo prevenir embarazos.",
+      respuesta:"Mito",
+      feedback:function(){
+        return `
+          <strong>✅ Exacto.</strong> La prevención de embarazos puede formar parte
+          de la ESI, pero no agota su sentido. Una perspectiva integral incluye
+          también emociones, vínculos, derechos, autonomía, cuidado y respeto.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> una clase puede abordar prevención y, al mismo
+            tiempo, trabajar cómo comunicar decisiones, reconocer presiones y respetar
+            los límites de otras personas.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para reflexionar:</strong><br>
+            ¿Qué temas vinculados con la ESI aparecen en tu práctica que no tienen
+            nada que ver con la prevención de embarazos?
+          </div>
+        `;
+      },
+      incorrecto:function(){
+        return `
+          <strong>🤔 Esta afirmación es un mito.</strong> La ESI aborda mucho más
+          que la prevención de embarazos. Reducirla a ese único aspecto limita
+          enormemente su potencial educativo.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> trabajar derechos, respeto por la diversidad,
+            vínculos, consentimiento, emociones y cuidado también forma parte de
+            una propuesta de ESI.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para pensar:</strong><br>
+            ¿Qué perdemos como docentes cuando presentamos la ESI únicamente como
+            una cuestión de “prevención”?
+          </div>
+        `;
+      }
+    },
+
+    {
+      texto:"La ESI es incompatible con la espiritualidad.",
+      respuesta:"Mito",
+      feedback:function(){
+        return `
+          <strong>✅ Muy bien. Es un mito.</strong> La afirmación plantea una oposición
+          que no necesariamente existe. Una propuesta educativa puede trabajar
+          cuidado, respeto, dignidad, vínculos y derechos sin desconocer que las
+          personas tienen convicciones y valores diversos.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> valores como el respeto, el cuidado de otras
+            personas y la responsabilidad pueden abrir espacios de diálogo entre
+            distintas miradas, evitando convertir las diferencias en conflictos.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para reflexionar:</strong><br>
+            ¿Qué hacemos cuando aparecen tensiones entre nuestras convicciones,
+            las de las familias y los contenidos que necesitamos abordar?
+            ¿Podemos sostener el diálogo sin dejar de garantizar el respeto?
+          </div>
+        `;
+      },
+      incorrecto:function(){
+        return `
+          <strong>🤔 La afirmación es un mito.</strong> La espiritualidad y la ESI
+          no tienen por qué pensarse como mundos incompatibles. El desafío educativo
+          puede estar en generar diálogo y construir puentes entre diferentes valores
+          y perspectivas.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> reflexionar sobre respeto, cuidado, dignidad y
+            responsabilidad puede ser un punto de encuentro para conversaciones
+            respetuosas aun cuando existan distintas creencias.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para pensar:</strong><br>
+            ¿Qué diferencia hay entre acompañar una convicción personal y convertir
+            esa convicción en una barrera para el diálogo educativo?
+          </div>
+        `;
+      }
+    },
+
+    {
+      texto:"Hablar de sexualidad en la escuela genera curiosidad inapropiada.",
+      respuesta:"Mito",
+      feedback:function(){
+        return `
+          <strong>✅ Correcto.</strong> Informar y habilitar preguntas no equivale
+          a promover conductas inapropiadas. Cuando la escuela ofrece información
+          clara y un espacio cuidado, puede transformar dudas, silencios y prejuicios
+          en herramientas para el cuidado.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> una pregunta incómoda puede convertirse en una
+            oportunidad para trabajar límites, consentimiento, fuentes confiables
+            de información y búsqueda de ayuda.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para reflexionar:</strong><br>
+            ¿Qué hacemos como docentes cuando aparece una pregunta que nos incomoda?
+            ¿La cerramos rápidamente o podemos convertirla en una oportunidad pedagógica?
+          </div>
+        `;
+      },
+      incorrecto:function(){
+        return `
+          <strong>🤔 Esta afirmación es un mito.</strong> La información no debe
+          pensarse como una invitación a comportamientos inapropiados. Una escuela
+          que puede hablar de estos temas de manera clara ayuda a que los estudiantes
+          cuenten con herramientas para cuidarse y pedir ayuda.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> ante una pregunta sensible, podemos responder
+            con información pertinente para la edad, marcar límites adecuados y
+            orientar hacia fuentes confiables.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para revisar:</strong><br>
+            ¿Qué diferencia hay entre despertar curiosidad y ofrecer herramientas
+            para comprender una realidad que ya forma parte de la vida de los estudiantes?
+          </div>
+        `;
+      }
+    },
+
+    {
+      texto:"La ESI fomenta el respeto por la diversidad de género.",
+      respuesta:"Verdad",
+      feedback:function(){
+        return `
+          <strong>✅ Bien.</strong> El respeto por la diversidad implica reconocer
+          que no todas las personas viven su identidad y sus vínculos de la misma
+          manera, y que la convivencia requiere evitar burlas, exclusiones y prejuicios.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> revisar el lenguaje, los roles asignados en
+            materiales y las expectativas diferentes que podemos tener para niñas
+            y niños permite detectar mensajes que muchas veces naturalizamos.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para reflexionar:</strong><br>
+            ¿Qué prácticas escolares pueden incluir o excluir sin que nos demos cuenta?
+            ¿Qué podríamos revisar en nuestras propuestas, ejemplos o formas de nombrar?
+          </div>
+        `;
+      },
+      incorrecto:function(){
+        return `
+          <strong>🤔 La afirmación es verdadera.</strong> Una dimensión de la ESI
+          es promover el respeto por la diversidad y cuestionar prácticas de
+          discriminación o estigmatización.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> revisar estereotipos presentes en cuentos,
+            imágenes o actividades escolares puede ser una forma concreta de enseñar
+            respeto y convivencia.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para pensar:</strong><br>
+            ¿Hay estereotipos que todavía aparecen en nuestras propuestas educativas
+            porque los consideramos “normales” o “de siempre”?
+          </div>
+        `;
+      }
+    },
+
+    {
+      texto:"La ESI se aprende solo una vez y no se revisita.",
+      respuesta:"Mito",
+      feedback:function(){
+        return `
+          <strong>✅ Exacto.</strong> La ESI puede pensarse como un proceso que se
+          profundiza, se revisita y adquiere nuevos sentidos según la edad, los
+          contextos y las experiencias de quienes participan.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> el respeto por los límites puede abordarse en
+            diferentes momentos y con distintos niveles de complejidad: desde el
+            cuidado del propio cuerpo hasta situaciones de consentimiento y vínculos.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para reflexionar:</strong><br>
+            ¿Qué contenidos de ESI deberían volver a aparecer a lo largo de una
+            trayectoria educativa? ¿Qué cambia cuando revisamos un mismo tema desde
+            nuevas experiencias y preguntas?
+          </div>
+        `;
+      },
+      incorrecto:function(){
+        return `
+          <strong>🤔 Esta afirmación es un mito.</strong> La ESI no es un aprendizaje
+          que se completa una sola vez. Los temas pueden revisitarse y profundizarse
+          a medida que cambian las edades, las preguntas y las situaciones de vida.
+
+          <div class="ejemplo">
+            <strong>Ejemplo:</strong> conceptos como cuidado, autonomía, respeto y
+            consentimiento pueden trabajarse de diferentes maneras en distintos
+            momentos educativos.
+          </div>
+
+          <div class="reflexion">
+            <strong>Para revisar:</strong><br>
+            ¿Qué ideas de ESI aprendimos alguna vez y hoy necesitamos volver a pensar
+            desde nuestras experiencias actuales?
+          </div>
+        `;
+      }
     }
 
-    function ocultar(id) {
-      document.getElementById(id).classList.add("oculto");
-    }
+  ];
 
 
-    /* =========================================================
-       NOMBRE Y APELLIDO
-       ========================================================= */
+  function mostrar(id){
+    document.getElementById(id).classList.remove("oculto");
+  }
 
-    function continuarNombre() {
+  function ocultar(id){
+    document.getElementById(id).classList.add("oculto");
+  }
 
-      nombre = document.getElementById("nombreInput").value.trim();
-      apellido = document.getElementById("apellidoInput").value.trim();
 
-      if (!nombre || !apellido) {
-        alert("Por favor ingresá tu nombre y apellido.");
-        return false;
-      }
+  window.continuarNombre = function(){
 
-      ocultar("pantallaNombre");
-      mostrar("pantallaIntro");
+    nombre = document.getElementById("nombreInput").value.trim();
+    apellido = document.getElementById("apellidoInput").value.trim();
 
+    if(!nombre || !apellido){
+      alert("Por favor ingresá tu nombre y apellido.");
       return false;
     }
 
+    ocultar("pantallaNombre");
+    mostrar("pantallaIntro");
 
-    /* =========================================================
-       COMENZAR
-       ========================================================= */
+    return false;
+  };
 
-    function comenzarTrivia() {
 
-      actual = 0;
-      correctas = 0;
-      incorrectas = 0;
+  window.comenzarTrivia = function(){
 
-      ocultar("pantallaIntro");
-      mostrar("pantallaTrivia");
+    actual = 0;
+    correctas = 0;
+    incorrectas = 0;
 
-      mostrarPregunta();
+    ocultar("pantallaIntro");
+    mostrar("pantallaTrivia");
 
-      return false;
+    mostrarPregunta();
+
+    return false;
+  };
+
+
+  function mostrarPregunta(){
+
+    if(actual >= preguntas.length){
+      finalizarTrivia();
+      return;
     }
 
+    var pregunta = preguntas[actual];
 
-    /* =========================================================
-       MOSTRAR PREGUNTA
-       ========================================================= */
+    document.getElementById("progreso").textContent =
+      "Pregunta " + (actual + 1) + " de " + preguntas.length;
 
-    function mostrarPregunta() {
+    document.getElementById("preguntaTexto").textContent =
+      pregunta.texto;
 
-      if (actual >= preguntas.length) {
-        finalizarTrivia();
-        return;
-      }
+    document.getElementById("feedback").innerHTML = "";
 
-      var pregunta = preguntas[actual];
+    mostrar("mitoBtn");
+    mostrar("verdadBtn");
+    ocultar("continuarBtn");
+  }
 
-      document.getElementById("progreso").textContent =
-        "Pregunta " + (actual + 1) + " de " + preguntas.length;
 
-      document.getElementById("preguntaTexto").textContent =
-        pregunta.texto;
+  window.responder = function(eleccion){
 
-      document.getElementById("feedback").textContent = "";
+    var pregunta = preguntas[actual];
 
-      mostrar("mitoBtn");
-      mostrar("verdadBtn");
+    ocultar("mitoBtn");
+    ocultar("verdadBtn");
 
-      ocultar("continuarBtn");
+    var feedback;
+
+    if(eleccion === pregunta.respuesta){
+
+      correctas++;
+      feedback = pregunta.feedback();
+
+    }else{
+
+      incorrectas++;
+      feedback = pregunta.incorrecto();
+
     }
 
+    document.getElementById("feedback").innerHTML = feedback;
 
-    /* =========================================================
-       RESPONDER
-       ========================================================= */
+    mostrar("continuarBtn");
 
-    function responder(eleccion) {
+    return false;
+  };
 
-      var pregunta = preguntas[actual];
 
-      ocultar("mitoBtn");
-      ocultar("verdadBtn");
+  window.continuarPregunta = function(){
 
-      if (eleccion === pregunta.respuesta) {
+    actual++;
+    mostrarPregunta();
 
-        document.getElementById("feedback").textContent =
-          pregunta.feedbackCorrecto.replace("{nombre}", nombre);
+    return false;
+  };
 
-        document.getElementById("feedback").style.color =
-          "#006600";
 
-        correctas++;
+  function finalizarTrivia(){
 
-      } else {
+    ocultar("pantallaTrivia");
+    mostrar("pantallaResultados");
 
-        document.getElementById("feedback").textContent =
-          pregunta.feedbackIncorrecto.replace("{nombre}", nombre);
+    var total = preguntas.length;
+    var porcentaje = Math.round((correctas / total) * 100);
+    var resultado = correctas + "/" + total;
 
-        document.getElementById("feedback").style.color =
-          "#cc0000";
+    document.getElementById("puntaje").textContent =
+      nombre + ", acertaste " +
+      correctas + " de " +
+      total + " (" +
+      porcentaje + "%).";
 
-        incorrectas++;
-      }
+    if(correctas === total){
 
-      mostrar("continuarBtn");
+      document.getElementById("recomendacion").textContent =
+        "🎉 Excelente trabajo, " + nombre +
+        ". Además de revisar los contenidos, intentá quedarte con las preguntas que fueron apareciendo durante la actividad: ¿qué preconceptos aparecen con más fuerza en nuestras prácticas? ¿qué temas necesitamos seguir profundizando?";
 
-      return false;
+    }else if(porcentaje >= 60){
+
+      document.getElementById("recomendacion").textContent =
+        "🎉 Buen trabajo, " + nombre +
+        ". Esta trivia no busca solamente medir cuánto recordamos, sino ayudarnos a revisar ideas que muchas veces aparecen de manera natural. Volvé sobre las preguntas que más dudas te generaron y pensá cómo se relacionan con situaciones concretas de la práctica educativa.";
+
+    }else{
+
+      document.getElementById("recomendacion").textContent =
+        "🌱 Este resultado puede ser un punto de partida, " + nombre +
+        ". Te recomendamos volver a la lectura de la clase y especialmente a las preguntas que te generaron dudas. El objetivo es transformar esas dudas en oportunidades para profundizar y revisar nuestras propias ideas y prácticas.";
     }
 
-
-    /* =========================================================
-       CONTINUAR
-       ========================================================= */
-
-    function continuarPregunta() {
-
-      actual++;
-      mostrarPregunta();
-
-      return false;
-    }
+    enviarResultado(resultado);
+  }
 
 
-    /* =========================================================
-       FINALIZAR
-       ========================================================= */
+  function enviarResultado(resultado){
 
-    function finalizarTrivia() {
+    var estado = document.getElementById("estado");
 
-      ocultar("pantallaTrivia");
-      mostrar("pantallaResultados");
+    estado.textContent = "Enviando tu participación...";
 
-      var total = preguntas.length;
-      var porcentaje = Math.round((correctas / total) * 100);
-      var resultado = correctas + "/" + total;
+    var parametros =
+      "?actividad=" + encodeURIComponent(ACTIVIDAD) +
+      "&nombre=" + encodeURIComponent(nombre) +
+      "&apellido=" + encodeURIComponent(apellido) +
+      "&puntaje=" + encodeURIComponent(resultado) +
+      "&fecha=" + encodeURIComponent(new Date().toISOString());
 
-      document.getElementById("puntaje").textContent =
-        nombre + ", acertaste " +
-        correctas + " de " +
-        total + " (" +
-        porcentaje + "%).";
+    /*
+      Usamos una imagen invisible para enviar el GET.
+      Esto evita los problemas de CORS que pueden aparecer
+      cuando la trivia está alojada en otro dominio.
+    */
+    var img = new Image();
 
+    img.onload = function(){
+      estado.textContent = "✓ Tu participación fue enviada.";
+    };
 
-      if (correctas === total) {
+    img.onerror = function(){
+      /*
+        El navegador puede marcar el recurso como error aunque
+        Google Apps Script haya procesado correctamente la petición.
+        Por eso no mostramos un mensaje de error al estudiante.
+      */
+      estado.textContent = "✓ Actividad finalizada.";
+    };
 
-        document.getElementById("recomendacion").textContent =
-          "🎉 ¡Qué bueno, " + nombre +
-          "! Tenés apropiadas las cuestiones de la ESI. Seguiremos trabajando en esta línea para profundizar y consolidar estos aprendizajes, reflexionando juntxs sobre vínculos, derechos y respeto.";
+    img.src = WEB_APP_URL + parametros;
 
-      } else if ((total - correctas) / total > 0.6) {
-
-        document.getElementById("recomendacion").textContent =
-          "❗ " + nombre +
-          ", vimos que hubo varias respuestas incorrectas. Te recomendamos volver a leer el material de la clase: este juego sirve para repensar esos mitos y verdades, reflexionar sobre tus ideas y consolidar tus aprendizajes. Tomate un tiempo para revisar los conceptos y volver a jugar si querés profundizar más.";
-
-      } else {
-
-        document.getElementById("recomendacion").textContent =
-          "🎉 ¡Buen trabajo, " + nombre +
-          "! Aunque no todas fueron correctas, este juego te ayuda a reflexionar y repensar los mitos y verdades sobre la ESI. Seguí aprendiendo y explorando los contenidos de la clase.";
-
-      }
-
-      guardarParticipacion(resultado);
-
-      return false;
-    }
+    window.setTimeout(function(){
+      estado.textContent = "✓ Actividad finalizada.";
+    }, 1800);
+  }
 
 
-    /* =========================================================
-       GUARDAR EN GOOGLE SHEETS
-       ========================================================= */
+  window.jugarNuevamente = function(){
 
-    function guardarParticipacion(resultado) {
+    nombre = "";
+    apellido = "";
+    actual = 0;
+    correctas = 0;
+    incorrectas = 0;
 
-      var estado = document.getElementById("estado");
+    document.getElementById("nombreInput").value = "";
+    document.getElementById("apellidoInput").value = "";
+    document.getElementById("estado").textContent = "";
 
-      estado.textContent = "Registrando participación...";
+    ocultar("pantallaIntro");
+    ocultar("pantallaTrivia");
+    ocultar("pantallaResultados");
+    mostrar("pantallaNombre");
 
-      var datos = {
-        actividad: ACTIVIDAD,
-        nombre: nombre,
-        apellido: apellido,
-        puntaje: resultado,
-        fecha: new Date().toISOString()
-      };
+    return false;
+  };
 
-      try {
-
-        fetch(WEB_APP_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-          },
-          body: JSON.stringify(datos)
-        })
-        .then(function () {
-          estado.textContent = "✓ Participación registrada.";
-        })
-        .catch(function (error) {
-          console.error("Error de registro:", error);
-          estado.textContent = "La trivia terminó correctamente.";
-        });
-
-      } catch (error) {
-        console.error("Error de registro:", error);
-        estado.textContent = "La trivia terminó correctamente.";
-      }
-    }
-
-
-    /* =========================================================
-       JUGAR NUEVAMENTE
-       ========================================================= */
-
-    function jugarNuevamente() {
-
-      nombre = "";
-      apellido = "";
-      actual = 0;
-      correctas = 0;
-      incorrectas = 0;
-
-      document.getElementById("nombreInput").value = "";
-      document.getElementById("apellidoInput").value = "";
-
-      document.getElementById("estado").textContent = "";
-
-      ocultar("pantallaIntro");
-      ocultar("pantallaTrivia");
-      ocultar("pantallaResultados");
-      mostrar("pantallaNombre");
-
-      return false;
-    }
-  </script>
+})();
+</script>
 </body>
 </html>
