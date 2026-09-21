@@ -1603,3 +1603,267 @@ footer p {
         animation-duration: .01ms !important;
     }
 }
+/* =========================
+   HOME — NUEVA ARQUITECTURA
+========================= */
+
+.nav-contact {
+    padding: 10px 17px !important;
+    border-radius: 999px;
+    background: var(--verde);
+    color: var(--blanco) !important;
+}
+
+.nav-contact::after {
+    display: none !important;
+}
+
+.nav-contact:hover {
+    background: var(--azul) !important;
+    color: var(--blanco) !important;
+    transform: translateY(-2px);
+}
+
+.home-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 135px 0 90px;
+    background:
+        radial-gradient(circle at 12% 15%, rgba(31,161,148,.11), transparent 25%),
+        radial-gradient(circle at 88% 12%, rgba(20,78,126,.07), transparent 25%),
+        linear-gradient(135deg, var(--crema) 0%, #fff 74%);
+}
+
+.home-hero-inner {
+    position: relative;
+    z-index: 2;
+}
+
+.home-hero-copy {
+    max-width: 920px;
+    margin: 0 auto 38px;
+    text-align: center;
+}
+
+.home-hero-copy h1 {
+    max-width: 900px;
+    margin: 0 auto 22px;
+    font-family: 'Outfit', sans-serif;
+    color: var(--azul);
+    font-size: clamp(46px, 7vw, 82px);
+    line-height: .98;
+    letter-spacing: -3px;
+}
+
+.home-hero-copy h1 span {
+    color: var(--verde);
+}
+
+.home-hero-copy > p:not(.eyebrow) {
+    max-width: 720px;
+    margin-inline: auto;
+    color: var(--texto-soft);
+    font-size: 17px;
+    line-height: 1.75;
+}
+
+.home-path-heading {
+    text-align: center;
+    margin: 30px auto 28px;
+}
+
+.home-path-heading .eyebrow {
+    margin-bottom: 8px;
+}
+
+.home-path-heading h2 {
+    max-width: 780px;
+    margin: 0 auto;
+    font-family: 'Outfit', sans-serif;
+    color: var(--azul);
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.08;
+}
+
+.home-paths {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.home-path {
+    min-height: 365px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    border-radius: 28px;
+    text-decoration: none;
+    transition: .35s ease;
+    box-shadow: 0 15px 45px rgba(20,78,126,.08);
+}
+
+.home-path:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--sombra-hover);
+}
+
+.home-path-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.home-path-top .material-icons-round {
+    font-size: 34px;
+}
+
+.home-path-number {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    opacity: .55;
+}
+
+.home-path-label {
+    margin-bottom: 8px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+}
+
+.home-path h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 27px;
+    line-height: 1.12;
+    margin-bottom: 14px;
+}
+
+.home-path > p:not(.home-path-label) {
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 22px;
+}
+
+.home-path-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: auto;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.home-path-link .material-icons-round {
+    font-size: 17px;
+    transition: transform .25s ease;
+}
+
+.home-path:hover .home-path-link .material-icons-round {
+    transform: translateX(4px);
+}
+
+.home-path-nomade {
+    background: var(--azul);
+    color: var(--blanco);
+}
+
+.home-path-nomade .home-path-top .material-icons-round,
+.home-path-nomade .home-path-label,
+.home-path-nomade .home-path-link {
+    color: #9BE1D9;
+}
+
+.home-path-asesoria {
+    background: var(--verde);
+    color: var(--blanco);
+}
+
+.home-path-asesoria .home-path-top .material-icons-round,
+.home-path-asesoria .home-path-label,
+.home-path-asesoria .home-path-link {
+    color: #E4FAF7;
+}
+
+.home-path-escritos {
+    background: var(--blanco);
+    color: var(--azul);
+    border: 1px solid var(--linea);
+}
+
+.home-path-escritos .home-path-top .material-icons-round,
+.home-path-escritos .home-path-label,
+.home-path-escritos .home-path-link {
+    color: var(--verde);
+}
+
+.home-shape-one {
+    width: 250px;
+    height: 250px;
+    left: -150px;
+    bottom: -120px;
+    background: rgba(20,78,126,.05);
+}
+
+.home-shape-two {
+    width: 130px;
+    height: 130px;
+    right: 7%;
+    top: 150px;
+    border: 1px solid rgba(31,161,148,.22);
+}
+
+.home-cta-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+}
+
+@media (max-width: 1000px) {
+    .home-paths {
+        grid-template-columns: 1fr;
+        max-width: 760px;
+    }
+
+    .home-path {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-hero {
+        padding: 115px 0 70px;
+    }
+
+    .home-hero-copy h1 {
+        font-size: clamp(43px, 12vw, 62px);
+        letter-spacing: -2.2px;
+    }
+
+    .home-hero-copy > p:not(.eyebrow) {
+        font-size: 15px;
+    }
+
+    .home-path-heading h2 {
+        font-size: 31px;
+    }
+
+    .home-path {
+        padding: 26px;
+        border-radius: 24px;
+    }
+
+    .home-cta-actions {
+        flex-direction: column;
+    }
+
+    .home-cta-actions .btn-main,
+    .home-cta-actions .btn-ghost {
+        width: 100%;
+    }
+}
