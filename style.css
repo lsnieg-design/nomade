@@ -1266,7 +1266,8 @@ section {
 
 .wa-float {
     position: fixed;
-    right: 26px;
+    left: 24px;
+    right: auto;
     bottom: 25px;
     z-index: 1900;
     width: 60px;
@@ -1289,6 +1290,11 @@ section {
     width: 29px;
     height: 29px;
     fill: white;
+}
+
+.wa-float i {
+    color: white;
+    font-size: 30px;
 }
 
 footer {
@@ -1531,10 +1537,15 @@ footer p {
     }
 
     .wa-float {
-        right: 18px;
+        left: 18px;
+        right: auto;
         bottom: 18px;
         width: 56px;
         height: 56px;
+    }
+
+    .wa-float i {
+        font-size: 28px;
     }
 }
 
