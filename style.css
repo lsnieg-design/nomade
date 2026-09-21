@@ -1265,9 +1265,11 @@ section {
 ========================= */
 
 .wa-float {
-    position: fixed;
-    right: 26px;
-    bottom: 25px;
+    position: fixed !important;
+    left: 24px !important;
+    right: auto !important;
+    bottom: 24px !important;
+    top: auto !important;
     z-index: 1900;
     width: 60px;
     height: 60px;
@@ -1278,6 +1280,7 @@ section {
     background: var(--verde);
     box-shadow: 0 12px 30px rgba(20,78,126,.22);
     transition: .3s ease;
+    text-decoration: none;
 }
 
 .wa-float:hover {
@@ -1285,11 +1288,12 @@ section {
     background: var(--azul);
 }
 
-.wa-float svg {
-    width: 29px;
-    height: 29px;
-    fill: white;
+.wa-float i {
+    color: white;
+    font-size: 30px;
 }
+
+
 
 footer {
     padding: 35px 0;
@@ -1473,7 +1477,18 @@ footer p {
     .section-intro {
         margin-bottom: 38px;
     }
+.wa-float {
+    left: 18px !important;
+    right: auto !important;
+    bottom: 18px !important;
+    top: auto !important;
+    width: 56px;
+    height: 56px;
+}
 
+.wa-float i {
+    font-size: 28px;
+}
     .section-intro h2,
     .nomade-statement h2 {
         font-size: 42px;
@@ -1530,13 +1545,7 @@ footer p {
         text-align: center;
     }
 
-    .wa-float {
-        right: 18px;
-        bottom: 18px;
-        width: 56px;
-        height: 56px;
-    }
-}
+    
 
 @media (max-width: 480px) {
     .hero-actions {
