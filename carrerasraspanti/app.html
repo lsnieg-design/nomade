@@ -135,7 +135,7 @@ $("#clear").onclick=()=>{state.year=state.period=state.search="";$("#year").valu
 function openSubject(id){
  const m=MATERIAS.find(x=>x.id===id), n=getNotes();
  const units=(m.unidadesFuente&&m.unidadesFuente.length)?m.unidadesFuente:m.unidades||[];
- const unitHtml=units.length?units.map((u,i)=>`<div class="unit-source"><b>${esc((u.match(/^(?:UNIDAD|Unidad)[^\n]*/i)||[])[0]||('Unidad '+(i+1))}</b><div class="program" style="max-height:none;background:#fff;border:0;padding:0">${esc(u.replace(/^\s*(?:UNIDAD|Unidad)[^\n]*\n?/i,''))}</div></div>`).join(""):"<div class='empty'>El programa no presenta unidades identificables con este formato.</div>";
+ const unitHtml=units.length?units.map((u,i)=>{const first=(String(u).split(/\r?\n/)[0]||("Unidad "+(i+1))).trim();const body=String(u).replace(/^\s*[^\r\n]*(?:\r?\n)?/i,"");return `<div class="unit-source"><b>${esc(first)}</b><div class="program" style="max-height:none;background:#fff;border:0;padding:0">${esc(body)}</div></div>`}).join(""):"<div class='empty'>El programa no presenta unidades identificables con este formato.</div>";
  const meta=[m.ano?m.ano+'.º año':'',pl(m.periodo),m.horas?m.horas+' horas':'',m.docente||''].filter(Boolean).join(' · ');
  const sourceNote=m.fuentePrograma?`<span class="source-badge">Programa institucional cargado: ${esc(m.fuentePrograma)}</span>`:'';
  const full=m.programaCompleto||'';
