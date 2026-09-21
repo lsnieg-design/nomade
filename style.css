@@ -693,7 +693,82 @@ section {
     color: var(--texto-soft);
     font-size: 14px;
 }
+/* =========================
+   ORGANIZACIÓN DE SERVICIOS
+========================= */
 
+.service-group-title {
+    margin: 70px 0 25px;
+}
+
+.service-group-title p {
+    color: var(--verde);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    margin-bottom: 6px;
+}
+
+.service-group-title h3 {
+    color: var(--azul);
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.15;
+    max-width: 700px;
+}
+
+.service-group-title-second {
+    margin-top: 80px;
+}
+
+.service-grid-accessibility {
+    margin-bottom: 5px;
+}
+
+.service-accessibility {
+    background: var(--crema);
+}
+
+.service-accessibility:hover {
+    box-shadow: var(--sombra-hover);
+}
+
+.service-modality {
+    margin-top: 18px;
+    color: var(--azul);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .2px;
+}
+
+.service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 18px;
+    color: var(--azul);
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.service-link:hover {
+    color: var(--verde);
+}
+
+.service-link .material-icons-round {
+    font-size: 17px;
+    transition: transform .25s ease;
+}
+
+.service-link:hover .material-icons-round {
+    transform: translateX(4px);
+}
+
+/* La tarjeta principal ocupa todo el ancho */
+.services-grid > .service-featured {
+    grid-column: span 2;
+}
 /* =========================
    PORTFOLIO
 ========================= */
@@ -1332,6 +1407,44 @@ footer p {
    RESPONSIVE
 ========================= */
 
+@media (max-width: 720px) {
+
+    .services-grid > .service-featured {
+        grid-column: span 1;
+    }
+
+    .service-group-title {
+        margin-top: 50px;
+    }
+
+    .service-group-title-second {
+        margin-top: 60px;
+    }
+
+    .service-card {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .service-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .service-card h3 {
+        font-size: 23px;
+    }
+
+    .services-cta {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .services-cta .btn-main {
+        width: 100%;
+        justify-content: center;
+    }
+}
 @media (max-width: 1000px) {
     .navbar {
         padding-inline: 5%;
