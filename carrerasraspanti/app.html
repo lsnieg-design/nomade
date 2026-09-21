@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mapa Raspanti · Análisis curricular</title>
+<style>
+:root{
+  --bordo:#741f2b; --bordo2:#4e141d; --dorado:#c7a34a; --crema:#f7f2e7;
+  --tinta:#292624; --gris:#706b66; --line:#e3d8c7; --blanco:#fffdf9;
+  --verde:#39715c; --azul:#37657c; --naranja:#b66a32; --rojo:#a83d43;
+  --shadow:0 10px 30px rgba(58,38,20,.08); --r:16px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--crema);color:var(--tinta);font:15px/1.5 Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:1400px;margin:auto;padding:22px}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:18px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--dorado);font-weight:800}
+h1{margin:2px 0 0;color:var(--bordo);font-size:30px;line-height:1.05}
+.subtitle{color:var(--gris);margin-top:6px}
+.source{font-size:12px;color:var(--gris);text-align:right;max-width:380px}
+.toolbar,.filters{background:var(--blanco);border:1px solid var(--line);border-radius:var(--r);padding:12px;box-shadow:var(--shadow)}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin-bottom:14px}
+.field{min-width:180px}.field.small{min-width:130px}.field.grow{flex:1}
+label{display:block;font-size:11px;font-weight:700;color:var(--gris);margin-bottom:5px}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:#fffaf2;padding:9px 10px;color:var(--tinta);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--dorado);box-shadow:0 0 0 3px rgba(199,163,74,.12)}
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.nav button{border:1px solid var(--line);background:var(--blanco);color:var(--tinta);padding:9px 13px;border-radius:999px}
+.nav button.active{background:var(--bordo);color:#fff;border-color:var(--bordo)}
+.view{display:none}.view.active{display:block}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:var(--blanco);border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.kpi .n{font-size:28px;font-weight:800;color:var(--bordo)}
+.kpi .l{font-size:12px;color:var(--gris)}
+.section{background:var(--blanco);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--shadow);margin-top:12px}
+.section h2{font-size:18px;color:var(--bordo);margin:0 0 4px}.section p.head{margin:0 0 14px;color:var(--gris);font-size:13px}
+.timeline{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.year{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.year h3{margin:0;padding:12px 14px;background:#fbf5ea;color:var(--bordo)}
+.period{padding:12px;border-top:1px solid var(--line)}
+.period-title{font-size:12px;font-weight:800;color:var(--gris);margin-bottom:8px}
+.subjects{display:grid;gap:7px}
+.subject{border:1px solid var(--line);border-left:4px solid var(--dorado);background:#fffdfa;border-radius:10px;padding:9px 10px;cursor:pointer}
+.subject:hover{border-color:#cdbb9d;transform:translateY(-1px)}
+.subject .name{font-weight:750}.meta{font-size:11px;color:var(--gris);margin-top:2px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{display:inline-flex;padding:4px 8px;border:1px solid var(--line);background:#fff8ec;border-radius:999px;font-size:11px;color:#5d5144}
+.two{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}
+.barrow{display:grid;grid-template-columns:220px 1fr 48px;align-items:center;gap:10px;margin:9px 0}
+.bar{height:10px;background:#eee5d8;border-radius:999px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--bordo);border-radius:999px}
+.table{width:100%;border-collapse:collapse}.table th,.table td{padding:9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.table th{font-size:11px;color:var(--gris);text-transform:uppercase}
+.alert{border-left:4px solid var(--naranja);background:#fff7ed;padding:11px 12px;border-radius:9px;margin:8px 0}
+.ok{border-left-color:var(--verde)}.info{border-left-color:var(--azul)}
+.small{font-size:12px;color:var(--gris)}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:0;border-radius:10px;padding:9px 12px;background:var(--bordo);color:white}.btn.alt{background:#eee5d8;color:var(--tinta)}.btn.gold{background:var(--dorado);color:#302617}
+.detail{position:fixed;inset:0;background:rgba(33,22,15,.42);display:none;align-items:center;justify-content:center;padding:20px;z-index:10}.detail.open{display:flex}
+.modal{width:min(850px,100%);max-height:90vh;overflow:auto;background:var(--blanco);border-radius:18px;padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.22)}
+.modal-top{display:flex;justify-content:space-between;gap:10px}.close{border:0;background:#eee5d8;border-radius:50%;width:34px;height:34px}
+.note{min-height:110px}.empty{padding:24px;text-align:center;color:var(--gris)}
+.matrix{overflow:auto}.heat{border-collapse:collapse;min-width:760px}.heat th,.heat td{border:1px solid var(--line);padding:7px 8px;font-size:11px}.heat th{position:sticky;top:0;background:#fbf5ea}.heat td.hot{background:rgba(116,31,43,.12);font-weight:700}
+@media(max-width:900px){.grid4{grid-template-columns:repeat(2,1fr)}.two,.timeline{grid-template-columns:1fr}.barrow{grid-template-columns:150px 1fr 40px}}
+@media(max-width:600px){.app{padding:12px}.top{display:block}.source{text-align:left;margin-top:8px}.grid4{grid-template-columns:1fr 1fr}.barrow{grid-template-columns:1fr}.field{min-width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div>
+    <div class="eyebrow">Instituto Miguel Raspanti · Equipo Directivo</div>
+    <h1>Mapa Raspanti</h1>
+    <div class="subtitle">Análisis de trayectorias y organización curricular</div>
+  </div>
+  <div class="source">V1 · Profesorado de Educación Especial<br>1.º y 2.º año comunes · Res. 1009/09 + resúmenes de programas institucionales</div>
+</header>
+
+<div class="filters">
+  <div class="field grow"><label>Carrera</label><select id="career"><option>Profesorado de Educación Especial</option></select></div>
+  <div class="field small"><label>Año</label><select id="yearFilter"><option value="">Todos</option><option value="1">1.º</option><option value="2">2.º</option></select></div>
+  <div class="field small"><label>Período</label><select id="periodFilter"><option value="">Todos</option><option value="1C">1.º cuatrimestre</option><option value="2C">2.º cuatrimestre</option><option value="ANUAL">Anual</option></select></div>
+  <div class="field grow"><label>Buscar materia / temática</label><input id="search" placeholder="Ej.: evaluación, inclusión, didáctica..."></div>
+  <button class="btn alt" id="clear">Limpiar</button>
+</div>
+
+<nav class="nav">
+  <button class="active" data-view="inicio">Inicio</button>
+  <button data-view="trayectoria">Trayectoria</button>
+  <button data-view="momento">Momento formativo</button>
+  <button data-view="campos">Campos</button>
+  <button data-view="tematicas">Temáticas</button>
+  <button data-view="cruces">Repeticiones y cruces</button>
+  <button data-view="revision">Revisión institucional</button>
+</nav>
+
+<section id="inicio" class="view active"></section>
+<section id="trayectoria" class="view"></section>
+<section id="momento" class="view"></section>
+<section id="campos" class="view"></section>
+<section id="tematicas" class="view"></section>
+<section id="cruces" class="view"></section>
+<section id="revision" class="view"></section>
+</div>
+
+<div class="detail" id="detail"><div class="modal" id="modal"></div></div>
+
+<script>
+const MATERIAS = [{"id": "1-1", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Psicología del Desarrollo y del Aprendizaje", "docente": "Prof. Altamiranda", "periodo": "ANUAL", "horas": 96, "campoFuente": "Campo de la Fundamentación", "unidades": ["Unidad 1. Psicología y educación. • La psicología como ciencia. Su objeto, métodos y principales escuelas. • Relaciones entre psicología y educación. • El sujeto del aprendizaje en la educación especial. • Perspectivas históricas del desarrollo humano. • Conceptos de maduración, crecimiento, desarrollo y aprendizaje. • El desarrollo como proceso histórico, cultural y social.", "Unidad 2. Principales teorías del desarrollo. • Teoría psicogenética de Jean Piaget. • Aportes de Lev Vigotsky: la teoría histórico-cultural. • Aportes del psicoanálisis al campo educativo. • Perspectivas actuales: teorías del apego, neurodesarrollo, enfoques sistémicos.", "Unidad 3. El aprendizaje y sus teorías. • Conductismo y aprendizaje por condicionamiento. • Teoría del aprendizaje social (Bandura). • Constructivismo y aprendizaje significativo (Ausubel). • Perspectivas socio-constructivistas del aprendizaje.", "Unidad 4. Desarrollo y aprendizaje en la diversidad. • La diversidad en los procesos de desarrollo. • Alteraciones en el desarrollo: multidimensionalidad y apoyos. • Las trayectorias educativas y los contextos familiares, sociales y culturales. • Enfoque de derechos y educación inclusiva."], "nucleos": ["desarrollo", "aprendizaje", "psicología", "educaciónespecial", "piaget", "vigotsky", "constructivismo", "neurodesarrollo", "diversidad"], "disenoResumen": "“El desarrollo humano: crecimiento, maduración, aprendizaje. Las etapas evolutivas. Los aportes de las teorías del desarrollo y del aprendizaje. La psicología y su relación con la educación. El sujeto del aprendizaje. Procesos psicológicos básicos implicados en la enseñanza y el aprendizaje.” (Diseño Curricular, Campo de la Fundamentación).", "faltantes": "Coincide con la propuesta curricular. Faltan referencias explícitas a los procesos psicológicos básicos (atención, memoria, motivación) y a la dimensión afectiva del aprendizaje, que figuran en el diseño y no en el programa.", "revisionFuente": "Posible duplicado en el resumen cargado."}, {"id": "1-2", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Didáctica General", "docente": "Prof. Barcia", "periodo": "ANUAL", "horas": 96, "campoFuente": "Campo de la Fundamentación", "unidades": ["Unidad 1. La didáctica como campo del saber y de intervención. • La didáctica y su objeto de estudio. • Relación entre enseñanza, aprendizaje y conocimiento. • Aportes de otras disciplinas. • Modelos de enseñanza. • Corrientes didácticas y paradigmas de la enseñanza.", "Unidad 2. La enseñanza como práctica social. • Enseñanza y contexto sociocultural. • La intencionalidad pedagógica. • Dimensión ética, política y cultural de la enseñanza. • El sujeto que enseña y el sujeto que aprende. • Diversidad, desigualdad y educación.", "Unidad 3. Planificación y estrategias de enseñanza. • Elementos de la planificación. • Secuencia didáctica, objetivos, contenidos, actividades y evaluación. • Estrategias de enseñanza en contextos de diversidad. • Adaptaciones curriculares y apoyos.", "Unidad 4. Evaluación de los aprendizajes. • Concepciones de evaluación. • Evaluación formativa, procesual y participativa. • Instrumentos e indicadores. • Funciones de la evaluación: reguladora, acreditadora, formativa."], "nucleos": ["enseñanza", "didáctica", "aprendizaje", "evaluación", "planificación", "diversidad", "prácticasdocentes"], "disenoResumen": "“La enseñanza como práctica social. El objeto de estudio de la didáctica. Las teorías pedagógicas y su influencia en la enseñanza. Estrategias, recursos y evaluación de los aprendizajes. La planificación didáctica. La evaluación como proceso y como herramienta de mejora. La enseñanza en contextos de diversidad.” (Diseño Curricular, Campo de la Fundamentación).", "faltantes": "Coincide ampliamente con el diseño. No se desarrollan con profundidad los enfoques inclusivos de la enseñanza ni la didáctica en discapacidad intelectual, que el diseño curricular sugiere integrar en la práctica."}, {"id": "1-3", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Psicología del Desarrollo y del Aprendizaje", "docente": "Prof. Altamiranda", "periodo": "ANUAL", "horas": 96, "campoFuente": "Campo de la Fundamentación", "unidades": ["Unidad 1. Psicología y educación. • La psicología como ciencia. Su objeto, métodos y principales escuelas. • Relaciones entre psicología y educación. • El sujeto del aprendizaje en la educación especial. • Perspectivas históricas del desarrollo humano. • Conceptos de maduración, crecimiento, desarrollo y aprendizaje. • El desarrollo como proceso histórico, cultural y social.", "Unidad 2. Principales teorías del desarrollo. • Teoría psicogenética de Jean Piaget. • Aportes de Lev Vigotsky: la teoría histórico-cultural. • Aportes del psicoanálisis al campo educativo. • Perspectivas actuales: teorías del apego, neurodesarrollo, enfoques sistémicos.", "Unidad 3. El aprendizaje y sus teorías. • Conductismo y aprendizaje por condicionamiento. • Teoría del aprendizaje social (Bandura). • Constructivismo y aprendizaje significativo (Ausubel). • Perspectivas socio-constructivistas del aprendizaje.", "Unidad 4. Desarrollo y aprendizaje en la diversidad. • La diversidad en los procesos de desarrollo. • Alteraciones en el desarrollo: multidimensionalidad y apoyos. • Las trayectorias educativas y los contextos familiares, sociales y culturales. • Enfoque de derechos y educación inclusiva."], "nucleos": ["desarrollo", "aprendizaje", "psicología", "educaciónespecial", "piaget", "vigotsky", "constructivismo", "neurodesarrollo", "diversidad"], "disenoResumen": "“El desarrollo humano: crecimiento, maduración, aprendizaje. Las etapas evolutivas. Los aportes de las teorías del desarrollo y del aprendizaje. La psicología y su relación con la educación. El sujeto del aprendizaje. Procesos psicológicos básicos implicados en la enseñanza y el aprendizaje.” (Diseño Curricular, Campo de la Fundamentación).", "faltantes": "Coincide con la propuesta curricular. Faltan referencias explícitas a los procesos psicológicos básicos (atención, memoria, motivación) y a la dimensión afectiva del aprendizaje, que figuran en el diseño y no en el programa.", "revisionFuente": "Posible duplicado en el resumen cargado."}, {"id": "1-4", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Pedagogía", "docente": "Prof. García", "periodo": "ANUAL", "horas": 96, "campoFuente": "Campo de la Fundamentación", "unidades": ["Unidad 1. La educación como práctica social e histórica. • La pedagogía como ciencia de la educación. • Educación, cultura y sociedad. • La educación en las distintas épocas históricas. • Modelos pedagógicos: tradicional, moderno y contemporáneo.", "Unidad 2. Teorías pedagógicas y corrientes educativas. • Corrientes de la pedagogía moderna: la escuela nueva, el movimiento crítico, la pedagogía liberadora. • Aportes de Paulo Freire y de la pedagogía crítica latinoamericana. • Educación, emancipación y transformación social.", "Unidad 3. El sujeto de la educación. • La infancia y el niño como construcción social. • Sujetos de la educación en la diversidad. • Educación especial, inclusión y derechos.", "Unidad 4. La función social de la escuela. • La escuela como institución social. • Las tensiones entre cultura escolar y cultura social. • Políticas educativas y subjetividad docente."], "nucleos": ["educación", "pedagogía", "freire", "historia", "diversidad", "escuela", "teoríaseducativas"], "disenoResumen": "“La pedagogía como campo de saber y práctica. La educación como hecho social e histórico. Teorías pedagógicas clásicas y contemporáneas. La escuela como institución social. La educación y los procesos de inclusión.” (Diseño Curricular, Campo de la Fundamentación).", "faltantes": "Coincide con el diseño. Faltan referencias a políticas educativas actuales y contextos institucionales contemporáneos que el diseño sugiere incluir como parte del análisis del campo pedagógico."}, {"id": "1-5", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Análisis del Mundo Contemporáneo", "docente": "Prof. Fuentes", "periodo": "ANUAL", "horas": 64, "campoFuente": "Campo de la Fundamentación", "unidades": ["Unidad 1. Modernidad, Estado y sociedad. • La formación de los Estados modernos. • Industrialización y capitalismo. • Educación y ciudadanía.", "Unidad 2. Transformaciones sociales, económicas y culturales en el siglo XX. • Guerras mundiales y cambios en el orden internacional. • Descolonización y movimientos sociales. • América Latina: dictaduras, democracias y reformas educativas.", "Unidad 3. Globalización y cultura contemporánea. • La sociedad del conocimiento y las nuevas tecnologías. • Desigualdad y exclusión. • Ciudadanía digital y derechos humanos."], "nucleos": ["historia", "modernidad", "globalización", "ciudadanía", "educación", "tecnología"], "disenoResumen": "“La sociedad contemporánea y sus transformaciones. Los procesos de modernización y globalización. Los conflictos sociales y políticos. Los cambios culturales, tecnológicos y educativos.” (Diseño Curricular, Campo de la Fundamentación).", "faltantes": "Coincide con el diseño. Sería pertinente incluir mayor desarrollo de problemas actuales vinculados a la educación y la tecnología (IA, redes, brecha digital), ausentes en el programa docente."}, {"id": "1-6", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Ciencias Naturales I", "docente": "Prof. Morel Rossi", "periodo": "ANUAL", "horas": 96, "campoFuente": "Campo de la Formación Específica", "unidades": ["Unidad 1. La ciencia como construcción social. • Naturaleza del conocimiento científico. • El método científico y sus límites. • Relaciones entre ciencia, tecnología y sociedad.", "Unidad 2. La vida como sistema complejo. • Concepto de ser vivo. • Organización celular. • Procesos vitales fundamentales. • Biodiversidad y clasificación.", "Unidad 3. El ambiente y la sustentabilidad. • Ecosistemas y relaciones ecológicas. • Recursos naturales y problemáticas ambientales. • Educación ambiental y ciudadanía responsable."], "nucleos": ["ciencia", "vida", "ambiente", "educaciónambiental", "CTS"], "disenoResumen": "“La ciencia como actividad humana. Conceptos fundamentales de biología, química y física. El ambiente, los recursos naturales y su preservación. La enseñanza de las ciencias naturales y la alfabetización científica.” (Diseño Curricular, Campo de la Formación Específica).", "faltantes": "Coincide con el diseño. Faltan referencias explícitas a alfabetización científica en discapacidad intelectual y a la adaptación de recursos didácticos experimentales."}, {"id": "1-7", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Ciencias Sociales I", "docente": "Prof. Mazzucco", "periodo": "ANUAL", "horas": 96, "campoFuente": "Campo de la Formación Específica", "unidades": ["Unidad 1. La enseñanza de las Ciencias Sociales en la Educación Especial. • Objeto de estudio de las Ciencias Sociales. • Dimensiones del espacio social: política, económica, cultural. • Aportes de la historia, la geografía y la economía.", "Unidad 2. El sujeto social. • Identidad y pertenencia. • Relaciones sociales y diversidad. • Derechos humanos, ciudadanía e inclusión.", "Unidad 3. Los espacios y las transformaciones. • Espacio geográfico, territorio y ambiente. • Cambios productivos y sociales. • Globalización y cultura."], "nucleos": ["sociedad", "identidad", "ciudadanía", "espacio", "historia", "geografía"], "disenoResumen": "“El objeto de las Ciencias Sociales. Sociedad, cultura y poder. Identidad, diversidad y derechos. Espacio geográfico y transformaciones. Enseñanza de las Ciencias Sociales en la Educación Especial.” (Diseño Curricular, Campo de la Formación Específica).", "faltantes": "Coincide con el diseño. Faltan referencias a recursos didácticos accesibles y a estrategias para alfabetización social en estudiantes con discapacidad intelectual."}, {"id": "1-8", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Psicología del Desarrollo y del Aprendizaje I", "docente": "Prof. Altamiranda", "periodo": "ANUAL", "horas": 96, "campoFuente": "Campo de la Fundamentación", "unidades": ["Unidad 1. Desarrollo humano: una mirada integral. • Etapas del desarrollo: infancia, niñez y adolescencia. • Dimensiones biológica, cognitiva, afectiva y social. • Conceptos de maduración y aprendizaje.", "Unidad 2. Teorías del desarrollo y del aprendizaje. • Piaget, Vygotsky, Wallon y Ausubel. • Constructivismo y socio-constructivismo. • Implicancias educativas.", "Unidad 3. Desarrollo y aprendizaje en contextos de diversidad. • Influencia del contexto familiar, escolar y social. • Estilos de aprendizaje. • El rol del docente en la mediación."], "nucleos": ["desarrollo", "aprendizaje", "piaget", "vygotsky", "constructivismo", "diversidad", "contextos"], "disenoResumen": "“El desarrollo humano en sus dimensiones. Teorías psicológicas del aprendizaje. Constructivismo y socio-constructivismo. Implicancias pedagógicas. Diversidad y procesos de aprendizaje.” (Diseño Curricular, Campo de la Fundamentación).", "faltantes": "Coincide con el diseño. Falta desarrollo de procesos de aprendizaje en discapacidad intelectual y de estrategias diferenciadas de intervención psicopedagógica."}, {"id": "1-9", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Educación Religiosa I", "docente": "—", "periodo": "ANUAL", "horas": 64, "campoFuente": "Campo Institucional / Formación Humanística", "unidades": ["Introducción a la formación religiosa — Nociones generales sobre la Biblia: nombres, divisiones, lenguas, partes del Antiguo y Nuevo Testamento, capítulos y versículos, libros inspirados y canon de las Escrituras.", "Encuentro con Dios y las imágenes de Dios — Sentido de las imágenes que nos formamos de Dios. Distintas representaciones a lo largo de la historia y en la actualidad. Relación entre el encuentro con Dios y el conocimiento de uno mismo.", "El deseo de Dios — El ser humano como deseante. Sed y búsqueda de sentido. Placer, deseo y espiritualidad. Conversión de los deseos. Deseo y oración.", "El encuentro con Jesús y la samaritana — La sed, el cansancio y el encuentro. Significado simbólico del pozo. La oración como encuentro y comunión. El deseo como dimensión constitutiva — Deseo fontal, paradojas del deseo, deseo y esperanza. El hombre y la mujer como seres deseantes y espirituales."], "nucleos": ["La Biblia y la revelación", "El deseo de Dios y la espiritualidad humana", "El encuentro con Jesús y la oración", "La educación de los deseos y la Palabra"], "disenoResumen": "Introducción a la fe desde la reflexión, la meditación y el diálogo. Conocimiento de la Biblia y sus dimensiones simbólicas. Comprensión del deseo como experiencia espiritual. El encuentro con Dios, la oración y la Palabra como ejes del crecimiento personal y profesional.", "faltantes": "Ninguno relevante — el programa cubre los ejes teológicos, bíblicos y antropológicos previstos para el campo de la formación general."}, {"id": "1-10", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Proyecto Institucional", "docente": "—", "periodo": "ANUAL", "horas": 32, "campoFuente": "Espacio de Definición Institucional (EDI)", "unidades": [], "nucleos": ["Inclusión educativa y TIC"], "disenoResumen": "“El proyecto institucional como espacio de construcción colectiva. Participación, convivencia e inclusión.” (Diseño Curricular, EDI).", "faltantes": "Sin programa docente disponible. Se desconocen las temáticas trabajadas a nivel institucional en este ciclo."}, {"id": "1-11", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Práctica Docente I", "docente": "Lic. Snieg y Prof. García", "periodo": "ANUAL", "horas": 128, "campoFuente": "Campo de la Práctica Docente", "unidades": ["Introducción al campo de la práctica docente. Presentación de la materia y encuadre del espacio de práctica. El sistema educativo argentino y la organización de la Educación Especial. Lectura y análisis del Diseño Curricular del Profesorado de Educación Especial. Diseño Curricular de la Educación Primaria de la Provincia de Buenos Aires: propósitos, estructura y ejes transversales. Marco curricular referencial y roles institucionales.", "Inclusión educativa y TIC como ejes transversales. La inclusión educativa en el marco de los derechos humanos. Las TIC como herramientas de enseñanza y comunicación en la escuela especial. Criterios y modos de observación y registro. Elaboración de crónicas de observación. Construcción de una herramienta de observación con foco en las TIC. Observación institucional y análisis de experiencias.", "Acuerdos institucionales y ESI como ejes transversales. Los acuerdos institucionales como construcción colectiva: normativas, valores compartidos, climas escolares. La entrevista como herramienta pedagógica. ESI como práctica transversal en la educación especial. Elaboración de entrevistas e informes institucionales. Observación final y armado de carpetas de trabajos."], "nucleos": ["Introducción al campo de la práctica docente"], "disenoResumen": "La práctica como espacio formativo integral. Observación, registro y análisis del campo profesional. Conocimiento del sistema educativo, la Educación Especial y sus marcos normativos. Ejes transversales: Inclusión, TIC, ESI y Acuerdos Institucionales. Construcción progresiva del rol docente desde una perspectiva ética, reflexiva y situada.", "faltantes": "Ninguno relevante. El programa aborda los contenidos previstos por el Diseño Curricular del Campo de la Práctica Docente."}, {"id": "1-12", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Taller de Lectura, Escritura y Oralidad", "docente": "Lic. Alejandra Cortés", "periodo": "ANUAL", "horas": 64, "campoFuente": "Campo de la Formación General", "unidades": ["Prácticas del lenguaje oral. Lengua oral en contextos formales e informales. Variedades lingüísticas y registros. Actos de habla. Géneros discursivos académicos. Diferencias entre lengua oral y escrita. Superestructura de la exposición oral. Literatura de tradición oral. Discursos de medios audiovisuales.", "Prácticas del lenguaje escrito. Textos expositivos, explicativos y argumentativos. Estrategias discursivas: definición, ejemplo, comparación, reformulación, resumen. Estructura de reseñas e informes. Escritura de ensayos literarios. Teoría de la escritura como proceso. Estrategias de comprensión y producción de textos.", "Prácticas de lectura. Cohesión, coherencia y progresión temática. Ambigüedad y sentido. Estrategias de comprensión lectora. Paratextos y signos de apoyo a la lectura. Lectura en entornos digitales. Lectura de diferentes géneros discursivos."], "nucleos": ["lectura", "escritura", "oralidad", "comprensiónlectora", "génerosdiscursivos", "lenguajeacadémico"], "disenoResumen": "“Prácticas del lenguaje oral, lectura y escritura como procesos sociales y cognitivos. Comprensión, producción y reflexión sobre los textos. Promoción de la alfabetización académica en la formación docente.” (Campo de la Formación Complementaria, Diseño Curricular).", "faltantes": "No aparecen estrategias de accesibilidad comunicacional, lectura fácil ni apoyos a la comprensión lectora para estudiantes con discapacidad intelectual. Tampoco se integran las TIC como herramientas de mediación."}, {"id": "1-13", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Taller de Pensamiento Lógico-Matemático", "docente": "—", "periodo": "ANUAL", "horas": 64, "campoFuente": "Campo de la Formación General", "unidades": [], "nucleos": ["matemática", "pensamiento", "lógica", "resolucióndeproblemas"], "disenoResumen": "“El desarrollo del pensamiento lógico. Conceptos básicos de número, medida, espacio y forma. Estrategias de resolución de problemas. Concepciones previas y obstáculos en el aprendizaje de la matemática.”", "faltantes": "Sin programa docente disponible. No se detallan las unidades ni ejemplos de situaciones didácticas."}, {"id": "1-14", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Introducción a la Educación Especial", "docente": "—", "periodo": "ANUAL", "horas": 96, "campoFuente": "Campo de la Formación Específica", "unidades": [], "nucleos": ["educacionespecial", "modelosdediscapacidad", "inclusión", "derechos"], "disenoResumen": "“Historia y fundamentos de la Educación Especial. Modelos de abordaje de la discapacidad. Paradigma social y de derechos. Concepto de apoyo y accesibilidad. Diversidad y enseñanza.”", "faltantes": "Sin programa docente disponible. No se detallan unidades ni enfoques específicos por tipo de discapacidad."}, {"id": "1-15", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Didáctica de las Prácticas del Lenguaje I", "docente": "Lic. Alejandra Cortés", "periodo": "1C", "horas": 64, "campoFuente": "Campo de la Formación Específica", "unidades": ["Didáctica de la literatura en segundo ciclo. Funciones del lenguaje (Jakobson). Coherencia y cohesión. Morfología, semántica y sintaxis. Evaluación de lectura y escritura. Literatura: géneros, ficción, intertextualidad, narración, novela, teatro. Criterios de selección de textos literarios.", "Prácticas de escritura. Escritura como práctica social. Etapas del proceso de escritura (planificación, elaboración, revisión). Escritura de géneros discursivos: cuento, poesía, guion teatral. Proyecto de antología literaria.", "Reflexión sobre las prácticas del lenguaje. Ambigüedad, sintaxis, morfología y semántica. Elaboración de fichas gramaticales. Reflexión metalingüística sobre lectura, escritura y oralidad."], "nucleos": ["didáctica", "literatura", "escritura", "gramática", "enseñanzadelengua", "génerosliterarios"], "disenoResumen": "“La enseñanza de las prácticas del lenguaje en el marco de la Educación Especial. Alfabetización inicial. Oralidad, lectura y escritura como prácticas sociales. Estrategias didácticas inclusivas.”", "faltantes": "No se abordan adaptaciones curriculares ni estrategias de accesibilidad comunicacional. Faltan referencias a apoyos pedagógicos y propuestas desde el Diseño Universal para el Aprendizaje (DUA) en el trabajo con la lengua y la literatura. NO hay diseño curricular ni alfabetizacion.  NO es didactica sino literatura"}, {"id": "1-16", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 1, "materia": "Didáctica de la Matemática I", "docente": "—", "periodo": "2C", "horas": 64, "campoFuente": "Campo de la Formación Específica", "unidades": [], "nucleos": ["matemática", "enseñanza", "didáctica", "resolucióndeproblemas", "inclusión"], "disenoResumen": "“La enseñanza de la matemática en el marco de la Educación Especial. Nociones de número, cantidad, medida y espacio. Resolución de problemas. Estrategias didácticas y adaptaciones curriculares.”", "faltantes": "Sin programa docente disponible. No se detallan unidades ni orientaciones específicas."}, {"id": "2-1", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 2, "materia": "Psicología del Desarrollo", "docente": "Lic. Bahl", "periodo": "ANUAL", "horas": 96, "campoFuente": "Campo de la Formación General", "unidades": ["Unidad 1: Enfoques del desarrollo humano — Teorías clásicas y actuales del desarrollo. Freud, Piaget, Vygotsky. Etapas y procesos del desarrollo cognitivo y socioemocional.", "Unidad 2: El desarrollo en la infancia — Construcción del pensamiento, juego, lenguaje y socialización. Vínculo afectivo y aprendizaje.", "Unidad 3: Adolescencia — Cambios biológicos, psicológicos y sociales. Crisis de identidad. El adolescente con discapacidad intelectual.", "Unidad 4: Adulto y envejecimiento — Transformaciones cognitivas, emocionales y sociales en la adultez. Desafíos de la vejez y la inclusión."], "nucleos": ["desarrollohumano", "psicología", "piaget", "vygotsky", "cognición", "afectividad"], "disenoResumen": "“Procesos de desarrollo desde las distintas teorías. Intervención educativa considerando etapas y particularidades del sujeto con discapacidad.” (Diseño Curricular, Campo de la Fundamentación).", "faltantes": "Programa completo. No faltan unidades."}, {"id": "2-2", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 2, "materia": "Didáctica y Curriculum", "docente": "Prof. Ussai", "periodo": "ANUAL", "horas": 96, "campoFuente": "Campo de la Formación Específica", "unidades": ["Unidad 1: Didáctica como campo de estudio. Concepción de enseñanza. Teorías del aprendizaje y modelos didácticos.", "Unidad 2: Curriculum: definición, niveles de decisión, componentes, enfoques y debates actuales.", "Unidad 3: Diseño curricular de Educación Especial. Ajustes razonables, adecuaciones y accesibilidad.", "Unidad 4: La práctica docente como construcción curricular."], "nucleos": ["didáctica", "currículum", "enseñanza", "planificación", "educacionespecial"], "disenoResumen": "“La didáctica como campo problemático. El curriculum como práctica social. La enseñanza en contextos de diversidad.” (Diseño Curricular, Campo de la Fundamentación).", "faltantes": "Programa completo. No faltan unidades."}, {"id": "2-3", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 2, "materia": "Didáctica de las Prácticas del Lenguaje II", "docente": "Prof. Demattei", "periodo": "1C", "horas": 64, "campoFuente": "Campo de la Formación Específica", "unidades": ["Unidad 1: La lectura y la escritura como prácticas sociales. Procesos de comprensión y producción.", "Unidad 2: El texto en el aula: diversidad textual y funciones del lenguaje.", "Unidad 3: Estrategias de enseñanza: lectura compartida, escritura colectiva, proyectos institucionales.", "Unidad 4: Alfabetización en contextos de Educación Especial."], "nucleos": ["lenguaje", "lectura", "escritura", "alfabetización", "educacionespecial"], "disenoResumen": "“Estrategias de enseñanza de la lectura y escritura en contextos diversos. Prácticas inclusivas y alfabetización inicial.” (Diseño Curricular, Campo de la Formación Específica).", "faltantes": "No faltan unidades."}, {"id": "2-4", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 2, "materia": "Teoría Sociopolítica y Educación", "docente": "Lic. Andrés Fuentes", "periodo": "ANUAL", "horas": 96, "campoFuente": "Campo de la Formación General", "unidades": ["Unidad 1: Estado y sociedad — Hecho social, imaginario, normas, roles, instituciones, poder.", "Unidad 2: Problemáticas del mundo contemporáneo — Trabajo, consumo, violencia, familia, desigualdad.", "Unidad 3: Comunicación, cultura y educación — Cultura mediática, prosumidor, redes, escuela y saberes.", "Unidad 4: Escolaridad y nuevos contextos — Escuela y poder, transversalidad, ciudadanía."], "nucleos": ["sociedad", "educación", "poder", "cultura", "comunicación", "escuela"], "disenoResumen": "“Educación y sociedad. Estructura social y cultural. Procesos de socialización y poder.” (Diseño Curricular, Campo de la Fundamentación).", "faltantes": "Programa completo. No faltan unidades."}, {"id": "2-5", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 2, "materia": "Arte y Educación", "docente": "Prof. Fragapane", "periodo": "ANUAL", "horas": 96, "campoFuente": "Campo de la Formación Específica", "unidades": ["Unidad 1: La línea y el contorno. Color, forma y estética. Percepción visual y entorno.", "Unidad 2: Simetrías, texturas, sonido y color, volumen y técnicas.", "Unidad 3: Los medios de comunicación, estimulación sensorial, modelado como expresión.", "Unidad 4: Producción artística y recursos didácticos."], "nucleos": ["arte", "educación", "expresión", "creatividad", "percepción", "medios"], "disenoResumen": "“El arte como lenguaje expresivo y herramienta pedagógica. Producción artística en contextos escolares y comunitarios.” (Diseño Curricular, Campo de la Formación Específica).", "faltantes": "Faltan referencias bibliográficas en el programa."}, {"id": "2-6", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 2, "materia": "Ciencias Sociales II", "docente": "Prof. Mazzucco", "periodo": "2C", "horas": 64, "campoFuente": "Campo de la Formación Específica", "unidades": ["Unidad 1: La enseñanza de las Ciencias Sociales. Sentidos y finalidades. Las Ciencias Sociales en la Educación Especial.", "Unidad 2: Construcción del conocimiento social. Concepto de sujeto, cultura y diversidad.", "Unidad 3: La escuela como espacio sociocultural. Tiempo, espacio, convivencia y normas.", "Unidad 4: Recorridos didácticos y proyectos interdisciplinarios."], "nucleos": ["cienciassociales", "enseñanza", "cultura", "sociedad", "educacionespecial"], "disenoResumen": "“La enseñanza de las Ciencias Sociales. Los sujetos y las instituciones. Ciudadanía y participación.” (Diseño Curricular, Campo de la Formación Específica).", "faltantes": "Programa completo. No faltan unidades."}, {"id": "2-7", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 2, "materia": "Ciencias Naturales II", "docente": "Prof. Morel Rossi", "periodo": "1C", "horas": 64, "campoFuente": "Campo de la Formación Específica", "unidades": ["Unidad 1: Enseñanza de las Ciencias Naturales en la Educación Especial. Modelos didácticos.", "Unidad 2: La observación y la experimentación en el aula.", "Unidad 3: La vida, los seres vivos y su clasificación.", "Unidad 4: Cuerpo humano y salud."], "nucleos": ["cienciasnaturales", "enseñanza", "vida", "salud", "experimentación", "educacionespecial"], "disenoResumen": "“El conocimiento científico escolar. La enseñanza de los seres vivos, el ambiente, la materia y la energía.” (Diseño Curricular, Campo de la Formación Específica).", "faltantes": "No se especifican autores o bibliografía en el programa."}, {"id": "2-8", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 2, "materia": "Cultura, Comunicación y Educación", "docente": "Prof. Preti", "periodo": "2C", "horas": 64, "campoFuente": "Campo de la Formación General", "unidades": ["Unidad 1: Cultura, comunicación y educación. Conceptos y tensiones.", "Unidad 2: Los medios de comunicación y la cultura escolar.", "Unidad 3: La escuela y las nuevas tecnologías. Cultura digital, ciudadanía y redes.", "Unidad 4: Estrategias de comunicación educativa y producción cultural."], "nucleos": ["cultura", "comunicación", "educación", "medios", "tecnología", "culturadigital"], "disenoResumen": "“Relación entre cultura, comunicación y educación. Medios, tecnologías y procesos culturales.” (Diseño Curricular, Campo de la Formación General).", "faltantes": "Programa completo. No faltan unidades."}, {"id": "2-9", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 2, "materia": "Formación Religiosa II", "docente": "Prof. Gomes Esteves", "periodo": "ANUAL", "horas": 64, "campoFuente": "Campo de la Formación General", "unidades": ["Unidad 1: El ser humano como ser trascendente.", "Unidad 2: Las religiones y su presencia en la historia.", "Unidad 3: La fe cristiana y su mensaje.", "Unidad 4: Los valores evangélicos en la educación."], "nucleos": ["religión", "valores", "trascendencia", "educación", "cristianismo"], "disenoResumen": "“La formación religiosa en la educación integral. Valores, ética y fe. El diálogo interreligioso.” (Diseño Curricular, Campo de la Formación General).", "faltantes": "Programa completo. No faltan unidades."}, {"id": "2-10", "carrera": "Profesorado de Educación Especial", "plan": "1.º y 2.º año comunes", "ano": 2, "materia": "Práctica Docente II: El sujeto y la escuela", "docente": "Prof. Aranguren", "periodo": "ANUAL", "horas": 160, "campoFuente": "Campo de la Práctica Docente", "unidades": ["Unidad 1: La institución escolar. Estructura, organización y vínculos.", "Unidad 2: El rol docente. Observación, registro y análisis de situaciones.", "Unidad 3: El sujeto de la educación. Identidad, aprendizaje y vínculos.", "Unidad 4: La práctica reflexiva y el trabajo en equipo."], "nucleos": ["práctica", "docente", "institución", "sujeto", "reflexión", "educacionespecial"], "disenoResumen": "“El sujeto en la escuela. El rol docente. Observación y análisis de la práctica. La institución como espacio pedagógico.” (Diseño Curricular, Campo de la Práctica Docente).", "faltantes": "Programa completo. No faltan unidades."}];
+const NOTES_KEY = "mapa-raspanti-notas-v1";
+const state = {year:"", period:"", search:""};
+const views = ["inicio","trayectoria","momento","campos","tematicas","cruces","revision"];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+const periodLabel = p => p==="1C"?"1.º cuatrimestre":p==="2C"?"2.º cuatrimestre":"Anual";
+const filtered = () => MATERIAS.filter(m=>{
+  const y=!state.year || String(m.ano)===state.year;
+  const p=!state.period || m.periodo===state.period;
+  const q=state.search.toLowerCase();
+  const hay=[m.materia,m.campoFuente,m.docente,...m.nucleos,...m.unidades].join(" ").toLowerCase();
+  return y&&p&&(!q||hay.includes(q));
+});
+const allNuclei = arr => [...new Set(arr.flatMap(m=>m.nucleos||[]).map(x=>x.trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
+const notes = () => {try{return JSON.parse(localStorage.getItem(NOTES_KEY)||"{}")}catch{return {}}};
+const saveNote = (id,v) => {const n=notes(); n[id]=v; localStorage.setItem(NOTES_KEY,JSON.stringify(n));};
+
+function showView(name){
+  views.forEach(v=>$("#"+v).classList.toggle("active",v===name));
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===name));
+  render();
+}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showView(b.dataset.view));
+$("#yearFilter").onchange=e=>{state.year=e.target.value;render()};
+$("#periodFilter").onchange=e=>{state.period=e.target.value;render()};
+$("#search").oninput=e=>{state.search=e.target.value;render()};
+$("#clear").onclick=()=>{state.year="";state.period="";state.search="";$("#yearFilter").value="";$("#periodFilter").value="";$("#search").value="";render()};
+
+function openSubject(id){
+  const m=MATERIAS.find(x=>x.id===id); if(!m)return;
+  $("#modal").innerHTML=`
+    <div class="modal-top"><div><div class="eyebrow">${esc(m.campoFuente)}</div><h2 style="color:var(--bordo);margin:3px 0">${esc(m.materia)}</h2>
+    <div class="small">${m.ano}.º año · ${periodLabel(m.periodo)} · ${m.horas} horas · ${esc(m.docente||"Docente no consignado")}</div></div>
+    <button class="close" onclick="closeModal()">×</button></div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:15px 0">
+    <h3>Unidades / contenidos del programa</h3>
+    ${m.unidades.length?m.unidades.map(u=>`<div class="alert info">${esc(u)}</div>`).join(""):`<div class="empty">No hay unidades detalladas en el resumen cargado.</div>`}
+    <h3>Núcleos temáticos</h3>
+    <div class="chips">${m.nucleos.length?m.nucleos.map(n=>`<span class="chip">${esc(n)}</span>`).join(""):"<span class='small'>No consignados</span>"}</div>
+    <h3>Referencia al Diseño Curricular</h3>
+    <p class="small">${esc(m.disenoResumen||"Sin referencia consignada en el resumen.")}</p>
+    <h3>Contenidos faltantes / observaciones de la fuente</h3>
+    <p class="small">${esc(m.faltantes||"Sin observaciones.")}</p>
+    ${m.revisionFuente?`<div class="alert">⚠ ${esc(m.revisionFuente)}</div>`:""}
+    <h3>Nota del equipo directivo</h3>
+    <textarea class="note" id="subjectNote" placeholder="Registrar una observación institucional...">${esc(notes()[m.id]||"")}</textarea>
+    <div class="actions" style="margin-top:10px"><button class="btn" onclick="saveCurrentNote('${m.id}')">Guardar nota</button></div>`;
+  $("#detail").classList.add("open");
+}
+function saveCurrentNote(id){saveNote(id,$("#subjectNote").value);closeModal();render()}
+function closeModal(){$("#detail").classList.remove("open")}
+$("#detail").onclick=e=>{if(e.target.id==="detail")closeModal()};
+
+function kpis(data){
+  const fields=new Set(data.map(m=>m.campoFuente));
+  const topics=allNuclei(data);
+  return `<div class="grid4">
+    <div class="kpi"><div class="n">${data.length}</div><div class="l">espacios curriculares cargados</div></div>
+    <div class="kpi"><div class="n">${[...new Set(data.map(m=>m.ano))].length}</div><div class="l">años disponibles</div></div>
+    <div class="kpi"><div class="n">${fields.size}</div><div class="l">categorías de campo en la fuente</div></div>
+    <div class="kpi"><div class="n">${topics.length}</div><div class="l">núcleos temáticos registrados</div></div>
+  </div>`;
+}
+
+function renderInicio(){
+  const d=filtered();
+  const dup = Object.entries(d.reduce((a,m)=>{const k=m.ano+"|"+m.materia.toLowerCase();(a[k]??=[]).push(m);return a},{})).filter(([,v])=>v.length>1);
+  const noProg=d.filter(m=>!m.unidades.length).length;
+  $("#inicio").innerHTML=`
+    ${kpis(d)}
+    <div class="two">
+      <div class="section"><h2>Lectura rápida</h2><p class="head">Lo que el mapa permite mirar con la información cargada hasta ahora.</p>
+        ${dup.length?`<div class="alert">⚠ Se detectó al menos un posible duplicado en la fuente de datos.</div>`:"<div class='alert ok'>No se detectaron duplicados en el filtro actual.</div>"}
+        ${noProg?`<div class="alert">Hay ${noProg} espacios sin unidades detalladas en el resumen de programas. No conviene interpretar ausencia de datos como ausencia de contenidos.</div>`:"<div class='alert ok'>Todos los espacios filtrados tienen unidades detalladas.</div>"}
+        <div class="alert info">La app separa los datos del resumen institucional de la lectura del Diseño Curricular, para no mezclar categorías que no son idénticas.</div>
+      </div>
+      <div class="section"><h2>Preguntas directivas</h2><p class="head">Entradas rápidas al análisis.</p>
+        <div class="actions">
+          <button class="btn" onclick="showView('trayectoria')">¿Cómo está organizada la carrera?</button>
+          <button class="btn alt" onclick="showView('momento')">¿Qué pasa en un momento formativo?</button>
+          <button class="btn alt" onclick="showView('tematicas')">¿Qué temas se repiten?</button>
+          <button class="btn alt" onclick="showView('revision')">¿Qué requiere revisión?</button>
+        </div>
+      </div>
+    </div>
+    <div class="section"><h2>Base documental</h2><p class="head">La Resolución 1009/09 establece que el Profesorado de Educación Especial tiene 1.º y 2.º año comunes a las distintas orientaciones; el mapa usa esos dos años como base inicial. La fuente institucional agrega el detalle de programas, docentes, períodos y observaciones.</p>
+      <div class="small">Fuente normativa: Diseño Curricular del Profesorado de Educación Especial, Res. 1009/09, apartado 3/1. Fuente de programas: resúmenes institucionales cargados en esta V1.</div>
+    </div>`;
+}
+
+function subjectCard(m){
+ return `<div class="subject" onclick="openSubject('${m.id}')"><div class="name">${esc(m.materia)}</div>
+ <div class="meta">${esc(m.campoFuente)} · ${periodLabel(m.periodo)} · ${m.horas} h</div>
+ <div class="chips" style="margin-top:5px">${(m.nucleos||[]).slice(0,5).map(n=>`<span class="chip">${esc(n)}</span>`).join("")}</div></div>`;
+}
+
+function renderTrayectoria(){
+  const d=filtered();
+  const years=[1,2].filter(y=>!state.year||String(y)===state.year);
+  $("#trayectoria").innerHTML=`<div class="section"><h2>Trayectoria curricular</h2><p class="head">Lectura cronológica de los espacios curriculares. Hacé clic en una materia para abrir su ficha de análisis.</p>
+  <div class="timeline">${years.map(y=>{
+    const yd=d.filter(m=>m.ano===y);
+    return `<div class="year"><h3>${y}.º año <span class="small">· ${yd.length} espacios</span></h3>
+      ${["1C","2C","ANUAL"].map(p=>{const arr=yd.filter(m=>m.periodo===p);return `<div class="period"><div class="period-title">${periodLabel(p)} ${p==="ANUAL"?"(atraviesa ambos cuatrimestres)":""}</div><div class="subjects">${arr.length?arr.map(subjectCard).join(""):"<div class='small'>Sin espacios consignados para este período.</div>"}</div></div>`}).join("")}
+    </div>`}).join("")}</div></div>`;
+}
+
+function renderMomento(){
+  const d=filtered();
+  const groups={};
+  d.forEach(m=>{const key=m.ano+"|"+m.periodo;(groups[key]??=[]).push(m)});
+  const keys=Object.keys(groups).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}));
+  $("#momento").innerHTML=`<div class="section"><h2>Momentos formativos</h2><p class="head">La pregunta es qué conjunto de saberes aparece simultáneamente en un mismo momento curricular.</p>
+  ${keys.length?keys.map(k=>{
+    const [y,p]=k.split("|"), arr=groups[k], ns=allNuclei(arr);
+    return `<div class="section" style="box-shadow:none;background:#fffaf3"><h2>${y}.º año · ${periodLabel(p)} <span class="small">· ${arr.length} espacios · ${arr.reduce((s,m)=>s+m.horas,0)} h consignadas</span></h2>
+      <div class="chips" style="margin-bottom:10px">${ns.map(n=>`<span class="chip">${esc(n)}</span>`).join("")}</div>
+      <div class="subjects">${arr.map(subjectCard).join("")}</div></div>`;
+  }).join(""):"<div class='empty'>Elegí un año/período o quitá los filtros.</div>"}</div>`;
+}
+
+function renderCampos(){
+  const d=filtered(), map={};
+  d.forEach(m=>(map[m.campoFuente]??=[]).push(m));
+  const max=Math.max(1,...Object.values(map).map(v=>v.length));
+  $("#campos").innerHTML=`<div class="section"><h2>Distribución por campos / categorías de la fuente</h2><p class="head">Esta vista conserva literalmente las categorías del resumen institucional. No las reemplaza automáticamente por las categorías del Diseño Curricular.</p>
+  ${Object.entries(map).sort((a,b)=>b[1].length-a[1].length).map(([k,v])=>`<div class="barrow"><div>${esc(k)}</div><div class="bar"><i style="width:${v.length/max*100}%"></i></div><strong>${v.length}</strong></div>`).join("")}
+  <div class="alert info">Para la siguiente versión podemos agregar una segunda capa: <b>Campo según Diseño Curricular Res. 1009/09</b>, manteniendo separado el campo utilizado en los programas institucionales.</div></div>`;
+}
+
+function renderTematicas(){
+  const d=filtered(), map={};
+  d.forEach(m=>(m.nucleos||[]).forEach(n=>(map[n]??=[]).push(m)));
+  const rows=Object.entries(map).sort((a,b)=>b[1].length-a[1].length);
+  $("#tematicas").innerHTML=`<div class="section"><h2>Mapa de temáticas</h2><p class="head">Acá aparecen únicamente los núcleos temáticos explícitos en los resúmenes. La repetición no se interpreta automáticamente como problema: primero se muestra el recorrido para que el equipo lo analice.</p>
+  <table class="table"><thead><tr><th>Temática</th><th>Espacios</th><th>Años</th><th>Dónde aparece</th></tr></thead><tbody>
+  ${rows.map(([n,ms])=>`<tr><td><b>${esc(n)}</b></td><td>${ms.length}</td><td>${[...new Set(ms.map(m=>m.ano))].sort().join(", ")}</td><td>${ms.map(m=>`<button class="btn alt" style="padding:4px 7px;margin:2px" onclick="openSubject('${m.id}')">${esc(m.materia)}</button>`).join("")}</td></tr>`).join("")}</tbody></table>
+  </div>`;
+}
+
+function renderCruces(){
+  const d=filtered(), pairs=[];
+  for(let i=0;i<d.length;i++)for(let j=i+1;j<d.length;j++){
+    const A=new Set(d[i].nucleos), common=d[j].nucleos.filter(x=>A.has(x));
+    if(common.length>=2) pairs.push({a:d[i],b:d[j],common});
+  }
+  pairs.sort((a,b)=>b.common.length-a.common.length);
+  const counts={}; d.forEach(m=>(m.nucleos||[]).forEach(n=>counts[n]=(counts[n]||0)+1));
+  const repeated=Object.entries(counts).filter(([,n])=>n>1).sort((a,b)=>b[1]-a[1]);
+  $("#cruces").innerHTML=`<div class="two">
+    <div class="section"><h2>Temáticas compartidas</h2><p class="head">Núcleos que aparecen en más de un espacio.</p>
+      ${repeated.length?repeated.map(([n,c])=>`<div class="alert info"><b>${esc(n)}</b> aparece en ${c} espacios.</div>`).join(""):"<div class='empty'>No hay repeticiones en el filtro actual.</div>"}
+    </div>
+    <div class="section"><h2>Posibles cruces fuertes</h2><p class="head">Pares que comparten al menos dos núcleos explícitos.</p>
+      ${pairs.length?pairs.map(p=>`<div class="alert"><b>${esc(p.a.materia)}</b> ↔ <b>${esc(p.b.materia)}</b><br><span class="small">${p.common.map(esc).join(" · ")}</span></div>`).join(""):"<div class='empty'>No aparecen pares con dos o más núcleos compartidos.</div>"}
+    </div></div>`;
+}
+
+function renderRevision(){
+  const d=filtered(), dup=[];
+  const by={}; d.forEach(m=>{const k=m.ano+"|"+m.materia.toLowerCase();(by[k]??=[]).push(m)});
+  Object.values(by).forEach(v=>{if(v.length>1)dup.push(v)});
+  const missing=d.filter(m=>!m.unidades.length);
+  const notes=Object.entries(notes()).filter(([id,v])=>v);
+  $("#revision").innerHTML=`<div class="section"><h2>Revisión institucional</h2><p class="head">No son diagnósticos automáticos. Son señales para que el equipo directivo decida qué quiere revisar.</p>
+    ${dup.length?dup.map(v=>`<div class="alert"><b>Posible duplicado:</b> ${esc(v[0].materia)} en ${v[0].ano}.º año. La fuente contiene más de un registro.</div>`).join(""):"<div class='alert ok'>No se detectaron duplicados con el filtro actual.</div>"}
+    ${missing.length?`<div class="alert"><b>Información incompleta:</b> ${missing.length} espacios no tienen unidades detalladas en el resumen. Esto debe leerse como falta de información, no como ausencia de contenidos.</div>`:"<div class='alert ok'>Todos los espacios filtrados tienen unidades detalladas.</div>"}
+    <h3>Observaciones del equipo</h3>
+    ${notes.length?notes.map(([id,v])=>{const m=MATERIAS.find(x=>x.id===id);return `<div class="alert info"><b>${esc(m?.materia||id)}</b><br>${esc(v)}</div>`}).join(""):"<div class='small'>Todavía no hay notas institucionales guardadas.</div>"}
+  </div>
+  <div class="section"><h2>Próxima capa de análisis</h2><p class="head">Cuando carguemos más años, esta misma estructura podrá detectar progresiones, concentraciones, vacíos entre años, articulaciones y cuellos de botella sin cambiar la base de la aplicación.</p></div>`;
+}
+
+function render(){
+  renderInicio();renderTrayectoria();renderMomento();renderCampos();renderTematicas();renderCruces();renderRevision();
+}
+render();
+</script>
+</body>
+</html>
