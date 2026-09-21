@@ -27,14 +27,9 @@
   >
 
   <!-- CSS general -->
-  <link rel="stylesheet" href="/style.css">
-
-  <!-- CSS específico de Escritos -->
-  <link rel="stylesheet" href="escritos.css">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png">
-
+ <link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/escritos.css">
+<link rel="icon" type="image/png" href="/favicon.png">
   <!-- Quill -->
   <link
     href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
@@ -150,7 +145,7 @@
   <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
   <!-- Script general -->
-  <script src="/script.js"></script>
+ <script src="/script.js"></script>
 
 
   <!-- =========================
@@ -244,16 +239,16 @@
 
       }
 
-      return `
-        <div class="${large ? 'article-cover' : 'post-card-cover'}">
+     const imagePath = String(post.cover || '').replace(/^\/+/, '');
 
-      <img
-  src="/${String(post.cover || '').replace(/^\/+/, '')}"
-  alt="${escapeHtml(post.title)}"
->
-
-        </div>
-      `;
+return `
+  <div class="${large ? 'article-cover' : 'post-card-cover'}">
+    <img
+      src="/${imagePath}"
+      alt="${escapeHtml(post.title)}"
+    >
+  </div>
+`;
 
     }
 
