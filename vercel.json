@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/nomade", "destination": "/nomade.html" },
+    { "source": "/nomade/", "destination": "/nomade.html" },
+    { "source": "/acompanamiento", "destination": "/acompanamiento.html" },
+    { "source": "/acompanamiento/", "destination": "/acompanamiento.html" },
+    { "source": "/escritos", "destination": "/escritos.html" },
+    { "source": "/escritos/", "destination": "/escritos.html" }
+  ]
+}
