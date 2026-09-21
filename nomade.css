@@ -290,3 +290,34 @@
         white-space: nowrap;
     }
 }
+
+/* =========================
+   CENTRA · PROYECTO DESTACADO
+========================= */
+.centra-featured {
+    border-color: rgba(31,161,148,.18);
+}
+
+.centra-featured .demo-img-wrapper {
+    background:
+        radial-gradient(circle at 30% 20%, rgba(31,161,148,.10), transparent 38%),
+        #F4F7F9;
+}
+
+.centra-featured .demo-info {
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(247,251,250,.96) 100%);
+}
+
+.centra-featured .demo-info h3 {
+    font-size: 30px;
+}
+
+.centra-featured .demo-info strong {
+    color: var(--verde);
+}
+
+@media (max-width: 768px) {
+    .centra-featured .demo-info h3 {
+        font-size: 26px;
+    }
+}
