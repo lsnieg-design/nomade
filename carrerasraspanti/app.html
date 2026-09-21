@@ -43,6 +43,9 @@ input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);b
 .subject:hover{border-color:#cbbda9}.subject b{font-size:13px}.meta{font-size:10px;color:var(--gris);margin-top:2px}
 .pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}.pill{font-size:10px;padding:3px 7px;border:1px solid var(--line);border-radius:99px;background:#fff7e9;color:#62574b}
 .timeline{display:grid;grid-template-columns:120px 1fr;gap:0;border-top:1px solid var(--line)}.tl-row{display:contents}.tl-year{padding:18px 10px;border-bottom:1px solid var(--line);font-weight:850;color:var(--bordo)}.tl-content{padding:15px 0;border-bottom:1px solid var(--line)}
+.career-map{position:relative;margin-top:18px;padding:8px 4px 18px}.career-legend{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 20px}.legend-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 11px;font-size:11px;font-weight:750;cursor:pointer;color:var(--texto)}.legend-btn.active{border-color:var(--bordo);box-shadow:0 0 0 2px rgba(116,31,43,.08);color:var(--bordo)}
+.career-years{display:grid;grid-template-columns:1fr 1fr;gap:28px;position:relative}.career-year{position:relative}.career-year:not(:last-child):after{content:"";position:absolute;right:-15px;top:62px;height:2px;width:30px;background:#d8cdbd}.career-year-head{display:flex;align-items:center;gap:12px;margin-bottom:15px}.year-dot{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--bordo);color:#fff;font-weight:900;flex:0 0 auto}.career-year-head h3{margin:0;color:var(--bordo);font-size:20px}.career-year-head span{display:block;color:var(--gris);font-size:11px;margin-top:2px}.career-line{position:relative;padding-left:30px}.career-line:before{content:"";position:absolute;left:10px;top:0;bottom:0;width:3px;background:#e3d9cb;border-radius:4px}.career-period{position:relative;margin-bottom:18px}.period-node{position:absolute;left:3px;top:7px;width:17px;height:17px;border:4px solid var(--fondo);background:var(--dorado);border-radius:50%;box-shadow:0 0 0 1px #d9cbb7}.period-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;color:var(--gris);margin:0 0 7px}.career-subjects{display:grid;gap:8px}.career-subject{position:relative;border:1px solid var(--line);border-left:5px solid var(--field-color,#c8a34a);background:#fff;border-radius:12px;padding:10px 12px;cursor:pointer;transition:.15s}.career-subject:hover{transform:translateY(-1px);box-shadow:0 7px 18px rgba(64,43,25,.08)}.career-subject.is-hidden{display:none}.career-subject b{display:block;font-size:13px;line-height:1.25}.career-subject .meta{margin-top:4px}.field-tag{display:inline-flex;align-items:center;font-size:9px;font-weight:850;padding:3px 6px;border-radius:99px;background:color-mix(in srgb,var(--field-color,#c8a34a) 12%,white);color:var(--field-color,#741f2b);margin-top:6px}.career-note{margin-top:15px;padding:11px 13px;border-radius:10px;background:#faf5eb;border:1px solid var(--line);font-size:12px;color:var(--gris)}
+@media(max-width:700px){.career-years{grid-template-columns:1fr}.career-year:not(:last-child):after{display:none}.career-line{padding-left:26px}.career-line:before{left:8px}}
 .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.list{display:grid;gap:7px}.item{padding:10px;border:1px solid var(--line);border-radius:9px;background:#fffdfa}.item strong{color:var(--bordo)}
 .bars{display:grid;gap:9px;margin-top:12px}.barrow{display:grid;grid-template-columns:220px 1fr 35px;gap:9px;align-items:center;font-size:12px}.bar{height:9px;background:#eee6da;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:var(--bordo)}
 .alert{padding:11px 12px;border-radius:9px;border-left:4px solid var(--naranja);background:#fff6eb;margin-top:9px;font-size:13px}.alert.info{border-left-color:var(--azul)}.alert.ok{border-left-color:var(--verde);background:#f2f7f3}
@@ -167,12 +170,49 @@ function renderInicio(){
  <div class="block"><h3>Base de este mapa</h3><p class="muted">Esta primera versión trabaja con 1.º y 2.º año comunes y con la información de los resúmenes de programas cargados. La aplicación conserva por separado las categorías de esos resúmenes y la referencia al Diseño Curricular, para no convertir una clasificación institucional en una categoría normativa automáticamente.</p></div>`;
 }
 
+function fieldColor(field){
+ const f=(field||'').toLowerCase();
+ if(f.includes('práctica')) return '#47735f';
+ if(f.includes('fundamentación')) return '#741f2b';
+ if(f.includes('saberes')) return '#4d7183';
+ if(f.includes('subjetividad')) return '#b8753c';
+ if(f.includes('actualización')) return '#7a6291';
+ return '#c8a34a';
+}
 function renderMapa(){
  const d=filtered();
  const years=[1,2].filter(y=>!state.year||String(y)===state.year);
- $("#mapa").innerHTML=`<div class="block"><h3>Mapa de la trayectoria</h3><p class="muted">Cada tarjeta es una materia. Hacé clic para ver su ficha.</p><div class="year-grid">${years.map(y=>{const yd=d.filter(m=>m.ano===y);return `<div class="year"><div class="year-head"><h3>${y}.º año</h3><span>${yd.length} espacios visibles</span></div>${["1C","2C","ANUAL"].map(p=>{const a=yd.filter(m=>m.periodo===p);return `<div class="period"><div class="period-title">${pl(p)}</div><div class="subjects">${a.length?a.map(subjectCard).join(""):"<div class='muted'>Sin espacios en este período.</div>"}</div></div>`}).join("")}</div>`}).join("")}</div></div>`;
+ const fields=[...new Set(d.map(m=>m.campoFuente).filter(Boolean))];
+ const fieldButtons=fields.map(f=>`<button type="button" class="legend-btn active" data-field="${esc(f)}">${esc(f)}</button>`).join('');
+ const yearHtml=years.map(y=>{
+   const yd=d.filter(m=>m.ano===y);
+   return `<div class="career-year">
+     <div class="career-year-head"><div class="year-dot">${y}</div><div><h3>${y}.º año</h3><span>${yd.length} espacios curriculares visibles</span></div></div>
+     <div class="career-line">
+       ${['1C','2C','ANUAL'].map(p=>{
+         const a=yd.filter(m=>m.periodo===p);
+         if(!a.length) return '';
+         return `<div class="career-period"><span class="period-node"></span><div class="period-label">${pl(p)}</div><div class="career-subjects">${a.map(m=>`<div class="career-subject" data-field-value="${esc(m.campoFuente||'')}" style="--field-color:${fieldColor(m.campoFuente)}" onclick="openSubject('${m.id}')"><b>${esc(m.materia)}</b><div class="meta">${m.horas||0} h · ${esc(m.docente||'Docente no consignado')}</div><span class="field-tag">${esc(m.campoFuente||'Sin campo consignado')}</span></div>`).join('')}</div></div>`;
+       }).join('')}
+     </div>
+   </div>`;
+ }).join('');
+ const empty=d.length?'':'<div class="empty">No hay materias que coincidan con los filtros seleccionados.</div>';
+ $('#mapa').innerHTML=`<div class="block">
+   <h3>Mapa visual de la trayectoria</h3>
+   <p class="muted">La carrera se lee como un recorrido: cada punto representa un momento de cursada y cada tarjeta, una materia. Hacé clic para entrar al programa completo.</p>
+   <div class="career-legend"><button type="button" class="legend-btn active" data-field="__all">Todos</button>${fieldButtons}</div>
+   <div class="career-map"><div class="career-years">${yearHtml}</div></div>
+   ${empty}
+   <div class="career-note"><strong>Cómo leerlo:</strong> los colores corresponden a las categorías de campo registradas en los programas/resúmenes cargados. No se reinterpretan automáticamente como categorías normativas.</div>
+ </div>`;
+ document.querySelectorAll('.legend-btn').forEach(btn=>btn.addEventListener('click',()=>{
+   document.querySelectorAll('.legend-btn').forEach(b=>b.classList.remove('active'));
+   btn.classList.add('active');
+   const field=btn.dataset.field;
+   document.querySelectorAll('.career-subject').forEach(card=>card.classList.toggle('is-hidden',field!=='__all' && card.dataset.fieldValue!==field));
+ }));
 }
-
 function renderMomento(){
  const d=filtered(), groups={};d.forEach(m=>(groups[m.ano+"|"+m.periodo]??=[]).push(m));
  const keys=Object.keys(groups).sort();
