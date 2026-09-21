@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Escritos de Lucía Snieg sobre educación, discapacidad, tecnología y accesibilidad.">
+  <title>Escritos | NÓMADE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="escritos.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+</head>
+<body>
+<nav id="navbar" class="navbar">
+  <a href="/" class="logo-group" aria-label="NÓMADE, volver al inicio">
+    <img src="favicon.png" alt="" class="nav-logo">
+    <div class="logo"><span class="azul-text">NOM</span><span class="verde-text">A</span><span class="azul-text">DE</span></div>
+  </a>
+  <button class="menu-toggle" id="mobile-menu" aria-label="Abrir menú" aria-expanded="false"><span class="material-icons-round">menu</span></button>
+  <ul class="nav-links" id="nav-list">
+    <li><a href="/">Inicio</a></li>
+    <li><a href="/nomade">NÓMADE</a></li>
+    <li><a href="/acompanamiento">Acompañamiento</a></li>
+    <li><a href="/escritos" aria-current="page">Escritos</a></li>
+  </ul>
+</nav>
+<main id="app"></main>
+<a href="https://wa.me/1150528203?text=Hola%20Luc%C3%ADa!%20Vi%20tu%20web%20N%C3%B3made%20y%20me%20gustar%C3%ADa%20consultarte." class="wa-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp"><span class="material-icons-round">chat</span></a>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><strong>NÓMADE</strong><span>De la experiencia en el aula a la innovación.</span></div>
+    <p>Lucía Snieg · Gestión inclusiva, accesible y a medida · 2026</p>
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+<script src="script.js"></script>
+<script>
+const app = document.getElementById('app');
+const pathParts = location.pathname.split('/').filter(Boolean);
+const slugFromPath = pathParts[0] === 'escritos' && pathParts[1] ? decodeURIComponent(pathParts[1]) : '';
+const slugFromQuery = new URLSearchParams(location.search).get('slug') || '';
+const currentSlug = slugFromPath || slugFromQuery;
+
+function escapeHtml(value='') {
+  return value.replace(/[&<>'\"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','\"':'&quot;'}[ch]));
+}
+function formatDate(value) {
+  try { return new Intl.DateTimeFormat('es-AR',{day:'numeric',month:'long',year:'numeric'}).format(new Date(`${value}T12:00:00`)); }
+  catch { return value; }
+}
+function cover(post, large=false) {
+  if (!post.cover) return `<div class="post-card-cover placeholder"><span class="material-icons-round">auto_stories</span></div>`;
+  return `<div class="${large?'article-cover':'post-card-cover'}"><img src="${escapeHtml(post.cover)}" alt="${escapeHtml(post.title)}"></div>`;
+}
+function renderDelta(container, delta) {
+  const q = new Quill(container,{readOnly:true,theme:null,modules:{toolbar:false}});
+  q.setContents({ops:Array.isArray(delta)?delta:[]});
+}
+async function loadPosts() {
+  const response = await fetch('/api/posts',{cache:'no-store'});
+  if (!response.ok) throw new Error('No se pudieron cargar los escritos.');
+  return (await response.json()).posts || [];
+}
+function renderHome(posts) {
+  const categories = [...new Set(posts.map(p=>p.category).filter(Boolean))];
+  app.innerHTML = `
+  <header class="escritos-hero">
+    <div class="content-wrap escritos-hero-grid">
+      <div data-aos="fade-up">
+        <p class="eyebrow">ESCRITOS</p>
+        <h1>Ideas que <span>sigo pensando.</span></h1>
+        <p class="escritos-lead">Un espacio para escribir sobre educación, discapacidad, tecnología, accesibilidad y todo eso que aparece cuando una experiencia se convierte en pregunta.</p>
+      </div>
+      <aside class="escritos-note" data-aos="fade-left">
+        <span class="material-icons-round">edit_note</span>
+        <p>No quiero que este lugar sea un catálogo de conclusiones. Prefiero que sea un lugar para dejar preguntas abiertas, experiencias y algunas ideas en proceso.</p>
+      </aside>
+    </div>
+  </header>
+  <section class="posts-section">
+    <div class="content-wrap">
+      <div class="posts-toolbar">
+        <span class="posts-count">${posts.length ? `${posts.length} escrito${posts.length===1?'':'s'}` : 'Todavía no hay escritos publicados.'}</span>
+        <div class="category-filter" id="categoryFilter">
+          <button class="active" data-category="all">Todos</button>
+          ${categories.map(category=>`<button data-category="${escapeHtml(category)}">${escapeHtml(category)}</button>`).join('')}
+        </div>
+      </div>
+      <div class="posts-grid" id="postsGrid">
+        ${posts.length ? posts.map(postCard).join('') : `<div class="post-empty"><strong>Este espacio recién empieza.</strong>Pronto voy a compartir el primero de los escritos.</div>`}
+      </div>
+    </div>
+  </section>`;
+  document.querySelectorAll('#categoryFilter button').forEach(button=>button.addEventListener('click',()=>{
+    document.querySelectorAll('#categoryFilter button').forEach(b=>b.classList.remove('active'));
+    button.classList.add('active');
+    const category=button.dataset.category;
+    document.querySelectorAll('#postsGrid .post-card').forEach(card=>card.classList.toggle('hidden',category!=='all'&&card.dataset.category!==category));
+  }));
+}
+function postCard(post) {
+  return `<article class="post-card" data-category="${escapeHtml(post.category||'General')}" data-aos="fade-up">
+    ${cover(post)}
+    <div class="post-card-body">
+      <div class="post-meta"><span class="post-category">${escapeHtml(post.category||'General')}</span><span>·</span><span>${escapeHtml(formatDate(post.date))}</span></div>
+      <h3>${escapeHtml(post.title)}</h3>
+      <p>${escapeHtml(post.excerpt||'Un nuevo escrito de NÓMADE.')}</p>
+      <a href="/escritos/${encodeURIComponent(post.slug)}">Leer escrito <span class="material-icons-round">arrow_forward</span></a>
+    </div>
+  </article>`;
+}
+function renderArticle(post) {
+  app.innerHTML = `<div class="article-wrap">
+    <a href="/escritos" class="article-back"><span class="material-icons-round">arrow_back</span> Volver a escritos</a>
+    <div class="article-top"><div class="article-category">${escapeHtml(post.category||'General')}</div><h1 class="article-title">${escapeHtml(post.title)}</h1><div class="article-date">${escapeHtml(formatDate(post.date))}</div></div>
+    ${post.cover ? cover(post,true) : ''}
+    <article class="article-content" id="articleContent"></article>
+    ${post.tags?.length ? `<div class="article-tags">${post.tags.map(tag=>`<span class="article-tag">${escapeHtml(tag)}</span>`).join('')}</div>`:''}
+  </div>`;
+  renderDelta(document.getElementById('articleContent'),post.contentDelta);
+  document.title = `${post.title} | NÓMADE`;
+}
+async function loadPost(slug) {
+  const response = await fetch(`/api/post?slug=${encodeURIComponent(slug)}`, {cache:'no-store'});
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error('No se pudo cargar el escrito.');
+  return (await response.json()).post || null;
+}
+async function boot() {
+  try {
+    if (currentSlug) {
+      const post = await loadPost(currentSlug);
+      if (!post) { app.innerHTML=`<div class="not-found"><h1>No encontré ese escrito.</h1><p>Puede que todavía no esté publicado o que el enlace haya cambiado.</p><a class="btn-main" href="/escritos">Volver a Escritos</a></div>`; return; }
+      renderArticle(post);
+    } else {
+      const posts = await loadPosts();
+      renderHome(posts);
+    }
+    if (window.AOS) AOS.refresh();
+  } catch(error) {
+    app.innerHTML=`<div class="not-found"><h1>No pude cargar los escritos.</h1><p>${escapeHtml(error.message||'Probá nuevamente en unos minutos.')}</p></div>`;
+  }
+}
+boot();
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · Escritos · NÓMADE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+  <link rel="stylesheet" href="escritos.css">
+</head>
+<body class="admin-shell">
+<div id="loginView" class="admin-login">
+  <p class="admin-muted">NÓMADE · ADMIN</p>
+  <h1>Escritos</h1>
+  <p>Entrá para escribir, editar y publicar sin tocar GitHub.</p>
+  <form id="loginForm">
+    <div class="admin-field"><label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" required></div>
+    <button class="admin-btn primary" type="submit">Entrar</button>
+    <div id="loginStatus" class="admin-status"></div>
+  </form>
+</div>
+<div id="adminView" class="hidden">
+  <div class="admin-wrap">
+    <div class="admin-top">
+      <div><div class="admin-brand">NÓMADE · Escritos</div><div class="admin-muted">Editor y publicaciones</div></div>
+      <div class="admin-userbar"><a class="admin-btn secondary" href="/escritos">Ver web</a><button class="admin-btn secondary" id="logoutBtn">Salir</button></div>
+    </div>
+    <div class="admin-grid">
+      <section class="admin-panel">
+        <h2 id="formTitle">Nuevo escrito</h2>
+        <form id="postForm">
+          <input type="hidden" id="postId">
+          <div class="admin-field"><label for="title">Título</label><input id="title" maxlength="140" required></div>
+          <div class="admin-field"><label for="excerpt">Bajada</label><textarea id="excerpt" rows="3" maxlength="500" placeholder="Una o dos frases para la tarjeta del blog."></textarea></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div class="admin-field"><label for="category">Categoría</label><input id="category" placeholder="Educación"></div>
+            <div class="admin-field"><label for="date">Fecha</label><input id="date" type="date"></div>
+          </div>
+          <div class="admin-field"><label for="slug">URL corta</label><input id="slug" placeholder="se-genera-del-titulo"></div>
+          <div class="admin-field"><label for="tags">Etiquetas</label><input id="tags" placeholder="accesibilidad, educación, tecnología"></div>
+          <div class="admin-field"><label for="coverInput">Imagen de portada</label><input id="coverInput" type="file" accept="image/png,image/jpeg,image/webp"><div class="admin-muted">Se comprime antes de subirla.</div><div id="coverPreview" class="cover-preview hidden"></div></div>
+          <div class="admin-field"><label>Texto</label><div id="toolbar" class="editor-toolbar"></div><div id="editor" class="editor-host"></div></div>
+          <div class="admin-toolbar"><button type="button" class="admin-btn secondary" id="newBtn">Limpiar</button><button type="button" class="admin-btn secondary" id="draftBtn">Guardar borrador</button><button type="submit" class="admin-btn primary">Publicar</button></div>
+          <div id="saveStatus" class="admin-status"></div>
+        </form>
+      </section>
+      <section class="admin-panel">
+        <h2>Vista previa</h2>
+        <div class="preview-box" id="preview"></div>
+        <div style="height:22px"></div>
+        <h2>Mis escritos</h2>
+        <div id="postList" class="admin-list"></div>
+      </section>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const loginView=$('loginView'), adminView=$('adminView');
+const loginStatus=$('loginStatus'), saveStatus=$('saveStatus');
+const postForm=$('postForm');
+const quill = new Quill('#editor',{theme:'snow',modules:{toolbar:[[{'header':[2,3,false]}],['bold','italic'],[{'list':'ordered'},{'list':'bullet'}],['blockquote'],['link'],['clean']]}});
+const preview = new Quill('#preview',{readOnly:true,theme:null,modules:{toolbar:false}});
+let currentPosts=[]; let currentCover='';
+
+function escapeHtml(value=''){return value.replace(/[&<>'\"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','\"':'&quot;'}[ch]));}
+function today(){return new Date().toISOString().slice(0,10)}
+function slugify(value=''){return value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,90)}
+function collect(published){return {id:$('postId').value||undefined,title:$('title').value.trim(),excerpt:$('excerpt').value.trim(),category:$('category').value.trim()||'General',date:$('date').value||today(),slug:slugify($('slug').value||$('title').value),tags:$('tags').value.split(',').map(x=>x.trim()).filter(Boolean),cover:currentCover,published,contentDelta:quill.getContents().ops}}
+function setStatus(el,msg,error=false){el.textContent=msg;el.style.color=error?'#9a3c2e':'#58706b'}
+function resetForm(){postForm.reset();$('postId').value='';$('date').value=today();$('formTitle').textContent='Nuevo escrito';currentCover='';$('coverPreview').classList.add('hidden');$('coverPreview').innerHTML='';quill.setContents([]);updatePreview();setStatus(saveStatus,'')}
+function loadIntoForm(post){$('postId').value=post.id;$('title').value=post.title;$('excerpt').value=post.excerpt||'';$('category').value=post.category||'';$('date').value=post.date||today();$('slug').value=post.slug||'';$('tags').value=(post.tags||[]).join(', ');currentCover=post.cover||'';$('formTitle').textContent='Editar escrito';quill.setContents({ops:post.contentDelta||[]});if(currentCover){$('coverPreview').innerHTML=`<img src="${escapeHtml(currentCover)}" alt="">`;$('coverPreview').classList.remove('hidden')}else{$('coverPreview').classList.add('hidden')}updatePreview();window.scrollTo({top:0,behavior:'smooth'})}
+function updatePreview(){preview.setContents({ops:quill.getContents().ops});}
+quill.on('text-change',updatePreview);['title','excerpt','category'].forEach(id=>$(id).addEventListener('input',updatePreview));
+async function api(url,options={}){const res=await fetch(url,{headers:{'content-type':'application/json',...(options.headers||{})},...options});const data=await res.json().catch(()=>({}));if(!res.ok)throw new Error(data.error||'Ocurrió un error.');return data}
+async function checkAuth(){const res=await fetch('/api/admin-posts');if(res.ok){adminView.classList.remove('hidden');loginView.classList.add('hidden');await loadPosts()}else{loginView.classList.remove('hidden');adminView.classList.add('hidden')}}
+async function loadPosts(){const data=await api('/api/admin-posts');currentPosts=data.posts||[];renderList()}
+function renderList(){$('postList').innerHTML=currentPosts.length?currentPosts.map(post=>`<div class="admin-post-row"><div><strong>${escapeHtml(post.title)}</strong><small>${escapeHtml(post.category||'General')} · ${post.published?'Publicado':'Borrador'} · ${escapeHtml(post.date)}</small></div><div class="admin-row-actions"><button class="admin-btn secondary" data-edit="${post.id}">Editar</button><button class="admin-btn danger" data-delete="${post.id}">Borrar</button></div></div>`).join(''):`<div class="admin-muted">Todavía no hay escritos.</div>`;document.querySelectorAll('[data-edit]').forEach(btn=>btn.addEventListener('click',()=>loadIntoForm(currentPosts.find(p=>p.id===btn.dataset.edit))));document.querySelectorAll('[data-delete]').forEach(btn=>btn.addEventListener('click',async()=>{if(!confirm('¿Borrar este escrito?'))return;try{await api('/api/admin-posts',{method:'DELETE',body:JSON.stringify({id:btn.dataset.delete})});await loadPosts();if($('postId').value===btn.dataset.delete)resetForm();}catch(e){alert(e.message)}}))}
+$('loginForm').addEventListener('submit',async e=>{e.preventDefault();setStatus(loginStatus,'Entrando...');try{await api('/api/login',{method:'POST',body:JSON.stringify({password:$('password').value})});$('password').value='';await checkAuth()}catch(err){setStatus(loginStatus,err.message,true)}});
+$('logoutBtn').addEventListener('click',async()=>{await api('/api/logout',{method:'POST',body:'{}'});location.reload()});
+$('newBtn').addEventListener('click',resetForm);
+$('draftBtn').addEventListener('click',()=>save(false));
+postForm.addEventListener('submit',e=>{e.preventDefault();save(true)});
+async function save(published){setStatus(saveStatus,'Guardando...');try{let cover=currentCover; if($('coverInput').files[0]){cover=await uploadCover($('coverInput').files[0]);currentCover=cover;$('coverPreview').innerHTML=`<img src="${escapeHtml(cover)}" alt="">`;$('coverPreview').classList.remove('hidden')}$('coverInput').value='';const payload=collect(published);payload.cover=cover;const method=payload.id?'PUT':'POST';const data=await api('/api/admin-posts',{method,body:JSON.stringify(payload)});$('postId').value=data.post.id;currentCover=data.post.cover||'';$('formTitle').textContent='Editar escrito';setStatus(saveStatus,published?'Publicado.':'Borrador guardado.');await loadPosts()}catch(error){setStatus(saveStatus,error.message,true)}}
+function compressImage(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>{const img=new Image();img.onload=()=>{const max=1600;const scale=Math.min(1,max/img.width);const canvas=document.createElement('canvas');canvas.width=Math.round(img.width*scale);canvas.height=Math.round(img.height*scale);const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/webp',.82))};img.onerror=reject;img.src=reader.result};reader.onerror=reject;reader.readAsDataURL(file)})}
+async function uploadCover(file){const dataUrl=await compressImage(file);const data=await api('/api/upload-image',{method:'POST',body:JSON.stringify({dataUrl,name:$('slug').value||$('title').value||file.name})});return data.path}
+checkAuth().then(resetForm).catch(()=>{});
+</script>
+</body>
+</html>

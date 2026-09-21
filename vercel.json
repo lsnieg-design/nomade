@@ -1,10 +1,14 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     { "source": "/nomade", "destination": "/nomade.html" },
     { "source": "/nomade/", "destination": "/nomade.html" },
     { "source": "/acompanamiento", "destination": "/acompanamiento.html" },
     { "source": "/acompanamiento/", "destination": "/acompanamiento.html" },
     { "source": "/escritos", "destination": "/escritos.html" },
-    { "source": "/escritos/", "destination": "/escritos.html" }
+    { "source": "/escritos/", "destination": "/escritos.html" },
+    { "source": "/escritos/:slug", "destination": "/escritos.html?slug=:slug" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/admin/", "destination": "/admin.html" }
   ]
 }
