@@ -13,3 +13,57 @@
 @media(max-width:1100px){.people-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:1100px){.acom-hero-grid,.process-grid,.mirada-grid,.case-grid{grid-template-columns:1fr;gap:50px}.acom-hero{text-align:center}.acom-lead{margin-left:auto;margin-right:auto}.acom-actions{justify-content:center}.acom-hero-visual{width:min(600px,100%);margin:auto;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"one two" "main main" "three three";gap:16px;align-items:center}.acom-card-main{position:relative;grid-area:main;right:auto;top:auto;width:100%;min-height:0;padding:38px;z-index:2}.acom-floating-cards{position:static;inset:auto;display:contents}.acom-floating-card{position:relative;z-index:1}.acom-floating-card.one{grid-area:one;top:auto;left:auto;justify-self:start}.acom-floating-card.two{grid-area:two;top:auto;right:auto;justify-self:end}.acom-floating-card.three{grid-area:three;bottom:auto;left:auto;justify-self:center}.process-intro{position:static}.doors-grid,.institution-grid{grid-template-columns:1fr}}
 @media(max-width:768px){.acom-hero{min-height:auto;padding:120px 0 65px}.acom-hero h1{font-size:clamp(42px,11vw,60px);letter-spacing:-2px}.acom-lead{font-size:15px}.acom-hero-visual{width:min(600px,100%);grid-template-columns:1fr;grid-template-areas:"one" "two" "main" "three";gap:12px}.acom-card-main{padding:30px}.acom-card-main strong{font-size:23px}.acom-floating-card{justify-self:center!important}.acom-doors,.acom-people,.acom-institutions,.acom-case,.acom-process,.acom-mirada,.acom-modalidad,.acom-about,.acom-faq{padding:80px 0}.doors-grid,.people-grid,.institution-grid,.modalidad-grid{grid-template-columns:1fr}.door-card{padding:31px}.door-card h3{font-size:27px}.institution-card{grid-template-columns:1fr;gap:15px}.about-simple{grid-template-columns:1fr;gap:30px;padding:30px}.about-mark{width:105px;height:105px}.about-mark span{font-size:28px}.acom-steps article{grid-template-columns:40px 1fr;gap:14px}.mirada-visual{min-height:330px}.circle-back{width:290px;height:290px;left:50%;transform:translateX(-50%)}.circle-front{width:210px;height:210px;left:50%;top:60px;transform:translateX(-50%)}.acom-final{padding:90px 0}}
+
+
+/* HERO: composición sin superposiciones */
+.acom-hero-visual{
+  width:min(620px,100%);
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:22px;
+  position:relative;
+}
+.acom-hero-badges{
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  align-items:center;
+}
+.acom-hero-badges .acom-floating-card{
+  position:static;
+  width:100%;
+  min-height:58px;
+  justify-content:center;
+  white-space:normal;
+  text-align:center;
+  padding:14px 12px;
+  box-sizing:border-box;
+  z-index:1;
+}
+.acom-hero-badges .acom-floating-card .material-icons-round{flex:0 0 auto}
+.acom-hero-badges .acom-floating-card:nth-child(1){transform:translateY(8px)}
+.acom-hero-badges .acom-floating-card:nth-child(2){transform:translateY(-2px)}
+.acom-hero-badges .acom-floating-card:nth-child(3){transform:translateY(8px)}
+.acom-card-main{
+  position:relative;
+  width:min(500px,100%);
+  right:auto;
+  top:auto;
+  min-height:0;
+  box-sizing:border-box;
+  z-index:2;
+}
+@media(max-width:1100px){
+  .acom-hero-visual{width:min(620px,100%);margin:0 auto;}
+  .acom-hero-badges{grid-template-columns:repeat(3,minmax(0,1fr));}
+  .acom-card-main{width:min(520px,100%);}
+}
+@media(max-width:700px){
+  .acom-hero-badges{grid-template-columns:1fr;gap:10px;}
+  .acom-hero-badges .acom-floating-card:nth-child(n){transform:none;}
+  .acom-hero-visual{gap:14px;}
+  .acom-card-main{padding:30px;}
+}
