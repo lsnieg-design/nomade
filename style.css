@@ -1265,19 +1265,15 @@ section {
 ========================= */
 
 .wa-float {
-    position: fixed;
-    right: 26px;
-    bottom: 25px;
-    z-index: 1900;
-    width: 60px;
-    height: 60px;
-    display: grid;
-    place-items: center;
-    border: 3px solid white;
-    border-radius: 50%;
-    background: var(--verde);
-    box-shadow: 0 12px 30px rgba(20,78,126,.22);
-    transition: .3s ease;
+    left: 18px;
+    right: auto;
+    bottom: 18px;
+    width: 56px;
+    height: 56px;
+}
+
+.wa-float i {
+    font-size: 28px;
 }
 
 .wa-float:hover {
@@ -1530,12 +1526,31 @@ footer p {
         text-align: center;
     }
 
-    .wa-float {
-        right: 18px;
-        bottom: 18px;
-        width: 56px;
-        height: 56px;
-    }
+    ..wa-float {
+    position: fixed;
+    left: 26px;
+    right: auto;
+    bottom: 25px;
+    z-index: 1900;
+    width: 60px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    border: 3px solid white;
+    border-radius: 50%;
+    background: var(--verde);
+    box-shadow: 0 12px 30px rgba(20,78,126,.22);
+    transition: .3s ease;
+}
+
+.wa-float:hover {
+    transform: translateY(-5px) scale(1.04);
+    background: var(--azul);
+}
+
+.wa-float i {
+    color: white;
+    font-size: 30px;
 }
 
 @media (max-width: 480px) {
