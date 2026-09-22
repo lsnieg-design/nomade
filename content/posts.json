@@ -1,1 +1,565 @@
-[]
+[
+  {
+    "id": "7d07cb7c-47c1-4ce9-b0d8-8d85de1b8a2e",
+    "slug": "tizaocomputadora",
+    "title": "¿Tiza o computadora? Identidades docentes emergentes",
+    "excerpt": "Esta ponencia corresponde a la ponencia presentada en el Congreso internacional CULTURA DIGITAL, SUBJETIVIDADES Y EDUCACIÓN realizado en el Instituto Miguel Raspanti en septiembre de 2022. Se publica respetando la perspectiva y el contexto en que fue escrito.",
+    "category": "Educación",
+    "date": "2022-09-22",
+    "cover": "",
+    "tags": [
+      "Educación",
+      "rol docente"
+    ],
+    "contentDelta": [
+      {
+        "attributes": {
+          "bold": true
+        },
+        "insert": "Introducción:"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "Si el mundo cambió, ¿Podemos atestiguar que cambiaron las instituciones educativas? ¿Que cambió la forma de posicionarnos frente al saber, de relacionarnos entre nosotrxs y de percibir los vínculos? ¿Que cambió la identidad y el rol docente? ¿Qué cambiamos?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "¿Quienes somos docentes sin el pizarrón, sin la tiza, sin la explicación, sin nuestro saber puesto al servicio de un grupo que necesita aprender un contenido?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "Creemos que incorporar la palabra "
+      },
+      {
+        "attributes": {
+          "italic": true
+        },
+        "insert": "Cultura digital"
+      },
+      {
+        "insert": " en nuestras planificaciones o crear una filmina para nuestra clase expositiva, transforma casi por arte de magia nuestras prácticas docentes. Si así fuera, ya deberíamos estar ante la presencia de una nueva generación de sujetos más críticos y libres. Sin embargo, al entrar a las aulas podemos ver que la clase sigue siendo la misma año tras año: pizarrón, docente al frente explicando un tema y alumnxs escuchando (o no) sentadxs en filas. Aunque ahora, se puede sumar una pantalla con una presentación en power point que refuerza las mismas palabras que el docente expone. Cesar Coll sostiene que “"
+      },
+      {
+        "attributes": {
+          "italic": true
+        },
+        "insert": "los profesores tienden a hacer usos de las TIC que son coherentes con sus pensamientos pedagógicos y su visión de los procesos de enseñanza y aprendizaje. Así, los profesores con una visión más transmisiva o tradicional de la enseñanza y del aprendizaje tienden a utilizar las TIC para reforzar sus estrategias de presentación y transmisión de los contenidos (...)"
+      },
+      {
+        "insert": "” (Coll, 2008). Siguiendo la línea de pensamiento de este autor, lo que subyace detrás de los recursos didácticos de cada docente (sean digitales o analógicos), son las concepciones instituidas y arraigadas que trae consigo mismo el mismo título docente y que sin una revisión de nuestras biografías escolares y espacios críticos en conjunto, son imposibles de dejar atrás."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "La cultura digital nos hace dar cuenta que es menester convocar a lxs alumnxs a un rol activo y no a un rol pasivo: que pasen de consumidorxs a productorxs de la información. Si todo el tiempo están produciendo contenidos en el mundo digital que los rodea, ampara y convoca diariamente ¿cómo pretender que sean ellxs mismos quienes se sienten largas horas a escuchar y reproducir contenidos vacíos y empaquetados? Si el mundo virtual no tiene límites y por el contrario cada vez es más extenso ¿Cómo pretender que cuatro paredes de un aula contengan todo lo que un grupo/comunidad educativa tiene para ofrecer? ¿Cómo pretender que lxs docentes sigan siendo lxs mismos?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "bold": true
+        },
+        "insert": "Cambio epocal, nuevas identidades:"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "italic": true
+        },
+        "insert": "Tramitar un cambio epocal implica recrear la visión del mundo preexistente poner en cuestionamiento los paradigmas que explican su funcionamiento, las creencias, los conocimientos, la cultura que le daba sustento, revisar y confrontar los objetivos, fines y valores, construir nuevas interpretaciones y nuevas formas de vivir y relacionarse"
+      },
+      {
+        "insert": " "
+      },
+      {
+        "attributes": {
+          "align": "right"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "Achard, nuevo rol y nueva identidad docente (2021)"
+      },
+      {
+        "attributes": {
+          "align": "right"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "Isabel Ichard en su texto “Nuevos roles o nuevas identidades docentes en la era digital” nos invita a retomar los apartados de Bauman sobre el mundo sólido y el mundo líquido. L"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "as "
+      },
+      {
+        "attributes": {
+          "background": "#ffffff",
+          "bold": true
+        },
+        "insert": "sociedades sólidas"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": ", según Bauman, se caracterizan por su rigidez, por no admitir el exceso de diferenciación entre las partes que las componen, por intentar encajar toda singularidad bajo unas leyes unitarias y por tratar la realidad como un Todo, que está subyacido por leyes inmodificables.  En las "
+      },
+      {
+        "attributes": {
+          "background": "#ffffff",
+          "bold": true
+        },
+        "insert": "sociedades líquidas"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": " la incertidumbre por la vertiginosa rapidez de los cambios ha debilitado los vínculos humanos. Lo que antes eran nexos potentes ahora se han convertido en lazos provisionales y frágiles. Los líquidos son informes y se transforman constantemente. Ichard propone que este mundo moderno líquido, en constante fluir, liberado de dimensiones de tiempo y espacio que lo contengan y limiten, flexible y adaptable, ha ido «derritiendo» lo rígido y predecible del mundo sólido precedente. La virtualización globalizada que nos atraviesa hoy en día trae una nueva etapa: un "
+      },
+      {
+        "attributes": {
+          "background": "#ffffff",
+          "bold": true
+        },
+        "insert": "mundo etéreo"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": ", en «la nube», en estado gaseoso, más difícil aún para definir cómo actuar (Ichard, 2020). Es en este mundo etéreo -atravesadxs por la cultura digital, en donde la cotidianidad se ha transformado y en donde los medios de comunicación digitales expandieron las maneras de comprender el mundo- en donde tenemos que frenar y preguntarnos ¿Si el mundo cambió, no debería cambiar la identidad docente? ¿Cómo modificar el “hacer escuela” desde nuestro rol? Ichard sostiene que el impacto de los recursos informáticos y las redes, modifican el ser y el estar de cada persona, tanto si queda incluida como si se mantiene al margen de las TIC. No se trata de pensar en contextos digitales, como si fueran simplemente un entorno, un escenario o herramientas para dar clases. Su incidencia es mucho mayor. Nos debe transformar en nuestra esencia, en nuestros quehaceres, en nuestros roles y en nuestra identidad."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "Algunos más y otros menos, lxs docentes seguimos un mismo camino al momento de planificar nuestras clases, casi en modo de piloto automático: Se piensa en los contenidos, como si los mismos fueran la tracción de ese acto de enseñar. Nos convertimos casi sin pensarlo en docentes contenidistas, pensando que solo con dar ejemplos, tomar exámenes y ver que por un rato lo aprendieron de memoria, basta para que aprendan. Pero en la escuela no solo se aprenden contenidos, sino maneras de ser y estar en el mundo. Furman (2021) nos invita a pensar que para aprender, lxs estudiantes tienen que hacer algo con ese contenido, cuantas más cosas, mejor: relacionarlos con otros contenidos, aplicarlos para resolver un problema, reflexionar sobre ellos, decirlos con sus palabras, enseñarlos a otrxs, ponerlos en juego y crear contenido nuevo a partir de ellos. Para salir de esta lógica puramente contenidista central dentro de la identidad docente y lograr mejores aprendizajes, la autora propone cambiar el foco: Pasar del ¿Qué tengo que dar? a ¿Qué quiero que mis alumnxs aprendan?, en otras palabras, visualizar el final de la película y pensar cómo se puede reflejar ese aprendizaje en la práctica (Furman, 2021). Como podemos ver, empezar a pensar en nuevas identidades, no implica convertirnos tampoco en tecnicistas tecnológicos ni ser docentes expertxs en recursos digitales, sino poder corrernos, poner el saber sobre la mesa (Ranciere, 1987) y proponer en cada encuentro propuestas creativas, profundas, contextualizadas y dinámicas que ubiquen a lxs alumnxs en un lugar activo de saber y producción de conocimiento. "
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "A veces pareciera que hay que cambiarlo todo por el mero cambio en sí mismo, como si cualquier cambio fuera positivo, pero lo que hay que cambiar es la mirada que tenemos sobre nuestras propias prácticas docentes."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff",
+          "bold": true
+        },
+        "insert": "Nuevas identidades y COVID-19:"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "El aislamiento preventivo, social y obligatorio puso el mundo educativo "
+      },
+      {
+        "attributes": {
+          "background": "#ffffff",
+          "italic": true
+        },
+        "insert": "patas para arriba"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": ". Aquellos edificios al servicio del poder y control (Foucault) por primera vez fueron cambiados por un escenario distinto. Todas las prácticas que se creían imprescindibles y básicas para pensar la educación, tuvieron que reconvertirse, re pensarse, fallar y volverse a armar. "
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "El choque entre la cultura escolar y la cultura digital fue tan grande que toda la comunidad educativa se vio atravesada por un vértigo impensado. La clase explicativa contenidista no podía seguir en pie. Las cámaras apagadas, la falta de vínculos y la poca presencia dentro de la virtualidad pusieron al descubierto un sistema que no funciona. Una escuela sólida en un mundo gaseoso. "
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "Isabel Ichard nos invita  a pensar lo siguiente: "
+      },
+      {
+        "attributes": {
+          "background": "#ffffff",
+          "italic": true
+        },
+        "insert": "La pandemia "
+      },
+      {
+        "attributes": {
+          "italic": true
+        },
+        "insert": "nos propone dos posiciones docentes frente a la nueva cultura digital y su salto luego de la pandemia COVID19: Mantener prácticas tradicionales con pocos resultados o Innovar muchas veces sin garantía de ser respaldados si surgen dificultades"
+      },
+      {
+        "insert": " (Achard 2020) "
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "A partir de esto, la autora"
+      },
+      {
+        "insert": " nos presenta otras dos posiciones docentes frente a la vuelta a la “normalidad”: aprovechar esta oportunidad para volver diferentes o regresar retomando las rutinas como si nada hubiese pasado."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "italic": true
+        },
+        "insert": "Si los docentes no modifican su estilo de dar clases, limitándose a reproducir los conocimientos, como en la escuela tradicional, el impacto de la inclusión tecnológica solo consistirá en cambiar un recurso por otro, sustituyendo la pizarra por una presentación en PPT. Los resultados pedagógicos mejorarán si los docentes transforman su modo de enseñar, promoviendo otros modos de aprender en los estudiantes, más atentos a las exigencias profesionales que hoy se requieren. Modificar la tarea educativa pone en juego expectativas recíprocas sobre lo que hace o debe hacer un docente, y sobre lo que hace o debe hacer un estudiante. "
+      },
+      {
+        "attributes": {
+          "align": "right"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "Achard, nuevo rol y nueva identidad docente"
+      },
+      {
+        "attributes": {
+          "align": "right"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "Muchos fueron los recursos digitales que se empezaron a utilizar a partir de las clases sincrónicas, asincrónicas y las aulas virtuales. Sin embargo, se esperaba que mágicamente con la incorporación de esos recursos se diera como resultado un cambio en los procesos educativos. Pero para que la enseñanza mediada por TIC genere aprendizajes significativos, es necesario repensar la propia tarea docente, generando contextos que permitan a nuestros alumnos aprender más y mejor (Coll, 2008). Las nuevas identidades docentes deben abrazar la idea de que lxs alumnxs deben dejar de ser simples usuarios (de las tics, de los contenidos, de los procesos de aprendizaje), sino por el contrario, deben interactuar con ellxs y apropiarse de los nuevos lenguajes digitales."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "Cesar Coll sostiene: “Ni la incorporación ni el uso en sí de las TIC comportan de forma automática la transformación, innovación y mejora de las prácticas educativas; no obstante, las TIC, y en especial algunas aplicaciones y conjuntos de aplicaciones TIC, tienen una serie de características específicas que abren nuevos horizontes y posibilidades a los procesos de enseñanza y aprendizaje y son susceptibles de generar, cuando se explotan adecuadamente, es decir, cuando se utilizan en determinados contextos de uso, dinámicas de innovación y mejora imposibles o muy difíciles de conseguir en su ausencia” (Coll, 2008)"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": " "
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff",
+          "bold": true
+        },
+        "insert": "Nuevos modelos de enseñanza basados en la cultura digital:"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "En el modelo clásico de enseñanza, lxs alumnos llegan y esperan a que el o la docente ingrese para que les “enseñe”. Como bien podemos ver en nuestras prácticas cotidianas -tanto desde el rol de alumnx como docente- hay ciertas costumbres que se repiten: lxs alumnxs entran al mismo tiempo, el o la docente dona su saber durante un determinado tiempo, se exige que lxs alumnxs estén dispuestos para el aprendizaje de manera espontánea y por último se espera que puedan repetir la información trabajada como resultado de ese aprendizaje. Como venimos sosteniendo en el transcurso de este trabajo, debemos pensar nuevos modelos de enseñanza que sean concordantes a la cultura digital que nos atraviesa. "
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "Moreira (2020) nos propone dos grandes modelos o enfoques pedagógicos: uno logocéntrico y uno paidocéntrico."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "El enfoque logocéntrico está basado en la presentación y transmisión del conocimiento. Sostenido por prácticas tradicionalistas, reproduce la información  a través de objetos que empaquetan el conocimiento y espera que lxs alumnxs la reproduzcan, apliquen y memoricen. El docente en este enfoque se ubica en un rol activo, de posesión de saber absoluto, quien tiene el deber de evaluar y asegurarse que lxs estudiantes puedan reproducir lo previamente enseñado."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "El enfoque paidocéntrico se basa en el aprendizaje a partir de la experiencia y la acción. Se sostiene en la pedagogía de la Escuela Nueva, ubicando al alumnx en un rol activo quien reconstruye y resignifica la información. El docente dentro de este enfoque, resignifica sus roles, siendo un organizadxr y supervisxr de actividades de aprendizaje, en vez de transmitir y explicar. De esta manera plantea problemas/proyectos/tareas de interés y con significación para que los propios alumnos articulen planes de trabajo y desarrollen las acciones necesarias con las tecnologías, de cara a construir y obtener respuestas satisfactorias a dichos problemas, de forma que aprendan a expresarse y comunicarse a través de las distintas modalidades y recursos tecnológicos."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "Como fuimos viendo en los apartados previos del trabajo, es necesario que nuestra identidad docente deje de lado el sesgo aplicativo -en donde primero se aprende, luego se aplica y después, en general, se olvida- para dar lugar a un modelo paidocéntrico en donde el rol activo sea real. La puesta en juego de los contenidos, la creación y producción tiene que ser el punto de partida de las propuestas educativas y no el de llegada. Cuanto más se reconozca la cultura de producción que tienen lxs estudiantes -consecuente del mundo digital que lxs rodea- más podremos pensar en propuestas que amparen y nucleen la gran carga de contenido audiovisual que diariamente producen, consumen, comparten y comentan. De esta manera, es menester que los nuevos roles docentes pongan el foco en las posibilidades creativas, comunitarias, colaborativas y en red que pueden brindar las planificaciones pensadas por proyectos con producciones tangibles y compartidas en un diálogo continuo entre el afuera y el adentro."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff",
+          "bold": true
+        },
+        "insert": "Conclusiones:"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "Respondiendo al nombre del trabajo “¿Tiza o computadora?, podemos afirmar que esa rivalidad que parece ser sinónimo de virtualidad/presencialidad, queda desfasada de la verdadera pregunta ¿Que hacemos con esa tiza o con esa computadora? Si la respuesta con ambos recursos es utilizarlos para acompañar  nuestra clase explicativa y nuestra práctica contenidista seguimos respondiendo a una concepción tradicionalista de la enseñanza. Por el  contrario, tanto si agarramos la tiza y la partimos en pequeños pedazos para convertir el pizarrón en un espacio de creación colectiva o si ponemos a disposición los recursos digitales para pensar en propuestas paidocentricas, podemos estar frente a nuevas identidades y roles docentes que permitan nuevas formas de enseñanza/aprendizaje."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "La cultura digital no produce por sí misma los cambios, sino que nos invita a re pensar lo instituido y lo instituyente para que sea la misma comunidad educativa la que se transforme desde sus cimientos. Es posible pensar en otros modos de vincularse entre nosotrxs, de relacionarse con el saber y de producir en las instituciones, solo hay que poder rever las matrices de aprendizaje, interrogarse y reflexionar sobre nuestras prácticas en un constante diálogo vertiginoso. ¿Da miedo dejar las prácticas tradicionales que nos sostienen, amparan e invitan a seguir sosteniendo posiciones cómodas? Por supuesto que sí, pero el momento es ahora. Si el mundo cambió ¿Por que no podemos cambiar lxs docentes?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff",
+          "bold": true
+        },
+        "insert": "Bibliografia:"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "Cesar Coll (2008) “Aprender y enseñar con las TICs”. Incluido en: R. Carneiro, J. C. Toscano y T. Díaz (compiladores), Los desafíos de las TIC para el cambio educativo, Madrid, 2009, OEI-Santillana, Fundación Santillana, pp. 113-126."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "Furman, M. (2021, 25 agosto). Enseñar distinto: Guía para innovar sin perderse en el camino (Educación que Aprende) (1.a ed.). Siglo XXI Editores."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "Isabel Achard (2020) “¿Nuevo rol o nueva identidad docente en la era digital?”. Incluido en José Miguel García y Sofía García Cabeza (compilación). Las tecnologías en (y para) la educación, FLACSO URUGUAY, pp 45-67"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "Manuel Area Moreira (2020) “ El diseño de cursos virtuales: conceptos, enfoques y procesos pedagógicos”. Incluido en José Miguel García y Sofía García Cabeza (compilación). Las tecnologías en (y para) la educación, FLACSO URUGUAY, pp 67-87"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "Mariana Maggio (2012) Enriquecer la Enseñanza. Los ambientes con alta disposición tecnológica como oportunidad. Cap 2"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "Schön, Donald (1987). La formación de profesionales reflexivos. Hacia un nuevo diseño de la enseñanza y el aprendizaje en las profesiones. Barcelona, Paidos, Primera parte"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "#ffffff"
+        },
+        "insert": "Valeria Odetti (2020) \"De lo hipermedial a lo performativo: el devenir de los materiales didácticos digitales\" Flacso"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "\n"
+      }
+    ],
+    "published": true,
+    "updatedAt": "2026-09-22T00:15:41.213Z"
+  }
+]
