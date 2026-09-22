@@ -135,6 +135,7 @@
   ========================== -->
 
   <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <!-- Script general -->
  <script src="/script.js"></script>
@@ -598,9 +599,10 @@ return `
        ARTÍCULO INDIVIDUAL
     ========================== */
 
-    function renderArticle(post) {
+   function renderArticle(post) {
+  window.currentArticle = post;
 
-     app.innerHTML = `<div class="article-wrap">
+  app.innerHTML = ` `<div class="article-wrap">
 
     <div class="print-only print-header">
 
@@ -683,16 +685,50 @@ return `
 
 
           ${
-            post.cover
-              ? cover(post, true)
-              : ''
-          }
+           ${post.cover ? cover(post,true) : ''}
 
+<div class="article-share-actions">
+  <button type="button" class="share-button share-button-primary" onclick="shareArticle()">
+    <span class="material-icons-round">share</span>
+    Compartir
+  </button>
 
-          <article
-            class="article-content"
-            id="articleContent"
-          ></article>
+  <button type="button" class="share-button share-button-whatsapp" onclick="shareWhatsApp()">
+    <span class="material-icons-round">chat</span>
+    WhatsApp
+  </button>
+
+  <button type="button" class="share-button" onclick="downloadStoryCard()">
+    <span class="material-icons-round">download</span>
+    Descargar flyer
+  </button>
+</div>
+
+<article class="article-content" id="articleContent"></article>
+
+<div id="socialCard" class="social-card-render" aria-hidden="true">
+  <div class="social-card-image">
+    <img id="socialCardImage" src="" alt="">
+    <div class="social-card-image-overlay"></div>
+  </div>
+
+  <div class="social-card-body">
+    <div class="social-card-brand">
+      <span class="brand-blue">NOM</span><span class="brand-green">A</span><span class="brand-blue">DE</span>
+    </div>
+
+    <div id="socialCardCategory" class="social-card-category"></div>
+
+    <h2 id="socialCardTitle"></h2>
+
+    <p id="socialCardExcerpt"></p>
+
+    <div class="social-card-bottom">
+      <span>De la experiencia en el aula a la innovación.</span>
+      <strong>somosnomade.com.ar</strong>
+    </div>
+  </div>
+</div>
 
 
           ${
@@ -841,17 +877,11 @@ return `
       `;
 
 
-      renderDelta(
-        document.getElementById('articleContent'),
-        post.contentDelta
-      );
-const articleContent =
-  document.getElementById('articleContent');
+  renderDelta(document.getElementById('articleContent'), post.contentDelta);
 
-articleContent.style.fontSize = 'inherit';
+prepareSocialCard(post);
 
-      document.title =
-        `${post.title} | NÓMADE`;
+document.title = `${post.title} | NÓMADE`;
 
     }
 
@@ -919,7 +949,170 @@ articleContent.style.fontSize = 'inherit';
       }
 
     }
+function getArticleUrl(post) {
+  return new URL(
+    `/escritos/${encodeURIComponent(post.slug)}`,
+    window.location.origin
+  ).href;
+}
 
+function getShareText(post) {
+  const excerpt = post.excerpt
+    ? `\n\n${post.excerpt}`
+    : '';
+
+  return `${post.title}${excerpt}\n\n${getArticleUrl(post)}`;
+}
+
+
+/* =========================
+   COMPARTIR ARTÍCULO
+========================= */
+
+async function shareArticle() {
+  const post = window.currentArticle;
+  if (!post) return;
+
+  const url = getArticleUrl(post);
+  const text = getShareText(post);
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: post.title,
+        text: text,
+        url: url
+      });
+      return;
+    } catch (error) {
+      if (error?.name === 'AbortError') return;
+    }
+  }
+
+  try {
+    await navigator.clipboard.writeText(text);
+    alert('Texto y enlace copiados. Ya podés pegarlos donde quieras compartir el escrito.');
+  } catch {
+    window.prompt('Copiá este texto para compartir:', text);
+  }
+}
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+function shareWhatsApp() {
+  const post = window.currentArticle;
+  if (!post) return;
+
+  const text = getShareText(post);
+
+  const whatsappUrl =
+    `https://wa.me/?text=${encodeURIComponent(text)}`;
+
+  window.open(
+    whatsappUrl,
+    '_blank',
+    'noopener,noreferrer'
+  );
+}
+
+
+/* =========================
+   FLYER
+========================= */
+
+function prepareSocialCard(post) {
+  const card = document.getElementById('socialCard');
+  if (!card) return;
+
+  const category = document.getElementById('socialCardCategory');
+  const title = document.getElementById('socialCardTitle');
+  const excerpt = document.getElementById('socialCardExcerpt');
+  const image = document.getElementById('socialCardImage');
+
+  category.textContent = post.category || 'ESCRITOS';
+  title.textContent = post.title || '';
+  excerpt.textContent =
+    post.excerpt ||
+    'Una nueva reflexión de NÓMADE.';
+
+  if (post.cover) {
+    image.src = new URL(post.cover, window.location.origin).href;
+    image.style.display = 'block';
+  } else {
+    image.removeAttribute('src');
+    image.style.display = 'none';
+  }
+}
+
+
+async function createStoryCanvas() {
+  const card = document.getElementById('socialCard');
+
+  if (!card) {
+    throw new Error('No encontré la plantilla del flyer.');
+  }
+
+  await document.fonts.ready;
+
+  const image = document.getElementById('socialCardImage');
+
+  if (image && image.src && image.style.display !== 'none') {
+    try {
+      await image.decode();
+    } catch {}
+  }
+
+  return html2canvas(card, {
+    width: 1080,
+    height: 1920,
+    scale: 1,
+    useCORS: true,
+    backgroundColor: '#F7F2E9',
+    logging: false
+  });
+}
+
+
+/* =========================
+   DESCARGAR FLYER
+========================= */
+
+async function downloadStoryCard() {
+  const post = window.currentArticle;
+  if (!post) return;
+
+  const button = document.querySelector('.share-button');
+
+  try {
+    const canvas = await createStoryCanvas();
+
+    canvas.toBlob(blob => {
+      if (!blob) {
+        alert('No pude generar el flyer.');
+        return;
+      }
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+
+      link.href = url;
+      link.download = `nomade-${post.slug}-historia.png`;
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      URL.revokeObjectURL(url);
+    }, 'image/png');
+
+  } catch (error) {
+    console.error(error);
+    alert('No pude generar el flyer. Probá nuevamente.');
+  }
+}
 function printArticle() {
 
   window.print();
