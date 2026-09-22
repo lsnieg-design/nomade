@@ -822,3 +822,304 @@
   }
 
 }
+/* =========================================================
+   ACCIONES DEL ARTÍCULO
+========================================================= */
+
+.article-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.article-actions .article-back {
+  margin-bottom: 0;
+}
+
+.print-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #d6e2de;
+  background: #f7faf9;
+  color: #173f45;
+  border-radius: 999px;
+  padding: 11px 17px;
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    border-color .2s ease;
+}
+
+.print-button:hover {
+  transform: translateY(-2px);
+  background: #edf5f2;
+  border-color: #bcd1cb;
+}
+
+.print-button .material-icons-round {
+  font-size: 19px;
+}
+
+
+/* =========================================================
+   CABECERA SOLO PARA IMPRESIÓN
+========================================================= */
+
+.print-only {
+  display: none;
+}
+
+
+/* =========================================================
+   IMPRESIÓN
+========================================================= */
+
+@media print {
+
+  @page {
+    size: A4;
+    margin: 18mm 17mm 20mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #222 !important;
+  }
+
+  body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    overflow: visible !important;
+  }
+
+
+  /* Ocultar elementos de pantalla */
+
+  .navbar,
+  .wa-float,
+  footer,
+  .article-actions,
+  .category-filter,
+  .posts-toolbar {
+    display: none !important;
+  }
+
+
+  /* Cabecera de impresión */
+
+  .print-only {
+    display: block;
+  }
+
+  .print-header {
+    padding-bottom: 16px;
+    margin-bottom: 28px;
+    border-bottom: 1.5px solid #d8e2df;
+  }
+
+  .print-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .print-logo {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+  }
+
+  .print-wordmark {
+    font-family: "Outfit", sans-serif;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -.6px;
+    color: #144e7e;
+  }
+
+  .print-wordmark span:nth-child(4) {
+    color: #1fa194;
+  }
+
+  .print-brand-line {
+    margin-top: 7px;
+    color: #6d7b78;
+    font-size: 9pt;
+  }
+
+
+  /* Artículo */
+
+  .article-wrap {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .article-top {
+    margin-bottom: 20px;
+  }
+
+  .article-category {
+    font-size: 9pt;
+    letter-spacing: .08em;
+  }
+
+  .article-title {
+    font-size: 30pt !important;
+    line-height: 1.04 !important;
+    letter-spacing: -.02em !important;
+    margin: 8px 0 12px !important;
+    color: #173b40 !important;
+    break-after: avoid;
+  }
+
+  .article-date {
+    font-size: 10pt;
+    color: #66736f;
+  }
+
+
+  /* Imagen */
+
+  .article-cover {
+    margin: 20px 0 28px !important;
+    border-radius: 12px !important;
+    break-inside: avoid;
+  }
+
+  .article-cover img {
+    max-height: 380px !important;
+  }
+
+
+  /* Texto */
+
+  .article-content {
+    font-size: 11.5pt !important;
+    line-height: 1.7 !important;
+    color: #303b39 !important;
+  }
+
+  .article-content .ql-container {
+    font-size: inherit !important;
+  }
+
+  .article-content .ql-editor {
+    padding: 0 !important;
+  }
+
+  .article-content .ql-editor p,
+  .article-content .ql-editor h2,
+  .article-content .ql-editor h3,
+  .article-content .ql-editor blockquote {
+    break-inside: avoid;
+  }
+
+  .article-content .ql-editor h2 {
+    font-size: 18pt !important;
+    margin-top: 24px !important;
+  }
+
+  .article-content .ql-editor h3 {
+    font-size: 14pt !important;
+    margin-top: 20px !important;
+  }
+
+  .article-content .ql-editor blockquote {
+    background: #f8f3eb !important;
+  }
+
+
+  /* Etiquetas */
+
+  .article-tags {
+    margin-top: 20px;
+  }
+
+
+  /* Licencia */
+
+  .article-license {
+    margin-top: 32px !important;
+    padding-top: 24px !important;
+    border-top: 1px solid #ccd9d5 !important;
+    break-inside: avoid;
+  }
+
+  .license-badge {
+    background: #f9d3c6 !important;
+    padding: 9px 12px !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .article-license h2 {
+    font-size: 10.5pt !important;
+  }
+
+  .article-license > p {
+    font-size: 9.5pt !important;
+    line-height: 1.55 !important;
+  }
+
+  .article-license a {
+    color: #155c8e !important;
+  }
+
+
+  /* Cómo citar */
+
+  .article-citation {
+    margin-top: 20px !important;
+    padding: 18px !important;
+    border: 1px solid #d3dfdb !important;
+    border-radius: 12px !important;
+    background: #f8fbfa !important;
+    break-inside: avoid;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .citation-head h3 {
+    font-size: 11pt !important;
+  }
+
+  .article-citation p {
+    font-size: 9.5pt !important;
+    line-height: 1.55 !important;
+  }
+
+  .citation-copy {
+    display: none !important;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE DE ACCIONES
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .article-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .print-button {
+    width: 100%;
+  }
+
+}
