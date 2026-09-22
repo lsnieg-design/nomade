@@ -1129,3 +1129,30 @@
   }
 
 }
+/* =========================================================
+   ACCESIBILIDAD · TAMAÑO DE TEXTO EN ARTÍCULOS
+========================================================= */
+
+.article-content,
+.article-content .ql-container,
+.article-content .ql-editor,
+.article-content .ql-editor p,
+.article-content .ql-editor li,
+.article-content .ql-editor blockquote {
+  font-size: inherit !important;
+}
+
+.article-content .ql-editor {
+  font-family: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  word-spacing: inherit !important;
+}
+
+.article-content .ql-editor h2 {
+  font-size: 1.75em !important;
+}
+
+.article-content .ql-editor h3 {
+  font-size: 1.3em !important;
+}
