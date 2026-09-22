@@ -299,8 +299,8 @@
 ========================================================= */
 
 .article-content {
-  font-size: 1.12rem;
-  line-height: 1.86;
+  font-size: 1em;
+  line-height: inherit;
   color: #3f4c4a;
 }
 
@@ -312,22 +312,28 @@
 .article-content .ql-editor {
   padding: 0;
   overflow: visible;
+
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  word-spacing: inherit;
+  text-align: inherit;
 }
 
 .article-content .ql-editor h2 {
-  font-size: 2rem;
+  font-size: 1.75em;
   line-height: 1.2;
   margin: 45px 0 16px;
   color: #173b40;
 }
 
 .article-content .ql-editor h3 {
-  font-size: 1.45rem;
+  font-size: 1.3em;
   line-height: 1.25;
   margin: 35px 0 12px;
   color: #173b40;
 }
-
 .article-content .ql-editor p {
   margin: 0 0 1.2em;
 }
