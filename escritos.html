@@ -1046,11 +1046,23 @@ function prepareSocialCard(post) {
   const excerpt = document.getElementById('socialCardExcerpt');
   const image = document.getElementById('socialCardImage');
 
-  category.textContent = post.category || 'ESCRITOS';
-  title.textContent = post.title || '';
-  excerpt.textContent =
-    post.excerpt ||
-    'Una nueva reflexión de NÓMADE.';
+category.textContent = post.category || 'ESCRITOS';
+
+title.textContent = post.title || '';
+
+const titleLength = (post.title || '').length;
+
+title.classList.remove('title-medium', 'title-long');
+
+if (titleLength > 55) {
+  title.classList.add('title-long');
+} else if (titleLength > 35) {
+  title.classList.add('title-medium');
+}
+
+excerpt.textContent =
+  post.excerpt ||
+  'Una nueva reflexión de NÓMADE.';
 
   if (post.cover) {
     image.src = new URL(post.cover, window.location.origin).href;
