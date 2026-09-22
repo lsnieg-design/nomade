@@ -561,5 +561,1021 @@
     ],
     "published": true,
     "updatedAt": "2026-09-22T14:11:21.801Z"
+  },
+  {
+    "id": "db001ac9-1c64-4805-ad73-44e100c7cbc7",
+    "slug": "pedagogiadelaternura",
+    "title": "PEDAGOGÍA DE LA TERNURA DIGITAL Presencia, vínculo y acompañamiento en los entornos virtuales de aprendizaje",
+    "excerpt": "Este artículo propone pensar la pedagogía de la ternura digital como una perspectiva para revisar las formas de presencia, vínculo y acompañamiento que construimos en los entornos virtuales de aprendizaje. Pensar la ternura digital implica, revisar cómo habitamos pedagógicamente los espacios virtuales y qué hacemos con aquello que las plataformas muestran, pero también con aquello que dejan fuera de campo.",
+    "category": "Tecnologia, Educacion, Entornos Virtuales de Aprendizaje",
+    "date": "2026-09-22",
+    "cover": "/media/posts/pedagogiadelaternura-1790100053436.webp",
+    "tags": [
+      "Tecnologia",
+      "Educacion",
+      "Entornos Virtuales de Aprendizaje"
+    ],
+    "contentDelta": [
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "PEDAGOGÍA DE LA TERNURA DIGITAL"
+      },
+      {
+        "attributes": {
+          "align": "center",
+          "header": 3
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "Presencia, vínculo y acompañamiento en los entornos virtuales de aprendizaje"
+      },
+      {
+        "attributes": {
+          "align": "center",
+          "header": 3
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "Lic. Prof. Lucia Snieg"
+      },
+      {
+        "attributes": {
+          "align": "center"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "header": 2
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "¿Quién está del otro lado de la pantalla?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Hay algo extraño en entrar a un aula virtual. La pantalla se enciende y aparecen los nombres de las materias, los módulos, las actividades, los archivos, las fechas de entrega. Quizás también un foro, una consigna, un espacio para subir una producción. Todo parece estar dispuesto para que el aprendizaje suceda. Los materiales están ahí, las instrucciones están ahí, las actividades están ahí. Pero, en medio de todo eso, aparece una pregunta que quizás no hacemos con suficiente frecuencia: ¿quién está del otro lado?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "La pregunta puede parecer sencilla, incluso demasiado sencilla para detenernos en ella cuando hablamos de educación y tecnologías. Sin embargo, quizás justamente por eso sea necesario volver a hacerla. Porque un entorno virtual de aprendizaje (EVA) puede estar completo, organizado y funcionando técnicamente y, al mismo tiempo, sentirse profundamente vacío. No vacío de contenidos, claro. Vacío de encuentro. Podemos encontrar materiales, enlaces, videos, consignas, fechas y calificaciones, pero eso no necesariamente significa que podamos encontrar ahí una presencia pedagógica, una mirada que acompañe o una voz que nos haga saber que alguien está leyendo lo que hacemos."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "La pregunta por los vínculos no es nueva cuando pensamos la incorporación de tecnologías a las prácticas educativas. Muchos autores y autoras trabajan la necesidad de interrogar los modos, los tiempos, los espacios y los vínculos que atraviesan la tarea educativa contemporánea. El problema, entonces, no se reduce a incorporar nuevas herramientas, sino que implica preguntarnos qué transformaciones producen esas tecnologías en nuestras maneras de enseñar, de aprender y de relacionarnos."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Esta perspectiva también aparece en el trabajo de Maggio, Lion y Perosi (2014), quienes proponen comprender las tecnologías desde una perspectiva cultural y relacional que permita superar su reducción a meros instrumentos. Las autoras y el autor sostienen que las tecnologías “modifica[n] y nos modifica[n] a través de su uso y transferencia” (p. 106). Esta afirmación resulta particularmente potente para pensar los entornos virtuales de aprendizaje: si las tecnologías no solamente sirven para hacer determinadas cosas sino que también transforman nuestras formas de relacionarnos, entonces el desafío pedagógico no puede limitarse a aprender a utilizar una plataforma. Tenemos que preguntarnos qué relaciones estamos construyendo ahí."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "¿Qué sucede con el vínculo pedagógico cuando enseñamos a través de una pantalla? ¿Cómo se hace presente quien enseña cuando ya no comparte necesariamente el mismo espacio ni el mismo tiempo con quien aprende? ¿Cómo sabemos que alguien se perdió en una consigna, que no comprendió una indicación, que no encontró por dónde empezar o que simplemente dejó de entrar al campus porque algo de la propuesta dejó de tener sentido para esa persona?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Estas preguntas adquieren todavía más fuerza si pensamos que los entornos virtuales no son espacios neutros. En el trabajo de Maggio, Lion y Perosi (2014), las tecnologías aparecen entramadas en las prácticas de enseñanza y en las formas en que construimos conocimiento. Desde esta mirada, la actividad no puede pensarse de manera aislada, porque adquiere sentido en relación con el contexto en el que se desarrolla y con las personas que participan de ella (p. 106). Lo virtual, entonces, no es solamente el lugar donde subimos una actividad que antes realizábamos de manera presencial. Cambia el espacio, pero también cambian las relaciones que ese espacio habilita, dificulta o invisibiliza."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Quizás por eso, cuando hablamos de entornos virtuales de aprendizaje, solemos poner demasiado rápido el foco en eso que la plataforma permite hacer: subir materiales, organizar contenidos, proponer actividades, abrir foros, habilitar entregas, realizar devoluciones. Todo eso importa, por supuesto. Pero hay otra dimensión que aparece cuando dejamos de mirar solamente lo que la plataforma permite hacer y empezamos a preguntarnos qué experiencia estamos construyendo para quienes participan de ella."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Maggio, Lion y Perosi (2014) recuperan, en su investigación, experiencias en las que las tecnologías habilitan nuevas formas de comunicación y de vinculación. Una docente entrevistada expresa que su relación con sus estudiantes antes “moría en el aula” y que, con la incorporación de otros espacios digitales, el aula parecía tener “puertas extendidas” (p. 117). La imagen me resulta interesante, porque nos permite pensar que la virtualidad no necesariamente implica alejamiento. También puede ampliar las posibilidades de encuentro. La cuestión, entonces, no parece estar en la tecnología por sí misma, sino en las formas pedagógicas que construimos a partir de ella."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Y acá aparece una tensión que me interesa especialmente: una plataforma puede extender las puertas del aula o puede convertirse en una habitación llena de archivos en la que nadie se encuentra con nadie."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Los mismos trabajos sobre las prácticas de enseñanza en escenarios de alta disposición tecnológica permiten pensar los espacios digitales como escenarios donde se construyen comunidades, conexiones, formas de apoyo entre pares y nuevas maneras de participar de una comunidad de aprendizaje. Las personas pueden ir aprendiendo a habitar el espacio virtual y consolidar vínculos que fortalecen tanto a quienes participan como a la producción de conocimiento (Maggio et al., 2014, p. 108). "
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "En este punto, la palabra habitar me resulta importante. Porque entrar no es necesariamente habitar. Tener una contraseña no es habitar. Descargar un archivo, responder una actividad o marcar una tarea como completada tampoco nos garantiza que exista una experiencia de aprendizaje significativa. Habitar supone algo más: poder orientarse, reconocer recorridos posibles, encontrar a otras personas y construir algún sentido de pertenencia en ese espacio."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Desde esta perspectiva, un entorno virtual de aprendizaje no puede pensarse solamente como el lugar donde "
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "italic": true
+        },
+        "insert": "alojamos"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": " aquello que queremos enseñar. También es el espacio en el que construimos, de manera más o menos consciente, determinadas formas de relación. Una plataforma puede organizar muy bien los contenidos y, sin embargo, producir una experiencia solitaria. Puede tener una navegación clara y una enorme cantidad de recursos, pero transmitir la sensación de que nadie está esperando a nadie. También puede suceder lo contrario: una intervención sencilla, una devolución que retoma algo que una persona escribió, una pregunta que llega en el momento justo o una consigna pensada desde las posibilidades reales de quienes participan pueden transformar completamente la experiencia de estar ahí."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Esto nos obliga a volver sobre una cuestión que aparece en nuestra propia escritura acerca de las identidades docentes emergentes: si la cultura digital modifica los modos de relacionarnos con el saber, los recursos y otras personas, también nos obliga a revisar nuestro propio lugar como docentes. No alcanza con trasladar prácticas conocidas a nuevos soportes. La incorporación de tecnologías nos coloca frente a la necesidad de revisar las prácticas y de construir sentidos pedagógicos para aquello que hacemos (Snieg, 2022)."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Entonces la pregunta que tenemos que hacernos no es solo qué hay adentro del aula virtual, sino qué sucede entre quienes la habitan."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Y esa pregunta nos lleva directamente al problema de la presencia que tanto dio que hablar y debatir en la pandemia por COVID-19."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "Cuando estar no alcanza"
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "header": 2
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "En la presencialidad, la presencia docente suele estar asociada al cuerpo. Entramos a un aula y podemos mirar, escuchar, preguntar, esperar (en el mejor de los casos). Podemos advertir que alguien no entendió una explicación, ver una expresión de alguien que se perdio, escuchar una conversación que no estaba planificada o cambiar el modo de explicar o la propuesta a realizar porque algo no está funcionando. Nada de esto garantiza por sí mismo una buena enseñanza, pero ese encuentro corporal pone a disposición una cantidad de información que en los espacios virtuales aparece de otras maneras, o directamente no aparece."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "En un campus virtual, muchas de esas señales se vuelven menos faciles de ver. Una persona puede ingresar y no participar, leer una consigna y no comprenderla, comprenderla parcialmente y no saber cómo preguntar, comenzar una actividad y abandonarla, entregar algo que muestre una dificultad que empezó mucho antes de esa entrega o simplemente dejar de entrar durante un tiempo. Y la plataforma puede mostrarnos apenas un dato: no entregó. ¿Qué hacemos con ese dato?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Podemos registrarlo, por supuesto. Podemos marcar una ausencia, enviar un recordatorio, modificar una planilla. Pero también podemos preguntarnos qué hay detrás de ese registro y qué lugar ocupa nuestra intervención docente frente a eso. Porque quizás una de las dificultades de la virtualidad no sea solamente la distancia, sino la facilidad con la que esa distancia puede volver invisible al otro."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "¿qué significa hacerse presente en una relación educativa cuando el cuerpo ya no garantiza esa presencia?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "No se trata simplemente de estar conectadx. Tampoco de responder mensajes a cualquier hora ni de convertir la enseñanza en una disponibilidad permanente. Se trata de pensar la presencia como una construcción pedagógica. Maggio, Lion y Perosi (2014) muestran que, en las experiencias docentes que analizan, la incorporación de tecnologías aparece vinculada con una revisión de las prácticas y con una nueva conciencia didáctica. Las propuestas no se transforman solamente porque aparecen nuevas herramientas, sino porque quienes enseñan empiezan a mirar de otro modo aquello que hacen y a tomar decisiones desde criterios pedagógicos."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "En ese sentido, la presencia también puede ser una forma de atención. Atender lo que sucede en el recorrido. Advertir dificultades. Revisar una propuesta cuando algo no funciona. Reconocer que detrás de una entrega hay una trayectoria y que detrás de un silencio hay algo que todavía no conocemos."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Pienso mientras escribo, que quizás acompañar empiece justamente ahí: en no dar por supuesto que sabemos qué le pasa a quien está del otro lado. Y es ahí donde empieza a aparecer esta palabra que viene dandome vueltas hace un tiempo y necesitaba re pensarla: Ternura. Pero no como dulzura, o como una forma de hacer más amable cualquier experiencia educativa. Tampoco como una manera de evitar la dificultad, suavizar los errores o infantilizar a quienes aprenden. Quiero pensar la ternura en otro sentido, darle una vuelta de tuerca y otra perspectiva más pedagógica. La pienso como una disposición a mirar, como una decisión pedagógica de no reducir a una persona a aquello que la plataforma puede registrar sobre ella, como la posibilidad de frenar frente a una entrega y preguntarnos no solamente qué está bien o qué está mal, sino qué necesita esa persona para seguir pensando."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Creo entonces que una pedagogía de la ternura digital puede empezar justamente ahí: cuando dejamos de mirar solamente lo que la plataforma registra y empezamos a preguntarnos qué puede estar viviendo quién está del otro lado de la pantalla."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "La ternura no es endulzar la enseñanza"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "El primer problema que siento que aparece cuando hablamos de una “pedagogía de la ternura” es la propia palabra. Ternura puede remitir rápidamente a lo dulce, a lo afectuoso, a aquello que busca hacer más amable una experiencia. También puede asociarse con una idea de cuidado que, llevada al extremo, termina confundiendo acompañar con proteger, ayudar con hacer por la otra persona o cuidar con suponer que necesita que decidamos por ella. No es esa la idea que quiero trabajar."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Cuando pienso este concepto de pedagogía de la ternura digital, no estoy proponiendo una enseñanza edulcorada ni una versión amable de prácticas que permanecen intactas. Tampoco estoy pensando en transformar los entornos virtuales en espacios llenos de corazones, saturados de mensajes afectivos, emojis o expresiones de cercanía que, por sí mismas, no construyen ningún vínculo pedagógico. La ternura que me interesa pensar tiene menos que ver con la forma en que escribimos una devolución que con la posición desde la que miramos a quien aprende. En otras palabras, creo que la ternura no es una forma de hablarle al otro; es una forma de reconocerlo."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Reconocer que hay alguien detrás de una entrega. Reconocer que una dificultad no necesariamente puede explicarse por falta de interés o de esfuerzo. Reconocer que una persona puede necesitar otra explicación, otro tiempo, otro recorrido o simplemente una pregunta que le permita volver a entrar en aquello que estaba intentando comprender. Y reconocer también que acompañar no significa recorrer el camino por ella."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "En este punto, la perspectiva de Rancière me resulta especialmente provocadora para pensar aquello que queremos nombrar como ternura. En "
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "italic": true
+        },
+        "insert": "El maestro ignorante"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": ", la emancipación intelectual se sostiene sobre una afirmación que atraviesa su propuesta: “todos los hombres tienen una inteligencia igual” (Rancière, 2003, p. 22). La cuestión no pasa, entonces, por negar las diferencias que existen en los recorridos de aprendizaje, sino por cuestionar una relación pedagógica construida sobre la idea de que quien enseña posee una inteligencia superior que debe completar aquello que le falta a quien aprende."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Esta idea que trae Ranciere, nos obliga a mirar con cuidado la palabra acompañamiento. Porque acompañar puede ser una forma de reconocimiento, pero también puede convertirse, sin que nos demos cuenta, en una forma de tutela. ¿Qué hacemos cuando creemos que para acompañar tenemos que simplificar todo? ¿Qué hacemos cuando confundimos accesibilidad con reducción de la complejidad? ¿Qué hacemos cuando suponemos que cuidar a quien aprende significa evitarle toda dificultad?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Tal vez una pedagogía de la ternura digital tenga que hacer justamente lo contrario: sostener la posibilidad de aprender sin retirar el desafío."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Rancière plantea una crítica fuerte al lugar de la explicación cuando esta se convierte en el mecanismo mediante el cual se confirma una desigualdad. En el texto, la figura del maestro explicador aparece ligada a una relación en la que quien enseña sabe y quien aprende debe recibir aquello que todavía no posee. Frente a esa lógica, la emancipación supone reconocer la capacidad de quien aprende para poner en juego su propia inteligencia."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Esto me resulta especialmente interesante cuando pienso y trabajo en los entornos virtuales. Porque la mediación tecnológica puede hacernos creer que acompañar consiste en agregar instrucciones, explicaciones, tutoriales, aclaraciones, recordatorios y materiales hasta cubrir cada posible dificultad. Pero ¿en qué momento esa acumulación deja de acompañar y empieza a producir dependencia? ¿Cuántas explicaciones necesita una persona antes de que dejemos de preguntarnos qué puede descubrir por sí misma? La pregunta creo que no es menor, porque también nos permite separar la ternura de la sobreprotección. Una pedagogía de la ternura no debería decirle al otro qué puede hacer porque ya decidió qué no puede hacer, sino que debería crear condiciones para que pueda hacerlo. Y ahí aparece una de las diferencias más importantes entre una pedagogía que cuida y una pedagogía que infantiliza. La primera no elimina al otro de la escena. La segunda lo coloca en una posición permanente de quien necesita ser asistido."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Por eso, cuando hablamos de acompañar en entornos virtuales, no pensamos solamente en estar disponibles para resolver dudas. Pensamos en diseñar propuestas que permitan preguntar, revisar, equivocarse, volver, encontrar otros caminos y construir progresivamente autonomía. El acompañamiento no aparece después de la propuesta, cuando algo salió mal, sino que también está presente en las decisiones que tomamos antes de abrir una actividad: qué información ofrecemos, cómo organizamos el recorrido, qué posibilidades de interacción habilitamos, qué lugar dejamos para la duda y qué hacemos con aquello que todavía no sabemos."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Siguiendo esto, la revisión de las prácticas docentes que podemos leer en Maggio, Lion y Perosi (2014) me resulta especialmente significativa. Su investigación muestra que, en escenarios de alta disposición tecnológica, las transformaciones más interesantes no aparecen simplemente porque se incorporan dispositivos, sino cuando quienes enseñan desarrollan una nueva conciencia didáctica y comienzan a tomar decisiones pedagógicas a partir de las posibilidades y los desafíos que esos escenarios plantean."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "La tecnología, entonces, no hace que una propuesta sea más pedagógica por el solo hecho de ser digital. Tampoco la ternura aparece porque una devolución tenga un tono cálido. Ambas cuestiones nos exigen mirar más profundamente las decisiones que tomamos. Y es en este punto en donde vuelvo a traer la idea de que la ternura digital tiene que ver, antes que nada, con volver a mirar nuestras propias prácticas: mirar qué hacemos cuando alguien no entrega, qué escribimos cuando alguien se equivoca, cuánto explicamos antes de habilitar que la otra persona explore, ver si dejamos algún espacio para que pueda preguntar sin sentir que debería haber comprendido antes, qué pasa cuando una persona desaparece del campus y nuestra primera respuesta es registrar la ausencia en lugar de preguntarnos por su recorrido. No para convertir cada dificultad en un problema emocional, ni para asumir que conocemos las razones de cada silencio. Tampoco para invadir la vida de quienes aprenden. Sino para recuperar algo que las plataformas, por su propia lógica de registro, pueden volver difícil de percibir: que cada dato corresponde a una trayectoria y que cada trayectoria pertenece a alguien. Ahí empieza a aparecer otra dimensión de esta pedagogía: la retroalimentación."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Porque si la ternura digital supone reconocer al otro, quizás uno de los lugares donde más claramente podemos reconocerlo sea justamente en aquello que le devolvemos."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "header": 2
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "Cuando devolver no significa solamente corregir"
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "header": 2
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Hay una escena que se repite con facilidad en los entornos virtuales, sobre todo en nivel superior. Una actividad aparece como “entregada”, alguien la revisa y finalmente recibe una devolución. A veces es extensa; otras veces, apenas unas palabras o solo una calificación, un comentario, una marca sobre el documento o una indicación breve acerca de aquello que falta. El proceso parece sencillo: producir, entregar, corregir, calificar. Pero quizás haya que frenar un poco en ese último verbo."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "¿Corregir es lo mismo que devolver?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Cuando pensamos en la intersección entre vínculo y cuidado de las trayectorias podemos mirar criticamente a esa reducción de la evaluación. Frente a una baja calificación, responder solamente con “un número frío” o con un lacónico “error conceptual” puede dejar a quien aprende sin saber cómo reconstruir aquello que todavía no logró comprender. La propuesta de retroalimentación narrativa aparece justamente como una alternativa a esa clausura: una escritura que dialoga con la producción, reconoce aquello que se hizo y señala estrategias para continuar trabajando sobre lo que todavía está en proceso."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "La diferencia parece pequeña, pero no lo es. Decir “falta fundamentación” informa algo. Preguntar “¿qué concepto podrías recuperar para sostener esta afirmación?” abre otra posibilidad. Señalar “error conceptual” marca un límite. Explicar dónde aparece la dificultad y qué camino podría ayudar a reconstruirla vuelve a poner el aprendizaje en movimiento."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "No se trata de escribir devoluciones interminables ni de convertir cada actividad en una conversación individual imposible de sostener. Se trata de preguntarnos qué función pedagógica tiene aquello que escribimos. Si nuestra devolución solamente permite conocer el resultado, quizás estemos informando. Si permite comprender qué pasó y qué se puede hacer después, estamos construyendo otra cosa: una posibilidad de encuentro."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Y acá la ternura digital vuelve a aparecer, pero ya no como una cuestión de tono. Puede haber una devolución afectuosa que no diga absolutamente nada sobre cómo seguir. También puede haber una devolución firme, incluso exigente, que acompañe profundamente porque reconoce a quien aprende como alguien capaz de revisar, reconstruir y volver a intentar."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "Cuidar no es evitar el error. Cuidar puede ser no dejar a alguien solx frente al error."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Esta distinción me parece central para el concepto que estamos construyendo. Porque si la ternura se confundiera con suavizar todo, perdería su potencia pedagógica. En cambio, si la pensamos como una disposición a reconocer y acompañar al otro, puede convivir perfectamente con la exigencia, con la evaluación y con el conflicto cognitivo. Incluso puede exigirnos más como docentes: no alcanza con detectar qué está mal; tenemos que pensar qué intervención puede ayudar a que la otra persona avance. Creo que justamente ahí es donde una pantalla deja de ser solamente una pantalla."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Cuando alguien recibe una devolución y puede reconocer que, atras de esas palabras, hubo otra persona que leyó su producción, comprendió algo de su recorrido y pensó una manera de ayudarle a continuar, el espacio virtual adquiere otra densidad. No porque la tecnología se haya vuelto más humana, sino porque nosotrxs decidimos habitarla de otra manera."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "header": 2
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "Para seguir pensando: ¿qué presencia construimos?"
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "header": 2
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Quizás después de todo este recorrido la pregunta por la ternura digital siga siendo una pregunta abierta. No porque todavía no sepamos definirla, sino porque quizás definirla demasiado rápido sería volverla una receta, justamente aquello de lo que este texto intenta alejarse. ¿Cómo se acompaña sin invadir? ¿Cómo se cuida sin sobreproteger? ¿Cómo se sostiene una trayectoria sin decidir de antemano qué puede o qué no puede hacer quien aprende? ¿Cómo se puede estar presente sin convertir la presencia docente en vigilancia permanente?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "También podríamos preguntarnos qué hacemos con aquello que los entornos virtuales nos muestran y con aquello que, inevitablemente, dejan fuera de campo. Una plataforma puede registrar una entrega, un ingreso, una participación, un silencio, pero no puede interpretar por sí sola qué significa cada una de esas acciones. ¿Qué hacemos nosotrxs con esos datos? ¿Los convertimos en indicadores para controlar recorridos o podemos transformarlos en preguntas que nos permitan acercarnos de otra manera a quienes aprenden?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Quizás la ternura digital tenga que ver justamente con esa pausa, con no apurarnos a interpretar o sobre interpretar, con mirar un poco más allá del registro, sin creer que sabemos qué sucede del otro lado, con poder preguntarnos qué necesita una persona para continuar sin sacarle la posibilidad de encontrar sus propias respuestas y con aceptar que no siempre vamos a saberlo."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Porque acompañar una trayectoria educativa tampoco significa garantizar que todo salga bien: hay frustraciones, errores, momentos de distancia, aprendizajes que requieren tiempo y preguntas que no tienen una respuesta inmediata. La ternura no elimina nada de eso. Tal vez nos invite, más bien, a no dejar que esas dificultades se conviertan en soledad."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Entonces quizás haya que volver al comienzo y formular nuevamente la pregunta: ¿quién está del otro lado de la pantalla? No para buscar una respuesta definitiva, sino para recordar que ahí hay alguien. Alguien que aprende, que prueba, que se equivoca, que puede necesitar ayuda y también puede sorprendernos con aquello que logra hacer sin ella. Alguien cuya trayectoria no puede reducirse a lo que una plataforma registra."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Y si enseñar en entornos virtuales supone también construir las condiciones para que otras personas puedan aprender, quizás la ternura sea una manera de asumir esa responsabilidad: seguir mirando al otro aun cuando la pantalla no nos devuelva su mirada."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "Tal vez de eso se trate, por ahora, habitar pedagógicamente la virtualidad."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "Referencias bibliográficas"
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "header": 3
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "Gomes da Costa, A. C. (2003)."
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": " "
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "italic": true
+        },
+        "insert": "Pedagogia da presença: da solidão ao encontro"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": ". Losada, Unicef Argentina."
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "list": "bullet"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "Maggio, M., Lion, C., & Perosi, M. V. (2014)."
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": " Las prácticas de la enseñanza recreadas en los escenarios de alta disposición tecnológica. "
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "italic": true
+        },
+        "insert": "Polifonías Revista de Educación, 3"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "(5), 101–127."
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "list": "bullet"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "Snieg, L. (2022)."
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": " "
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "italic": true
+        },
+        "insert": "¿Tiza o computadora? Identidades docentes emergentes"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": ". Congreso internacional CULTURA DIGITAL, SUBJETIVIDADES Y EDUCACIÓN realizado en el Instituto Miguel Raspanti en septiembre de 2022. Disponible en https://www.somosnomade.com.ar/escritos/tizaocomputadora"
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "list": "bullet"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "bold": true
+        },
+        "insert": "Rancière, J. (2003)."
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": " "
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000",
+          "italic": true
+        },
+        "insert": "El maestro ignorante: Cinco lecciones sobre la emancipación intelectual"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": " (N. Estrach, Trad.). Laertes. La edición del archivo indica primera edición de esta edición en 2003 y datos editoriales de Laertes."
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "list": "bullet"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "\n"
+      }
+    ],
+    "published": true,
+    "updatedAt": "2026-09-22T18:00:55.014Z"
   }
 ]
