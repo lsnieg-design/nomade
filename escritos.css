@@ -1377,7 +1377,32 @@
     font-size: 22px;
     font-weight: 700;
 }
+.social-card-name {
+    color: #144e7e;
 
+    font-family: 'Outfit', sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.social-card-read {
+    margin-top: 12px;
+
+    color: #61717f;
+
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.social-card-url {
+    color: #1fa194;
+
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+
+    word-break: break-word;
+}
 
 /* =====================================================
    MOBILE
