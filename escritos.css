@@ -1156,3 +1156,260 @@
 .article-content .ql-editor h3 {
   font-size: 1.3em !important;
 }
+
+/* =====================================================
+   COMPARTIR ESCRITOS
+===================================================== */
+
+.article-share-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 28px 0 36px;
+}
+
+.share-button {
+    appearance: none;
+    border: 1px solid rgba(20, 78, 126, .14);
+    background: #ffffff;
+    color: #144e7e;
+    min-height: 44px;
+    padding: 11px 17px;
+    border-radius: 999px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.share-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(20, 78, 126, .10);
+}
+
+.share-button .material-icons-round {
+    font-size: 18px;
+}
+
+.share-button-primary {
+    background: #144e7e;
+    color: #ffffff;
+    border-color: #144e7e;
+}
+
+.share-button-whatsapp {
+    color: #1fa194;
+}
+
+
+/* =====================================================
+   FLYER PARA REDES
+===================================================== */
+
+.social-card-render {
+    position: fixed;
+    left: -10000px;
+    top: 0;
+
+    width: 1080px;
+    height: 1920px;
+
+    overflow: hidden;
+
+    background: #F7F2E9;
+    color: #144e7e;
+
+    display: flex;
+    flex-direction: column;
+
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+
+/* IMAGEN */
+
+.social-card-image {
+    position: relative;
+    width: 100%;
+    height: 870px;
+    flex-shrink: 0;
+
+    overflow: hidden;
+    background: #dfe9e5;
+}
+
+.social-card-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    object-fit: cover;
+}
+
+.social-card-image-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(20, 78, 126, 0) 55%,
+            rgba(20, 78, 126, .20) 100%
+        );
+}
+
+
+/* CUERPO */
+
+.social-card-body {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 72px 78px 68px;
+}
+
+
+/* MARCA */
+
+.social-card-brand {
+    font-family: 'Outfit', sans-serif;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 52px;
+}
+
+.social-card-brand .brand-blue {
+    color: #144e7e;
+}
+
+.social-card-brand .brand-green {
+    color: #1fa194;
+}
+
+
+/* CATEGORÍA */
+
+.social-card-category {
+    display: inline-block;
+
+    color: #1fa194;
+
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    margin-bottom: 24px;
+}
+
+
+/* TÍTULO */
+
+.social-card-body h2 {
+    margin: 0 0 34px;
+
+    max-width: 880px;
+
+    color: #144e7e;
+
+    font-family: 'Outfit', sans-serif;
+    font-size: 72px;
+    line-height: 1.04;
+    letter-spacing: -2.6px;
+    font-weight: 800;
+}
+
+
+/* BAJADA */
+
+.social-card-body p {
+    max-width: 850px;
+
+    margin: 0;
+
+    color: #405568;
+
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 30px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+
+/* PIE */
+
+.social-card-bottom {
+    margin-top: auto;
+    padding-top: 55px;
+
+    border-top: 1px solid rgba(20, 78, 126, .14);
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    color: #61717f;
+
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.social-card-bottom strong {
+    color: #144e7e;
+
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .article-share-actions {
+        gap: 8px;
+        margin: 22px 0 30px;
+    }
+
+    .share-button {
+        flex: 1 1 auto;
+        min-width: 130px;
+        padding-inline: 13px;
+        font-size: 11px;
+    }
+}
+
+
+/* =====================================================
+   IMPRESIÓN
+===================================================== */
+
+@media print {
+
+    .article-share-actions {
+        display: none !important;
+    }
+
+    .social-card-render {
+        display: none !important;
+    }
+}
