@@ -29,7 +29,7 @@
   <!-- CSS general -->
  <link rel="stylesheet" href="/style.css">
 <link rel="stylesheet" href="/escritos.css">
-<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/png" href="favicon.png">
   <!-- Quill -->
   <link
     href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css"
@@ -608,23 +608,57 @@ return `
 
     function renderArticle(post) {
 
-      app.innerHTML = `
+     app.innerHTML = `<div class="article-wrap">
 
-        <div class="article-wrap">
+    <div class="print-only print-header">
+
+      <div class="print-brand">
+
+        <img
+          src="/favicon.png"
+          alt=""
+          class="print-logo"
+        >
+
+        <div class="print-wordmark">
+          <span>NOM</span><span>A</span><span>DE</span>
+        </div>
+
+      </div>
+
+      <div class="print-brand-line">
+        De la experiencia en el aula a la innovación.
+      </div>
+
+    </div>
 
 
-          <a
-            href="/escritos"
-            class="article-back"
-          >
+    <div class="article-actions">
 
-            <span class="material-icons-round">
-              arrow_back
-            </span>
+      <a
+        href="/escritos"
+        class="article-back"
+      >
+        <span class="material-icons-round">arrow_back</span>
+        Volver a escritos
+      </a>
 
-            Volver a escritos
 
-          </a>
+      <button
+        type="button"
+        class="print-button"
+        onclick="printArticle()"
+      >
+
+        <span class="material-icons-round">
+          print
+        </span>
+
+        Imprimir / guardar PDF
+
+      </button>
+
+    </div>
 
 
           <div class="article-top">
@@ -891,7 +925,11 @@ return `
 
     }
 
+function printArticle() {
 
+  window.print();
+
+}
     /* =========================
        CARGAR UN ESCRITO
     ========================== */
