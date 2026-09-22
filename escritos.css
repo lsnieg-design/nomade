@@ -1243,8 +1243,12 @@
 .social-card-image {
     position: relative;
     width: 100%;
-    height: 870px;
+    height: 620px;
     flex-shrink: 0;
+
+    overflow: hidden;
+    background: #dfe9e5;
+}
 
     overflow: hidden;
     background: #dfe9e5;
@@ -1322,35 +1326,43 @@
 /* TÍTULO */
 
 .social-card-body h2 {
-    margin: 0 0 34px;
+    margin: 0 0 28px;
 
-    max-width: 880px;
+    max-width: 900px;
 
     color: #144e7e;
 
     font-family: 'Outfit', sans-serif;
-    font-size: 72px;
+    font-size: 68px;
     line-height: 1.04;
-    letter-spacing: -2.6px;
+    letter-spacing: -2.4px;
     font-weight: 800;
 }
+.social-card-body h2.title-medium {
+    font-size: 58px;
+    letter-spacing: -2px;
+}
 
+.social-card-body h2.title-long {
+    font-size: 50px;
+    line-height: 1.02;
+    letter-spacing: -1.6px;
+}
 
 /* BAJADA */
 
 .social-card-body p {
-    max-width: 850px;
+    max-width: 900px;
 
     margin: 0;
 
     color: #405568;
 
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 30px;
-    line-height: 1.5;
+    font-size: 27px;
+    line-height: 1.48;
     font-weight: 500;
 }
-
 
 /* PIE */
 
