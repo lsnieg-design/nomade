@@ -1575,5 +1575,643 @@
     ],
     "published": true,
     "updatedAt": "2026-09-22T18:24:58.734Z"
+  },
+  {
+    "id": "06641de4-5231-4e53-ac66-84b99cc85083",
+    "slug": "discapacidadyescolaridad",
+    "title": "Discapacidad y escolaridad: el/la pediatra como guía en un sistema que confunde",
+    "excerpt": "El seguimiento pediátrico en niñxs con discapacidad exige trascender el mero trámite burocrático para asumir un rol ético y transformador: el pediatra no debe ser un auditor del déficit, sino un guía estratégico capaz de derribar barreras e integrar los ámbitos médico, familiar y escolar. A través del Modelo Social de la Discapacidad y del conocimiento preciso de los dispositivos pedagógicos y de apoyo, la práctica clínica se convierte en una herramienta para proteger el derecho a la educación.",
+    "category": "Inclusión",
+    "date": "2026-09-24",
+    "cover": "/media/posts/discapacidadyescolaridad-1790203352692.webp",
+    "tags": [
+      "Educación",
+      "Pediatría",
+      "Accesibilidad",
+      "Inclusión"
+    ],
+    "contentDelta": [
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343",
+          "italic": true
+        },
+        "insert": "Trabajo presentado el 24/9/2026 en el Congreso Nacional de Pediatría Ambulatoria (PEDAMB) "
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343",
+          "bold": true
+        },
+        "insert": "Desarmar para construir"
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "header": 3
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "La invitación a reflexionar sobre el seguimiento pediátrico en pacientes con \"Necesidades Especiales de Atención en Salud\" me obliga, antes de entrar en materia, a proponer una pausa. Una pausa para examinar las palabras que nos reúnen hoy. El rótulo "
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343",
+          "italic": true
+        },
+        "insert": "NANEAS"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": " (Niños, Niñas y Adolescentes con Necesidades Especiales de Atención en Salud), funciona, desde la clínica, como un organizador pragmático; es una etiqueta que nos permite gestionar turnos, interconsultas y coberturas. Sin embargo, cuando esa etiqueta se desplaza de la clínica hacia la vida del niño —especialmente hacia su cotidianeidad escolar—, corre el riesgo de convertirse en un estigma."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Al sostener que la necesidad es \"especial\", validamos, casi sin querer, la idea de que existe un sujeto estándar y, por oposición, un sujeto deficitario. Es una distinción que, aunque bien intencionada, opera como un gueto terminológico. En el ámbito educativo, esta lógica suele traducirse en la creencia de que el niño no puede participar de la vida del aula porque sus \"necesidades especiales\" lo sitúan en otro plano. Pero, ¿es realmente la necesidad del niño la que es especial? ¿O es nuestra propia incapacidad sistémica para diseñar entornos flexibles la que vuelve \"especial\" la asistencia?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Lxs entiendo perfectamente. Sé que están inmersos en un sistema laberíntico, lleno de siglas, abreviaturas que cambian según la jurisdicción y, sobre todo, marcado por una enorme falta de información clara. Es lógico que, ante tanta incertidumbre, la respuesta inmediata sea buscar lo conocido."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Acá es donde quiero invitarles a pensar en las representaciones sociales. Si yo les pido a todos los que están presentes en este salón que piensen en una \"casa\", probablemente la mayoría visualice una estructura similar: techo a dos aguas, una ventana, una puerta. Tenemos un imaginario compartido sobre lo que es una casa, aunque pocas veces hayamos visto una así. Con la discapacidad pasa exactamente lo mismo: cuando el sistema nos plantea un desafío, nuestra representación social colectiva —esa que arrastramos hace décadas— nos lleva casi por inercia a pensar en la \"escuela especial\" como el único destino posible para aquellos niños y niñas que no entran dentro de la “normalidad” necesaria para dispositivos masivos como lo es la escuela."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Y quiero ser muy clara acá: no hay nada de malo en la escuela especial. Por el contrario, la escuela especial es una institución valiosísima, con profesionales formados y dispositivos específicos que muchas veces son el entorno más potente para el desarrollo de un niño. Pero no es el único lugar, ni debería ser la única respuesta automática."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Cuando el pediatra recomienda un dispositivo sin conocer todo el abanico de posibilidades, no está fallando por falta de compromiso, sino por falta de herramientas para leer la complejidad. Mi intención al estar hoy acá no es cuestionar su labor clínica, sino tender un puente. Como trabajadora de la educación, mi día a día transcurre en la intersección donde el saber médico se topa con la realidad escolar. Muchas veces, veo cómo la familia llega al consultorio buscando una respuesta y se encuentra con un pedido administrativo que no refleja el potencial del niño/a o con más incertidumbres que respuestas por no saber que opciones existen."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Necesitamos que el/la pediatra no sea un auditor de la discapacidad —ese que firma el formulario para \"habilitar\" una prestación—, sino un aliado estratégico que conozca el mapa completo. Si no conocemos las opciones, no podemos acompañar. Si no entendemos que la discapacidad es una construcción social, vamos a seguir repitiendo los mismos circuitos, sin importar si el niño/a \"encaja\" o no. Es momento de que empecemos a desarmar esos imaginarios compartidos para que, en lugar de clasificar, podamos empezar a acompañar trayectorias singulares."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343",
+          "bold": true
+        },
+        "insert": "Marco conceptual: Del \"pobrecito\" al \"derecho\""
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "header": 3
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Para que nuestro trabajo articulado tenga sentido, necesitamos correr el foco. Durante años, la medicina operó desde un modelo médico o rehabilitador: el niño tenía una \"falla\" —un diagnóstico, un déficit, una patología— y la sociedad debía ocuparse de \"repararlo\" o, en el mejor de los casos, de \"compensar\" esa falta para que se pareciera lo más posible a un niño sin discapacidad. Bajo esta lógica, el/la pediatra se convertía en el gestor de esa reparación: cuánta terapia, cuánta hora de estimulación, cuánto refuerzo."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Pero hoy, la mirada cambió y tenemos que cambiar con ella. Hablamos de un Modelo Social de la Discapacidad. ¿Qué significa esto en la práctica, acá, en sus consultorios? Que la discapacidad no es una característica del niño/a, sino el resultado de la interacción entre su singularidad y un entorno que no está diseñado para alojarlo. La discapacidad no es el síndrome; la discapacidad es la barrera que se encuentra ese niño cuando la escuela no tiene rampas, cuando el currículo no es flexible o cuando el pediatra no entiende qué apoyo solicitar."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Acá es donde el pediatra se vuelve un nodo crítico de la red. Imaginen que el niño/a es un nudo en una red de hilos que conectan salud, educación y familia. Si el pediatra no entiende la normativa —desde la Convención sobre los Derechos de las Personas con Discapacidad hasta las leyes nacionales que garantizan el acceso a los apoyos—, ese nudo se tensa. La familia queda perdida, convertida en una especie de \"traductora de malas noticias\" que va de oficina en oficina, de certificado en certificado, tratando de explicarle a una maestra qué necesita su hijo y a una obra social por qué necesita una prestación, sin herramientas legales ni conceptuales."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "El problema es que, cuando el pediatra no conoce la normativa o no entiende el modelo social, la familia termina peregrinando entre la burocracia médica y la educativa. Y en esa peregrinación, el que se pierde es el niño."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "No les pido que se conviertan en abogados ni en pedagogos, pero sí les pido que reconozcan que son el primer referente y también pueden pedir ayuda o asesoramiento antes de recomendar. Cuando una madre les pregunta: \"¿Va a poder ir a la escuela?\", la respuesta no debería ser un diagnóstico estadístico sobre su capacidad de aprendizaje. La respuesta debería ser: \"¿Qué opciones tenemos? ¿Qué apoyos vamos a construir para que esa escuela u otra sea su lugar?\"."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Pasar del \"pobrecito\" —esa mirada asistencialista que busca \"ayudar\" al que menos puede— al \"derecho\" —ese enfoque que busca habilitar lo que al niño le corresponde— no es solo un cambio de palabras. Es un cambio de ética. Es dejar de ver al niño como un paciente que hay que \"arreglar\" y empezar a verlo como un ciudadano que necesita que, como adultos responsables de su entorno, eliminemos las barreras que nosotros mismos pusimos. El desafío es enorme, pero empieza acá: dejando de ser los auditores de su déficit y convirtiéndonos en los arquitectos de sus apoyos."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343",
+          "bold": true
+        },
+        "insert": "El gran nudo: Escuela y modalidades"
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "header": 3
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Si hay un lugar donde el sistema se vuelve engorroso, enigmático y problemático, es en la intersección entre la salud y la escuela. Acá es donde aparece la confusión más grave: la idea de que la escuela es un lugar físico al que el niño/a \"va\", cuando en realidad la escolaridad es un derecho que se ejerce a través de diversos formatos. Para entender esto, primero tenemos que entender que el sistema educativo se organiza a través de niveles obligatorios —como el inicial, el primario y el secundario—, pero que estos niveles están atravesados por las modalidades. Las modalidades son opciones organizativas o curriculares que responden a necesidades específicas de ciertos sectores de la población. No es que los niños \"vayan\" a una modalidad, sino que el sistema se organiza de esa forma para garantizar que nadie quede afuera."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Tenemos, por ejemplo, la modalidad de educación rural, que busca garantizar el acceso en zonas dispersas; la modalidad técnico profesional, que orienta la formación hacia el mundo productivo; la modalidad de jóvenes y adultos, para quienes no pudieron completar su escolaridad a edad temprana; la educación artística, la intercultural bilingüe, la de contexto de encierro, e incluso la modalidad hospitalaria y domiciliaria, que garantiza la continuidad pedagógica cuando un niño debe interrumpir su asistencia por razones de salud. Cuando menciono esto, lo hago para desarmar ese prejuicio de que solo la discapacidad tiene una modalidad \"distinta\". La realidad es que la mayoría de los estudiantes, en algún momento o por alguna razón, opta por o requiere una modalidad específica para ejercer su derecho a la educación. La educación especial, entonces, es una modalidad más: es un conjunto de saberes, recursos y estrategias transversales que atraviesan todo el sistema, y no un edificio aislado donde se manda a los niños que no encajan en el nivel inicial o primario."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "La Ley de Educación Nacional y la Resolución 311/16 marcan una linea clara de trabajo: el estudiante tiene derecho a ser incluido, en primera instancia, en la escuela de nivel. Cuando el sistema educativo reconoce que el niño requiere apoyos que el formato común no puede proveer, se activa la Propuesta Pedagógica Individual (PPI). La PPI no es un trámite, es el documento legal y pedagógico que garantiza los ajustes razonables para aprender. Si el recorrido en la escuela de nivel presenta barreras, la escuela especial aparece como un dispositivo fundamental, pero tenemos que frenar el mito de la exclusión: es posible —y muchas veces deseable— transitar trayectorias compartidas. El estudiante es alumno de ambas instituciones, que articulan sus recursos, evitando que la escuela especial sea un destino final o una condena."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Acá es donde tenemos que estar muy atentos/as al momento de recomendar. La sede de educación especial es un espacio potente, habitado por equipos interdisciplinarios (psicólogos, trabajadores sociales, psicopedagogos, terapeutas ocupacionales), donde el estudiante recorre su trayectoria en grupos multiedad. Esta sede se organiza en niveles: inicial, primario y los Centros de Formación Integral (CFI). Mientras que el título del nivel primario en la sede es homologable al de la escuela de nivel, al llegar al CFI el horizonte es distinto: se accede a propuestas técnico-profesionales (cocina, herrería, cerámica, marroquinería, entre otras, según cada institución)."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Es vital entender que el estudiante obtiene una certificación pedagógica del CFI —que no es un título habilitante como el de se"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#000000"
+        },
+        "insert": "cundaria—, acompañada de una certificación técnico-profesional del área laboral que incluye instancias de pasantías. Esto es radicalmente distinto a un CET (Centro Educativo Terapéutico). El CET es un dispositivo del sistema de salud, no de educación; está pensado para estudiantes que aún no alcanzan las condiciones para una escolaridad for"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "mal o que requieren un abordaje terapéutico intensivo y continuo. Indicar un CET cuando el niño tiene potencial pedagógico es, muchas veces, cerrar la puerta al aprendizaje y a la titulación."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Por eso, la recomendación no puede ser \"que vaya a especial\" y punto. Algunos estudiantes hacen su primaria en especial y luego transicionan a un proyecto de inclusión en un secundario para adultos; otros sostienen trayectorias compartidas durante años. Cada trayectoria es individual, tiene sus tiempos y su particularidad, y puede armarse combinando modalidades y niveles de la manera más estratégica posible. Si sienten que el panorama es muy confuso, la mejor recomendación profesional es derivar la consulta a un especialista en trayectorias. El pediatra no está solo en este proceso; tener un asesoramiento pedagógico permite que el acompañamiento a la familia no sea un parche, sino una construcción sólida y bien orientada."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Dentro del mapa de apoyos, la confusión entre el Docente de Apoyo a la Inclusión (DAI) y el Acompañante Externo (APDL/AT) es probablemente el mayor error en las prescripciones médicas. Son actores que nacen de sistemas distintos y cumplen funciones que, si bien se complementan en el día a día del niño, son operativamente diferentes."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "La DAI (Docente de apoyo a la inclusión) es, ante todo, un docente del sistema educativo. Para que un estudiante cuente con un DAI, debe existir una inscripción formal en una escuela de modalidad especial. Esto genera lo que llamamos una \"trayectoria compartida\": el niño pertenece a la escuela de nivel y a la escuela especial al mismo tiempo. La DAI es el brazo pedagógico encargado de traducir el diseño curricular para que ese alumno pueda acceder a los contenidos. Su trabajo es interdisciplinario con los docentes del aula, diseñando la Propuesta Pedagógica Individual (PPI), realizando los ajustes razonables y, fundamentalmente, trabajando a contraturno en la sede de la escuela especial para fortalecer los aprendizajes que el niño no pudo alcanzar en la escuela de nivel. Si el problema es que el niño tiene dificultades para acceder al saber, lo que se necesita es una mirada pedagógica especializada, no un asistente de cuidado."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Por el contrario, el Acompañante Externo (APDL) es un recurso que proviene del sistema de salud y discapacidad, gestionado generalmente a través de una obra social o un centro categorizado. Es crucial entender que para contar con un APDL no se requiere inscripción en una escuela especial. Su rol no es enseñar matemáticas ni adecuar currículos; su función es la de un apoyo a la autonomía y a la participación subjetiva. El acompañante está ahí para sostener la presencia del niño en el aula, ayudarlo a navegar el espacio, mediar en la socialización, gestionar las emociones y facilitar la comunicación. Es un soporte vincular que permite que el niño "
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343",
+          "italic": true
+        },
+        "insert": "esté"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": " en el grupo, pero no es quien le enseña a leer o a sumar."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "La confusión en la titulación es, desde una perspectiva profesional, inaceptable. Cuando se indica un acompañante para que el niño \"aprenda\", estamos desplazando la responsabilidad pedagógica hacia un actor que no tiene esa formación docente, generando un vacío en el proceso de enseñanza-aprendizaje. Estamos creando \"muletas\" donde lo que el niño necesita es \"accesibilidad\". Cuando confundimos la función pedagógica —que es derecho de la escuela proveer— con el soporte emocional y participativo —que es apoyo que el sistema de salud debe garantizar—, el niño termina atrapado en un sistema que confunde."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "La escuela no necesita que el pediatra audite quién debe estar dentro del aula; lo que la escuela necesita es que el profesional de salud sepa indicar el apoyo preciso para la barrera precisa. Si el niño no aprende, la vía es la inscripción en especial y la asignación de un DAI para una PPI acorde. Si el niño aprende pero se desborda, no se integra o no logra participar, el camino es un acompañante externo. La claridad en nuestra indicación es el primer paso para que el sistema deje de poner barreras y empiece a construir los puentes que cada niño necesita para habitar la escuela."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343",
+          "bold": true
+        },
+        "insert": "La trampa de la \"colectora\" y el tiempo libre"
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "header": 3
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "A menudo, los profesionales y las familias creen que el desarrollo de un niño con discapacidad es una autopista —rápida, lineal, competitiva— y que, si el niño no logra seguir el ritmo, debemos derivarlo a una \"colectora\" para que, en algún momento, pueda reincorporarse al carril central. Ese es el error conceptual que alimenta la acumulación terapéutica."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Naturalizamos una forma de ver la infancia donde el niño deja de ser un sujeto para convertirse en un \"cúmulo de horas\" de fonoaudiología, kinesiología, terapia ocupacional, equitación, pileta y apoyo escolar. Transformamos la vida de nuestros pacientes en una agenda de oficina, de lunes a viernes, a veces también los sábados. Y acá quiero ser muy directa: ¿en qué momento este niño o niña simplemente \"vive\"? ¿Cuándo aparece el tiempo libre, el ocio, el aburrimiento, el juego no dirigido? La \"colectora\" no es un camino de segunda, pero tampoco puede ser una jaula. Cuando llenamos la jornada de dispositivos terapéuticos, estamos robándole al niño su capacidad de ser niño. Esto también es equivalente a cuando solo pensamos en recomendar dispositivos “especiales”, “paralelos”, “específicos para personas con discapacidad”. Va a escuela especial, a grupo de habilidades sociales, a tiempo libre para personas con discapacidad, a un club para personas con discapacidad, etc. ¿Y la verdadera inclusión?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "El pediatra tiene un rol fundamental acá, y es el de prescriptor de tiempo libre. Muchas veces, el cansancio y el desborde que vemos en el aula no son producto de la discapacidad, sino de una saturación de estímulos y de una agenda que no le permite procesar nada. La pregunta que debemos empezar a hacernos es: ¿estamos prescribiendo terapias para mejorar la calidad de vida, o estamos prescribiendo una agenda de ocupaciones forzadas para aliviar nuestra ansiedad como adultos?"
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Es necesario ser precisos en la indicación: No es lo mismo una actividad recreativa que una terapia: Si indicamos \"equitación\", estamos indicando un deporte; si indicamos \"equinoterapia\", estamos indicando un abordaje terapéutico con objetivos claros. La diferencia es técnica, pero también ética. El lugar de los dispositivos de vida del sujeto también es importante. Tenemos que entender que el CET (Centro Educativo Terapéutico) y el Centro de Día tienen propósitos distintos. El CET es una estructura con una base pedagógica y terapéutica para quienes se encuentran construyendo sus primeros trayectos escolares o necesitan un abordaje intensivo; el Centro de Día es un espacio de vida, de mejora de la calidad de vida y de promoción de la autonomía, no un aula. Indicar mal estos dispositivos es condenar a las familias a un laberinto burocrático sin sentido y al niño a una institucionalización que, lejos de habilitarlo, lo estanca."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Los y las invito a cuestionar este \"recetario\" infinito. La calidad de vida no es directamente proporcional a la cantidad de horas de terapia. La verdadera inclusión no se logra en el consultorio ni en el centro de rehabilitación; se logra permitiendo que el niño tenga espacios de encuentro con sus pares en el barrio, en la plaza, en el club, lejos de la mirada clínica."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Como especialistas, nuestro mayor aporte es, a veces, decir \"basta\": basta de prescribir terapias que no tienen un objetivo claro, basta de llenar los días de los niños de horarios que parecen una jornada laboral. Necesitamos más mundo y menos \"terapia\". Necesitamos que el pediatra actúe como un guardián del derecho a la infancia, garantizando que, entre tanta \"necesidad especial\", no se pierda lo más humano de todas: la posibilidad de tener una vida propia, singular y, sobre todo, libre."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343",
+          "bold": true
+        },
+        "insert": "Cierre: El rol ético del pediatra"
+      },
+      {
+        "attributes": {
+          "align": "justify",
+          "header": 3
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Para terminar, quiero que pensemos en cuál es nuestro verdadero lugar en esta trama. Muy seguido, el sistema los pone en el rol de \"auditores\": les pide que validen la discapacidad, que autoricen la cantidad de horas de terapia, que firmen el certificado para que el niño sea aceptado en tal o cual institución. Pero esa no es la tarea que realmente transforma la vida de un niño."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "No necesitamos más pediatras que firmen formularios de \"necesidad de acompañante\" sin preguntar antes qué dice el proyecto pedagógico, sin conocer al docente, sin entender qué barrera se intenta eliminar. Esa burocracia, aunque parezca eficiente, es el camino más rápido para dejar a un niño fuera del sistema."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "El pediatra tiene un poder que a veces subestima: es el traductor oficial entre el mundo médico y el mundo de la vida. Es quien acompaña a las familias en la construcción del sentido de la discapacidad. Si nuestra traducción es limitada, si nuestra mirada se reduce a lo que el niño \"no puede\" o a lo que \"le falta\", vamos a estar replicando el mismo sistema que confunde y segrega."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Necesitamos pediatras que dejen de ver la discapacidad como una falla a \"normalizar\" y empiecen a verla como un desafío de convivencia. Necesitamos que, cada vez que una familia entre a su consultorio, la primera pregunta no sea sobre el diagnóstico, sino sobre la singularidad: "
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343",
+          "italic": true
+        },
+        "insert": "\"¿Qué está haciendo este niño hoy que no sea 'ser paciente'?\""
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "La inclusión no se da en los escritorios ni en los informes de gestión de las obras sociales; la inclusión existe cuando habilitamos los apoyos justos, aquellos que eliminan barreras en lugar de crear nuevas dependencias. Ser un buen pediatra hoy implica tener la valentía de decir \"no\" a una sobre-terapia innecesaria y decir \"sí\" a un espacio en la escuela de nivel, a una escuela especial, a una plaza o en el club, donde el niño sea simplemente un niño entre otros."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "attributes": {
+          "background": "transparent",
+          "color": "#434343"
+        },
+        "insert": "Hoy les pido que salgan de esta mesa con un compromiso: dejen de auditar el déficit y empiecen a proteger la trayectoria. Las infancias no necesitan que nosotrxs \"arreglemos\" su vida desde el consultorio; necesita que seamos ese guía que le dice a la familia: \"Tu hijo/a no necesita más terapias, necesita más mundo\". Si logramos ser esos traductores que el sistema tanto necesita, vamos a dejar de ser cómplices de la confusión para convertirnos, finalmente, en los arquitectos de su derecho a vivir una vida propia."
+      },
+      {
+        "attributes": {
+          "align": "justify"
+        },
+        "insert": "\n"
+      },
+      {
+        "insert": "\n"
+      }
+    ],
+    "published": true,
+    "updatedAt": "2026-09-23T22:42:34.796Z"
   }
 ]
