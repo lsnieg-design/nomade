@@ -53,6 +53,28 @@ input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);b
 .note{min-height:100px}.empty{text-align:center;padding:28px;color:var(--gris)}
 @media(max-width:950px){aside{width:205px}.cards{grid-template-columns:repeat(2,1fr)}.quick,.year-grid,.mini-grid{grid-template-columns:1fr}}
 @media(max-width:700px){.app{display:block}aside{position:static;width:auto;height:auto}.nav{display:flex;overflow:auto}.side-note{display:none}main{padding:20px 14px}.top{display:block}.source{text-align:left;margin-top:8px}.cards{grid-template-columns:1fr 1fr}.field,.field.search{min-width:100%}.filters{display:grid}.timeline{grid-template-columns:70px 1fr}}
+
+.lab-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.lab-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.lab-tools button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer;font-weight:750;color:var(--texto)}
+.lab-tools button.active{border-color:var(--bordo);color:var(--bordo);background:#faf5eb}
+.lab-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-top:14px}
+.lab-panel{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px;box-shadow:var(--sombra);min-width:0}
+.lab-panel h3{margin:0;color:var(--bordo);font-size:17px}.lab-panel .muted{margin-bottom:10px}
+.concept-list{display:grid;gap:8px}
+.concept-row{display:grid;grid-template-columns:minmax(170px,1fr) 170px 52px;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:#fffdfa}
+.concept-name{font-weight:800}.bar-wrap{height:8px;background:#eee7dd;border-radius:99px;overflow:hidden}.bar{height:100%;background:var(--bordo);border-radius:99px}.concept-count{text-align:right;font-size:11px;color:var(--gris)}
+.lab-subjects{display:grid;gap:7px;max-height:520px;overflow:auto;padding-right:3px}
+.lab-subject{border:1px solid var(--line);border-left:4px solid var(--dorado);border-radius:9px;padding:9px 10px;cursor:pointer;background:#fffdfa}.lab-subject:hover{border-color:#cbbda9}
+.lab-subject b{font-size:13px}.lab-subject small{display:block;color:var(--gris);margin-top:2px}
+.pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.pair{border:1px solid var(--line);border-radius:10px;padding:10px;background:#fffdfa;cursor:pointer}.pair:hover{border-color:#cbbda9}.pair b{display:block;color:var(--bordo)}.pair span{font-size:11px;color:var(--gris)}
+.matrix-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}.matrix{border-collapse:collapse;width:100%;min-width:760px;background:#fff}.matrix th,.matrix td{border:1px solid var(--line);padding:6px;text-align:center;font-size:10px}.matrix th{background:#faf5eb;color:var(--bordo);position:sticky;top:0;z-index:2}.matrix th:first-child{left:0;z-index:3;text-align:left;min-width:210px}.matrix td:first-child{position:sticky;left:0;background:#fffdfa;text-align:left;font-weight:750;z-index:1}.matrix .diag{background:#f0eadf;color:#aaa}.matrix .hit{background:#f4e4c5;color:#6e5222;font-weight:900;cursor:pointer}.matrix .mid{background:#f8f3e9}.matrix .none{color:#c7c0b7}
+.lab-detail{background:#faf5eb;border:1px solid var(--line);border-radius:12px;padding:14px}.lab-detail h4{margin:0 0 5px;color:var(--bordo);font-size:15px}.lab-evidence{margin-top:8px;display:grid;gap:7px}.evidence{background:#fff;border:1px solid var(--line);border-radius:9px;padding:9px;font-size:12px}.evidence b{color:var(--bordo)}
+.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.status-box{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fffdfa}.status-box .n{font-size:24px;font-weight:900;color:var(--bordo)}.status-box .t{font-size:11px;color:var(--gris)}
+.decision{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.decision button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 9px;cursor:pointer;font-size:11px}.decision button.active{background:#741f2b;color:#fff;border-color:#741f2b}
+@media(max-width:950px){.lab-grid{grid-template-columns:1fr}.status-grid{grid-template-columns:1fr 1fr}.concept-row{grid-template-columns:minmax(130px,1fr) 120px 42px}}
+@media(max-width:700px){.status-grid{grid-template-columns:1fr}.pair-grid{grid-template-columns:1fr}.concept-row{grid-template-columns:1fr 120px 42px}}
 </style>
 </head>
 <body>
@@ -70,6 +92,7 @@ input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);b
     <button data-view="contenidos">≡ &nbsp; Contenidos y temas</button>
     <button data-view="articulaciones">↔ &nbsp; Articulaciones</button>
     <button data-view="revision">✓ &nbsp; Revisión institucional</button>
+    <button data-view="laboratorio">✦ &nbsp; Laboratorio de articulación</button>
   </nav>
   <div class="side-note">V1 · Base: 1.º y 2.º año comunes<br>La información se mantiene separada de las interpretaciones del equipo.</div>
 </aside>
@@ -93,6 +116,7 @@ input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);b
 <section id="contenidos" class="view"></section>
 <section id="articulaciones" class="view"></section>
 <section id="revision" class="view"></section>
+<section id="laboratorio" class="view"></section>
 </main>
 </div>
 
@@ -237,6 +261,105 @@ function renderRevision(){
 }
 
 function render(){renderInicio();renderMapa();renderMomento();renderContenidos();renderArt();renderRevision()}
+
+/* ===== EXTENSIÓN V6 · LABORATORIO DE ARTICULACIÓN ===== */
+views.push("laboratorio");
+const LAB_CURRICULO_1RO=[
+ {nombre:"Taller de lectura, escritura y oralidad",horas:64},
+ {nombre:"Taller de pensamiento lógico matemático",horas:64},
+ {nombre:"Psicología del desarrollo y el aprendizaje I",horas:64},
+ {nombre:"Práctica en terreno: Experiencia social en espacios y organizaciones de la comunidad",horas:64},
+ {nombre:"Introducción a la Educación Especial",horas:64},
+ {nombre:"Didáctica de las Prácticas del Lenguaje I",horas:32},
+ {nombre:"Corporeidad y motricidad",horas:32},
+ {nombre:"Taller Integrador Interdisciplinario · Comunidad Educadora",horas:32},
+ {nombre:"Didáctica de la Matemática I",horas:32},
+ {nombre:"Didáctica de las Ciencias Sociales I",horas:64},
+ {nombre:"Construcción de Herramientas para el abordaje educativo en espacios de integración comunitaria",horas:32},
+ {nombre:"Didáctica de las Ciencias Naturales I",horas:64},
+ {nombre:"Filosofía",horas:64},
+ {nombre:"Didáctica General",horas:64},
+ {nombre:"Pedagogía",horas:64},
+ {nombre:"Análisis del mundo contemporáneo",horas:32}
+];
+const labNorm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+const labStop=new Set("y de del la las los el en para con una un al a por que sus se su sobre como desde entre o es son al los mas mas puede pueden este esta esto estas esos esas".split(" "));
+const labTokens=s=>labNorm(s).split(/\s+/).filter(w=>w.length>3&&!labStop.has(w));
+const labCanon=s=>{
+ const n=labNorm(s); 
+ const alias={"psicologia del desarrollo y del aprendizaje":"psicologia del desarrollo y el aprendizaje i","didactica de las practicas del lenguaje i":"didactica de las practicas del lenguaje i","taller de lectura escritura y oralidad":"taller de lectura escritura y oralidad","taller de pensamiento logico matematico":"taller de pensamiento logico matematico"};
+ return alias[n]||n;
+};
+const labProgramSubjects=MATERIAS.filter(m=>m.ano===1);
+const labText=m=>[(m.programaCompleto||""),...(m.unidadesFuente||[]),...(m.unidades||[]),...(m.nucleos||[])].join(" ");
+const labConcepts=()=>{
+ const counts={};
+ labProgramSubjects.forEach(m=>(m.nucleos||[]).forEach(n=>{const k=labNorm(n);if(k)counts[k]=(counts[k]||0)+1}));
+ return Object.entries(counts).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,40);
+};
+const labShare=(a,b)=>{
+ const A=new Set((a.nucleos||[]).map(labNorm).filter(Boolean));
+ const B=new Set((b.nucleos||[]).map(labNorm).filter(Boolean));
+ return [...A].filter(x=>B.has(x)).sort();
+};
+const labEvidence=(a,b)=>{
+ const ta=labTokens(labText(a)),tb=new Set(labTokens(labText(b)));
+ return [...new Set(ta.filter(x=>tb.has(x)))].filter(x=>!labStop.has(x)).slice(0,10);
+};
+const labState={mode:"conceptos",selectedConcept:"",selectedA:"",selectedB:"",decisions:{}};
+function labProgramMatch(c){
+ return MATERIAS.filter(m=>m.ano===1 && labCanon(m.materia)===labCanon(c.nombre));
+}
+function labUnloaded(c){return labProgramMatch(c).length===0}
+function labPairList(){
+ const out=[];for(let i=0;i<labProgramSubjects.length;i++)for(let j=i+1;j<labProgramSubjects.length;j++){
+  const common=labShare(labProgramSubjects[i],labProgramSubjects[j]);
+  if(common.length) out.push({a:labProgramSubjects[i],b:labProgramSubjects[j],common,evidence:labEvidence(labProgramSubjects[i],labProgramSubjects[j])});
+ }
+ return out.sort((x,y)=>y.common.length-x.common.length||y.evidence.length-x.evidence.length);
+}
+function labOpenSubject(id){openSubject(id)}
+function labSetMode(mode){labState.mode=mode;renderLaboratorio();}
+function labSelectConcept(c){labState.selectedConcept=c;renderLaboratorio();}
+function labSelectPair(a,b){labState.selectedA=a.id;labState.selectedB=b.id;renderLaboratorio();}
+function labDecision(key,val){labState.decisions[key]=val;renderLaboratorio();}
+function labDetailHtml(){
+ if(labState.mode==="conceptos"&&labState.selectedConcept){
+  const c=labState.selectedConcept;const hits=labProgramSubjects.filter(m=>(m.nucleos||[]).map(labNorm).includes(c));
+  return `<div class="lab-detail"><h4>Concepto: ${esc(c)}</h4><div class="muted">Aparece como núcleo explícito en ${hits.length} espacio(s) con programa analizado.</div><div class="lab-evidence">${hits.map(m=>`<div class="evidence"><b>${esc(m.materia)}</b><br><span>${(m.nucleos||[]).filter(n=>labNorm(n)===c).map(esc).join(" · ")||"Coincidencia en la información registrada"}</span><br><button class="btn light" style="margin-top:6px" onclick="labOpenSubject('${m.id}')">Abrir programa</button></div>`).join("")||"<div class='empty'>No hay programas cargados para este concepto.</div>"}</div></div>`;
+ }
+ if(labState.selectedA&&labState.selectedB){
+  const a=MATERIAS.find(m=>m.id===labState.selectedA),b=MATERIAS.find(m=>m.id===labState.selectedB),common=labShare(a,b),evidence=labEvidence(a,b),key=[a.id,b.id].sort().join("|");
+  return `<div class="lab-detail"><h4>${esc(a.materia)} ↔ ${esc(b.materia)}</h4><div class="muted">Coincidencias explícitas registradas: ${common.length}. Esto muestra coincidencias; la interpretación queda a cargo del equipo.</div><div class="pills">${common.map(esc).map(x=>`<span class="pill">${x}</span>`).join("")||"<span class='muted'>Sin núcleos coincidentes</span>"}</div><div class="lab-evidence"><div class="evidence"><b>Palabras/temas que también aparecen en los textos</b><br>${evidence.length?evidence.map(esc).join(" · "):"No hay coincidencias léxicas suficientes para este recorte."}</div></div><div style="margin-top:12px"><b style="font-size:12px;color:var(--bordo)">Lectura del equipo</b><div class="decision">${["Articulación a trabajar","Profundización","Repetición necesaria","Superposición a revisar","Sin decisión todavía"].map(v=>`<button class="${labState.decisions[key]===v?'active':''}" onclick="labDecision('${key}','${esc(v)}')">${esc(v)}</button>`).join("")}</div></div></div>`;
+ }
+ return `<div class="lab-detail"><h4>Elegí un concepto o un cruce</h4><div class="muted">El laboratorio muestra evidencia para que el equipo pueda conversar sobre la articulación.</div></div>`;
+}
+function renderLaboratorio(){
+ const concepts=labConcepts();const pairs=labPairList();const max=concepts[0]?.[1]||1;
+ const loaded=new Set(labProgramSubjects.map(m=>labCanon(m.materia)));
+ const withProgram=LAB_CURRICULO_1RO.filter(c=>loaded.has(labCanon(c.nombre))).length;
+ const missing=LAB_CURRICULO_1RO.length-withProgram;
+ const duplicateNames={};labProgramSubjects.forEach(m=>{const k=labCanon(m.materia);duplicateNames[k]=(duplicateNames[k]||0)+1});
+ const dupCount=Object.values(duplicateNames).filter(x=>x>1).length;
+ const modeButtons=[["conceptos","Conceptos"],["matriz","Matriz de articulación"],["recorridos","Recorridos"],["espacios","Espacios del diseño"]];
+ let body="";
+ if(labState.mode==="conceptos") body=`<div class="lab-grid"><div class="lab-panel"><h3>Conceptos que atraviesan el año</h3><p class="muted">Se toman los núcleos explícitos registrados en los programas disponibles.</p><div class="concept-list">${concepts.map(([c,n])=>`<div class="concept-row" onclick="labSelectConcept('${esc(c)}')"><div class="concept-name">${esc(c)}</div><div class="bar-wrap"><div class="bar" style="width:${Math.max(8,Math.round(n/max*100))}%"></div></div><div class="concept-count">${n} mat.</div></div>`).join("")}</div></div><div class="lab-panel"><h3>Qué mirar acá</h3><p class="muted">Un concepto puede reaparecer sin que eso implique repetición. El valor está en mirar <b>qué hace cada materia con ese concepto</b>.</p>${labDetailHtml()}</div></div>`;
+ if(labState.mode==="matriz") body=`<div class="lab-panel"><h3>Matriz de articulación</h3><p class="muted">Cada celda muestra cuántos núcleos explícitos comparten dos materias con programa analizado. Hacé clic para abrir el análisis.</p><div class="matrix-wrap"><table class="matrix"><thead><tr><th>Materia</th>${labProgramSubjects.map(m=>`<th title="${esc(m.materia)}">${esc(m.materia.length>17?m.materia.slice(0,17)+"…":m.materia)}</th>`).join("")}</tr></thead><tbody>${labProgramSubjects.map(a=>`<tr><td>${esc(a.materia)}</td>${labProgramSubjects.map(b=>{if(a.id===b.id)return '<td class="diag">—</td>';const n=labShare(a,b).length;return `<td class="${n>=3?'hit':n===2?'mid':'none'}" title="${esc(b.materia)} · ${n} coincidencia(s)" onclick="labSelectPair(MATERIAS.find(x=>x.id==='${a.id}'),MATERIAS.find(x=>x.id==='${b.id}'))">${n||''}</td>`}).join("")}</tr>`).join("")}</tbody></table></div><div style="margin-top:12px">${labDetailHtml()}</div></div>`;
+ if(labState.mode==="recorridos") body=`<div class="lab-grid"><div class="lab-panel"><h3>Recorridos conceptuales</h3><p class="muted">Elegí un concepto para ver en qué programas aparece como núcleo explícito.</p><div class="concept-list">${concepts.slice(0,20).map(([c,n])=>`<button class="pair" style="text-align:left" onclick="labSelectConcept('${esc(c)}')"><b>${esc(c)}</b><span>${n} espacios con ese núcleo</span></button>`).join("")}</div></div><div class="lab-panel">${labDetailHtml()}<div class="evidence" style="margin-top:10px"><b>Idea de lectura</b><br>Preguntarse si el concepto <i>aparece → se retoma → se profundiza → se lleva a la práctica</i>.</div></div></div>`;
+ if(labState.mode==="espacios") body=`<div class="lab-panel"><h3>El diseño de 1.º año frente a los programas disponibles</h3><p class="muted">El diseño registra estos espacios; el estado indica solamente si encontramos un programa dentro de la base cargada.</p><div class="status-grid"><div class="status-box"><div class="n">${LAB_CURRICULO_1RO.length}</div><div class="t">espacios del diseño listados</div></div><div class="status-box"><div class="n">${withProgram}</div><div class="t">con programa analizado</div></div><div class="status-box"><div class="n">${missing}</div><div class="t">sin programa en esta base</div></div></div><div class="lab-subjects" style="margin-top:12px">${LAB_CURRICULO_1RO.map(c=>{const hit=labProgramMatch(c)[0];const dup=labProgramMatch(c).length>1;return `<div class="lab-subject" style="border-left-color:${hit?'var(--verde)':'var(--naranja)'}">${hit?`<b>${esc(c.nombre)}</b><small>${c.horas} h · Programa disponible${dup?' · posible duplicación en la base':''}</small><button class="btn light" style="margin-top:6px" onclick="labOpenSubject('${hit.id}')">Abrir programa</button>`:`<b>${esc(c.nombre)}</b><small>${c.horas} h · Programa no cargado todavía en esta base</small>`}</div>`}).join("")}</div></div>`;
+ const warning=dupCount?`<div class="alert info" style="margin-top:12px"><b>Atención documental:</b> hay ${dupCount} nombre(s) que aparecen más de una vez en los programas cargados. La herramienta los conserva para revisión y no los elimina automáticamente.</div>`:"";
+ $("#laboratorio").innerHTML=`<div class="block"><div class="lab-head"><div><h3>Laboratorio de articulación · 1.º año</h3><p class="muted">Una mesa para leer coincidencias, recorridos y espacios pendientes sin convertir automáticamente una coincidencia en una conclusión.</p></div><div class="pills"><span class="pill">${withProgram} con programa</span><span class="pill">${missing} pendientes</span></div></div><div class="lab-tools">${modeButtons.map(([k,l])=>`<button class="${labState.mode===k?'active':''}" onclick="labSetMode('${k}')">${l}</button>`).join("")}</div>${warning}${body}</div>`;
+}
+const _setViewOriginal=setView;
+setView=function(v){
+ if(v!=="laboratorio") return _setViewOriginal(v);
+ views.forEach(x=>$("#"+x).classList.toggle("active",x===v));
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===v));
+ $("#title").textContent="Laboratorio de articulación";
+ $("#lead").textContent="Una herramienta para mirar relaciones entre los programas de 1.º año antes de tomar decisiones institucionales.";
+ renderLaboratorio();
+};
+
 render();
 </script>
 </body>
